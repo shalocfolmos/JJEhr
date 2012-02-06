@@ -7,5 +7,4 @@ class Lesson(models.Model):
     #开课时间
     start_time = models.DateField()
     #报名时间
-    enter_time = models.DateField(auto_now=Yes)
-
+    enter_time = models.DateField(auto_now_add=True)
