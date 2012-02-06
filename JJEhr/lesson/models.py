@@ -21,3 +21,12 @@ class Course(models.Model):
     #允许报名人数
     maxTraineeAmount = models.IntegerField()
     courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S')
+    createDate = models.DateField(auto_now_add=True)
+    updatedDate = models.DateField(auto_now=True)
+
+
+class Enroll(models.Model):
+    email = models.EmailField()
+    course = models.ForeignKey('Course',db_column='courseId')
+    enrollTime = models.DateField(auto_now_add=True)
+    createdDate = models.DateField(auto_now=True)
