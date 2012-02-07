@@ -6,7 +6,7 @@ from django.contrib import admin
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('lesson.views',
     # Examples:
     # url(r'^$', 'JJEhr.views.home', name='home'),
     # url(r'^JJEhr/', include('JJEhr.foo.urls')),
@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^course/index.html','index'),
+    url(r'^admin/', include(admin.site.urls))
 #    url(r'^admin/', include(admin.site.urls))
 )
