@@ -1,5 +1,7 @@
 #-*- coding: UTF-8 -*-
 from django.db import models
+from django import forms
+from lesson.validation import validate_enroll
 
 # Create your models here.
 class Course(models.Model):
@@ -24,9 +26,18 @@ class Course(models.Model):
     createDate = models.DateField(auto_now_add=True)
     updatedDate = models.DateField(auto_now=True)
 
+    def __unicode__(self):
+        return '(courseName = %s)' % (self.courseName,)
+
 
 class Enroll(models.Model):
     email = models.EmailField()
-    course = models.ForeignKey('Course',db_column='courseId')
+    course = models.ForeignKey('Course', db_column='courseId')
     enrollTime = models.DateField(auto_now_add=True)
     createdDate = models.DateField(auto_now=True)
+
+    def __unicode__(self):
+        return '(email = %s)' % (self.email,)
+class EnrollForm(forms.Form):
+    email = forms.EmailField(required=True)
+    course_id =forms.IntegerField(required=True,validators=[validate_enroll])
