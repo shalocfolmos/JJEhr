@@ -1,10 +1,9 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 
-
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
-# admin.autodiscover()
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,7 +15,11 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     #url(r'^backoffice/index.html','backoffice.views.index'),
+    url(r'^$','lesson.views.index'),
+    url(r'^(\d+)/$','lesson.views.detail'),
+    url(r'^book/(\d+)/$','lesson.views.book_course'),
     url(r'^course/index.html','lesson.views.index'),
     url(r'^admin/', include(admin.site.urls))
+
 #    url(r'^admin/', include(admin.site.urls))
 )
