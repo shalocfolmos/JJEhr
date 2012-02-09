@@ -20,7 +20,7 @@ class Course(models.Model):
     enterTime = models.DateField(auto_now_add=True, editable=True)
     #允许报名人数
     maxTraineeAmount = models.IntegerField()
-    courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S')
+    courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S',blank=True)
     createDate = models.DateField(auto_now_add=True)
     updatedDate = models.DateField(auto_now=True)
 

@@ -1,12 +1,11 @@
 # Create your views here.
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
 from django.template import Context,Template, context
+from django.template.context import RequestContext
 
 def index(httpRequest):
-    t = Template("{{name}}")
-    c=Context({"name":"a"})
-    return HttpResponse(t.render(c))
-
-#    return render_to_response(t.render(c))
+    reverse('t')
+    return render_to_response("lesson/index.html",{"name":'test'},context_instance=RequestContext(httpRequest))
