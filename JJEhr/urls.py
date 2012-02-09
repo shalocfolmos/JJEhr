@@ -15,7 +15,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     #url(r'^backoffice/index.html','backoffice.views.index'),
-    url(r'^course/index.html','lesson.views.index',name='t'),
+    url(r'^$','lesson.views.index'),
     url(r'^(\d+)/$','lesson.views.detail'),
     url(r'^book/$','lesson.views.book_course'),
     url(r'^course/index.html','lesson.views.index'),
