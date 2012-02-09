@@ -1,4 +1,4 @@
-# Create your views here.
+#-*- Decoding: UTF-8 -*-
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -18,13 +18,14 @@ def login(request):
     currentSite = get_current_site(request)
     next = request.POST["next"]
     form = AuthenticationForm(request.POST)
-    if not form.is_valid():
-        context = {
-            'form': form,
-            'next': next,
-            'site': currentSite,
-            'site_name': current_site.name,
+    context = {
+        'form': form,
+        'next': next,
+        'site': currentSite,
+        'site_name': current_site.name,
         }
+    if not form.is_valid():
+
         return render_to_response("/backoffice/login", context,
             context_instance=RequestContext(request, current_app=None))
 
@@ -36,4 +37,5 @@ def login(request):
         login(request,user)
         return HttpResponseRedirect("backoffice/index.html")
     else:
-        return HttpResponseRedirect("backoffice/login.html")
+        context["exception"]=r'用户名密码不匹配'
+        return HttpResponseRedirect("backoffice/login.html",context)
