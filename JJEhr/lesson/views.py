@@ -39,7 +39,7 @@ def detail(request, id):
     context = {'course': course,
                'enroll_set': enroll_set,
                }
-    return render_to_response('lesson/show.html', context,context_instance=RequestContext(request))
+    return render_to_response('lesson/show.html', context, context_instance=RequestContext(request))
 
 #book course
 
@@ -48,10 +48,16 @@ def book_course(request):
     if request.method == 'POST':
         form = EnrollForm(request.POST)
         if form.is_valid():
-            enroll = Enroll(email=form._raw_value('email'), course=Course(id=form._raw_value("course_id")))
-            enroll.save()
-            return HttpResponseRedirect('/')
+            _email = form._raw_value('email')
+            _course = Course(id=form._raw_value("course_id"))
+            enroll_count = Enroll.objects.filter(email = _email, course = _course).count()
+            if enroll_count > 1:
+                return HttpResponse('You repeat reservation')
+            else:
+                enroll = Enroll(email=_email, course=_course)
+                enroll.save()
+            return HttpResponseRedirect('/' + _course.id)
         else:
-            return HttpResponse(form.errors)
+            return HttpResponse("input Invaild")
     else:
         return HttpResponse('Illegal submit!!!')
