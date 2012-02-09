@@ -22,10 +22,10 @@ Course Description :{{course.courseDescription}}<br/>
 <p>No found ！！！</p>
 {% endif %}
 <hr>
-<form action="/book/{{course.id}}/" method="post">
+<form action="/book/" method="post">
     {% csrf_token %}
     email:<input name="email"/>
-    <input type="hidden"value='{{course.id}}'/>
+    <input type="hidden"value='{{course.id}}' name="course_id"/>
     <input type="submit" value="Enroll">
 </form>
 </body>

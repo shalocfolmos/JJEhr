@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     #url(r'^backoffice/index.html','backoffice.views.index'),
     url(r'^$','lesson.views.index'),
     url(r'^(\d+)/$','lesson.views.detail'),
-    url(r'^book/(\d+)/$','lesson.views.book_course'),
+    url(r'^book/$','lesson.views.book_course'),
     url(r'^course/index.html','lesson.views.index'),
     url(r'^admin/', include(admin.site.urls))
 

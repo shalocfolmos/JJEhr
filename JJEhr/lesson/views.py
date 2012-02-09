@@ -1,12 +1,11 @@
 # Create your views here.
-import datetime
-from telepathy._generated.errors import DoesNotExist
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.shortcuts import render_to_response
-from django.views.decorators.csrf import csrf_protect
+from django.template.context import RequestContext
 from JJEhr.lesson.models import Course, Enroll, EnrollForm
 from django.http import Http404
-from django.utils import simplejson
+from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 
 def index(httpRequest):
     # default show 20 courses per page
@@ -27,7 +26,7 @@ def index(httpRequest):
     return render_to_response('lesson/index.html', {'course_list': course_list})
 
 
-def detail(httpRequest, id):
+def detail(request, id):
     try:
         course_id = int(id)
     except ValueError:
@@ -40,18 +39,19 @@ def detail(httpRequest, id):
     context = {'course': course,
                'enroll_set': enroll_set,
                }
-    return render_to_response('lesson/show.html', context)
+    return render_to_response('lesson/show.html', context,context_instance=RequestContext(request))
 
 #book course
-@csrf_protect
+
 def book_course(request):
-    # Make sure page request is an int. If not, deliver first page.
+    # Make sure page request is POST. If not, deliver first page.
     if request.method == 'POST':
         form = EnrollForm(request.POST)
         if form.is_valid():
-            enroll = Enroll(email=form.email, course=form.course_id)
+            enroll = Enroll(email=form._raw_value('email'), course=Course(id=form._raw_value("course_id")))
             enroll.save()
-            return render_to_response('lesson/show.html')
+            return HttpResponseRedirect('/')
         else:
-            form = EnrollForm()
-            return render_to_response('lesson/index.html')
+            return HttpResponse(form.errors)
+    else:
+        return HttpResponse('Illegal submit!!!')

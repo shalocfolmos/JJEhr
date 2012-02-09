@@ -39,5 +39,5 @@ class Enroll(models.Model):
     def __unicode__(self):
         return '(email = %s)' % (self.email,)
 class EnrollForm(forms.Form):
-    email = forms.EmailField(required=True)
-    course_id =forms.IntegerField(required=True,validators=[validate_enroll])
+    email = forms.EmailField(required=True,label='邮箱')
+    course_id =forms.IntegerField(required=True,validators=[validate_enroll],label='课程')
