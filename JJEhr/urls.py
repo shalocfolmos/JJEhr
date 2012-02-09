@@ -4,7 +4,7 @@ from django.contrib import admin
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
-# admin.autodiscover()
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     #url(r'^backoffice/index.html','backoffice.views.index'),
-    url(r'^course/index.html','lesson.views.index'),
+    url(r'^course/index.html','lesson.views.index',name='t'),
     url(r'^admin/', include(admin.site.urls))
 #    url(r'^admin/', include(admin.site.urls))
 )
