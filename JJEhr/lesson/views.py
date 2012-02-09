@@ -1,10 +1,6 @@
 # Create your views here.
-<<<<<<< HEAD
-from django.core.urlresolvers import reverse
-from django.http import HttpResponse
-=======
+
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
->>>>>>> 30eadc5fef7a42b0a3c16a871751ecefa0619d06
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from JJEhr.lesson.models import Course, Enroll, EnrollForm
@@ -16,10 +12,6 @@ from django.template import Context,Template, context
 from django.template.context import RequestContext
 
 def index(httpRequest):
-<<<<<<< HEAD
-    reverse('t')
-    return render_to_response("lesson/index.html",{"name":'test'},context_instance=RequestContext(httpRequest))
-=======
     # default show 20 courses per page
     page_size = 2
     course_list = Course.objects.order_by("-createDate")
@@ -73,4 +65,3 @@ def book_course(request):
             return HttpResponse("input Invaild")
     else:
         return HttpResponse('Illegal submit!!!')
->>>>>>> 30eadc5fef7a42b0a3c16a871751ecefa0619d06
