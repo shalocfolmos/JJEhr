@@ -2,10 +2,36 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title></title>
+    <title>课程选修</title>
 </head>
 <body>
+<<<<<<< HEAD
     {{name}}
     {{messages}}
+=======
+{% for course in course_list.object_list %}
+
+Course Name : {{ course.courseName|escape}}<br/>
+------<br/>
+Course Description :{{course.courseDescription|escape}}
+<hr>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if course_list.has_previous %}
+            <a href="?page={{ course_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ course_list.number }} of {{ course_list.paginator.num_pages }}.
+        </span>
+
+        {% if course_list.has_next %}
+            <a href="?page={{ course_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+>>>>>>> 30eadc5fef7a42b0a3c16a871751ecefa0619d06
 </body>
 </html>
