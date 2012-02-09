@@ -125,7 +125,7 @@ INSTALLED_APPS = (
 
     #课程模块
     'lesson',
-
+    'backoffice',
     'django.contrib.admin',
 
     # Uncomment the next line to enable admin documentation:

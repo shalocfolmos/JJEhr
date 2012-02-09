@@ -3,6 +3,8 @@ from django.contrib import admin
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
+from JJEhr import backoffice
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -19,7 +21,8 @@ urlpatterns = patterns('',
     url(r'^(\d+)/$','lesson.views.detail'),
     url(r'^book/$','lesson.views.book_course'),
     url(r'^course/index.html','lesson.views.index'),
-    url(r'^admin/', include(admin.site.urls))
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^backoffice/', 'backoffice.views.test')
 
 #    url(r'^admin/', include(admin.site.urls))
 )
