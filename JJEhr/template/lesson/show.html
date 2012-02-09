@@ -7,9 +7,9 @@
     </title>
 </head>
 <body>
-Course Name : {{ course.courseName}}<br/>
+Course Name : {{ course.courseName|escape}}<br/>
 ------<br/>
-Course Description :{{course.courseDescription}}<br/>
+Course Description :{{course.courseDescription|escape}}<br/>
 -----
 {% if enroll_set %}
 <p>Found {{ enroll_set|length }}.</p>

@@ -7,9 +7,9 @@
 <body>
 {% for course in course_list.object_list %}
 
-Course Name : {{ course.courseName}}<br/>
+Course Name : {{ course.courseName|escape}}<br/>
 ------<br/>
-Course Description :{{course.courseDescription}}
+Course Description :{{course.courseDescription|escape}}
 <hr>
 {% endfor %}
 
