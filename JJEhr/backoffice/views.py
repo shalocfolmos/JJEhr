@@ -16,7 +16,10 @@ def test(httpRequest):
 
 def courseView(httpRequest,courseId=0):
     course=Course.objects.get(id=courseId)
-    return render_to_response("backoffice/courseView.html",{"course":course})
+    enrollList = course.enroll_set.order_by("enrollTime")
+    if enrollList:
+        waitingList = enrollList[0:course.maxTraineeAmount-1]
+    return render_to_response("backoffice/courseView.html",{"course":course,"waiting":waitingList})
 
 def addCourse():
     pass

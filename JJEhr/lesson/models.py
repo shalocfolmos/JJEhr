@@ -17,14 +17,14 @@ class Course(models.Model):
     #是否关闭
     isOpen = models.BooleanField(default=True)
     #开课时间
-    startTime = models.DateField(blank=False)
+    startTime = models.DateTimeField(blank=False)
     #报名时间
-    enterTime = models.DateField(auto_now_add=True, editable=True)
+    enterTime = models.DateTimeField(auto_now_add=True, editable=True)
     #允许报名人数
     maxTraineeAmount = models.IntegerField()
     courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S',blank=True)
-    createDate = models.DateField(auto_now_add=True)
-    updatedDate = models.DateField(auto_now=True)
+    createDate = models.DateTimeField(auto_now_add=True)
+    updatedDate = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return '(courseName = %s)' % (self.courseName,)
@@ -32,9 +32,10 @@ class Course(models.Model):
 
 class Enroll(models.Model):
     email = models.EmailField()
+    member_name = models.CharField(max_length=30,blank=True)
     course = models.ForeignKey('Course', db_column='courseId')
-    enrollTime = models.DateField(auto_now_add=True)
-    createdDate = models.DateField(auto_now=True)
+    enrollTime = models.DateTimeField(auto_now_add=True)
+    createdDate = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return '(email = %s)' % (self.email,)

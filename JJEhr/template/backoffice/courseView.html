@@ -6,5 +6,12 @@
 </head>
 <body>
     {{course.courseName}}
+    <br/>
+    <br/>
+    waiting list:
+    <br/>
+    {%for enroll in waiting%}
+        enroll:{{enroll.enrollTime}}<br/>
+    {% endfor %}
 </body>
 </html>
