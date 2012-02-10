@@ -23,7 +23,7 @@ DATABASES = {
     }
 }
 
-TEMPLATE_STRING_IF_INVALID= 'B'
+TEMPLATE_STRING_IF_INVALID= ''
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -74,6 +74,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    "./static/backoffice",
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -154,3 +155,4 @@ LOGGING = {
         },
     }
 }
+

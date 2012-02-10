@@ -1,10 +1,205 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+{% load static %}
+{% get_static_prefix as STATIC_URL %}
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn" xml:lang="zh-cn" >
 <head>
-    <title></title>
+    <title>站点管理 | Django 站点管理员</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/dashboard.css" />
+    <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/ie.css" /><![endif]-->
+
+    <script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+
+    <meta name="robots" content="NONE,NOARCHIVE" />
 </head>
-<body>
-fdsafdsa
+
+
+<body class="dashboard">
+
+<!-- Container -->
+<div id="container">
+
+
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+
+            <h1 id="site-name">Django 管理  e {{STATIC_URL}}</h1>
+
+        </div>
+
+        <div id="user-tools">
+            欢迎，
+            <strong>folmos</strong>.
+
+
+
+
+
+            <a href="/admin/password_change/">
+
+                修改密码</a> /
+
+
+            <a href="/admin/logout/">
+
+                注销</a>
+
+        </div>
+
+
+    </div>
+    <!-- END Header -->
+
+
+
+
+
+    <!-- Content -->
+    <div id="content" class="colMS">
+
+        <h1>站点管理</h1>
+
+        <div id="content-main">
+
+
+
+            <div class="module">
+                <table summary="模型在 Auth 应用中可用。">
+                    <caption><a href="auth/" class="section">Auth</a></caption>
+
+                    <tr>
+
+                        <th scope="row"><a href="auth/user/">用户</a></th>
+
+
+
+                        <td><a href="auth/user/add/" class="addlink">增加</a></td>
+
+
+
+                        <td><a href="auth/user/" class="changelink">修改</a></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th scope="row"><a href="auth/group/">组</a></th>
+
+
+
+                        <td><a href="auth/group/add/" class="addlink">增加</a></td>
+
+
+
+                        <td><a href="auth/group/" class="changelink">修改</a></td>
+
+                    </tr>
+
+                </table>
+            </div>
+
+            <div class="module">
+                <table summary="模型在 Lesson 应用中可用。">
+                    <caption><a href="lesson/" class="section">Lesson</a></caption>
+
+                    <tr>
+
+                        <th scope="row"><a href="lesson/course/">Courses</a></th>
+
+
+
+                        <td><a href="lesson/course/add/" class="addlink">增加</a></td>
+
+
+
+                        <td><a href="lesson/course/" class="changelink">修改</a></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th scope="row"><a href="lesson/enroll/">Enrolls</a></th>
+
+
+
+                        <td><a href="lesson/enroll/add/" class="addlink">增加</a></td>
+
+
+
+                        <td><a href="lesson/enroll/" class="changelink">修改</a></td>
+
+                    </tr>
+
+                </table>
+            </div>
+
+            <div class="module">
+                <table summary="模型在 Sites 应用中可用。">
+                    <caption><a href="sites/" class="section">Sites</a></caption>
+
+                    <tr>
+
+                        <th scope="row"><a href="sites/site/">站点</a></th>
+
+
+
+                        <td><a href="sites/site/add/" class="addlink">增加</a></td>
+
+
+
+                        <td><a href="sites/site/" class="changelink">修改</a></td>
+
+                    </tr>
+
+                </table>
+            </div>
+
+
+        </div>
+
+
+        <div id="content-related">
+            <div class="module" id="recent-actions-module">
+                <h2>最近动作</h2>
+                <h3>我的动作</h3>
+
+
+
+                <ul class="actionlist">
+
+                    <li class="addlink">
+
+                        <a href="lesson/course/2/">(courseName = 测试课程)</a>
+
+                        <br/>
+
+                        <span class="mini quiet">Course</span>
+
+                    </li>
+
+                    <li class="addlink">
+
+                        <a href="lesson/course/1/">(courseName = rewrwrwer)</a>
+
+                        <br/>
+
+                        <span class="mini quiet">Course</span>
+
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
 </body>
 </html>
