@@ -18,6 +18,9 @@ def courseView(httpRequest,courseId=0):
     course=Course.objects.get(id=courseId)
     return render_to_response("backoffice/courseView.html",{"course":course})
 
+def addCourse():
+    pass
+
 @login_required(login_url='/backoffice/login')
 def displayCourseList(httpRequest):
     courseList = Course.objects.all().order_by("-startTime")

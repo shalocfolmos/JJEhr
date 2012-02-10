@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^backoffice/index.html', 'backoffice.views.test'),
     url(r'^backoffice/courselist.html', 'backoffice.views.displayCourseList'),
     url(r'^backoffice/course/(?P<courseId>\d+)$', 'backoffice.views.courseView'),
+    url(r'^backoffice/course/add', 'backoffice.views.addCourse'),
 
 #    url(r'^admin/', include(admin.site.urls))
 )
