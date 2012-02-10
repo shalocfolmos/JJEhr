@@ -14,10 +14,14 @@ from django.contrib.sites.models import get_current_site
 def test(httpRequest):
     return render_to_response('backoffice/index.html')
 
+def courseView(httpRequest,courseId=0):
+    course=Course.objects.get(id=courseId)
+    return render_to_response("backoffice/courseView.html",{"course":course})
+
 @login_required(login_url='/backoffice/login')
 def displayCourseList(httpRequest):
     courseList = Course.objects.all().order_by("-startTime")
-    return render_to_response("backoffice/courseList.html",{"courseList":courseList,'a':'a'})
+    return render_to_response("backoffice/courseList.html",{"courseList":courseList})
 
 def login(request):
     currentSite = get_current_site(request)

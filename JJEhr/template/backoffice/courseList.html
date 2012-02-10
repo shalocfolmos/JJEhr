@@ -7,8 +7,9 @@
 <body>
     {% for course in courseList %}
         <div>
-        {{ course.courseName }}
+            <a href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
         </div>
+        {{ course.enroll_set.all|length }}
     {% endfor  %}
 </body>
 </html>
