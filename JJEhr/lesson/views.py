@@ -2,7 +2,6 @@
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.shortcuts import render_to_response
-from django.template.context import RequestContext
 from JJEhr.lesson.models import Course, Enroll, EnrollForm
 from django.http import Http404
 from django.http import HttpResponseRedirect

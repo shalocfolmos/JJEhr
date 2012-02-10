@@ -1,10 +1,11 @@
-#-*- Decoding: UTF-8 -*-
+# coding=UTF-8
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from JJEhr.backoffice.form import CourseForm
 from JJEhr.lesson.models import Course
 from django.contrib.sites.models import get_current_site
 
@@ -21,8 +22,15 @@ def courseView(httpRequest,courseId=0):
         waitingList = enrollList[0:course.maxTraineeAmount-1]
     return render_to_response("backoffice/courseView.html",{"course":course,"waiting":waitingList})
 
-def addCourse():
-    pass
+def addCourse(request):
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = CourseForm(request)
+    return render_to_response('backoffice/courseAdd.html',{'form':form})
+
 
 @login_required(login_url='/backoffice/login')
 def displayCourseList(httpRequest):
