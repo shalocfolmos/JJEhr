@@ -7,17 +7,16 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from JJEhr.backoffice.form import CourseForm
-from JJEhr.lesson.models import Course
+from JJEhr.lesson.models import Course, Enroll
 from django.contrib.sites.models import get_current_site
 
 
 @login_required(login_url='/backoffice/login')
 def courseView(request,courseId=0):
     course=Course.objects.get(id=courseId)
-    enrollList = course.enroll_set.order_by("enrollTime")
-    waitingList = None
-    if enrollList:
-        waitingList = enrollList[0:course.maxTraineeAmount-1]
+    waitingList=notWaitList=None
+    notWaitList = Enroll.objects.filter(course=course).filter(isWaitingList=False)
+    waitingList = Enroll.objects.filter(course=course).filter(isWaitingList=True)
 
     if request.method == 'POST':
         form = CourseForm(request.POST)
@@ -42,8 +41,7 @@ def courseView(request,courseId=0):
             'maxTraineeAmount':course.maxTraineeAmount
         }
         form = CourseForm(courseData)
-
-    return render_to_response("backoffice/courseView.html",{"course":course,"waiting":waitingList,'form':form},context_instance=RequestContext(request))
+    return render_to_response("backoffice/courseView.html",{"course":course,"waitingList":waitingList,"notWaitingList":notWaitList,'form':form},context_instance=RequestContext(request))
 
 @login_required(login_url='/backoffice/login')
 @csrf_protect

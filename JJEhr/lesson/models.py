@@ -32,6 +32,7 @@ class Enroll(models.Model):
     email = models.EmailField()
     member_name = models.CharField(max_length=30,blank=True)
     course = models.ForeignKey('Course', db_column='courseId')
+    isWaitingList = models.BooleanField(default=False)
     enrollTime = models.DateTimeField(auto_now_add=True)
     createdDate = models.DateTimeField(auto_now=True)
 

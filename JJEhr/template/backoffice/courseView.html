@@ -16,6 +16,19 @@
     <br/>
     {%endfor%}
 
+    <br/>
+    <hr/>
+    {% for enroll in waitingList%}
+        {{enroll.email}}
+    {% endfor %}
+    <hr/>
+    <select name="waitingList" id="waitingList" multiple="true">
+        <option></option>
+    </select>
+    {% for enroll in notWaitingList%}
+    {{enroll.email}}
+    {% endfor %}
+    <hr/>
     <input type="submit" value="提交"/>
 </form>
 </body>
