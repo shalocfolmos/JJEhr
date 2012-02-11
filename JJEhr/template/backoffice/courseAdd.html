@@ -5,9 +5,18 @@
     <title></title>
 </head>
 <body>
-    courseAdd
-    <form action="/backoffice/course/add">
-        <submit/>
+
+    <form action="{% url backoffice.views.addCourse %}" method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            {{field.errors}}
+            <br/>
+            {{field.label_tag}}: {{field}}
+            <br/>
+        {%endfor%}
+
+        <input type="submit" value="提交"/>
     </form>
 </body>
 </html>

@@ -25,8 +25,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^backoffice/login', 'django.contrib.auth.views.login',{'template_name':'backoffice/login.html'}),
-    url(r'^backoffice/index.html', 'backoffice.views.test'),
-    url(r'^backoffice/courselist.html', 'backoffice.views.displayCourseList'),
+    url(r'^backoffice/index.html', 'backoffice.views.displayCourseList'),
     url(r'^backoffice/course/(?P<courseId>\d+)$', 'backoffice.views.courseView'),
     url(r'^backoffice/course/add', 'backoffice.views.addCourse'),
 
