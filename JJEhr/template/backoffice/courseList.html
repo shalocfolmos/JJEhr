@@ -5,11 +5,19 @@
     <title></title>
 </head>
 <body>
+    <a href="/backoffice/logout">注销</a>
+    <a href="/backoffice/course/add">添加课程</a>
     {% for course in courseList %}
         <div>
             <a href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
+            允许听课人数：{{course.maxTraineeAmount}} 报名人数： {{ course.enroll_set.all|length }}
+            <br/>
+            {{course.courseDescription|truncatewords_html:30}}
+            <br/>
+            <a href="/backoffice/deletecourse/{{course.id}}">删除</a>
+            <a href="/backoffice/course/{{course.id}}">修改</a>
         </div>
-        {{ course.enroll_set.all|length }}
+
     {% endfor  %}
 </body>
 </html>

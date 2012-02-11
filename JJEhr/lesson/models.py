@@ -15,7 +15,7 @@ class Course(models.Model):
     courseSpeaker = models.CharField(max_length=30)
 
     #是否关闭
-    isOpen = models.BooleanField(default=True)
+#    isOpen = models.BooleanField(default=True)
     #报名时间
     enterTime = models.DateTimeField(auto_now_add=True, editable=True)
     #允许报名人数
