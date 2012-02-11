@@ -1,5 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+{% load static %}
+{% get_static_prefix as STATIC_URL %}
 <html>
 <head>
     <title></title>
@@ -19,17 +19,22 @@
     <br/>
     <hr/>
     {% for enroll in waitingList%}
-        {{enroll.email}}
-    {% endfor %}
-    <hr/>
-    <select name="waitingList" id="waitingList" multiple="true">
-        <option></option>
-    </select>
-    {% for enroll in notWaitingList%}
     {{enroll.email}}
     {% endfor %}
     <hr/>
+    <select name="waitingList" id="waitingList" multiple="true">
+        {% for enroll in notWaitingList%}
+        <option value="{{errors.id}}">{{enroll.email}}</option>
+        {% endfor %}
+    </select>
+
+    <hr/>
     <input type="submit" value="提交"/>
 </form>
+<script type="text/javascript" src="{{STATIC_URL}}/yui/yui-min.js"/>
+<script type="text/javascript">
+    alert('b');
+    alert(Y.one("#waitingList"));
+</script>
 </body>
 </html>
