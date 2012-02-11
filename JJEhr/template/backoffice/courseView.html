@@ -2,9 +2,12 @@
 {% get_static_prefix as STATIC_URL %}
 <html>
 <head>
-    <title></title>
+
+
+
 </head>
 <body>
+
 
 <form action="/backoffice/course/{{course.id}}" method="post">
     {% csrf_token %}
@@ -17,24 +20,60 @@
     {%endfor%}
 
     <br/>
-    <hr/>
-    {% for enroll in waitingList%}
-    {{enroll.email}}
-    {% endfor %}
-    <hr/>
-    <select name="waitingList" id="waitingList" multiple="true">
+    waitingList
+    <select name="waitingList" id="waitingList" multiple="true" style="width: 150px;">
+        {% for enroll in waitingList%}
+        <option value="{{errors.id}}">{{enroll.email}}</option>
+        {% endfor %}
+    </select>
+    <button class="cancelEnrollButton"><<<</button>
+    <button class="selectEnrollButton">>>></button>
+    Selected
+    <select name="notWaitingList" id="notWaitingList" multiple="true"  style="width: 150px;">
         {% for enroll in notWaitingList%}
         <option value="{{errors.id}}">{{enroll.email}}</option>
         {% endfor %}
     </select>
-
     <hr/>
     <input type="submit" value="提交"/>
 </form>
-<script type="text/javascript" src="{{STATIC_URL}}/yui/yui-min.js"/>
-<script type="text/javascript">
-    alert('b');
-    alert(Y.one("#waitingList"));
+<script src="{{STATIC_URL}}yui-base/yui-base-min.js"></script>
+<script>
+
+    function changeElementComboList(from,to){
+        YUI().use('node',function(Y){
+                var fromComboList = Y.one("#" + from),
+                toComboList = Y.one("#" + to);
+                fromComboList.get("options").each(
+                    function(){
+                        if(this.get("selected")==true) {
+                            toComboList.append(this)
+                        }
+                    }
+                )
+            }
+        )
+    }
+
+    function selectEnrollUser(e){
+        changeElementComboList('waitingList','notWaitingList');
+        e.preventDefault();
+    }
+
+    function cancelEnrollUser(e)
+    {
+        changeElementComboList('notWaitingList','waitingList');
+        e.preventDefault();
+
+    }
+
+    YUI().use('event',function(eventModule){
+            var selectEnrollButton= eventModule.one(".selectEnrollButton"),
+            cancelEnrollButton = eventModule.one(".cancelEnrollButton");
+            selectEnrollButton.on('click',selectEnrollUser);
+            cancelEnrollButton.on('click', cancelEnrollUser);
+        }
+    )
 </script>
 </body>
 </html>
