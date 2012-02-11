@@ -6,13 +6,13 @@ from JJEhr.lesson.models import Course
 
 class CourseForm(forms.Form):
 
-    courseName = forms.CharField(max_length=50,label="课程名称: ")
+    courseName = forms.CharField(max_length=50,label="课程名称")
 
-    courseDescription = forms.CharField(label="课程介绍： ",widget=forms.Textarea)
+    courseDescription = forms.CharField(label="课程介绍",widget=forms.Textarea)
     #课时
-    courseTime = forms.IntegerField(required=False,label="课时： ")
+    courseTime = forms.IntegerField(required=False,label="课时")
     #课程时间安排
-    courseArrange = forms.CharField(max_length=100,required=False,label="课程安排： ")
+    courseArrange = forms.CharField(max_length=100,required=False,label="课程安排")
     #主讲
     courseSpeaker = forms.CharField(max_length=30,label="主讲人 ")
 
@@ -26,13 +26,13 @@ class CourseForm(forms.Form):
 
 class UpdateCourseForm(forms.Form):
 
-    courseName = forms.CharField(max_length=50,label="课程名称")
+    courseName = forms.CharField(max_length=50,label="课程名称: ")
 
-    courseDescription = forms.CharField(label="课程介绍 ",widget=forms.Textarea)
+    courseDescription = forms.CharField(label="课程介绍： ",widget=forms.Textarea)
     #课时
-    courseTime = forms.IntegerField(required=False,label="课时")
+    courseTime = forms.IntegerField(required=False,label="课时： ")
     #课程时间安排
-    courseArrange = forms.CharField(max_length=100,required=False,label="课程安排")
+    courseArrange = forms.CharField(max_length=100,required=False,label="课程安排： ")
     #主讲
     courseSpeaker = forms.CharField(max_length=30,label="主讲人 ")
 
