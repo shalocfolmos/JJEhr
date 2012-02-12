@@ -10,19 +10,19 @@ class Course(models.Model):
     courseName = models.CharField(max_length=50)
     courseDescription = models.TextField(blank=True)
     #课时
-    courseTime = models.IntegerField()
+    courseTime = models.IntegerField(blank=True)
     #课程时间安排
-    courseArrange = models.CharField(max_length=100)
+    courseArrange = models.CharField(max_length=100,blank=True)
     #主讲
     courseSpeaker = models.CharField(max_length=30)
 
     #是否关闭
-    isOpen = models.BooleanField(default=True)
-    #开课时间
-    startTime = models.DateTimeField(blank=False)
+#    isOpen = models.BooleanField(default=True)
     #报名时间
-    enterTime = models.DateTimeField(auto_now_add=True, editable=True)
+    enrollStartTime = models.DateTimeField(auto_now_add=True, editable=True)
     #允许报名人数
+    enrollEndTime = models.DateTimeField()
+
     maxTraineeAmount = models.IntegerField()
     courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S',blank=True)
     createDate = models.DateTimeField(auto_now_add=True)
@@ -36,6 +36,7 @@ class Enroll(models.Model):
     email = models.EmailField()
     member_name = models.CharField(max_length=30,blank=True)
     course = models.ForeignKey('Course', db_column='courseId')
+    isWaitingList = models.BooleanField(default=False)
     enrollTime = models.DateTimeField(auto_now_add=True)
     createdDate = models.DateTimeField(auto_now=True)
 

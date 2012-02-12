@@ -2,15 +2,14 @@
 # Create your views here.
 from django.shortcuts import render_to_response,get_object_or_404
 from JJEhr.lesson.models import Course, Enroll, EnrollForm
-from django.http import Http404, QueryDict
+from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-
 from django.template.context import RequestContext
 
 def index(httpRequest):
-     course_list = Course.search_objects.search( **httpRequest.GET)
-     return render_to_response('lesson/index1.html', {'course_list': course_list})
+    course_list = Course.search_objects.search( **httpRequest.GET)
+    return render_to_response('lesson/index1.html', {'course_list': course_list})
 
 def detail(request, id):
     try:
@@ -24,7 +23,7 @@ def detail(request, id):
 
 #book course
 def book_course(request):
-    # Make sure page request is POST. If not, deliver first page.
+    # Make sure page request is POST. If not, return Illegal.
     if request.method == 'POST':
         form = EnrollForm(request.POST)
         if form.is_valid():
