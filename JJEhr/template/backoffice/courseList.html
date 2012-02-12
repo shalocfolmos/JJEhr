@@ -12,7 +12,7 @@
             <a href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
             允许听课人数：{{course.maxTraineeAmount}} 报名人数： {{ course.enroll_set.all|length }}
             <br/>
-            {{course.courseDescription|truncatewords_html:30}}
+            {{course.courseDescription|truncatewords_html:5}}
             <br/>
             <a href="/backoffice/deletecourse/{{course.id}}">删除</a>
             <a href="/backoffice/course/{{course.id}}">修改</a>

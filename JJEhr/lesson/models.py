@@ -17,8 +17,10 @@ class Course(models.Model):
     #是否关闭
 #    isOpen = models.BooleanField(default=True)
     #报名时间
-    enterTime = models.DateTimeField(auto_now_add=True, editable=True)
+    enrollStartTime = models.DateTimeField(auto_now_add=True, editable=True)
     #允许报名人数
+    enrollEndTime = models.DateTimeField()
+
     maxTraineeAmount = models.IntegerField()
     courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S',blank=True)
     createDate = models.DateTimeField(auto_now_add=True)

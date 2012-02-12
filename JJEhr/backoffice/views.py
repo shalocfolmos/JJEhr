@@ -46,7 +46,8 @@ def courseView(request,courseId=0):
             course.courseTime=request.POST['courseTime']
             course.courseArrange=request.POST['courseArrange']
             course.courseSpeaker=request.POST['courseSpeaker']
-            course.enterTime=request.POST['enterTime']
+            course.enrollStartTime=request.POST['enrollStartTime']
+            course.enrollEndTime=request.POST['enrollEndTime']
             course.save()
             return HttpResponseRedirect("/backoffice/index.html")
     else:
@@ -56,7 +57,8 @@ def courseView(request,courseId=0):
             'courseTime':course.courseTime,
             'courseArrange':course.courseArrange,
             'courseSpeaker':course.courseSpeaker,
-            'enterTime':course.enterTime,
+            'enrollStartTime':course.enrollStartTime,
+            'enrollEndTime':course.enrollEndTime,
             'maxTraineeAmount':course.maxTraineeAmount
         }
         form = UpdateCourseForm(courseData)
@@ -84,7 +86,8 @@ def addCourse(request):
            course.courseTime=request.POST['courseTime']
            course.courseArrange=request.POST['courseArrange']
            course.courseSpeaker=request.POST['courseSpeaker']
-           course.enterTime=request.POST['enterTime']
+           course.enrollStartTime=request.POST['enrollStartTime']
+           course.enrollEndTime=request.POST['enrollEndTime']
            course.maxTraineeAmount=request.POST['maxTraineeAmount']
            course.save()
 
