@@ -1,6 +1,8 @@
 #-*- coding: UTF-8 -*-
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.db import models
 from django import forms
+from lesson.manager import CourseManager
 from lesson.validation import validate_enroll
 
 # Create your models here.
@@ -25,10 +27,10 @@ class Course(models.Model):
     courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S',blank=True)
     createDate = models.DateTimeField(auto_now_add=True)
     updatedDate = models.DateTimeField(auto_now=True)
-
+    objects = models.Manager()
+    search_objects = CourseManager()
     def __unicode__(self):
         return '(courseName = %s)' % (self.courseName,)
-
 
 class Enroll(models.Model):
     email = models.EmailField()

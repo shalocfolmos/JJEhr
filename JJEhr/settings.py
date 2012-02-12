@@ -48,6 +48,8 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
+DEFAULT_CHARSET='utf-8'
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = './courseware'
@@ -65,16 +67,17 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = '/static/lesson/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+ADMIN_MEDIA_PREFIX = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     "./static/backoffice",
+    "./static/lesson",
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -145,13 +148,22 @@ LOGGING = {
         'mail_admins': {
             'level': 'DEBUG',
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'DEBUG',
             'propagate': DEBUG,
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': DEBUG,
+            'level':'DEBUG',
         },
     }
 }
