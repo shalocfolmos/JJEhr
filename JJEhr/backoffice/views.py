@@ -1,4 +1,5 @@
 # coding=UTF-8
+import datetime
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -13,6 +14,10 @@ from JJEhr.lesson.models import Course, Enroll
 from django.contrib.sites.models import get_current_site
 
 
+def saveUploadFile(uploadedFile):
+    pass
+
+
 @login_required(login_url='/backoffice/login')
 def courseView(request,courseId=0):
     """
@@ -24,7 +29,7 @@ def courseView(request,courseId=0):
     waitingList = Enroll.objects.filter(course=course).filter(isWaitingList=True)
 
     if request.method == 'POST':
-        form = UpdateCourseForm(request.POST)
+        form = UpdateCourseForm(request.POST,request.FILES)
         if form.is_valid():
             waitingList = request.POST['waitingList']
             notWaitList = request.POST['notWaitingList']
@@ -48,6 +53,7 @@ def courseView(request,courseId=0):
             course.courseSpeaker=request.POST['courseSpeaker']
             course.enrollStartTime=request.POST['enrollStartTime']
             course.enrollEndTime=request.POST['enrollEndTime']
+            course.courseWare=request.FILES['courseWare']
             course.save()
             return HttpResponseRedirect("/backoffice/index.html")
     else:
@@ -59,7 +65,8 @@ def courseView(request,courseId=0):
             'courseSpeaker':course.courseSpeaker,
             'enrollStartTime':course.enrollStartTime,
             'enrollEndTime':course.enrollEndTime,
-            'maxTraineeAmount':course.maxTraineeAmount
+            'maxTraineeAmount':course.maxTraineeAmount,
+            'courseWare':course.courseWare
         }
         form = UpdateCourseForm(courseData)
     return render_to_response("backoffice/courseView.html",{"course":course,"waitingList":waitingList,"notWaitingList":notWaitList,'form':form},context_instance=RequestContext(request))
@@ -77,8 +84,7 @@ def delete_course(request,courseId=0):
 @csrf_protect
 def addCourse(request):
     if request.method == 'POST':
-
-        form = CourseForm(request.POST)
+        form = CourseForm(request.POST,request.FILES)
         if form.is_valid():
            course = Course()
            course.courseName=request.POST["courseName"]
@@ -89,11 +95,11 @@ def addCourse(request):
            course.enrollStartTime=request.POST['enrollStartTime']
            course.enrollEndTime=request.POST['enrollEndTime']
            course.maxTraineeAmount=request.POST['maxTraineeAmount']
+           course.courseWare=request.FILES['courseWare']
            course.save()
-
            return HttpResponseRedirect("/backoffice/index.html")
     else:
-        form = CourseForm()
+        form = CourseForm(initial={'enrollStartTime':datetime.datetime.now().strftime("%Y-%m-%d")})
     return render_to_response('backoffice/courseAdd.html',{'form':form},context_instance=RequestContext(request))
 
 
