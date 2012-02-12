@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <form action="{% url backoffice.views.addCourse %}" method="post">
+    <form action="{% url backoffice.views.addCourse %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         {% for field in form %}
