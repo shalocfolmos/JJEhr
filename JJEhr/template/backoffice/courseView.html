@@ -2,6 +2,16 @@
 {% get_static_prefix as STATIC_URL %}
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}cssbase/cssbase-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}cssfonts/cssfonts-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}cssgrids/grids-min.css">
+    <style type="text/css">
+
+        body {
+            margin:auto;
+            width: 960px;
+        }
+    </style>
 </head>
 <body>
 <form action="/backoffice/course/{{course.id}}" method="post" id="editForm" enctype="multipart/form-data">
@@ -14,7 +24,7 @@
     {%endfor%}
 
     <br/>
-    waitingList
+    候补学员：
     <select name="waitingList" id="waitingList" multiple style="width: 150px;">
         {% for enroll in waitingList%}
         <option value="{{enroll.id}}">{{enroll.email}}</option>
@@ -22,7 +32,7 @@
     </select>
     <button class="cancelEnrollButton"><<<</button>
     <button class="selectEnrollButton">>>></button>
-    Selected
+    听课学员：
     <select id="notWaitingList" multiple  style="width: 150px;">
         {% for enroll in notWaitingList%}
         <option value="{{enroll.id}}">{{enroll.email}}</option>

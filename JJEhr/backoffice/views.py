@@ -53,7 +53,8 @@ def courseView(request,courseId=0):
             course.courseSpeaker=request.POST['courseSpeaker']
             course.enrollStartTime=request.POST['enrollStartTime']
             course.enrollEndTime=request.POST['enrollEndTime']
-            course.courseWare=request.FILES['courseWare']
+            if request.FILES.get('courseWare'):
+                course.courseWare=request.FILES.get('courseWare')
             course.save()
             return HttpResponseRedirect("/backoffice/index.html")
     else:
@@ -95,7 +96,7 @@ def addCourse(request):
            course.enrollStartTime=request.POST['enrollStartTime']
            course.enrollEndTime=request.POST['enrollEndTime']
            course.maxTraineeAmount=request.POST['maxTraineeAmount']
-           course.courseWare=request.FILES['courseWare']
+           course.courseWare=request.FILES.get('courseWare')
            course.save()
            return HttpResponseRedirect("/backoffice/index.html")
     else:
