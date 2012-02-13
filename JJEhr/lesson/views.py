@@ -1,5 +1,6 @@
 #coding=utf-8
 # Create your views here.
+import datetime
 from django.shortcuts import render_to_response,get_object_or_404
 from JJEhr.lesson.models import Course, Enroll, EnrollForm
 from django.http import Http404
@@ -9,7 +10,13 @@ from django.template.context import RequestContext
 
 def index(httpRequest):
     course_list = Course.search_objects.search( **httpRequest.GET)
-    return render_to_response('lesson/index.html', {'course_list': course_list})
+    allow_course_id=[]
+    allow_enroll_course_list = Course.objects.filter(enrollStartTime__lte=datetime.datetime.now()).filter(enrollEndTime__gt=datetime.datetime.now())
+    for course in allow_enroll_course_list:
+        allow_course_id.append(course.id)
+
+
+    return render_to_response('lesson/index.html', {'course_list': course_list,'allow_course_id_list':allow_course_id},context_instance=RequestContext(httpRequest))
 
 def detail(request, id):
     try:
@@ -39,7 +46,7 @@ def book_course(request):
                 if successEnrollMemberCount>=_course.maxTraineeAmount:
                     enroll.isWaitingList=True
                 enroll.save()
-            return HttpResponseRedirect('/' + _course.id)
+            return HttpResponseRedirect('/')
         else:
             return HttpResponse("input Invaild")
     else:

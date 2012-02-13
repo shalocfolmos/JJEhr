@@ -1,13 +1,10 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+{% load static %}
+{% get_static_prefix as STATIC_URL %}
 <html>
 <head>
     <title>课程选修</title>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}cssbase/cssbase-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}cssfonts/cssfonts-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}cssgrids/grids-min.css">
+    <script src="{{STATIC_URL}}/yui-min.js"></script>
     <style type="text/css">
-
         body {
             margin:auto;
             width: 960px;
@@ -17,17 +14,33 @@
 <body>
 {% for course in course_list.object_list %}
 
-课程名 : <a href="/{{course.id}}">{{ course.courseName|escape}}</a><br/>
-课时: {{course.courseTime}} 课程安排 : {{course.courseArrange}}
-<br/>
+课程名 : <a href="/{{course.id}}">{{ course.courseName|escape}}</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 {% if course.courseWare %}
 <a href="{{course.courseWare.name}}">下载课件</a>
 {% endif %}
+<br/><br/>
+课时: {{course.courseTime}} &nbsp;&nbsp; 主讲人: {{ course.courseSpeaker }}<br/><br/>
+课程安排 : {{course.courseArrange}}
 <br/>
-课程介绍 :{{course.courseDescription|escape|truncatewords_html:5}}
-{%if course.start%}
-{%endif %}
+
+<br/>
+课程介绍 :{{course.courseDescription|escape}}
+<br/>
+<br/>
+{% if course.id in allow_course_id_list%}
+<form action="/book/" method="post">
+    {% csrf_token %}
+    邮箱地址:<input name="email"/>
+    <input type="hidden"value='{{course.id}}' name="course_id"/>
+    <input type="submit" value="我要报名">
+</form>
+{% endif %}
+
 <hr>
+
+
+
 {% endfor %}
 
 <div class="pagination">
