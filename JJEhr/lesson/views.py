@@ -37,7 +37,7 @@ def book_course(request):
             _email = form._raw_value('email')
             _course = Course(id=form._raw_value("course_id"))
             enroll_count = Enroll.objects.filter(email = _email, course = _course).count()
-            if enroll_count > 1:
+            if enroll_count > 0:
                 return HttpResponse('You repeat reservation')
             else:
                 enroll = Enroll(email=_email, course=_course)
