@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^(\d+)/$','lesson.views.detail'),
     url(r'^book/$','lesson.views.book_course'),
     url(r'^course/index.html','lesson.views.index'),
+    url(r'^course/download/','lesson.views.download'),
     #url(r'^admin/', include(admin.site.urls)),
 
     url(r'^backoffice/login', 'django.contrib.auth.views.login',{'template_name':'backoffice/login.html'}),

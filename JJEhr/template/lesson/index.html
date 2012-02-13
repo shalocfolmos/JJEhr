@@ -8,7 +8,7 @@
         body {
             margin:auto;
             width: 960px;
-        }d
+        }
     </style>
 </head>
 <body>
@@ -17,7 +17,7 @@
 课程名 : <a href="/{{course.id}}">{{ course.courseName|escape}}</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 {% if course.courseWare %}
-<a href="{{course.courseWare.name}}">下载课件</a>
+<a href="/course/download/?file={{course.courseWare.name|escape}}">下载课件</a>
 {% endif %}
 <br/><br/>
 课时: {{course.courseTime}} &nbsp;&nbsp; 主讲人: {{ course.courseSpeaker }}<br/><br/>
@@ -33,7 +33,7 @@
     {% csrf_token %}
     邮箱地址:<input name="email"/>
     <input type="hidden"value='{{course.id}}' name="course_id"/>
-    <input type="submit" value="我要报名">
+    <input type="submit" value="我要报名">1
 </form>
 {% endif %}
 
