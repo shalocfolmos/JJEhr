@@ -52,9 +52,10 @@ def book_course(request):
             return HttpResponse("input Invaild")
     else:
         return HttpResponse('Illegal submit!!!')
-def search(request):
-    course_list = Course.search_objects.search( **request.GET )
-    return render_to_response('lesson/index.html', {'course_list': course_list})
+
+#def search(request):
+#    course_list = Course.search_objects.search( **request.GET )
+#    return render_to_response('lesson/index.html', {'course_list': course_list})
 
 def download(request):
     filename = request.GET['file']
