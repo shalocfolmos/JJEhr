@@ -14,7 +14,7 @@
 <body>
 {% for course in course_list.object_list %}
 
-课程名 : <a href="/{{course.id}}">{{ course.courseName|escape}}</a>
+课程名 : {{ course.courseName|escape}}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 {% if course.courseWare %}
 <a href="/course/download/?file={{course.courseWare.name|escape}}">下载课件</a>
