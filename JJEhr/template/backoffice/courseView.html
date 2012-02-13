@@ -14,6 +14,13 @@
     </style>
 </head>
 <body>
+<div class="yui3-g" style="height:50px;">
+    <div>
+        <a href="/backoffice/logout">注销</a>
+        <a href="/backoffice/index.html">返回首页</a>
+    </div>
+</div>
+<div class="yui3-g">
 <form action="/backoffice/course/{{course.id}}" method="post" id="editForm" enctype="multipart/form-data">
     {% csrf_token %}
     {% for field in form %}
@@ -44,6 +51,7 @@
     <input type="hidden" id="maxTrainee" value="{{course.maxTraineeAmount}}"/>
     <button id="submitButton">修改</button>
 </form>
+</div>
 <script src="{{STATIC_URL}}yui-base/yui-base-min.js"></script>
 <script>
 
