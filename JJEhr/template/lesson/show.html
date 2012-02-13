@@ -7,26 +7,31 @@
     </title>
 </head>
 <body>
-Course Name : {{ course.courseName|escape}}<br/>
+
+课程名 : {{ course.courseName|escape}}<br/>
 ------<br/>
-Course Description :{{course.courseDescription|escape}}<br/>
------
+课程介绍 :{{course.courseDescription|escape}}<br/>
+-----<br/>
+{% if course.courseWare %}
+    <a href="/course/download/?file={{course.courseWare.name|escape}}">下载课件</a>
+{% endif %}
 {% if enroll_set %}
-<p>Found {{ enroll_set|length }}.</p>
+<p> 报名人数 :{{ enroll_set|length }}.</p>
 <ul>
     {% for enroll in enroll_set %}
     <li>{{ enroll.email }}</li>
     {% endfor %}
 </ul>
 {% else %}
-<p>No found !!!</p>
+<p>目前还没有人报名!!!</p>
 {% endif %}
 <hr>
+
 <form action="/book/" method="post">
     {% csrf_token %}
-    email:<input name="email"/>
+    邮箱: <input name="email"/>
     <input type="hidden"value='{{course.id}}' name="course_id"/>
-    <input type="submit" value="Enroll">
+    <input type="submit" value="我要报名">
 </form>
 </body>
 </html>
