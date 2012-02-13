@@ -20,7 +20,7 @@ class CourseForm(forms.Form):
 
     enrollEndTime = forms.DateTimeField(label="报名结束时间", widget=DateInput(format='%Y-%m-%d'),required=True)
     #允许报名人数
-    maxTraineeAmount = forms.IntegerField(label="最大报名人数")
+    maxTraineeAmount = forms.IntegerField(label="最大名额")
     courseWare = forms.FileField(required=False,label="课时")
 
 class UpdateCourseForm(forms.Form):

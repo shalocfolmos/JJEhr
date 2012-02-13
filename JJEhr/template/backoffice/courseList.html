@@ -22,14 +22,16 @@
             {% for course in courseList %}
                 <div>
                     <a href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
-                    允许听课人数：{{course.maxTraineeAmount}} 报名人数： {{ course.enroll_set.all|length }}
+                    听课名额：{{course.maxTraineeAmount}} 报名人数： {{ course.enroll_set.all|length }}
                     <br/>
                     {{course.courseDescription|truncatewords_html:5}}
                     <br/>
+                    <a href="/backoffice/course/{{course.id}}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="/backoffice/deletecourse/{{course.id}}">删除</a>
-                    <a href="/backoffice/course/{{course.id}}">修改</a>
+
                 </div>
                 <hr/>
+                <br/>
             {% endfor  %}
         </div>
     </div>
