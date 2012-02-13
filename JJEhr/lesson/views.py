@@ -9,7 +9,7 @@ from django.template.context import RequestContext
 
 def index(httpRequest):
     course_list = Course.search_objects.search( **httpRequest.GET)
-    return render_to_response('lesson/index1.html', {'course_list': course_list})
+    return render_to_response('lesson/index.html', {'course_list': course_list})
 
 def detail(request, id):
     try:

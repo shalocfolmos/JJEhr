@@ -3,13 +3,30 @@
 <html>
 <head>
     <title>课程选修</title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}cssbase/cssbase-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}cssfonts/cssfonts-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}cssgrids/grids-min.css">
+    <style type="text/css">
+
+        body {
+            margin:auto;
+            width: 960px;
+        }
+    </style>
 </head>
 <body>
 {% for course in course_list.object_list %}
 
-Course Name : {{ course.courseName|escape}}<br/>
-------<br/>
-Course Description :{{course.courseDescription|escape}}
+课程名 : <a href="/{{course.id}}">{{ course.courseName|escape}}</a><br/>
+课时: {{course.courseTime}} 课程安排 : {{course.courseArrange}}
+<br/>
+{% if course.courseWare %}
+<a href="{{course.courseWare.name}}">下载课件</a>
+{% endif %}
+<br/>
+课程介绍 :{{course.courseDescription|escape|truncatewords_html:5}}
+{%if course.start%}
+{%endif %}
 <hr>
 {% endfor %}
 
