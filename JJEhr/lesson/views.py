@@ -14,8 +14,6 @@ def index(httpRequest):
     allow_enroll_course_list = Course.objects.filter(enrollStartTime__lte=datetime.datetime.now()).filter(enrollEndTime__gt=datetime.datetime.now())
     for course in allow_enroll_course_list:
         allow_course_id.append(course.id)
-
-
     return render_to_response('lesson/index.html', {'course_list': course_list,'allow_course_id_list':allow_course_id},context_instance=RequestContext(httpRequest))
 
 def detail(request, id):
@@ -35,7 +33,7 @@ def book_course(request):
         form = EnrollForm(request.POST)
         if form.is_valid():
             _email = form._raw_value('email')
-            _course = Course(id=form._raw_value("course_id"))
+            _course = Course.objects.get(id=form._raw_value("course_id"))
             enroll_count = Enroll.objects.filter(email = _email, course = _course).count()
             if enroll_count > 0:
                 return HttpResponse('You repeat reservation')
