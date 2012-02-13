@@ -30,7 +30,7 @@
 
     <br/>
     候补学员：
-    <select name="waitingList" id="waitingList" multiple style="width: 150px;">
+    <select name="waitingList" id="waitingList" multiple  style="width: 200px;height:200px;">
         {% for enroll in waitingList%}
         <option value="{{enroll.id}}">{{enroll.email}}</option>
         {% endfor %}
@@ -38,7 +38,7 @@
     <button class="cancelEnrollButton"><<<</button>
     <button class="selectEnrollButton">>>></button>
     听课学员：
-    <select id="notWaitingList" multiple  style="width: 150px;">
+    <select id="notWaitingList" multiple  style="width: 200px;height:200px;">
         {% for enroll in notWaitingList%}
         <option value="{{enroll.id}}">{{enroll.email}}</option>
         {% endfor %}
