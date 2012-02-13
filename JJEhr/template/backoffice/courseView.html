@@ -31,7 +31,7 @@
     <br/>
     候补学员：
     <select name="waitingList" id="waitingList" multiple style="width: 150px;">
-        {% for 1enroll in waitingList%}
+        {% for enroll in waitingList%}
         <option value="{{enroll.id}}">{{enroll.email}}</option>
         {% endfor %}
     </select>
@@ -62,7 +62,7 @@
                     function(){
 
                         if(this.get("selected")==true) {
-                            if(from=='waitingList' && toComboList.get("options").size()==traineeAmount){
+                            if(from=='waitingList' && toComboList.get("options").size()>=traineeAmount){
                                 return;
                             }
                             toComboList.append(this)

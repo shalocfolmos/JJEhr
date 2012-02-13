@@ -34,6 +34,10 @@ def book_course(request):
                 return HttpResponse('You repeat reservation')
             else:
                 enroll = Enroll(email=_email, course=_course)
+
+                successEnrollMemberCount = Enroll.objects.filter(isWaitingList=False).count()
+                if successEnrollMemberCount>=_course.maxTraineeAmount:
+                    enroll.isWaitingList=True
                 enroll.save()
             return HttpResponseRedirect('/' + _course.id)
         else:
