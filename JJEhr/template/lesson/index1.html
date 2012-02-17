@@ -1,122 +1,77 @@
 {% load static %}
 {% get_static_prefix as STATIC_URL %}
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn" xml:lang="zh-cn" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn" xml:lang="zh-cn">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Silver Blog | Free WordPress Theme</title>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/lesson.css"/>
+    <script src="{{STATIC_URL}}/yui/yui-min.js"></script>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!--[if IE 6]>
-    <script src="{{ STATIC_URL }}js/belatedPNG.js"></script>
+    <script src="{{ STATIC_URL }}/js/belatedPNG.js"></script>
     <script>
         DD_belatedPNG.fix('*');
     </script>
     <![endif]-->
 </head>
-
 <body>
-
 <section id="page">
     <section id="subpage">
         <div id="pagewrap">
-
-            <section id="sidebar">
-
-            </section>
-
+            <section id="sidebar"></section>
             <section id="contents">
-
                 <header id="mainheader">
-
                     <h1>Life<span>Book</span></h1>
                 </header>
-
-
                 <section id="main">
+                    {% for course in course_list.object_list %}
                     <article class="post">
                         <header>
-                            <h2><a href="#">Blog Post Title</a></h2>
-                            <p class="postinfo">Category Name |  <time>12 June 2011</time>   |  22 Comments</p>
+                            <h2><a href="#">{{ course.courseName|escape}}</a></h2>
 
+                            <p class="postinfo"> 课时: {{course.courseTime}} &nbsp; |
+                                主讲人: {{ course.courseSpeaker }}&nbsp; | 发布时间：
+                                <time>{{ course.createDate }}</time>
+                                &nbsp;| 听课名额： {{course.maxTraineeAmount}} .
+                            </p>
                         </header>
                         <section class="entry">
+                            <p>课程介绍 :{{course.courseDescription|escape|truncatewords_html:8}} <a href="###">展开</a></p>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus dui vitae nunc semper ac posuere arcu ultrices. Aliquam nisi odio, interdum ut scelerisque at, placerat sit amet ante. Nam vehicula vehicula malesuada. Quisque euismod consequat dolor, non posuere erat ultrices eget. Aliquam a est sit amet magna venenatis pellentesque. Duis aliquam auctor augue, et semper sem consequat sit amet.  <a href="#">Read More</a></p>
+                            <p style="display: none;">课程介绍 :{{course.courseDescription|escape}} <a href="###">收起</a></p>
+                            <span>
+                                {% if course.courseWare %}
+                                  <a href="/course/download/?file={{course.courseWare.name|escape}}">下载课件</a>
+                                {% endif %}
+                                {% if course.courseWare  and  course.id in allow_course_id_list%}
+                                    |
+                                {% endif %}
+                                {% if course.id in allow_course_id_list%}
+                                        <a href="###" class="bookCourse" id="{{course.id}}">我要报名</a>
+                                {% endif %}
+                            </span>
 
                         </section>
                     </article>
-
-                    <article class="post">
-                        <header>
-                            <h2><a href="#">Blog Post Title</a></h2>
-                            <p class="postinfo">Category Name |  <time>12 June 2011</time>   |  22 Comments</p>
-
-                        </header>
-                        <section class="entry">
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus dui vitae nunc semper ac posuere arcu ultrices. Aliquam nisi odio, interdum ut scelerisque at, placerat sit amet ante. Nam vehicula vehicula malesuada. Quisque euismod consequat dolor, non posuere erat ultrices eget. Aliquam a est sit amet magna venenatis pellentesque. Duis aliquam auctor augue, et semper sem consequat sit amet. <a href="#">Read More</a></p>
-
-                        </section>
-                    </article>
-
-                    <article class="post">
-                        <header>
-                            <h2><a href="#">Blog Post Title</a></h2>
-                            <p class="postinfo">Category Name |  <time>12 June 2011</time>   |  22 Comments</p>
-
-                        </header>
-                        <section class="entry">
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus dui vitae nunc semper ac posuere arcu ultrices. Aliquam nisi odio, interdum ut scelerisque at, placerat sit amet ante. Nam vehicula vehicula malesuada. Quisque euismod consequat dolor, non posuere erat ultrices eget. Aliquam a est sit amet magna venenatis pellentesque. Duis aliquam auctor augue, et semper sem consequat sit amet.  <a href="#">Read More</a></p>
-
-                        </section>
-                    </article>
-
-                    <article class="post">
-                        <header>
-                            <h2><a href="#">Blog Post Title</a></h2>
-                            <p class="postinfo">Category Name |  <time>12 June 2011</time>   |  22 Comments</p>
-
-                        </header>
-                        <section class="entry">
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus dui vitae nunc semper ac posuere arcu ultrices. Aliquam nisi odio, interdum ut scelerisque at, placerat sit amet ante. Nam vehicula vehicula malesuada. Quisque euismod consequat dolor, non posuere erat ultrices eget. Aliquam a est sit amet magna venenatis pellentesque. Duis aliquam auctor augue, et semper sem consequat sit amet.  <a href="#">Read More</a></p>
-
-                        </section>
-                    </article>
-
-                    <article class="post">
-                        <header>
-                            <h2><a href="#">Blog Post Title</a></h2>
-                            <p class="postinfo">Category Name |  <time>12 June 2011</time>   |  22 Comments</p>
-
-                        </header>
-                        <section class="entry">
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus dui vitae nunc semper ac posuere arcu ultrices. Aliquam nisi odio, interdum ut scelerisque at, placerat sit amet ante. Nam vehicula vehicula malesuada. Quisque euismod consequat dolor, non posuere erat ultrices eget. Aliquam a est sit amet magna venenatis pellentesque. Duis aliquam auctor augue, et semper sem consequat sit amet.  <a href="#">Read More</a></p>
-
-                        </section>
-                    </article>
-
+                    {% endfor %}
                     <div class="wp-pagenavi">
-                        <span class="current">1</span><a href="/page/2/" title="2">2</a><a href="/page/3/" title="3">3</a><a href="/page/4/" title="4">4</a><a href="/page/5/" title="5">5</a><a href="/page/6/" title="6">6</a><a href="/page/7/" title="7">7</a><a href="/page/8/" title="8">8</a><a href="/page/2/">Next &raquo;</a><span class="extend">...</span><a href="/page/27/" title="Last &raquo;">Last &raquo;</a></div>
+                        {% autoescape off %}
+                            {{pageInfo}} 共 {{ course_list.paginator.num_pages }}页
+                        {% endautoescape %}
+                    </div>
                     <div class="clear"></div>
-
-
                 </section>
                 <footer id="pagefooter">
                     <div class="footerwrap">
                         <p class="siteinfo">
-
                             2010 &copy; All Rights Reserved | Your Website Info and copyright information goes here.
                         </p>
                     </div>
                     <div id="credits">
-                        <a href="http://cssheaven.org" title="download quality website templates">Free Website Template by CSS Heaven</a></div>
-
-
+                        <a href="http://cssheaven.org" title="download quality website templates">Free Website Template
+                            by CSS Heaven</a></div>
                 </footer>
             </section>
 
@@ -124,5 +79,110 @@
         </div>
     </section>
 </section>
+     <span id='bookArea' style="display: none" class='dd'>
+            <form action="/book/" method="post" class="form" id="book">
+                {% csrf_token %}
+                <input type="hidden" value='' name="course_id" id="course_id"/>
+
+                <p class="textfield">
+                    <input name="email" id="email">
+                    <label for="email">
+                        <small></small>
+                    </label>
+                </p>
+                <input type="button" value="确认报名" class="btn2">
+            </form>
+    </span>
+<script type="text/javascript">
+    YUI().use('node', 'io-base', function (Y) {
+        Y.all('.entry p a').on('click', function (e) {
+            e.preventDefault();
+            var p = e.currentTarget.get('parentNode');
+            p.hide();
+            p.next('p') == null ? p.previous('p').show() : p.next('p').show();
+        });
+
+        Y.all('.bookCourse').on('click', function (e) {
+            e.preventDefault();
+            var bookForm = Y.one("#bookArea");
+            var course_id = e.currentTarget.get('id');
+            bookForm.one("#email").set("value", "");
+            bookForm.one("small").setContent("");
+            var isSpan = e.currentTarget.get('parentNode').next('span');
+            if (isSpan != null) {
+                isSpan.getStyle("display") == 'none' ? isSpan.show() : isSpan.hide();
+                return false;
+            }
+            bookForm.one("#course_id").set("value", course_id);
+            bookForm.appendTo(e.currentTarget.get('parentNode').get('parentNode')).show()
+        });
+
+        Y.all('.btn2').on('click', function (e) {
+            e.preventDefault();
+            var bookForm = Y.one("#bookArea");
+            bookForm.one("small").setContent("");
+            var value = bookForm.one("#email").get("value");
+
+            var reg = (/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/);
+
+            if (!reg.test(value)) {
+                bookForm.one("small").setContent("请填写正确的邮箱");
+                return;
+            }
+            //bookForm.hide();
+            var formObject = bookForm.one("form");
+
+            function serializeForm () {
+                var params = {};
+                var items = formObject.all("input");
+                items.each(function (input) {
+                    if (input.get("type") != 'button') {
+                        params[input.get("name")] = input.get("value");
+                    }
+                });
+                return params;
+            }
+
+            var cfg = {
+                method:'POST',
+                data:serializeForm()
+            };
+
+            function showMsg(msg){
+                bookForm.one("small").setContent(msg);
+            }
+
+            function complete(id, o, args) {
+                var code = o.responseText;
+                switch (code){
+                    case '200':
+                        showMsg("恭喜你，选课已经确认");
+                        break;
+                    case '409':
+                        showMsg("你已经选过该课程，无法再次选择");
+                        break;
+                    case '400':
+                        showMsg("请填写正确的邮箱");
+                        break;
+                    case '403':
+                        showMsg("提交被禁止，不正当提交信息");
+                        break;
+                    case '404':
+                        showMsg("该课程无法报名，课程报名日期不合法");
+                        break;
+                    default :
+                        showMsg(code);
+                        break;
+                }
+                setTimeout(function() {bookForm.hide()}, 3000);
+            }
+
+            Y.on('io:complete', complete, Y);
+
+            var request = Y.io(formObject.get("action"), cfg);
+
+        });
+    });
+</script>
 </body>
 </html>

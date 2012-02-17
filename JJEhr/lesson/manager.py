@@ -7,6 +7,7 @@ class CourseManager(models.Manager):
     __default_page_size = 10
     # Make sure page request is an int. If not, deliver first page.
     __default_current_no = 1
+    __default_per_page_count = 9
     def search(self, **kwargs):
         tempDict ={}
         for key in kwargs :
@@ -15,7 +16,7 @@ class CourseManager(models.Manager):
                 tempDict[key] = value[0]
             else:
                 tempDict[key] = value
-        course_set = {}
+        result = {}
         try:
             pageNo = int(tempDict.get('page'))
         except (ValueError,KeyError,TypeError):
@@ -44,9 +45,37 @@ class CourseManager(models.Manager):
             paginator = Paginator(course_set, pageSize)
             #paginator._count = result_count
             course_set = paginator.page(pageNo)
+         ############################################################
+            pageInfo =''
+            pageCount = course_set.paginator.num_pages
+            if(pageCount >1 and pageNo !=1):
+                pageInfo +='<a href="?page=1">首页</a>'
+            if pageCount < self.__default_per_page_count:
+                startPageIndex = 1
+                endPageIndex = pageCount
+            elif pageNo <= (self.__default_per_page_count/2)+1:
+                 startPageIndex = 1
+                 endPageIndex = self.__default_per_page_count
+            else:
+                startPageIndex = pageNo - (self.__default_per_page_count/2)
+                endPageIndex = pageNo + ((self.__default_per_page_count/2))
+            if endPageIndex > pageCount:
+                endPageIndex = pageCount
+                startPageIndex = pageCount- self.__default_per_page_count +1
+
+            for index in range(startPageIndex, endPageIndex+1):
+                if index == pageNo:
+                    pageInfo += '<span class="current">{pageNo}</span>'.format(pageNo=pageNo)
+                else:
+                    pageInfo += '<a href="?page={index}">{index}</a>'.format(index=index)
+            if pageCount > 1 and pageNo < pageCount-1:
+                pageInfo +='<a href="?page={endPageNo}">尾页</a>'.format(endPageNo=pageCount)
+         ## ###########################################################
         except (EmptyPage, InvalidPage):
             # If page request (9999) is out of range, deliver last page of results.
             course_set = paginator.page(paginator.num_pages)
         except (KeyError):
-            return course_set
-        return course_set
+            return result
+        result.setdefault("pageInfo",pageInfo)
+        result.setdefault("course_set",course_set)
+        return result
