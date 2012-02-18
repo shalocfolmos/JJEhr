@@ -8,7 +8,22 @@
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
     <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
+    <link rel="stylesheet" href="{{STATIC_URL}}/yui/cssbutton.css" type="text/css"/>
+    <script src="{{STATIC_URL}}/yui/yui-min.js"></script>
+    <style type="text/css">
+        .yui3-skin-sam .yui3-button-color-blue {
+            color: #fff;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#599bdc), to(#3476b7));
+            background-image: -webkit-linear-gradient(top, #599bdc, #3476b7);
+            background-image: -moz-linear-gradient(top, #599bdc, #3476b7);
+            background-image: -ms-linear-gradient(top, #599bdc, #3476b7);
+            background-image: -o-linear-gradient(top, #599bdc, #3476b7);
+            background-image: linear-gradient(top, #599bdc, #3476b7);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#599bdc', EndColorStr = '#3476b7');
+            background-color: #3476b7;
+        }
 
+    </style>
 </head>
 <body>
 
@@ -18,15 +33,15 @@
 
     </div>
     <div class="yui3-u-1-5">
-        <a href="/backoffice/logout">注销</a>
-        <a href="/backoffice/index.html">返回首页</a>
+        <a href="/backoffice/logout" class="head_style">注销</a>
+        <a href="/backoffice/index.html" class="head_style">返回首页</a>
     </div>
 </div>
-<div class="yui3-g">
+<div class="yui3-g yui3-skin-sam">
     <form action="/backoffice/course/add" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
-        <div class="yui3-g" style="padding-top: 10px;">
+        <div class="yui3-g" style="padding-top: 15px;">
             <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
             <div class="yui3-u-4-5" style="float:left">
                 <div class="yui3-g">
@@ -47,8 +62,71 @@
 
         {%endfor%}
 
-        <input type="submit" value="提交"/>
+        <div id="submit_button" class="yui3-button medium"
+             style="color: black;width:45px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">提交
+        </div>
     </form>
+    <div id="startDate"></div>
+    <div id="endDate"></div>
 </div>
+<script type="text/javascript">
+    YUI().use('calendar', 'datatype-date', 'node', 'event', function (Y) {
+        var start_time_input = Y.one("#id_enrollStartTime"),
+                end_time_input = Y.one("#id_enrollEndTime");
+        Y.one("#startDate").setXY(start_time_input.getXY())
+        Y.one("#endDate").setXY(end_time_input.getXY())
+        var dtdate = Y.DataType.Date,
+                startCalendar = new Y.Calendar({
+                    contentBox:"#startDate",
+                    width:'340px',
+                    showPrevMonth:true,
+                    showNextMonth:true,
+                    date:new Date(),
+                    startDate:new Date()}).render(),
+                endCalendar = new Y.Calendar({
+                    contentBox:"#endDate",
+                    width:'340px',
+                    showPrevMonth:false,
+                    showNextMonth:false,
+                    date:new Date(),
+                    startDate:new Date()}).render();
+
+        startCalendar.hide();
+        endCalendar.hide();
+
+        Y.one("#submit_button").on('click', function () {
+            Y.one("form").submit()
+        })
+
+
+        startCalendar.on("selectionChange", function (ev) {
+            var newDate = ev.newSelection[0];
+            start_time_input.set('value', dtdate.format(newDate));
+            startCalendar.hide()
+        });
+
+
+        endCalendar.on("selectionChange", function (ev) {
+            var newDate = ev.newSelection[0];
+            end_time_input.set('value', dtdate.format(newDate));
+            endCalendar.hide()
+        });
+
+        start_time_input.setAttribute('readonly', 'readonly');
+        end_time_input.setAttribute("readonly", "readonly");
+
+        start_time_input.on('click', function (e) {
+                    startCalendar.show();
+                }
+        );
+
+        end_time_input.on('click', function (e) {
+                    endCalendar.show();
+                }
+        );
+
+    })
+
+</script>
 </body>
 </html>

@@ -1,0 +1,554 @@
+/***
+    Core Button Styles
+***/
+.yui3-button {
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box; /* To prevent the bg color from leaking outside the border */
+    background-repeat: repeat-x;
+    border: solid 1px;
+    cursor: pointer;
+    display: inline-block;
+    *display: inline;
+    zoom: 1; /*IE6 inline block */
+    height: 2em;
+    line-height: 2em;
+    margin: 1em;
+    padding: 0 1em;
+    position: relative;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -moz-border-radius: 0.3em;
+    -webkit-border-radius: 0.3em;
+    border-radius: 0.3em;
+    -webkit-transition: background-position 0.1s linear;
+    -moz-transition: background-position 0.1s linear;
+    -ms-transition: background-position 0.1s linear;
+    -o-transition: background-position 0.1s linear;
+    transition: background-position 0.1s linear;
+    background-color: #e6e6e6;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.30)), color-stop(40%, rgba(255, 255, 255, 0.15)), to(transparent));
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.15) 40%, transparent);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.15) 40%, transparent);
+    background-image: -ms-linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.15) 40%, transparent);
+    background-image: -o-linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.15) 40%, transparent);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.15) 40%, transparent);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#80ffffff', endColorstr = '#00ffffff', GradientType = 0);
+
+    border-color: rgba(0, 0, 0, 0.30);
+    border-bottom-color: rgba(0, 0, 0, 0.50);
+
+*
+
+/
+border:
+
+0
+;
+-webkit-box-shadow:
+
+0
+0
+0
+1
+px
+
+rgba
+(
+0
+,
+0
+,
+0
+,
+0.25
+)
+inset,
+
+0
+2
+px
+
+0
+rgba
+(
+255
+,
+255
+,
+255
+,
+0.30
+)
+inset,
+
+0
+1
+px
+
+2
+px
+
+rgba
+(
+0
+,
+0
+,
+0
+,
+0.15
+)
+;
+-moz-box-shadow:
+
+0
+0
+0
+1
+px
+
+rgba
+(
+0
+,
+0
+,
+0
+,
+0.25
+)
+inset,
+
+0
+2
+px
+
+0
+rgba
+(
+255
+,
+255
+,
+255
+,
+0.30
+)
+inset,
+
+0
+1
+px
+
+2
+px
+
+rgba
+(
+0
+,
+0
+,
+0
+,
+0.15
+)
+;
+box-shadow:
+
+0
+0
+0
+1
+px
+
+rgba
+(
+0
+,
+0
+,
+0
+,
+0.25
+)
+inset,
+
+0
+2
+px
+
+0
+rgba
+(
+255
+,
+255
+,
+255
+,
+0.30
+)
+inset,
+
+0
+1
+px
+
+2
+px
+
+rgba
+(
+0
+,
+0
+,
+0
+,
+0.15
+)
+;
+    }
+
+.yui3-button-selected,
+.yui3-button:hover {
+    border-style: solid;
+    border-width: 1px;
+    background-position: 0 -1em;
+    -webkit-transition: background-position 0.1s linear;
+    -moz-transition: background-position 0.1s linear;
+    -ms-transition: background-position 0.1s linear;
+    -o-transition: background-position 0.1s linear;
+    transition: background-position 0.1s linear;
+}
+
+.yui3-button-icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 20px;
+    vertical-align: middle;
+    width: 20px;
+}
+
+.yui3-button-disabled .yui3-button-icon {
+    filter: alpha(opacity = 30);
+    opacity: .3;
+}
+
+.yui3-button:active {
+    box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.yui3-button.yui3-button-disabled,
+.yui3-button.yui3-button-disabled:hover {
+    cursor: default;
+    zoom: 1; /* required for IE 6/7/8 ? Test! */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8/9 */
+    filter: alpha(opacity = 50); /* IE6/7/8/9 */
+    -moz-opacity: 0.5; /*old FF*/
+    -khtml-opacity: 0.5; /* old Safari */
+    opacity: 0.5; /* 'modern' browsers */
+
+    cursor: default;
+    background-position: 0 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    text-shadow: none;
+    background-image: none;
+}
+
+/***
+    Icons
+***/
+.yui3-button-icon-bold {
+    background-position: 0 0px;
+}
+
+.yui3-button-icon-italic {
+    background-position: 0 -36px;
+}
+
+.yui3-button-icon-underline {
+    background-position: 0 -72px;
+}
+
+.yui3-button-icon-strikethrough {
+    background-position: 0 -108px;
+}
+
+.yui3-button-icon-superscript {
+    background-position: 0 -144px;
+}
+
+.yui3-button-icon-subscript {
+    background-position: 0 -180px;
+}
+
+.yui3-button-icon-forecolor {
+    background-position: 0 -216px;
+}
+
+.yui3-button-icon-backcolor {
+    background-position: 0 -252px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -288px;
+}
+
+.yui3-button-icon-justifyleft {
+    background-position: 0 -324px;
+}
+
+.yui3-button-icon-justifycenter {
+    background-position: 0 -360px;
+}
+
+.yui3-button-icon-justifyright {
+    background-position: 0 -396px;
+}
+
+.yui3-button-icon-justifyfull {
+    background-position: 0 -432px;
+}
+
+.yui3-button-icon-unorderedlist {
+    background-position: 0 -468px;
+}
+
+.yui3-button-icon-orderedlist {
+    background-position: 0 -504px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -540px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -576px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -612px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -648px;
+}
+
+.yui3-button-icon-unindent {
+    background-position: 0 -684px;
+}
+
+.yui3-button-icon-indent {
+    background-position: 0 -720px;
+}
+
+.yui3-button-icon-insertimage {
+    background-position: 1px -756px;
+}
+
+.yui3-button-icon-createlink {
+    background-position: 0 -792px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -828px;
+}
+
+.yui3-button-icon-block {
+    background-position: 0 -864px;
+}
+
+.yui3-button-icon-inline {
+    background-position: 0 -900px;
+}
+
+.yui3-button-icon-floatright {
+    background-position: 0 -936px;
+}
+
+.yui3-button-icon-floatleft {
+    background-position: 0 -972px;
+}
+
+.yui3-button-icon-smiley {
+    background-position: 0 -1008px;
+}
+
+.yui3-button-icon-hiddenelements {
+    background-position: 0 -1044px;
+}
+
+.yui3-button-icon-removeformat {
+    background-position: 0 -1080px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -1116px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -1152px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -1188px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -1224px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -1260px;
+}
+
+.yui3-button-icon-TBD {
+    background-position: 0 -1296px;
+}
+
+/***
+    Colors
+***/
+
+/***
+    Skin: Sam
+***/
+
+.yui3-skin-sam .yui3-button-icon {
+    background-image: url("assets/sam_icons.gif");
+}
+
+/***
+    Skin: Night
+***/
+.yui3-skin-night .yui3-button {
+    background-color: #3E3F41;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#555658), to(#3e3f41));
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #555658, #3e3f41);
+    /* Chrome 10+, Saf5.1+ */
+    background-image: -moz-linear-gradient(top, #555658, #3e3f41);
+    /* FF3.6 */
+    background-image: -ms-linear-gradient(top, #555658, #3e3f41);
+    /* IE10 */
+    background-image: -o-linear-gradient(top, #555658, #3e3f41);
+    /* Opera 11.10+ */
+    background-image: linear-gradient(top, #555658, #3e3f41);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#555658', EndColorStr = '#3E3F41');
+    /* IE6鈥揑E9 */
+    -moz-box-shadow: 0px 1px 1px #222;
+    /* FF3.5 - 3.6 */
+    -webkit-box-shadow: 0px 1px 1px #222;
+    /* Saf3.0+, Chrome */
+    box-shadow: 0px 1px 1px #222;
+    /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+    border-color: #0c0c0c;
+    color: #fff;
+}
+
+.yui3-skin-night .yui3-button {
+    border: outset #666 1px;
+}
+
+.yui3-skin-night .yui3-button:active {
+    border: inset #666 1px;
+}
+
+.yui3-skin-night .yui3-button-selected,
+.yui3-skin-night .yui3-button-selected:hover {
+    background-color: #242526;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#2c2d2f), to(#242526));
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #2c2d2f, #242526);
+    /* Chrome 10+, Saf5.1+ */
+    background-image: -moz-linear-gradient(top, #2c2d2f, #242526);
+    /* FF3.6 */
+    background-image: -ms-linear-gradient(top, #2c2d2f, #242526);
+    /* IE10 */
+    background-image: -o-linear-gradient(top, #2c2d2f, #242526);
+    /* Opera 11.10+ */
+    background-image: linear-gradient(top, #2c2d2f, #242526);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#2C2D2F', EndColorStr = '#242526');
+    /* IE6鈥揑E9 */
+}
+
+.yui3-skin-night .yui3-button-back:before {
+    /*TODO: Check the rotation on this */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#2c2d2f), to(#3e3f41));
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(45deg, #2c2d2f, #3e3f41);
+    /* Chrome 10+, Saf5.1+ */
+    background-image: -moz-linear-gradient(45deg, #2c2d2f, #3e3f41);
+    /* FF3.6 */
+    background-image: -ms-linear-gradient(45deg, #2c2d2f, #3e3f41);
+    /* IE10 */
+    background-image: -o-linear-gradient(45deg, #2c2d2f, #3e3f41);
+    /* Opera 11.10+ */
+    background-image: linear-gradient(45deg, #2c2d2f, #3e3f41);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#2C2D2F', EndColorStr = '#3E3F41');
+    /* IE6鈥揑E9 */
+    border-color: #0c0c0c;
+}
+
+.yui3-skin-night .yui3-button-back:hover:before {
+    /*TODO: Check the rotation on this */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#2e2e30), to(#3d3e3f));
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(45deg, #2e2e30, #3d3e3f);
+    /* Chrome 10+, Saf5.1+ */
+    background-image: -moz-linear-gradient(45deg, #2e2e30, #3d3e3f);
+    /* FF3.6 */
+    background-image: -ms-linear-gradient(45deg, #2e2e30, #3d3e3f);
+    /* IE10 */
+    background-image: -o-linear-gradient(45deg, #2e2e30, #3d3e3f);
+    /* Opera 11.10+ */
+    background-image: linear-gradient(45deg, #2e2e30, #3d3e3f);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#2e2e30', EndColorStr = '#3d3e3f');
+    /* IE6鈥揑E9 */
+}
+
+.yui3-skin-night .yui3-button-selected.yui3-button-back:before {
+    background-color: #2B2D2D;
+    /*TODO: Check the rotation on this */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#242526), to(#2c2d2f));
+    /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(45deg, #242526, #2c2d2f);
+    /* Chrome 10+, Saf5.1+ */
+    background-image: -moz-linear-gradient(45deg, #242526, #2c2d2f);
+    /* FF3.6 */
+    background-image: -ms-linear-gradient(45deg, #242526, #2c2d2f);
+    /* IE10 */
+    background-image: -o-linear-gradient(45deg, #242526, #2c2d2f);
+    /* Opera 11.10+ */
+    background-image: linear-gradient(45deg, #242526, #2c2d2f);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#242526', EndColorStr = '#2C2D2F');
+    /* IE6鈥揑E9 */
+}
+
+.yui3-skin-night .yui3-button-disabled,
+.yui3-skin-night .yui3-button-disabled:hover {
+    color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -22,9 +22,15 @@ input[type="text"], input[type="password"] {
 
 .head {
     height: 50px;
-    padding-top: 10px;
+    padding-top: 15px;
 }
 
 .error_area {
     color: red;
+}
+
+.head_style {
+    text-decoration: none;
+    color: #356DE4;
+    font-size: 120%;
 }
