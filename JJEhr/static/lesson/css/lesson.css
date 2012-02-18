@@ -137,6 +137,7 @@ ul {
     border-bottom: solid 1px #ccc6b5;
 }
 
+
 .post header {
     margin-bottom: 15px;
 }
@@ -255,15 +256,11 @@ p.siteinfo {
 
 #commentlist .entry {margin:10px;}
 .commentreply {font-size:1.1em; height:18px; line-height:18px; text-align:right;}
-*/
+
 #commentform {
     padding: 10px;
     background: #f4f4f4;
     border: solid 1px #ddd;
-}
-
-.form {
-    padding: 10px;
 }
 
 #commentform p, .form p {
@@ -271,11 +268,13 @@ p.siteinfo {
     margin-bottom: 10px !important;
     font-size: 1.2em;
 }
-
+*/
+.textfield {
+    font-size: 12px;
+}
 .textfield input {
-    display: block;
     width: 200px;
-    height: 25px;
+    height: 24px;
     line-height: 24px;
     border: solid 1px #ccc;
 }
