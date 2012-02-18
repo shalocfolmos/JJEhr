@@ -4,55 +4,97 @@
 <head>
     <title>修改课程</title>
 
-    <script src="{{STATIC_URL}}yui/yui-min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.4.1/build/cssbase/cssbase-min.css">
-    <link rel="stylesheet" href="{{STATIC_URL}}/css/base.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssfonts/cssfonts-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
+    <link rel="stylesheet" href="{{STATIC_URL}}/yui/cssbutton.css" type="text/css"/>
+    <script src="{{STATIC_URL}}/yui/yui-min.js"></script>
     <style type="text/css">
-
-        body {
-            margin: auto;
-            width: 960px;
+        .yui3-skin-sam .yui3-button-color-blue {
+            color: #fff;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#599bdc), to(#3476b7));
+            background-image: -webkit-linear-gradient(top, #599bdc, #3476b7);
+            background-image: -moz-linear-gradient(top, #599bdc, #3476b7);
+            background-image: -ms-linear-gradient(top, #599bdc, #3476b7);
+            background-image: -o-linear-gradient(top, #599bdc, #3476b7);
+            background-image: linear-gradient(top, #599bdc, #3476b7);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#599bdc', EndColorStr = '#3476b7');
+            background-color: #3476b7;
         }
+
     </style>
 </head>
 <body>
-<div class="yui3-g" style="height:50px;">
-    <div>
-        <a href="/backoffice/logout">注销</a>
-        <a href="/backoffice/index.html">返回首页</a>
+<div class="yui3-g head">
+    <div class="yui3-u-4-5">
+    </div>
+    <div class="yui3-u-1-5">
+        <a href="/backoffice/logout" class="head_style">注销</a>
+        <a href="/backoffice/index.html" class="head_style">返回首页</a>
     </div>
 </div>
-<div class="yui3-g">
+<div class="yui3-g yui3-skin-sam">
     <form action="/backoffice/course/{{course.id}}" method="post" id="editForm" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
-        {{field.errors}}
-        <br/>
-        {{field.label_tag}}: {{field}}
-        <br/>
+        <div class="yui3-g" style="padding-top: 15px;">
+            <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
+            <div class="yui3-u-4-5" style="float:left">
+                <div class="yui3-g">
+                    <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
+                        {{field}}
+                    </div>
+                    <div class="yui3-u-2-5 error_area">
+                        {%for error in field.errors%}
+                        {{error}}
+                        {%endfor%}
+
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+
+
         {%endfor%}
 
         <br/>
-        候补学员：
-        <select name="waitingList" id="waitingList" multiple style="width: 200px;height:200px;">
-            {% for enroll in waitingList%}
-            <option value="{{enroll.id}}">{{enroll.email}}</option>
-            {% endfor %}
-        </select>
-        <button class="cancelEnrollButton"><<<</button>
-        <button class="selectEnrollButton">>>></button>
-        听课学员：
-        <select id="notWaitingList" multiple style="width: 200px;height:200px;">
-            {% for enroll in notWaitingList%}
-            <option value="{{enroll.id}}">{{enroll.email}}</option>
-            {% endfor %}
-        </select>
+
+        <div class="yui3-g">
+            <div class="yui3-u-1-2">
+                候补学员：
+                <select name="waitingList" id="waitingList" multiple style="width: 250px;height:200px;">
+                    {% for enroll in waitingList%}
+                    <option value="{{enroll.id}}">{{enroll.email}}</option>
+                    {% endfor %}
+                </select>
+                <button class="cancelEnrollButton"><<<</button>
+            </div>
+            <div class="yui3-u-1-2">
+
+                <button class="selectEnrollButton">>>></button>
+
+                <select id="notWaitingList" multiple style="width: 250px;height:200px;">
+                    {% for enroll in notWaitingList%}
+                    <option value="{{enroll.id}}">{{enroll.email}}</option>
+                    {% endfor %}
+                </select>
+                听课学员：
+            </div>
+        </div>
         <hr/>
         <input type="hidden" name="waitingList" id="waitingListHidden"/>
         <input type="hidden" name="notWaitingList" id="notWaitingListHidden"/>
         <input type="hidden" id="maxTrainee" value="{{course.maxTraineeAmount}}"/>
-        <button id="submitButton">修改</button>
+
+        <div id="submit_button" class="yui3-button medium"
+             style="color: black;width:45px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">修改
+        </div>
     </form>
+    <div id="startDate"></div>
+    <div id="endDate"></div>
 </div>
 <script src="{{STATIC_URL}}yui-base/yui-base-min.js"></script>
 <script>
@@ -117,13 +159,70 @@
     }
 
 
-    YUI().use('event', function (Y) {
+    YUI().use('calendar', 'datatype-date', 'node', 'event', function (Y) {
                 var selectEnrollButton = Y.one(".selectEnrollButton"),
                         cancelEnrollButton = Y.one(".cancelEnrollButton"),
-                        submitButton = Y.one("#submitButton");
+                        submitButton = Y.one("#submit_button");
                 selectEnrollButton.on('click', selectEnrollUser);
                 cancelEnrollButton.on('click', cancelEnrollUser);
+
+
                 submitButton.on('click', submitForm);
+
+
+                var start_time_input = Y.one("#id_enrollStartTime"),
+                        end_time_input = Y.one("#id_enrollEndTime");
+                Y.one("#startDate").setXY(start_time_input.getXY())
+                Y.one("#endDate").setXY(end_time_input.getXY())
+                var dtdate = Y.DataType.Date,
+                        startCalendar = new Y.Calendar({
+                            contentBox:"#startDate",
+                            width:'340px',
+                            showPrevMonth:true,
+                            showNextMonth:true,
+                            date:new Date(),
+                            startDate:new Date()}).render(),
+                        endCalendar = new Y.Calendar({
+                            contentBox:"#endDate",
+                            width:'340px',
+                            showPrevMonth:false,
+                            showNextMonth:false,
+                            date:new Date(),
+                            startDate:new Date()}).render();
+
+                startCalendar.hide();
+                endCalendar.hide();
+
+                Y.one("#submit_button").on('click', function () {
+                    Y.one("form").submit()
+                })
+
+
+                startCalendar.on("selectionChange", function (ev) {
+                    var newDate = ev.newSelection[0];
+                    start_time_input.set('value', dtdate.format(newDate));
+                    startCalendar.hide()
+                });
+
+
+                endCalendar.on("selectionChange", function (ev) {
+                    var newDate = ev.newSelection[0];
+                    end_time_input.set('value', dtdate.format(newDate));
+                    endCalendar.hide()
+                });
+
+                start_time_input.setAttribute('readonly', 'readonly');
+                end_time_input.setAttribute("readonly", "readonly");
+
+                start_time_input.on('click', function (e) {
+                            startCalendar.show();
+                        }
+                );
+
+                end_time_input.on('click', function (e) {
+                            endCalendar.show();
+                        }
+                );
             }
     )
 </script>
