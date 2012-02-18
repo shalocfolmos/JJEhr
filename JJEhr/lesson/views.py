@@ -12,9 +12,8 @@ from django.http import HttpResponse
 from django.template.context import RequestContext
 
 def index(httpRequest):
-    course_list = Course.search_objects.search( **httpRequest.GET)
+    course_set = Course.search_objects.search( **httpRequest.GET)
     allow_course_id=[]
-    course_set = course_list["course_set"]
     for course in course_set.object_list:
         if course.enrollStartTime < datetime.datetime.now() and course.enrollEndTime > datetime.datetime.now() :
             allow_course_id.append(course.id)
@@ -22,7 +21,6 @@ def index(httpRequest):
 #    for course in allow_enroll_course_list:
 #        allow_course_id.append(course.id)
     _context = {
-        'pageInfo' :course_list['pageInfo'],
         'course_list' :course_set,
         'allow_course_id_list':allow_course_id,
     }

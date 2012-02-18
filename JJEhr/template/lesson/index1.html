@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Silver Blog | Free WordPress Theme</title>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/lesson.css"/>
-    <script src="{{STATIC_URL}}/yui/yui-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lesson.css"/>
+    <script src="{{STATIC_URL}}yui/yui-min.js"></script>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!--[if IE 6]>
-    <script src="{{ STATIC_URL }}/js/belatedPNG.js"></script>
+    <script src="{{ STATIC_URL }}js/belatedPNG.js"></script>
     <script>
         DD_belatedPNG.fix('*');
     </script>
@@ -57,9 +57,22 @@
                     </article>
                     {% endfor %}
                     <div class="wp-pagenavi">
-                        {% autoescape off %}
-                            {{pageInfo}} 共 {{ course_list.paginator.num_pages }}页
-                        {% endautoescape %}
+                     {% if course_list.home_page%}
+                        <a href="?page=1" title="首页">首页</a>
+                     {% endif %}
+                     {% for index in course_list.page_range %}
+
+                         {% if index == course_list.number %}
+                                 <span class="current">{{index}}</span>
+                         {% else %}
+                               <a href="?page={{index}}" title="第{{index}}页">{{index}}</a>
+                         {%endif%}
+
+                    {% endfor %}
+                        {% if course_list.end_page%}
+                        <a href="?page={{course_list.pageCount}}" title="尾页">尾页</a>
+                        {% endif %}
+                        共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录
                     </div>
                     <div class="clear"></div>
                 </section>

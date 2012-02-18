@@ -1,13 +1,15 @@
 #coding=utf-8
 import types
-from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.core.paginator import Paginator, EmptyPage, InvalidPage, Page
 from django.db import models
 class CourseManager(models.Manager):
     # default show 10 courses per page
-    __default_page_size = 10
+    __default_page_size = 1
     # Make sure page request is an int. If not, deliver first page.
     __default_current_no = 1
-    __default_per_page_count = 9
+
+    __default_page_range = 3
+
     def search(self, **kwargs):
         tempDict ={}
         for key in kwargs :
@@ -41,41 +43,65 @@ class CourseManager(models.Manager):
                     course_set = course_set.order_by('%s' % (tempDict.get('o')))
             else:
                 course_set =  course_set.order_by('-createDate')
-            #course_set = course_set[(pageNo-1) * pageSize:pageSize]
-            paginator = Paginator(course_set, pageSize)
-            #paginator._count = result_count
-            course_set = paginator.page(pageNo)
-         ############################################################
-            pageInfo =''
-            pageCount = course_set.paginator.num_pages
-            if(pageCount >1 and pageNo !=1):
-                pageInfo +='<a href="?page=1">首页</a>'
-            if pageCount < self.__default_per_page_count:
-                startPageIndex = 1
-                endPageIndex = pageCount
-            elif pageNo <= (self.__default_per_page_count/2)+1:
-                 startPageIndex = 1
-                 endPageIndex = self.__default_per_page_count
-            else:
-                startPageIndex = pageNo - (self.__default_per_page_count/2)
-                endPageIndex = pageNo + ((self.__default_per_page_count/2))
-            if endPageIndex > pageCount:
-                endPageIndex = pageCount
-                startPageIndex = pageCount- self.__default_per_page_count +1
-
-            for index in range(startPageIndex, endPageIndex+1):
-                if index == pageNo:
-                    pageInfo += '<span class="current">{pageNo}</span>'.format(pageNo=pageNo)
-                else:
-                    pageInfo += '<a href="?page={index}">{index}</a>'.format(index=index)
-            if pageCount > 1 and pageNo < pageCount-1:
-                pageInfo +='<a href="?page={endPageNo}">尾页</a>'.format(endPageNo=pageCount)
-         ## ###########################################################
+            paginatorEx = PaginatorEx(course_set, pageSize)
+            course_set = paginatorEx.page(pageNo,self.__default_page_range)
         except (EmptyPage, InvalidPage):
             # If page request (9999) is out of range, deliver last page of results.
-            course_set = paginator.page(paginator.num_pages)
+            course_set = paginatorEx.page(paginatorEx.num_pages,self.__default_page_range)
         except (KeyError):
-            return result
-        result.setdefault("pageInfo",pageInfo)
-        result.setdefault("course_set",course_set)
-        return result
+            return course_set
+
+        return course_set
+
+
+class PaginatorEx(Paginator):
+
+    def page(self, number,page_range):
+        "Returns a Page object for the given 1-based page number."
+        number = self.validate_number(number)
+        bottom = (number - 1) * self.per_page
+        top = bottom + self.per_page
+        if top + self.orphans >= self.count:
+            top = self.count
+        return PageEx(self.object_list[bottom:top], number, self, page_range)
+
+class PageEx(Page):
+
+    def __init__(self, object_list, number, paginator, page_range_size):
+        super(PageEx, self).__init__(object_list, number, paginator)
+        self.pageCount = paginator.num_pages
+        self.page_range_size = page_range_size
+
+
+    def _get_page_range(self):
+        """
+        Returns a 1-based range of pages for iterating through within
+        a template for loop.
+        """
+        if self.pageCount < self.page_range_size:
+            startPageIndex = 1
+            endPageIndex = self.pageCount
+        elif self.number <= (self.page_range_size/2)+1:
+            startPageIndex = 1
+            endPageIndex = self.page_range_size
+        else:
+            startPageIndex = self.number - (self.page_range_size/2)
+            endPageIndex = self.number + (self.page_range_size/2)
+        if endPageIndex >= self.pageCount:
+            endPageIndex = self.pageCount
+            startPageIndex = self.pageCount- self.page_range_size +1
+
+        return range(startPageIndex, endPageIndex + 1)
+    page_range = property(_get_page_range)
+
+    def home_page(self):
+        if self.pageCount > 1 and self.number != 1:
+            return True
+        return False
+
+    def end_page(self):
+        if self.pageCount > 1 and self.number < self.pageCount-1:
+            return True
+        return False
+
+
