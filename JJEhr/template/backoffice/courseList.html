@@ -2,37 +2,38 @@
 {% get_static_prefix as STATIC_URL %}
 <html>
 <head>
-    <title></title>
+    <title>所有课程</title>
+    <link rel="stylesheet" href="{{STATIC_URL}}/css/base.css" type="text/css"/>
     <style type="text/css">
         body {
-            margin:auto;
+            margin: auto;
             width: 960px;
         }
     </style>
 </head>
 <body>
-    <div>
-        <div class="yui3-g" style="height:50px;">
-           <div>
-                <a href="/backoffice/logout">注销</a>
-                <a href="/backoffice/course/add">添加课程</a>
-           </div>
-        </div>
-        <div class="yui3-g">
-            {% for course in courseList %}
-                <div>
-                    <a href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
-                    听课名额：{{course.maxTraineeAmount}} 报名人数： {{ course.enroll_set.all|length }}
-                    <br/>
-                    {{course.courseDescription|truncatewords_html:5}}
-                    <br/>
-                    <a href="/backoffice/course/{{course.id}}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                </div>
-                <hr/>
-                <br/>
-            {% endfor  %}
+<div>
+    <div class="yui3-g" style="height:50px;">
+        <div>
+            <a href="/backoffice/logout">注销</a>
+            <a href="/backoffice/course/add">添加课程</a>
         </div>
     </div>
+    <div class="yui3-g">
+        {% for course in courseList %}
+        <div>
+            <a href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
+            听课名额：{{course.maxTraineeAmount}} 报名人数： {{ course.enroll_set.all|length }}
+            <br/>
+            {{course.courseDescription|truncatewords_html:5}}
+            <br/>
+            <a href="/backoffice/course/{{course.id}}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        </div>
+        <hr/>
+        <br/>
+        {% endfor %}
+    </div>
+</div>
 </body>
 </html>

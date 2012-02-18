@@ -2,11 +2,15 @@
 {% get_static_prefix as STATIC_URL %}
 <html>
 <head>
+    <title>修改课程</title>
+
     <script src="{{STATIC_URL}}yui/yui-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.4.1/build/cssbase/cssbase-min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}/css/base.css" type="text/css"/>
     <style type="text/css">
 
         body {
-            margin:auto;
+            margin: auto;
             width: 960px;
         }
     </style>
@@ -19,109 +23,108 @@
     </div>
 </div>
 <div class="yui3-g">
-<form action="/backoffice/course/{{course.id}}" method="post" id="editForm" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for field in form %}
-    {{field.errors}}
-    <br/>
-    {{field.label_tag}}: {{field}}
-    <br/>
-    {%endfor%}
+    <form action="/backoffice/course/{{course.id}}" method="post" id="editForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        {{field.errors}}
+        <br/>
+        {{field.label_tag}}: {{field}}
+        <br/>
+        {%endfor%}
 
-    <br/>
-    候补学员：
-    <select name="waitingList" id="waitingList" multiple  style="width: 200px;height:200px;">
-        {% for enroll in waitingList%}
-        <option value="{{enroll.id}}">{{enroll.email}}</option>
-        {% endfor %}
-    </select>
-    <button class="cancelEnrollButton"><<<</button>
-    <button class="selectEnrollButton">>>></button>
-    听课学员：
-    <select id="notWaitingList" multiple  style="width: 200px;height:200px;">
-        {% for enroll in notWaitingList%}
-        <option value="{{enroll.id}}">{{enroll.email}}</option>
-        {% endfor %}
-    </select>
-    <hr/>
-    <input type="hidden" name="waitingList" id="waitingListHidden"/>
-    <input type="hidden" name="notWaitingList" id="notWaitingListHidden"/>
-    <input type="hidden" id="maxTrainee" value="{{course.maxTraineeAmount}}"/>
-    <button id="submitButton">修改</button>
-</form>
+        <br/>
+        候补学员：
+        <select name="waitingList" id="waitingList" multiple style="width: 200px;height:200px;">
+            {% for enroll in waitingList%}
+            <option value="{{enroll.id}}">{{enroll.email}}</option>
+            {% endfor %}
+        </select>
+        <button class="cancelEnrollButton"><<<</button>
+        <button class="selectEnrollButton">>>></button>
+        听课学员：
+        <select id="notWaitingList" multiple style="width: 200px;height:200px;">
+            {% for enroll in notWaitingList%}
+            <option value="{{enroll.id}}">{{enroll.email}}</option>
+            {% endfor %}
+        </select>
+        <hr/>
+        <input type="hidden" name="waitingList" id="waitingListHidden"/>
+        <input type="hidden" name="notWaitingList" id="notWaitingListHidden"/>
+        <input type="hidden" id="maxTrainee" value="{{course.maxTraineeAmount}}"/>
+        <button id="submitButton">修改</button>
+    </form>
 </div>
 <script src="{{STATIC_URL}}yui-base/yui-base-min.js"></script>
 <script>
 
-    function changeElementComboList(from,to){
-        YUI().use('node',function(Y){
-                var fromComboList = Y.one("#" + from),
-                traineeAmount = Y.one("#maxTrainee").get("value"),
-                toComboList = Y.one("#" + to);
-                fromComboList.get("options").each(
-                    function(){
+    function changeElementComboList(from, to) {
+        YUI().use('node', function (Y) {
+                    var fromComboList = Y.one("#" + from),
+                            traineeAmount = Y.one("#maxTrainee").get("value"),
+                            toComboList = Y.one("#" + to);
+                    fromComboList.get("options").each(
+                            function () {
 
-                        if(this.get("selected")==true) {
-                            if(from=='waitingList' && toComboList.get("options").size()>=traineeAmount){
-                                return;
+                                if (this.get("selected") == true) {
+                                    if (from == 'waitingList' && toComboList.get("options").size() >= traineeAmount) {
+                                        return;
+                                    }
+                                    toComboList.append(this)
+                                }
                             }
-                            toComboList.append(this)
-                        }
-                    }
-                )
-            }
+                    )
+                }
         )
     }
 
-    function selectEnrollUser(e){
-        changeElementComboList('waitingList','notWaitingList');
+    function selectEnrollUser(e) {
+        changeElementComboList('waitingList', 'notWaitingList');
         e.preventDefault();
     }
 
-    function cancelEnrollUser(e)
-    {
-        changeElementComboList('notWaitingList','waitingList');
+    function cancelEnrollUser(e) {
+        changeElementComboList('notWaitingList', 'waitingList');
         e.preventDefault();
 
     }
 
-    function submitForm(e){
+    function submitForm(e) {
         e.preventDefault();
-        YUI().use('node',function(Y){
+        YUI().use('node', function (Y) {
                     var waitingListHidden = Y.one("#waitingListHidden"),
-                    notWaitingListHidden = Y.one("#notWaitingListHidden"),
-                    waitingList = Y.one("#waitingList"),
-                    notWaitingList = Y.one("#notWaitingList"),
-                    notWaitingListValue = '',
-                    waitngListValue = '';
+                            notWaitingListHidden = Y.one("#notWaitingListHidden"),
+                            waitingList = Y.one("#waitingList"),
+                            notWaitingList = Y.one("#notWaitingList"),
+                            notWaitingListValue = '',
+                            waitngListValue = '';
                     waitingList.get("options").each(
-                        function (){
-                            waitngListValue += this.get('value')+'|';
-                        }
+                            function () {
+                                waitngListValue += this.get('value') + '|';
+                            }
                     )
-                    waitngListValue=waitngListValue.substr(0,waitngListValue.length-1);
+                    waitngListValue = waitngListValue.substr(0, waitngListValue.length - 1);
                     notWaitingList.get("options").each(
-                        function (){
-                            notWaitingListValue += this.get('value')+'|';
-                        }
+                            function () {
+                                notWaitingListValue += this.get('value') + '|';
+                            }
                     )
-                    notWaitingListValue=notWaitingListValue.substr(0,notWaitingListValue.length-1);
-                    Y.one("#waitingListHidden").set('value',waitngListValue);
-                    Y.one("#notWaitingListHidden").set('value',notWaitingListValue);
+                    notWaitingListValue = notWaitingListValue.substr(0, notWaitingListValue.length - 1);
+                    Y.one("#waitingListHidden").set('value', waitngListValue);
+                    Y.one("#notWaitingListHidden").set('value', notWaitingListValue);
                     Y.one("#editForm").submit()
                 }
         )
     }
 
 
-    YUI().use('event',function(Y){
-            var selectEnrollButton= Y.one(".selectEnrollButton"),
-            cancelEnrollButton = Y.one(".cancelEnrollButton"),
-            submitButton = Y.one("#submitButton");
-            selectEnrollButton.on('click',selectEnrollUser);
-            cancelEnrollButton.on('click', cancelEnrollUser);
-            submitButton.on('click',submitForm);
-        }
+    YUI().use('event', function (Y) {
+                var selectEnrollButton = Y.one(".selectEnrollButton"),
+                        cancelEnrollButton = Y.one(".cancelEnrollButton"),
+                        submitButton = Y.one("#submitButton");
+                selectEnrollButton.on('click', selectEnrollUser);
+                cancelEnrollButton.on('click', cancelEnrollUser);
+                submitButton.on('click', submitForm);
+            }
     )
 </script>
 </body>
