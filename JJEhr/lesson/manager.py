@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage, Page
 from django.db import models
 class CourseManager(models.Manager):
     # default show 10 courses per page
-    __default_page_size = 1
+    __default_page_size = 2
     # Make sure page request is an int. If not, deliver first page.
     __default_current_no = 1
 
@@ -87,9 +87,11 @@ class PageEx(Page):
         else:
             startPageIndex = self.number - (self.page_range_size/2)
             endPageIndex = self.number + (self.page_range_size/2)
-        if endPageIndex >= self.pageCount:
+        if endPageIndex > self.pageCount:
             endPageIndex = self.pageCount
             startPageIndex = self.pageCount- self.page_range_size +1
+        if startPageIndex <=0:
+             startPageIndex = 1
 
         return range(startPageIndex, endPageIndex + 1)
     page_range = property(_get_page_range)
