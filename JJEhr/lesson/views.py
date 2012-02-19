@@ -4,26 +4,34 @@ import datetime
 import os
 from django.core.servers.basehttp import FileWrapper
 from django.shortcuts import render_to_response,get_object_or_404
+from lesson.manager import tempMapping
 import settings
 from JJEhr.lesson.models import Course, Enroll, EnrollForm
-from django.http import Http404
-from django.http import HttpResponseRedirect
+
 from django.http import HttpResponse
 from django.template.context import RequestContext
 
 def index(httpRequest):
-    course_set = Course.search_objects.search( **httpRequest.GET)
+    kwargs = httpRequest.GET
+    isSearch = False
+    if kwargs.has_key('searchType') and kwargs.has_key('searchContent') :
+        current_search_type = tempMapping().getSearchType(kwargs.get('searchType'))
+        searchContent = kwargs.get('searchContent')
+        isSearch = True
+    course_set = Course.search_objects.search(** kwargs)
     allow_course_id=[]
     for course in course_set.object_list:
         if course.enrollStartTime < datetime.datetime.now() and course.enrollEndTime > datetime.datetime.now() :
             allow_course_id.append(course.id)
-#    allow_enroll_course_list = Course.objects.filter(enrollStartTime__lte=datetime.datetime.now()).filter(enrollEndTime__gt=datetime.datetime.now())
-#    for course in allow_enroll_course_list:
-#        allow_course_id.append(course.id)
     _context = {
         'course_list' :course_set,
         'allow_course_id_list':allow_course_id,
+        'search_type':tempMapping().getAllSearchType(),
+        'isSearch' : isSearch,
     }
+    if isSearch:
+        _context['current_search_type'] = current_search_type
+        _context['searchContent'] = searchContent
     return render_to_response('lesson/index1.html', _context ,context_instance=RequestContext(httpRequest))
 
 #def detail(request, id):
@@ -56,7 +64,6 @@ def book_course(request):
                 return HttpResponse(409)
             else:
                 enroll = Enroll(email=_email, course=_course)
-
                 successEnrollMemberCount = Enroll.objects.filter(isWaitingList=False).count()
                 if successEnrollMemberCount>=_course.maxTraineeAmount:
                     enroll.isWaitingList=True
@@ -66,10 +73,6 @@ def book_course(request):
             return HttpResponse(400)
     else:
         return HttpResponse(403)
-
-#def search(request):
-#    course_list = Course.search_objects.search( **request.GET )
-#    return render_to_response('lesson/index.html', {'course_list': course_list})
 
 def download(request):
     filename = request.GET['file']

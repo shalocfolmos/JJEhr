@@ -24,8 +24,29 @@
             <section id="contents">
                 <header id="mainheader">
                     <h1>Life<span>Book</span></h1>
+                     <span class="searchArea">
+                        <form action="/" method="get">
+                            <p class="search_textfield">
+                                 <select name="searchType">
+                                     {%for key,value in search_type.items %}
+                                           {% if value == current_search_type%}
+                                                <option value="{{key}}" selected >{{value}}</option>
+                                            {% else %}
+                                                <option value="{{key}}">{{value}}</option>
+                                           {% endif %}
+                                     {%endfor%}
+                                 </select>
+                                <input name="searchContent" class="search_content" value="{{searchContent}}">
+                                <input type="submit" value=" 搜 索 " class="btn2">
+                            </p>
+                        </form>
+                     </span>
                 </header>
                 <section id="main">
+                    {% if isSearch %}
+                     <div class="search_result">搜索 “<small>{{current_search_type}} </small>” 为 <small> ”{{searchContent}}“</small> 结果共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录 </div>
+
+                    {% endif%}
                     {% for course in course_list.object_list %}
                     <article class="post">
                         <header>
@@ -57,22 +78,26 @@
                     </article>
                     {% endfor %}
                     <div class="wp-pagenavi">
-                     {% if course_list.home_page%}
-                        <a href="?page=1" title="首页">首页</a>
-                     {% endif %}
-                     {% for index in course_list.page_range %}
+                     {% if course_list.paginator.count == 0 %}
+                          抱歉，目前暂无记录
+                     {% else %}
+                         {% if course_list.home_page%}
+                            <a href="?page=1{{course_list.queryStr}}" title="首页">首页</a>
+                         {% endif %}
+                         {% for index in course_list.page_range %}
 
-                         {% if index == course_list.number %}
-                                 <span class="current">{{index}}</span>
-                         {% else %}
-                               <a href="?page={{index}}" title="第{{index}}页">{{index}}</a>
-                         {%endif%}
+                             {% if index == course_list.number %}
+                                     <span class="current">{{index}}</span>
+                             {% else %}
+                                   <a href="?page={{index}}{{course_list.queryStr}}" title="第{{index}}页">{{index}}</a>
+                             {%endif%}
 
-                    {% endfor %}
-                        {% if course_list.end_page%}
-                        <a href="?page={{course_list.pageCount}}" title="尾页">尾页</a>
-                        {% endif %}
-                        共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录
+                        {% endfor %}
+                            {% if course_list.end_page%}
+                            <a href="?page={{course_list.pageCount}}{{course_list.queryStr}}" title="尾页">尾页</a>
+                            {% endif %}
+                            共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录
+                     {%endif%}
                     </div>
                     <div class="clear"></div>
                 </section>
@@ -92,7 +117,7 @@
         </div>
     </section>
 </section>
-     <span id='bookArea' style="display: none" class='dd'>
+     <span id='bookArea' style="display: none">
             <form action="/book/" method="post" id="book">
                 {% csrf_token %}
                 <input type="hidden" value='' name="course_id" id="course_id"/>
@@ -129,8 +154,13 @@
             bookForm.one("#course_id").set("value", course_id);
             bookForm.appendTo(e.currentTarget.get('parentNode').get('parentNode')).show()
         });
-
-        Y.all('.btn2').on('click', function (e) {
+        Y.one(".searchArea .search_content").on('keydown',function(e){
+            if(e.keyCode == 13){
+                e.preventDefault();
+                Y.one(".searchArea form").submit();
+            }
+        });
+        Y.all('#bookArea .btn2').on('click', function (e) {
             e.preventDefault();
             var bookForm = Y.one("#bookArea");
             bookForm.one("small").setContent("");
@@ -184,7 +214,7 @@
                         showMsg("该课程无法报名，课程报名日期不合法");
                         break;
                     default :
-                        showMsg(code);
+                        showMsg("系统操作返回code= " + code + "，未知操作");
                         break;
                 }
                 setTimeout(function() {bookForm.hide()}, 3000);
