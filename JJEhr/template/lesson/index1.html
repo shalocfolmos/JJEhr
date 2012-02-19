@@ -23,7 +23,7 @@
             <section id="sidebar"></section>
             <section id="contents">
                 <header id="mainheader">
-                    <h1>Life<span>Book</span></h1>
+                    <h1>Stmart<span>Book</span></h1>
                      <span class="searchArea">
                         <form action="/" method="get">
                             <p class="search_textfield">
@@ -37,7 +37,7 @@
                                      {%endfor%}
                                  </select>
                                 <input name="searchContent" class="search_content" value="{{searchContent}}">
-                                <input type="submit" value=" 搜 索 " class="btn2">
+                                <input type="button" value=" 搜 索 " class="btn2">
                             </p>
                         </form>
                      </span>
@@ -131,6 +131,16 @@
             </form>
     </span>
 <script type="text/javascript">
+    String.prototype.trim = function(){
+        return this.replace(/^\s+|\s+$/g, '');
+    }
+    String.prototype.isEmail = function(){
+        return(/^(?:\w+\.?)*\w+@(?:\w+\.?)*[a-zA-Z]{2,3}$/i).test(this.trim());
+    }
+    String.prototype.isEmpty = function (){
+       return this.trim().length == 0
+    }
+
     YUI().use('node', 'io-base', function (Y) {
         Y.all('.entry p a').on('click', function (e) {
             e.preventDefault();
@@ -153,41 +163,63 @@
             bookForm.one("#course_id").set("value", course_id);
             bookForm.appendTo(e.currentTarget.get('parentNode').get('parentNode')).show()
         });
+
+        function search(form){
+            if( form.one(".search_content").get("value").isEmpty()){
+                alert('搜索内容不能为空')
+                return false;
+            }
+            form.submit();
+        }
+
+        Y.one(".searchArea .btn2").on('click',function(e){
+            e.preventDefault();
+            var form = Y.one(".searchArea form");
+            return search(form);
+        });
+
         Y.one(".searchArea .search_content").on('keydown',function(e){
             if(e.keyCode == 13){
                 e.preventDefault();
-                Y.one(".searchArea form").submit();
+//                var form = Y.one(".searchArea form");
+//                search(form);
+                return false;
             }
         });
+
+        function serializeForm (formObject) {
+            var params = {};
+            var items = formObject.all("input");
+            items.each(function (input) {
+                if (input.get("type") != 'button') {
+                    params[input.get("name")] = input.get("value");
+                }
+            });
+            return params;
+        }
+
+        Y.one("#email").on('keydown',function(e){
+            if(e.keyCode == 13){
+                e.preventDefault();
+                return false;
+            }
+        })
+
         Y.all('#bookArea .btn2').on('click', function (e) {
             e.preventDefault();
             var bookForm = Y.one("#bookArea");
             bookForm.one("small").setContent("");
             var value = bookForm.one("#email").get("value");
-
-            var reg = (/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/);
-
-            if (!reg.test(value)) {
+            if (!value.isEmail()) {
                 bookForm.one("small").setContent("请填写正确的邮箱");
                 return;
             }
             //bookForm.hide();
             var formObject = bookForm.one("form");
 
-            function serializeForm () {
-                var params = {};
-                var items = formObject.all("input");
-                items.each(function (input) {
-                    if (input.get("type") != 'button') {
-                        params[input.get("name")] = input.get("value");
-                    }
-                });
-                return params;
-            }
-
             var cfg = {
                 method:'POST',
-                data:serializeForm()
+                data:serializeForm(formObject)
             };
 
             function showMsg(msg){
