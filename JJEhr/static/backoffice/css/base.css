@@ -34,3 +34,27 @@ input[type="text"], input[type="password"] {
     color: #356DE4;
     font-size: 120%;
 }
+
+div#login_header {
+    background: url("../img/login_bg.png") repeat-x scroll left bottom #FFFFFF;
+    border-bottom: 1px solid #C4C4C4;
+    height: 50px;
+    line-height: 50px;
+}
+
+div#login_content input {
+    width: 392px;
+    background: url("../img/input_bg.png") repeat-x scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px 2px 2px 2px;
+    margin-bottom: 20px;
+    padding: 7px;
+    height: 2.5em;
+}
+
+.right {
+    background: url("../img/green_sprite.png") repeat-x scroll 0 -93px transparent;
+    border: 1px solid #0A810D;
+    text-shadow: -1px -1px 1px #0A810D;
+    float: right;
+}

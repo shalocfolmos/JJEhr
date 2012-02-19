@@ -3,45 +3,134 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssfonts/cssfonts-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
+    <script src="{{STATIC_URL}}/yui/yui-min.js"></script>
     <style type="text/css">
+        div#login_container {
+            height: 450px;
+            left: 50%;
+            margin-left: -225px;
+            margin-top: -225px;
+            position: absolute;
+            top: 50%;
+            width: 450px;
+        }
 
-        body {
-            margin:auto;
-            width: 960px;
+        div#login {
+            border: 1px solid #C4C4C4;
+            border-radius: 2px 2px 2px 2px;
+            color: #444444;
+            margin-bottom: 10px;
+        }
+
+        div#login_content {
+            background: none repeat scroll 0 0 #FFFFFF;
+            padding: 20px;
+        }
+
+        div#login_header h2 {
+            margin: 0 20px;
+            font-size: 140%;
+            letter-spacing: 5px;
+        }
+
+        form ul {
+            list-style: none outside none;
+            margin: 0;
+            padding: 0;
+        }
+
+        form ul li {
+            list-style: none outside none;
+            margin: 0 0 5px;
+            padding: 0;
+        }
+
+        label {
+            clear: left;
+            display: block;
+            font-weight: bold;
+            margin: 0 0 5px;
+            padding: 0;
+        }
+
+        .clearfix:after {
+            clear: both;
+            content: " ";
+            display: block;
+            font-size: 0;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            width: 0;
+        }
+
+        div#login_content a.button {
+            margin: 0;
+        }
+
+        body.green a {
+            color: #0C870F;
+        }
+
+        .button {
+            border-radius: 3px 3px 3px 3px;
+            color: #FFFFFF !important;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: bold;
+            line-height: 20px;
+            margin: 0 0 20px;
+            padding: 3px 12px;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
 
+<div id="login_container">
+    <div id="login">
+        <div id="login_header">
+            <h2>登入</h2>
+        </div>
+        <div id="login_content">
+            <form method="post" action="{% url django.contrib.auth.views.login %}" id="login_form">
+                {% csrf_token %}
+                <ul>
+                    <li>
+                        <label>{{ form.username.label_tag }}</label>
+                        {{ form.username }}
+                    </li>
+                    <li>
+                        <label>{{ form.password.label_tag }}</label>
+                        {{ form.password }}
+                    </li>
+                    <li class="clearfix">
+                        <a class="button right" href="forms.html" id="submit_button">登入</a>
 
-<form method="post" action="{% url django.contrib.auth.views.login %}">
-    {% csrf_token %}
+                    </li>
+                </ul>
+                <input type="hidden" name="next" value="{{ next }}"/>
 
-    <table>
-        <tr>
-            <td>{{ form.username.label_tag }}</td>
-            <td>{{ form.username }}</td>
-            <br/>
-            {% if form.username.errors%}
-            {% for error in form.username.errors %}
-                <strong>{{ error|escape }}</strong>
-            {% endfor %}
-            {% endif %}
-        </tr>
-        <tr>
-            <td>{{ form.password.label_tag }}</td>
-            <td>{{ form.password }}</td>
-            {% if form.password.errors%}
-            {% for error in form.password.errors%}
-                <strong>{{ error|escape }}</strong>
-            {% endfor %}
-            {% endif %}
-        </tr>
-    </table>
+            </form>
+        </div>
+    </div>
 
-    <input type="submit" value="登入" />
-    <input type="hidden" name="next" value="{{ next }}" />
-</form>
 
+</div>
+<script type="text/javascript">
+    YUI().use('node', 'event', function (Y) {
+        Y.one("#submit_button").on("click", function (e) {
+            e.preventDefault();
+            Y.one("#login_form").submit();
+        })
+    });
+
+
+</script>
 </body>
 </html>
