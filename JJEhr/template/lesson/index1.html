@@ -44,8 +44,7 @@
                 </header>
                 <section id="main">
                     {% if isSearch %}
-                     <div class="search_result">搜索 “<small>{{current_search_type}} </small>” 为 <small> ”{{searchContent}}“</small> 结果共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录 </div>
-
+                    <div class="search_result">搜索 “ <small>{{current_search_type}}</small> ” 为 “ <small>{{searchContent}}</small> ” 结果共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录 </div>
                     {% endif%}
                     {% for course in course_list.object_list %}
                     <article class="post">
