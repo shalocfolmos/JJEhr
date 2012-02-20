@@ -97,7 +97,7 @@ h3 {
 
 #mainheader {
     background: url(../images/headerbg.png) repeat;
-    height: 205px;
+    height: 105px;
     border-top-left-radius: 20px;
     -moz-border-radius-topleft: 20px;
     -webkit-border-top-left-radius: 20px;
@@ -110,15 +110,14 @@ h3 {
 #sidebar {
     width: 160px;
     float: left;
-    padding: 165px 10px 10px 10px;
     text-align: right;
 }
 
 #mainheader h1 {
     display: block;
-    padding: 70px 70px 0 35px;
+    padding: 25px 70px 0 35px;
     color: #f4731d;
-    font-size: 5.2em !important;
+    font-size: 3.2em !important;
     text-shadow: #fff 1px 1px 1px;
 }
 
@@ -137,7 +136,6 @@ ul {
     border-bottom: solid 1px #ccc6b5;
 }
 
-
 .post header {
     margin-bottom: 15px;
 }
@@ -150,7 +148,7 @@ ul {
 
 .post header h2 {
     display: block;
-    font: italic normal 2.0em Georgia, "Times New Roman", Times, serif, sans-serif;
+    font: normal 2.0em Georgia, "Times New Roman", Times, serif, sans-serif;
     color: #262119;
 }
 
@@ -190,7 +188,7 @@ a img {
 /*#sidebar a:hover {color:#000;}*/
 #pagefooter {
     background: url(../images/footerbg.jpg) repeat;
-    height: 132px;
+    height: 42px;
 }
 
 .wp-pagenavi {
@@ -222,7 +220,7 @@ p.siteinfo {
 }
 
 .footerwrap {
-    height: 112px;
+    height: 7px;
     margin-bottom: 5px;
 }
 
@@ -273,32 +271,37 @@ p.siteinfo {
 .textfield, .search_textfield {
     font-size: 12px;
 }
+
 .textfield input {
     width: 200px;
     height: 24px;
     line-height: 24px;
     border: solid 1px #ccc;
 }
+
 .search_textfield .search_content {
     width: 200px;
     height: 24px;
     line-height: 24px;
     border: solid 1px #ccc;
 }
+
 .search_textfield select {
     width: 68px;
     height: 24px;
     line-height: 24px;
     border: solid 1px #ccc;
 }
+
 /*.text-area textarea {display:block; width:500px; height:250px; border:solid 1px #ccc;}*/
-.textfield input:hover,.search_textfield input:hover,.search_textfield select:hover{
+.textfield input:hover, .search_textfield input:hover, .search_textfield select:hover {
     border: solid 1px #444;
 }
 
-.textfield input:focus, .search_textfield input:hover,.search_textfield select:hover {
+.textfield input:focus, .search_textfield input:hover, .search_textfield select:hover {
     border: solid 1px #333;
 }
+
 {
 
 }
@@ -314,13 +317,14 @@ p.siteinfo {
 small {
     color: red;
 }
-.searchArea{
+
+.searchArea {
     float: right;
     padding-right: 20px;
-    padding-top: 20px;
+
 }
 
-.search_result{
+.search_result {
     border-bottom: solid 1px #ccc6b5;
     padding-bottom: 10px;
     font-size: 18px;

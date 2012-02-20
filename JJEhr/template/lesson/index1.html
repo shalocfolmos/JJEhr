@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title> 锦江电商 | 选课系统 </title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/lesson.css"/>
     <script src="{{STATIC_URL}}/yui/yui-min.js"></script>
     <!--[if IE]>
@@ -11,6 +12,7 @@
     <![endif]-->
     <!--[if IE 6]>
     <script src="{{ STATIC_URL }}/js/belatedPNG.js"></script>
+
     <script>
         DD_belatedPNG.fix('*');
     </script>
@@ -23,35 +25,40 @@
             <section id="sidebar"></section>
             <section id="contents">
                 <header id="mainheader">
-                    <h1>Life<span>Book</span></h1>
-                     <span class="searchArea">
-                        <form action="/" method="get">
-                            <p class="search_textfield">
-                                 <select name="searchType">
-                                     {%for key,value in search_type.items %}
-                                           {% if value == current_search_type%}
-                                                <option value="{{key}}" selected >{{value}}</option>
-                                            {% else %}
-                                                <option value="{{key}}">{{value}}</option>
-                                           {% endif %}
-                                     {%endfor%}
-                                 </select>
-                                <input name="searchContent" class="search_content" value="{{searchContent}}">
-                                <input type="button" value=" 搜 索 " class="btn2">
-                            </p>
-                        </form>
-                     </span>
+                    <h1>Smart-J 课堂</h1>
+                    <!--<span class="searchArea">
+                       <form action="/" method="get">
+                           <p class="search_textfield">
+                                <select name="searchType">
+                                    {%for key,value in search_type.items %}
+                                          {% if value == current_search_type%}
+                                               <option value="{{key}}" selected >{{value}}</option>
+                                           {% else %}
+                                               <option value="{{key}}">{{value}}</option>
+                                          {% endif %}
+                                    {%endfor%}
+                                </select>
+                               <input name="searchContent" class="search_content" value="{{searchContent}}">
+                               <input type="button" value=" 搜 索 " class="btn2">
+                           </p>
+                       </form>
+                    </span>-->
                 </header>
                 <section id="main">
                     {% if isSearch %}
-                    <div class="search_result">搜索 “ <small>{{current_search_type}}</small> ” 为 “ <small>{{searchContent}}</small> ” 结果共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录 </div>
+                    <div class="search_result">搜索 “
+                        <small>{{current_search_type}}</small>
+                        ” 为 “
+                        <small>{{searchContent}}</small>
+                        ” 结果共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录
+                    </div>
                     {% endif%}
                     {% for course in course_list.object_list %}
                     <article class="post">
                         <header>
-                            <h2><a href="#">{{ course.courseName|escape}}</a></h2>
+                            <h2>{{ course.courseName|escape}}</h2>
 
-                            <p class="postinfo"> 课时: {{course.courseTime}} &nbsp; |
+                            <p class="postinfo" style="padding-top: 5px;"> 课时: {{course.courseTime}} &nbsp; |
                                 主讲人: {{ course.courseSpeaker }}&nbsp; | 发布时间：
                                 <time>{{ course.createDate }}</time>
                                 &nbsp;| 听课名额： {{course.maxTraineeAmount}} .
@@ -77,38 +84,40 @@
                     </article>
                     {% endfor %}
                     <div class="wp-pagenavi">
-                     {% if course_list.paginator.count == 0 %}
-                          抱歉，目前暂无记录
-                     {% else %}
-                         {% if course_list.home_page%}
-                            <a href="?page=1{{course_list.queryStr}}" title="首页">首页</a>
-                         {% endif %}
-                         {% for index in course_list.page_range %}
+                        {% if course_list.paginator.count == 0 %}
+                        抱歉，目前暂无记录
+                        {% else %}
+                        {% if course_list.home_page%}
+                        <a href="?page=1{{course_list.queryStr}}" title="首页">首页</a>
+                        {% endif %}
+                        {% for index in course_list.page_range %}
 
-                             {% if index == course_list.number %}
-                                     <span class="current">{{index}}</span>
-                             {% else %}
-                                   <a href="?page={{index}}{{course_list.queryStr}}" title="第{{index}}页">{{index}}</a>
-                             {%endif%}
+                        {% if index == course_list.number %}
+                        <span class="current">{{index}}</span>
+                        {% else %}
+                        <a href="?page={{index}}{{course_list.queryStr}}" title="第{{index}}页">{{index}}</a>
+                        {%endif%}
 
                         {% endfor %}
-                            {% if course_list.end_page%}
-                            <a href="?page={{course_list.pageCount}}{{course_list.queryStr}}" title="尾页">尾页</a>
-                            {% endif %}
-                            共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录
-                     {%endif%}
+                        {% if course_list.end_page%}
+                        <a href="?page={{course_list.pageCount}}{{course_list.queryStr}}" title="尾页">尾页</a>
+                        {% endif %}
+                        共 {{course_list.pageCount}} 页 {{course_list.paginator.count}} 条记录
+                        {%endif%}
                     </div>
                     <div class="clear"></div>
                 </section>
                 <footer id="pagefooter">
                     <div class="footerwrap">
                         <p class="siteinfo">
-                           <!-- 2010 &copy; All Rights Reserved | Your Website Info and copyright information goes here.-->
+                            <!-- 2010 &copy; All Rights Reserved | Your Website Info and copyright information goes here.
+                            -->
                             www.jinjiang.com 锦江电商
                         </p>
                     </div>
                     <div id="credits">
-                        <a href="www.jinjiang.com" title="锦江电商"> 锦江电商 </a></div>
+                        <a href="www.jinjiang.com" title="锦江电商" style="color: #ffffaa;"> www.jinjiang.com
+                            锦江国际电子商务有限公司 </a></div>
                 </footer>
             </section>
 
@@ -116,29 +125,35 @@
         </div>
     </section>
 </section>
-     <span id='bookArea' style="display: none">
-            <form action="/book/" method="post" id="book">
-                {% csrf_token %}
-                <input type="hidden" value='' name="course_id" id="course_id"/>
+<div id='bookArea' style="display: none;padding-top: 5px;">
+    <form action="/book/" method="post" id="book">
+        <div class="yui3-g">
+            {% csrf_token %}
+            <input type="hidden" value='' name="course_id" id="course_id"/>
 
+            <div class="yui3-u-1-3">
                 <p class="textfield">
                     邮箱地址：<input name="email" id="email">
                     <label for="email">
                         <small></small>
                     </label>
                 </p>
+            </div>
+            <div class="yui3-u-2-3">
                 <input type="button" value="确认报名" class="btn2">
-            </form>
-    </span>
+            </div>
+        </div>
+    </form>
+</div>
 <script type="text/javascript">
-    String.prototype.trim = function(){
+    String.prototype.trim = function () {
         return this.replace(/^\s+|\s+$/g, '');
     }
-    String.prototype.isEmail = function(){
+    String.prototype.isEmail = function () {
         return(/^(?:\w+\.?)*\w+@(?:\w+\.?)*[a-zA-Z]{2,3}$/i).test(this.trim());
     }
-    String.prototype.isEmpty = function (){
-       return this.trim().length == 0
+    String.prototype.isEmpty = function () {
+        return this.trim().length == 0
     }
 
     YUI().use('node', 'io-base', function (Y) {
@@ -154,8 +169,8 @@
             var bookForm = Y.one("#bookArea");
             var course_id = e.currentTarget.get('id');
             bookForm.one("#email").set("value", "");
-            bookForm.one("small").setContent("");
-            var isSpan = e.currentTarget.get('parentNode').next('span');
+
+            var isSpan = e.currentTarget.get('parentNode').next('div');
             if (isSpan != null) {
                 isSpan.getStyle("display") == 'none' ? isSpan.show() : isSpan.hide();
                 return false;
@@ -164,30 +179,28 @@
             bookForm.appendTo(e.currentTarget.get('parentNode').get('parentNode')).show()
         });
 
-        function search(form){
-            if( form.one(".search_content").get("value").isEmpty()){
+        function search(form) {
+            if (form.one(".search_content").get("value").isEmpty()) {
                 alert('搜索内容不能为空')
                 return false;
             }
             form.submit();
         }
 
-        Y.one(".searchArea .btn2").on('click',function(e){
-            e.preventDefault();
-            var form = Y.one(".searchArea form");
-            return search(form);
-        });
+//        Y.one(".searchArea .btn2").on('click',function(e){
+//            e.preventDefault();
+//            var form = Y.one(".searchArea form");
+//            return search(form);
+//        });
 
-        Y.one(".searchArea .search_content").on('keydown',function(e){
-            if(e.keyCode == 13){
-                e.preventDefault();
-//                var form = Y.one(".searchArea form");
-//                search(form);
-                return false;
-            }
-        });
+//        Y.one(".searchArea .search_content").on('keydown',function(e){
+//            if(e.keyCode == 13){
+//                e.preventDefault();
+//                return false;
+//            }
+//        });
 
-        function serializeForm (formObject) {
+        function serializeForm(formObject) {
             var params = {};
             var items = formObject.all("input");
             items.each(function (input) {
@@ -198,8 +211,8 @@
             return params;
         }
 
-        Y.one("#email").on('keydown',function(e){
-            if(e.keyCode == 13){
+        Y.one("#email").on('keydown', function (e) {
+            if (e.keyCode == 13) {
                 e.preventDefault();
                 return false;
             }
@@ -222,13 +235,13 @@
                 data:serializeForm(formObject)
             };
 
-            function showMsg(msg){
+            function showMsg(msg) {
                 bookForm.one("small").setContent(msg);
             }
 
             function complete(id, o, args) {
                 var code = o.responseText;
-                switch (code){
+                switch (code) {
                     case '200':
                         showMsg("恭喜你，选课已经确认");
                         break;
@@ -248,7 +261,9 @@
                         showMsg("系统操作返回code= " + code + "，未知操作");
                         break;
                 }
-                setTimeout(function() {bookForm.hide()}, 3000);
+                setTimeout(function () {
+                    bookForm.hide()
+                }, 3000);
             }
 
             Y.on('io:complete', complete, Y);
