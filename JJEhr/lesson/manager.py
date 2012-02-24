@@ -4,11 +4,11 @@ from django.db import models
 import types
 class CourseManager(models.Manager):
     # default show 10 courses per page
-    __default_page_size = 2
+    __default_page_size = 10
     # Make sure page request is an int. If not, deliver first page.
     __default_current_no = 1
 
-    __default_page_range = 3
+    __default_page_range = 10
 
     def search(self, **kwargs):
         tempDict ={}
