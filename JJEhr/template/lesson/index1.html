@@ -26,8 +26,8 @@
             <section id="contents">
                 <header id="mainheader">
                     <h1>Smart-J 课堂</h1>
-                    <!--<span class="searchArea">
-                       <form action="/" method="get">
+                    <span class="searchArea">
+                       <form action="/" method="get" target="_blank">
                            <p class="search_textfield">
                                 <select name="searchType">
                                     {%for key,value in search_type.items %}
@@ -42,7 +42,7 @@
                                <input type="button" value=" 搜 索 " class="btn2">
                            </p>
                        </form>
-                    </span>-->
+                    </span>
                 </header>
                 <section id="main">
                     {% if isSearch %}
@@ -187,18 +187,18 @@
             form.submit();
         }
 
-//        Y.one(".searchArea .btn2").on('click',function(e){
-//            e.preventDefault();
-//            var form = Y.one(".searchArea form");
-//            return search(form);
-//        });
+        Y.one(".searchArea .btn2").on('click',function(e){
+            e.preventDefault();
+            var form = Y.one(".searchArea form");
+            return search(form);
+        });
 
-//        Y.one(".searchArea .search_content").on('keydown',function(e){
-//            if(e.keyCode == 13){
-//                e.preventDefault();
-//                return false;
-//            }
-//        });
+        Y.one(".searchArea .search_content").on('keydown',function(e){
+            if(e.keyCode == 13){
+                e.preventDefault();
+                return false;
+            }
+        });
 
         function serializeForm(formObject) {
             var params = {};
