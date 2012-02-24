@@ -27,7 +27,7 @@
                 <header id="mainheader">
                     <h1>Smart-J 课堂</h1>
                     <span class="searchArea">
-                       <form action="/" method="get" target="_blank">
+                       <form action="/" method="get" {% if not isSearch %} target="_blank" {% endif %}>
                            <p class="search_textfield">
                                 <select name="searchType">
                                     {%for key,value in search_type.items %}
