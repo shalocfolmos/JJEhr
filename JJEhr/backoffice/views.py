@@ -48,6 +48,7 @@ def courseView(request, courseId=0):
             course.courseArrange = request.POST['courseArrange']
             course.courseSpeaker = request.POST['courseSpeaker']
             course.enrollStartTime = request.POST['enrollStartTime']
+            course.courseStartTime = request.POST['courseStartTime']
             course.enrollEndTime = request.POST['enrollEndTime']
             if request.FILES.get('courseWare'):
                 course.courseWare = request.FILES.get('courseWare')
@@ -60,6 +61,7 @@ def courseView(request, courseId=0):
             'courseTime': course.courseTime,
             'courseArrange': course.courseArrange,
             'courseSpeaker': course.courseSpeaker,
+            'courseStartTime': course.courseStartTime,
             'enrollStartTime': course.enrollStartTime,
             'enrollEndTime': course.enrollEndTime,
             'maxTraineeAmount': course.maxTraineeAmount,
@@ -93,6 +95,7 @@ def addCourse(request):
             course.courseArrange = request.POST['courseArrange']
             course.courseSpeaker = request.POST['courseSpeaker']
             course.enrollStartTime = request.POST['enrollStartTime']
+            course.courseStartTime = request.POST['courseStartTime']
             course.enrollEndTime = request.POST['enrollEndTime']
             course.maxTraineeAmount = request.POST['maxTraineeAmount']
             course.courseWare = request.FILES.get('courseWare')
@@ -101,10 +104,6 @@ def addCourse(request):
     else:
         form = CourseForm(initial={'enrollStartTime': datetime.datetime.now().strftime("%Y-%m-%d")})
     return render_to_response('backoffice/courseAdd.html', {'form': form}, context_instance=RequestContext(request))
-
-
-def detail():
-    pass
 
 
 @login_required(login_url='/backoffice/login')

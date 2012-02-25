@@ -119,6 +119,7 @@
     </form>
     <div id="startDate"></div>
     <div id="endDate"></div>
+    <div id="courseStartDate"></div>
 </div>
 <script src="{{STATIC_URL}}yui-base/yui-base-min.js"></script>
 <script>
@@ -195,12 +196,21 @@
 
 
                 var start_time_input = Y.one("#id_enrollStartTime"),
-                        end_time_input = Y.one("#id_enrollEndTime");
+                        end_time_input = Y.one("#id_enrollEndTime"),
+                        start_course_input = Y.one("#id_courseStartTime");
                 Y.one("#startDate").setXY(start_time_input.getXY())
                 Y.one("#endDate").setXY(end_time_input.getXY())
+                Y.one("#courseStartDate").setXY(start_course_input.getXY());
                 var dtdate = Y.DataType.Date,
                         startCalendar = new Y.Calendar({
                             contentBox:"#startDate",
+                            width:'340px',
+                            showPrevMonth:true,
+                            showNextMonth:true,
+                            date:new Date(),
+                            startDate:new Date()}).render(),
+                        startCourseCalendar = new Y.Calendar({
+                            contentBox:"#courseStartDate",
                             width:'340px',
                             showPrevMonth:true,
                             showNextMonth:true,
@@ -216,10 +226,17 @@
 
                 startCalendar.hide();
                 endCalendar.hide();
+                startCourseCalendar.hide();
 
                 Y.one("#submit_button").on('click', function () {
                     Y.one("form").submit()
                 })
+
+                startCourseCalendar.on("selectionChange", function (ev) {
+                    var newDate = ev.newSelection[0];
+                    start_course_input.set('value', dtdate.format(newDate));
+                    startCourseCalendar.hide()
+                });
 
 
                 startCalendar.on("selectionChange", function (ev) {
@@ -237,6 +254,12 @@
 
                 start_time_input.setAttribute('readonly', 'readonly');
                 end_time_input.setAttribute("readonly", "readonly");
+                start_course_input.setAttribute('readonly', 'readonly');
+
+                start_course_input.on('click', function (e) {
+                            startCourseCalendar.show();
+                        }
+                );
 
                 start_time_input.on('click', function (e) {
                             startCalendar.show();

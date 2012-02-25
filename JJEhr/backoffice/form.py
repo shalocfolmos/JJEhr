@@ -10,6 +10,7 @@ class CourseForm(forms.Form):
     courseSpeaker = forms.CharField(max_length=30, label="主讲人 ")
     #课时
     courseTime = forms.IntegerField(required=False, label="课时")
+    courseStartTime = forms.DateTimeField(label="开始上课日期", widget=DateInput(format="%Y-%m-%d"), required=True)
     #课程时间安排
     courseArrange = forms.CharField(max_length=100, required=False, label="课程安排")
 
@@ -29,7 +30,7 @@ class UpdateCourseForm(forms.Form):
     courseSpeaker = forms.CharField(max_length=30, label="主讲人 ")
     #课时
     courseTime = forms.IntegerField(required=False, label="课时")
-    #课程时间安排
+    courseStartTime = forms.DateTimeField(label="开始上课日期", widget=DateInput(format="%Y-%m-%d"), required=True)
     courseArrange = forms.CharField(max_length=100, required=False, label="课程安排 ")
 
     enrollStartTime = forms.DateTimeField(label="报名开始时间", widget=DateInput(format='%Y-%m-%d'), required=True)

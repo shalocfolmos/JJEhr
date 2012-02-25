@@ -29,19 +29,19 @@
                     <span class="searchArea">
                        <form action="/" method="get" {% if not isSearch %} target="_blank" {% endif %}>
                            <p class="search_textfield">
-                                <select name="searchType">
-                                    {%for key,value in search_type.items %}
-                                          {% if value == current_search_type%}
-                                               <option value="{{key}}" selected >{{value}}</option>
-                                           {% else %}
-                                               <option value="{{key}}">{{value}}</option>
-                                          {% endif %}
-                                    {%endfor%}
-                                </select>
+                               <select name="searchType">
+                                   {%for key,value in search_type.items %}
+                                   {% if value == current_search_type%}
+                                   <option value="{{key}}" selected>{{value}}</option>
+                                   {% else %}
+                                   <option value="{{key}}">{{value}}</option>
+                                   {% endif %}
+                                   {%endfor%}
+                               </select>
                                <input name="searchContent" class="search_content" value="{{searchContent}}">
                                <input type="button" value=" 搜 索 " class="btn2">
                            </p>
-                       </form>
+                        </form>
                     </span>
                 </header>
                 <section id="main">
@@ -59,8 +59,8 @@
                             <h2>{{ course.courseName|escape}}</h2>
 
                             <p class="postinfo" style="padding-top: 5px;"> 课时: {{course.courseTime}} &nbsp; |
-                                主讲人: {{ course.courseSpeaker }}&nbsp; | 发布时间：
-                                <time>{{ course.createDate }}</time>
+                                主讲人: {{ course.courseSpeaker }}&nbsp; | 开课日期：
+                                <time>{{ course.courseStartTime|date:"Y-m-d"}}</time>
                                 &nbsp;| 听课名额： {{course.maxTraineeAmount}} .
                             </p>
                         </header>
@@ -187,14 +187,14 @@
             form.submit();
         }
 
-        Y.one(".searchArea .btn2").on('click',function(e){
+        Y.one(".searchArea .btn2").on('click', function (e) {
             e.preventDefault();
             var form = Y.one(".searchArea form");
             return search(form);
         });
 
-        Y.one(".searchArea .search_content").on('keydown',function(e){
-            if(e.keyCode == 13){
+        Y.one(".searchArea .search_content").on('keydown', function (e) {
+            if (e.keyCode == 13) {
                 e.preventDefault();
                 return false;
             }
