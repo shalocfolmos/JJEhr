@@ -6,6 +6,7 @@ from django.core.servers.basehttp import FileWrapper
 from django.shortcuts import render_to_response
 from lesson.manager import tempMapping
 import settings
+from django.utils.http import urlquote
 from JJEhr.lesson.models import Course, Enroll, EnrollForm
 
 from django.http import HttpResponse
@@ -82,6 +83,6 @@ def download(request):
     wrapper = FileWrapper(file(path))
     response = HttpResponse(wrapper.__getitem__(path),
         content_type='multipart/octet-stream')
-    response['Content-Disposition'] = 'attachment; filename=' + showName
+    response['Content-Disposition'] = "attachment; filename*=UTF-8''" + urlquote(showName)
     response['Content-Length'] = os.path.getsize(path)
     return response
