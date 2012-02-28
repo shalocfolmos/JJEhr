@@ -15,13 +15,21 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
         # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'db/jjehr_course.db', # Or path to database file if using sqlite3.
-        'USER': '', # Not used with sqlite3.
-        'PASSWORD': '', # Not used with sqlite3.
-        'HOST': '', # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '', # Set to empty string for default. Not used with sqlite3.
+        #'NAME': 'db/jjehr_course.db',
+        #'USER': '',
+        #'PASSWORD': '',
+        #'HOST': '',
+        #'PORT': '',
+
+        'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
+        'NAME': 'jjehr',  #mysql数据库名
+        'USER': 'root',  #mysql用户名，留空则默认为当前linux用户名
+        'PASSWORD': '123456',   #mysql密码
+        'HOST': '',  #留空默认为localhost
+        'PORT': '',  #留空默认为3306端口
+
     }
 }
 
