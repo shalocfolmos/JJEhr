@@ -86,7 +86,7 @@ h3 {
 }
 
 #contents #main {
-    background: url(../images/pagebg.gif) repeat;
+
     padding: 35px;
 }
 
@@ -96,7 +96,7 @@ h3 {
 }
 
 #mainheader {
-    background: url(../images/headerbg.png) repeat;
+
     height: 105px;
     border-top-left-radius: 20px;
     -moz-border-radius-topleft: 20px;
@@ -104,6 +104,7 @@ h3 {
     border-top-right-radius: 20px;
     -moz-border-radius-topright: 20px;
     -webkit-border-top-right-radius: 20px;
+
 
 }
 
@@ -131,9 +132,24 @@ ul {
 }
 
 .post {
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: solid 1px #ccc6b5;
+
+    padding: 35px;
+  /*  border-bottom: solid 1px #ccc6b5;*/
+    background-color: white;
+    border-top-left-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -webkit-border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -webkit-border-top-right-radius: 10px;
+
+}
+.post:hover {
+    background-color: #fafad2;
+}
+ .shadow {
+    background: url("../images/web17.png") right top no-repeat;
+    height: 20px;
 }
 
 .post header {
@@ -157,12 +173,12 @@ ul {
     color: #262119;
 }
 
-#contents p, #contents span {
-    line-height: 18px;
-}
+
 
 .post .entry p, .post .entry span {
     margin-bottom: 10px;
+    font-size: 1.4em;
+    line-height: 30px;
 }
 
 /*

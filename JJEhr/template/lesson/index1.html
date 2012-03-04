@@ -65,9 +65,9 @@
                             </p>
                         </header>
                         <section class="entry">
-                            <p>课程介绍 :{{course.courseDescription|escape|truncatewords_html:8}} <a href="###">展开</a></p>
+                            <p>课程介绍 :{{course.courseDescription|escape}}<!-- <a href="###">展开</a>--></p>
 
-                            <p style="display: none;">课程介绍 :{{course.courseDescription|escape}} <a href="###">收起</a></p>
+                            <!--<p style="display: none;">课程介绍 :{{course.courseDescription|escape}} <a href="###">收起</a></p>-->
                             <span>
                                 {% if course.courseWare %}
                                   <a href="/course/download/?file={{course.courseWare.name|escape}}">下载课件</a>
@@ -82,10 +82,11 @@
 
                         </section>
                     </article>
+                    <div class="shadow"></div>
                     {% endfor %}
                     <div class="wp-pagenavi">
                         {% if course_list.paginator.count == 0 %}
-                        抱歉，目前暂无记录
+                                 抱歉，目前暂无记录
                         {% else %}
                         {% if course_list.home_page%}
                         <a href="?page=1{{course_list.queryStr}}" title="首页">首页</a>
@@ -157,16 +158,17 @@
     }
 
     YUI().use('node', 'io-base', function (Y) {
-        Y.all('.entry p a').on('click', function (e) {
+       /* Y.all('.entry p a').on('click', function (e) {
             e.preventDefault();
             var p = e.currentTarget.get('parentNode');
             p.hide();
             p.next('p') == null ? p.previous('p').show() : p.next('p').show();
-        });
+        });*/
 
         Y.all('.bookCourse').on('click', function (e) {
             e.preventDefault();
             var bookForm = Y.one("#bookArea");
+            bookForm.one("small").setContent('');
             var course_id = e.currentTarget.get('id');
             bookForm.one("#email").set("value", "");
 
