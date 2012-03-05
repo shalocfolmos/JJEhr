@@ -64,7 +64,7 @@ def book_course(request):
             if enroll_count > 0:
                 return HttpResponse(409)
             else:
-                enroll = Enroll(email=_email, course=_course, ipAddress=request.META['REMOTE_ADDR'])
+                enroll = Enroll(email=_email, course=_course)
                 successEnrollMemberCount = Enroll.objects.filter(isWaitingList=False).count()
                 if successEnrollMemberCount > _course.maxTraineeAmount:
                     enroll.isWaitingList = True
