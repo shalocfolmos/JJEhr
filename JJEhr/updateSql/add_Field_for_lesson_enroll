@@ -1,1 +1,0 @@
-alter table `lesson_enroll`  Add column ipAddress char(15) not null default ''
