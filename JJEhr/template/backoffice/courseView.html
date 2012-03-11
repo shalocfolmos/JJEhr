@@ -133,7 +133,11 @@
                 for (i = 0; i < selectItemArray.length; i++) {
                     selectedOptionName += (selectItemArray[i].text) + ";";
                 }
-                $.ajax("/backoffice/email",);
+                $.get("/backoffice/email", {email:selectedOptionName},
+                        function (data) {
+                            alert(data);
+                        }, "text"
+                );
             }
     )
 

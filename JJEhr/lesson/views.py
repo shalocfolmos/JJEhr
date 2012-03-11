@@ -1,12 +1,9 @@
 #coding=utf-8
 # Create your views here.
 import datetime
-import os
-from django.core.servers.basehttp import FileWrapper
 from django.shortcuts import render_to_response
 from lesson.manager import tempMapping
 import settings
-from django.utils.http import urlquote
 from JJEhr.lesson.models import Course, Enroll, EnrollForm
 
 from django.http import HttpResponse
@@ -76,13 +73,13 @@ def book_course(request):
         return HttpResponse(403)
 
 
-def download(request):
-    filename = request.GET['file']
-    showName = filename.split("/")[1]
-    path = settings.MEDIA_ROOT + "/" + filename
-    wrapper = FileWrapper(file(path))
-    response = HttpResponse(wrapper.__getitem__(path),
-        content_type='multipart/octet-stream')
-    response['Content-Disposition'] = "attachment; filename*=UTF-8''" + urlquote(showName)
-    response['Content-Length'] = os.path.getsize(path)
-    return response
+#def download(request):
+#    filename = request.GET['file']
+#    showName = filename.split("/")[1]
+#    path = settings.MEDIA_ROOT + "/" + filename
+#    wrapper = FileWrapper(file(path))
+#    response = HttpResponse(wrapper.__getitem__(path),
+#        content_type='multipart/octet-stream')
+#    response['Content-Disposition'] = "attachment; filename*=UTF-8''" + urlquote(showName)
+#    response['Content-Length'] = os.path.getsize(path)
+#    return response
