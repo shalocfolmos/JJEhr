@@ -112,10 +112,10 @@
         <input type="hidden" name="notWaitingList" id="notWaitingListHidden"/>
         <input type="hidden" id="maxTrainee" value="{{course.maxTraineeAmount}}"/>
 
-        <div id="send_email" class="yui3-button medium"
-             style="color: black;width:45px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">修改页面
+        <div id="send_email" class="yui3-button"
+             style="color: black;width:145px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">发送确认邮件
         </div>
-        <div id="submit_button" class="yui3-button medium"
+        <div id="submit_button" class="yui3-button"
              style="color: black;width:45px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">修改
         </div>
     </form>
@@ -126,6 +126,17 @@
 <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery-1.7.1.min.js"></script>
 <script src="{{STATIC_URL}}yui-base/yui-base-min.js"></script>
 <script>
+    $("#send_email").on("click",
+            function () {
+                var selectedOptionName = "";
+                var selectItemArray = $("#notWaitingList option");
+                for (i = 0; i < selectItemArray.length; i++) {
+                    selectedOptionName += (selectItemArray[i].text) + ";";
+                }
+                $.ajax("/backoffice/email",);
+            }
+    )
+
 
     function changeElementComboList(from, to) {
         YUI().use('node', function (Y) {
