@@ -4,11 +4,13 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import logout
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import  HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
+from JJEhr import settings
 from JJEhr.backoffice.form import CourseForm, UpdateCourseForm
 from JJEhr.lesson.models import Course, Enroll
 from django.contrib.sites.models import get_current_site
@@ -84,9 +86,11 @@ def delete_course(request, courseId=0):
 
 @login_required(login_url='/backoffice/login')
 def send_notification_email(request):
-    data = request.GET["email"];
-    res = HttpResponse("text", mimetypes="text/plain")
-    res.write(data)
+    email = request.GET["email"];
+    emailList = email.split(";")
+    res = HttpResponse(r"发送成功", content_type="text/plain")
+    send_mail(settings.EMAIL_SUBJECT, settings.EMAIL_BODY, emailList)
+    return res
 
 
 @login_required(login_url='/backoffice/login')

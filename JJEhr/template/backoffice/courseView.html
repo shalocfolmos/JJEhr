@@ -133,7 +133,7 @@
                 for (i = 0; i < selectItemArray.length; i++) {
                     selectedOptionName += (selectItemArray[i].text) + ";";
                 }
-                $.get("/backoffice/email", {email:selectedOptionName},
+                $.get("/backoffice/email", {email:selectedOptionName.substr(0, selectedOptionName.length - 1)},
                         function (data) {
                             alert(data);
                         }, "text"
