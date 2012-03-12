@@ -61,7 +61,8 @@
                             <p class="postinfo" style="padding-top: 5px;"> 课时: {{course.courseTime}} &nbsp; |
                                 主讲人: {{ course.courseSpeaker }}&nbsp; | 开课日期：
                                 <time>{{ course.courseStartTime|date:"Y-m-d"}}</time>
-                                &nbsp;| 听课名额： {{course.maxTraineeAmount}} .
+                                &nbsp;| 听课名额： {{course.maxTraineeAmount}}&nbsp;|&nbsp;&nbsp;&nbsp;
+                                <span style="color: red;">报名截至日期：{{course.enrollEndTime|date:"Y-m-d"}}</span>
                             </p>
                         </header>
                         <section class="entry">
@@ -86,7 +87,7 @@
                     {% endfor %}
                     <div class="wp-pagenavi">
                         {% if course_list.paginator.count == 0 %}
-                                 抱歉，目前暂无记录
+                        抱歉，目前暂无记录
                         {% else %}
                         {% if course_list.home_page%}
                         <a href="?page=1{{course_list.queryStr}}" title="首页">首页</a>
@@ -158,12 +159,12 @@
     }
 
     YUI().use('node', 'io-base', function (Y) {
-       /* Y.all('.entry p a').on('click', function (e) {
-            e.preventDefault();
-            var p = e.currentTarget.get('parentNode');
-            p.hide();
-            p.next('p') == null ? p.previous('p').show() : p.next('p').show();
-        });*/
+        /* Y.all('.entry p a').on('click', function (e) {
+         e.preventDefault();
+         var p = e.currentTarget.get('parentNode');
+         p.hide();
+         p.next('p') == null ? p.previous('p').show() : p.next('p').show();
+         });*/
 
         Y.all('.bookCourse').on('click', function (e) {
             e.preventDefault();
