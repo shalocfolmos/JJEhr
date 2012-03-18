@@ -6,12 +6,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import logout
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.http import  HttpResponseRedirect, HttpResponse
-from django.shortcuts import render_to_response
+from django.http import  HttpResponseRedirect
+from django.shortcuts import render_to_response, render, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from JJEhr import settings
-from JJEhr.backoffice.form import CourseForm, UpdateCourseForm
+from JJEhr.backoffice.form import CourseForm, UpdateCourseForm, SendEmailForm
 from JJEhr.lesson.models import Course, Enroll
 from django.contrib.sites.models import get_current_site
 
@@ -86,11 +85,21 @@ def delete_course(request, courseId=0):
 
 @login_required(login_url='/backoffice/login')
 def send_notification_email(request):
-    email = request.GET["email"];
-    emailList = email.split(";")
-    res = HttpResponse(r"发送成功", content_type="text/plain")
-    send_mail(settings.EMAIL_SUBJECT, settings.EMAIL_BODY, emailList)
-    return res
+    if request.method == "POST":
+        form = SendEmailForm(request.POST)
+        if request.META['HTTP_REFERER'].index('backoffice/course/') != -1:
+            form.errors.clear()
+            return render(request, "backoffice/sendEmail.html", {"form": form})
+        elif form.is_valid() != False:
+            return render(request, "backoffice/sendEmail.html", {"form": form})
+        else:
+            recipient_list = form.cleaned_data["recipient_list"].split(";")
+            subject = form.cleaned_data["subject"]
+            contents = form.cleaned_data["contents"]
+            send_mail(subject, contents, recipient_list)
+            return render(request, "backoffice/sendEmail.html", {"form": form, 'success': True})
+    else:
+        return redirect("backoffice/index.html")
 
 
 @login_required(login_url='/backoffice/login')
