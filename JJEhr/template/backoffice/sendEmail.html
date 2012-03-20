@@ -1,4 +1,6 @@
 {%load static%}
+{%load url from future%}
+
 {%get_static_prefix as STATIC_URL%}
 <html>
 <head>
@@ -16,7 +18,11 @@
     </div>
 </div>
 <div class="yui3-g yui3-skin-sam">
-    {{form}}
+    <form action="{% url 'backoffice.views.send_notification_email'%}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="发送邮件">
+    </form>
 </div>
 </body>
 </html>

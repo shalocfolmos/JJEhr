@@ -137,7 +137,10 @@
                 for (var i = 0; i < selectItemArray.length; ++i) {
                     selectedOptionName += selectItemArray[i].text + ";";
                 }
+                selectedOptionName = selectedOptionName.substr(0, selectedOptionName.length - 1);
+                alert(selectedOptionName);
                 $("#recipient_list").val(selectedOptionName);
+
                 $("#email_form").submit();
             }
     )

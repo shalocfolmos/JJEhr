@@ -87,10 +87,10 @@ def delete_course(request, courseId=0):
 def send_notification_email(request):
     if request.method == "POST":
         form = SendEmailForm(request.POST)
-        if request.META['HTTP_REFERER'].index('backoffice/course/') != -1:
+        if 'backoffice/course/' in request.META['HTTP_REFERER']:
             form.errors.clear()
             return render(request, "backoffice/sendEmail.html", {"form": form})
-        elif form.is_valid() != False:
+        elif form.is_valid() == False:
             return render(request, "backoffice/sendEmail.html", {"form": form})
         else:
             recipient_list = form.cleaned_data["recipient_list"].split(";")
@@ -99,7 +99,7 @@ def send_notification_email(request):
             send_mail(subject, contents, recipient_list)
             return render(request, "backoffice/sendEmail.html", {"form": form, 'success': True})
     else:
-        return redirect("backoffice/index.html")
+        return redirect("/backoffice/index.html")
 
 
 @login_required(login_url='/backoffice/login')
@@ -109,7 +109,7 @@ def addCourse(request):
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             course = Course()
-            course.courseName = request.POST["courseName"]
+            course.courseName = request.POST["courseNSame"]
             course.courseDescription = request.POST['courseDescription']
             course.courseTime = request.POST['courseTime']
             course.courseArrange = request.POST['courseArrange']
