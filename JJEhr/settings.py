@@ -153,36 +153,32 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': DEBUG,
-    'handlers': {
-        'mail_admins': {
-            'level': 'DEBUG',
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            },
-        },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'DEBUG',
-            'propagate': DEBUG,
-            },
-        'django.db.backends': {
-            'handlers': ['console'],
-            'propagate': DEBUG,
-            'level': 'DEBUG',
-            },
-        }
+LOGGING = {'version': 1,
+           'disable_existing_loggers': DEBUG,
+           'handlers': {
+               'mail_admins': {
+                   'level': 'DEBUG',
+                   'class': 'django.utils.log.AdminEmailHandler'
+               },
+               'console': {
+                   'level': 'DEBUG',
+                   'class': 'logging.StreamHandler',
+                   },
+               },
+           'loggers': {
+               'django.request': {
+                   'handlers': ['mail_admins'],
+                   'level': 'DEBUG',
+                   'propagate': DEBUG,
+                   },
+               'django.db.backends': {
+                   'handlers': ['console'],
+                   'propagate': DEBUG,
+                   'level': 'DEBUG',
+                   },
+               }
 }
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'username@gmail.com'
-EMAIL_HOST_PASSWORD = 'password'
-EMAIL_USE_TLS = True
-EMAIL_SUBJECT = ""
-EMAIL_BODY = r""
+EMAIL_HOST_USER = 'sam.sun@jinjiang.com'
+EMAIL_HOST_PASSWORD = 'Jj123456'

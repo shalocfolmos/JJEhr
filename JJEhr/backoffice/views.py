@@ -96,7 +96,8 @@ def send_notification_email(request):
             recipient_list = form.cleaned_data["recipient_list"].split(";")
             subject = form.cleaned_data["subject"]
             contents = form.cleaned_data["contents"]
-            send_mail(subject, contents, recipient_list)
+            send_mail(subject=subject, message=contents, from_email='sam.sun@jinjiang.com',
+                recipient_list=recipient_list)
             return render(request, "backoffice/sendEmail.html", {"form": form, 'success': True})
     else:
         return redirect("/backoffice/index.html")
