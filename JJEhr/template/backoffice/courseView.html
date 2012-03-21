@@ -138,6 +138,10 @@
                     selectedOptionName += selectItemArray[i].text + ";";
                 }
                 selectedOptionName = selectedOptionName.substr(0, selectedOptionName.length - 1);
+                if (selectedOptionName.length == 0) {
+                    alert("听课学员不能为空！");
+                    return;
+                }
                 $("#recipient_list").val(selectedOptionName);
 
                 $("#email_form").submit();

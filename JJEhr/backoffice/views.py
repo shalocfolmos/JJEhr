@@ -100,7 +100,7 @@ def addCourse(request):
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             course = Course()
-            course.courseName = request.POST["courseNSame"]
+            course.courseName = request.POST["courseName"]
             course.courseDescription = request.POST['courseDescription']
             course.courseTime = request.POST['courseTime']
             course.courseArrange = request.POST['courseArrange']
