@@ -32,5 +32,5 @@ urlpatterns = patterns('',
 urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += patterns(r'backoffice',
-    url(r'^backoffice/email', r'views.send_notification_email')
+    url(r'^backoffice/export', r'views.export_notification_list')
 )

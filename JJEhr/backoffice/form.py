@@ -1,6 +1,6 @@
 # coding=UTF-8
 from django import forms
-from django.forms.widgets import  DateInput, Textarea
+from django.forms.widgets import  DateInput
 
 class CourseForm(forms.Form):
     courseName = forms.CharField(max_length=50, label="课程名称")
@@ -39,7 +39,5 @@ class UpdateCourseForm(forms.Form):
     courseWare = forms.FileField(required=False, label="课件")
 
 
-class SendEmailForm(forms.Form):
-    recipient_list = forms.CharField(label="收件成员：", required=True)
-    subject = forms.CharField(label="邮件主题：", required=True)
-    contents = forms.CharField(label="邮件内容：", widget=Textarea(attrs={"rows": '20', "cols": "40"}), required=True)
+class ExportContactsForm(forms.Form):
+    recipient_list = forms.CharField()

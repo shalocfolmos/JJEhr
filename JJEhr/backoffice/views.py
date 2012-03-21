@@ -4,22 +4,18 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import logout
-from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.http import  HttpResponseRedirect
-from django.shortcuts import render_to_response, render, redirect
+from django.http import  HttpResponseRedirect, HttpResponse
+from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from JJEhr.backoffice.form import CourseForm, UpdateCourseForm, SendEmailForm
+from JJEhr.backoffice.form import CourseForm, UpdateCourseForm, ExportContactsForm
 from JJEhr.lesson.models import Course, Enroll
 from django.contrib.sites.models import get_current_site
 
 
 @login_required(login_url='/backoffice/login')
 def courseView(request, courseId=0):
-    """
-
-    """
     course = Course.objects.get(id=courseId)
     waitingList = notWaitList = None
     notWaitList = Enroll.objects.filter(course=course).filter(isWaitingList=False)
@@ -84,21 +80,15 @@ def delete_course(request, courseId=0):
 
 
 @login_required(login_url='/backoffice/login')
-def send_notification_email(request):
+def export_notification_list(request):
     if request.method == "POST":
-        form = SendEmailForm(request.POST)
-        if 'backoffice/course/' in request.META['HTTP_REFERER']:
-            form.errors.clear()
-            return render(request, "backoffice/sendEmail.html", {"form": form})
-        elif form.is_valid() == False:
-            return render(request, "backoffice/sendEmail.html", {"form": form})
-        else:
-            recipient_list = form.cleaned_data["recipient_list"].split(";")
-            subject = form.cleaned_data["subject"]
-            contents = form.cleaned_data["contents"]
-            send_mail(subject=subject, message=contents, from_email='sam.sun@jinjiang.com',
-                recipient_list=recipient_list)
-            return render(request, "backoffice/sendEmail.html", {"form": form, 'success': True})
+        form = ExportContactsForm(request.POST)
+        form.is_valid()
+        response = HttpResponse(mimetype="text/plain")
+        response['Content-Disposition'] = 'attachment; filename=contact.txt'
+        recipient_list = form.cleaned_data["recipient_list"]
+        response.write(recipient_list)
+        return response
     else:
         return redirect("/backoffice/index.html")
 

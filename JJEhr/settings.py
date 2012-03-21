@@ -179,6 +179,7 @@ LOGGING = {'version': 1,
                }
 }
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'sam.sun@jinjiang.com'
-EMAIL_HOST_PASSWORD = 'Jj123456'
+#EMAIL_HOST = 'smtp.telecom-sh.com'
+#EMAIL_PORT = '25'
+#EMAIL_HOST_USER = 'sam.sun@jinjiang.com'
+#EMAIL_HOST_PASSWORD = 'Jj123456'

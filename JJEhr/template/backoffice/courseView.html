@@ -123,7 +123,7 @@
     <div id="endDate"></div>
     <div id="courseStartDate"></div>
 </div>
-<form id="email_form" action="/backoffice/email" method="post">
+<form id="email_form" action="/backoffice/export" method="post">
     {% csrf_token %}
     <input type="hidden" id="recipient_list" name="recipient_list"/>
 </form>
@@ -138,7 +138,6 @@
                     selectedOptionName += selectItemArray[i].text + ";";
                 }
                 selectedOptionName = selectedOptionName.substr(0, selectedOptionName.length - 1);
-                alert(selectedOptionName);
                 $("#recipient_list").val(selectedOptionName);
 
                 $("#email_form").submit();
