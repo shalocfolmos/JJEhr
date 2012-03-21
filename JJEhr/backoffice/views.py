@@ -87,7 +87,8 @@ def export_notification_list(request):
         response = HttpResponse(mimetype="text/plain")
         response['Content-Disposition'] = 'attachment; filename=contact.txt'
         recipient_list = form.cleaned_data["recipient_list"]
-        response.write(recipient_list)
+        response_string = recipient_list.replace(";", ";\r\n")
+        response.write(response_string)
         return response
     else:
         return redirect("/backoffice/index.html")
