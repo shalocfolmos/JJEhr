@@ -1,0 +1,10 @@
+#courseStartDateCalendar .title, #endEnrollDateCalendar .title, #startEnrollDateCalendar .title {
+    word-spacing: normal;
+    letter-spacing: normal;
+}
+
+table#courseStartDateCalendar, table#endEnrollDateCalendar, table#startEnrollDateCalendar {
+    word-spacing: normal;
+    letter-spacing: normal;
+}
+

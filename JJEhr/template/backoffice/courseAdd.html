@@ -4,141 +4,113 @@
 <head>
     <title>添加课程</title>
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssfonts/cssfonts-min.css">
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
-    <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
-    <link rel="stylesheet" href="{{STATIC_URL}}/yui/cssbutton.css" type="text/css"/>
-    <script src="{{STATIC_URL}}/yui/yui-min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/backoffice/css/add_course.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
+
+
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/calendar/assets/skins/sam/calendar.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
+
+
+    <!-- Dependencies -->
+    <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/calendar/calendar-min.js"></script>
+
+    <style type="text/css">
+        .yui-button button {
+            background-color: transparent;
+            cursor: pointer;
+            letter-spacing: 4px;
+        }
+    </style>
 </head>
-<body>
+<body class="yui-skin-sam">
+<div id="startEnrollDateCalendar"></div>
+<div id="endEnrollDateCalendar"></div>
+<div id="courseStartDateCalendar"></div>
+<div class="content">
 
-<div class="yui3-g head">
-    <div class="yui3-u-4-5">
-
-
-    </div>
-    <div class="yui3-u-1-5">
+    <div class="yui3-g head">
+    <span>
         <a href="/backoffice/logout" class="head_style">注销</a>
+    </span>
+    <span>
         <a href="/backoffice/index.html" class="head_style">返回首页</a>
+    </span>
     </div>
-</div>
-<div class="yui3-g yui3-skin-sam">
-    <form action="/backoffice/course/add" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="yui3-g" style="padding-top: 15px;">
-            <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
-            <div class="yui3-u-4-5" style="float:left">
-                <div class="yui3-g">
-                    <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
-                        {{field}}
-                    </div>
-                    <div class="yui3-u-2-5 error_area">
-                        {%for error in field.errors%}
-                        {{error}}
-                        {%endfor%}
+    <div class="yui3-g mainContent">
+        <form action="/backoffice/course/add" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="yui3-g" style="padding-top: 15px;">
+                <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
+                <div class="yui3-u-4-5" style="float:left">
+                    <div class="yui3-g">
+                        <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
+                            {{field}}
+                        </div>
+                        <div class="yui3-u-2-5 error_area">
+                            {%for error in field.errors%}
+                            {{error}}
+                            {%endfor%}
 
+                        </div>
                     </div>
                 </div>
+                <div style="clear:both;"></div>
             </div>
-            <div style="clear:both;"></div>
-        </div>
-
-
-        {%endfor%}
-
-        <div id="submit_button" class="yui3-button medium"
-             style="color: black;width:45px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">提交
-        </div>
-    </form>
-    <div id="startDate"></div>
-    <div id="endDate"></div>
-    <div id="courseStartDate"></div>
+            {%endfor%}
+            <div style="padding-top:30px;">
+                <button id="submit_button"/>
+            </div>
+        </form>
+    </div>
 </div>
 <script type="text/javascript">
-    YUI().use('calendar', 'datatype-date', 'node', 'event', function (Y) {
-        var start_time_input = Y.one("#id_enrollStartTime"),
-                end_time_input = Y.one("#id_enrollEndTime"),
-                start_course_input = Y.one("#id_courseStartTime");
-        Y.one("#startDate").setXY(start_time_input.getXY());
-        Y.one("#endDate").setXY(end_time_input.getXY());
-        Y.one("#courseStartDate").setXY(start_course_input.getXY());
+    function init() {
 
 
-        var dtdate = Y.DataType.Date,
-                startCalendar = new Y.Calendar({
-                    contentBox:"#startDate",
-                    width:'340px',
-                    showPrevMonth:true,
-                    showNextMonth:true,
-                    date:new Date(),
-                    startDate:new Date()}).render(),
-                startCourseCalendar = new Y.Calendar({
-                    contentBox:"#courseStartDate",
-                    width:'340px',
-                    showPrevMonth:true,
-                    showNextMonth:true,
-                    date:new Date(),
-                    startDate:new Date()}).render(),
-                endCalendar = new Y.Calendar({
-                    contentBox:"#endDate",
-                    width:'340px',
-                    showPrevMonth:false,
-                    showNextMonth:false,
-                    date:new Date(),
-                    startDate:new Date()}).render();
+        var startEnrollDateCalendar = new YAHOO.widget.Calendar("startEnrollDateCalendar", "startEnrollDateCalendar", {title:"选择课程开始报名日期", close:"true"}),
+                endEnrollDateCalendar = new YAHOO.widget.Calendar("endEnrollDateCalendar", "endEnrollDateCalendar", {title:"选择报名截至日期", close:"true"}),
+                courseStartDateCalendar = new YAHOO.widget.Calendar("courseStartDateCalendar", "courseStartDateCalendar", {title:"选择课程开始日期", close:"true"});
+        startEnrollDateCalendar.render();
+        endEnrollDateCalendar.render();
+        courseStartDateCalendar.render();
+        YAHOO.util.Dom.setStyle('startEnrollDateCalendar', 'position', 'absolute');
 
-        startCalendar.hide();
-        endCalendar.hide();
-        startCourseCalendar.hide();
+        YAHOO.util.Dom.setStyle('endEnrollDateCalendar', 'position', 'absolute');
 
-        Y.one("#submit_button").on('click', function () {
-            Y.one("form").submit()
-        })
+        YAHOO.util.Dom.setStyle('courseStartDateCalendar', 'position', 'absolute');
+        YAHOO.util.Dom.setXY("startEnrollDateCalendar", YAHOO.util.Dom.getXY("id_enrollStartTime"));
+        YAHOO.util.Dom.setXY("courseStartDateCalendar", YAHOO.util.Dom.getXY("id_courseStartTime"));
+        YAHOO.util.Dom.setXY("endEnrollDateCalendar", YAHOO.util.Dom.getXY("id_enrollEndTime"));
+        startEnrollDateCalendar.hide();
+        endEnrollDateCalendar.hide();
+        courseStartDateCalendar.hide();
 
-        startCourseCalendar.on("selectionChange", function (ev) {
-            var newDate = ev.newSelection[0];
-            start_course_input.set('value', dtdate.format(newDate));
-            startCourseCalendar.hide()
+        YAHOO.util.Event.addListener("id_enrollStartTime", "click", function () {
+            startEnrollDateCalendar.show();
         });
 
+        YAHOO.util.Event.addListener("id_enrollEndTime", "click", function () {
 
-        startCalendar.on("selectionChange", function (ev) {
-            var newDate = ev.newSelection[0];
-            start_time_input.set('value', dtdate.format(newDate));
-            startCalendar.hide()
+            endEnrollDateCalendar.show();
+
         });
-
-
-        endCalendar.on("selectionChange", function (ev) {
-            var newDate = ev.newSelection[0];
-            end_time_input.set('value', dtdate.format(newDate));
-            endCalendar.hide()
+        YAHOO.util.Event.addListener("id_courseStartTime", "click", function () {
+            courseStartDateCalendar.show();
         });
+        new YAHOO.widget.Button("submit_button", {label:"添加课程", type:"submit"});
+    }
 
-        start_time_input.setAttribute('readonly', 'readonly');
-        end_time_input.setAttribute("readonly", "readonly");
-        start_course_input.setAttribute('readonly', 'readonly');
-
-        start_course_input.on('click', function (e) {
-                    startCourseCalendar.show();
-                }
-        );
-
-        start_time_input.on('click', function (e) {
-                    startCalendar.show();
-                }
-        );
-
-        end_time_input.on('click', function (e) {
-                    endCalendar.show();
-                }
-        );
-
-    })
-
+    YAHOO.util.Event.onDOMReady(init)
 </script>
+
 </body>
 </html>

@@ -1,12 +1,7 @@
-div.shadowed {
-    border: 1px solid #BBBBBB;
-}
-
 div.shadowed div.inner-boundary {
     background-color: #F4F4F4;
     background-image: url("http://2.envato-static.com/images/common/backgrounds/white_line.png?1311219806");
     background-repeat: repeat-x;
-    border: 1px solid #BBBBBB;
     margin: -2px 0 0 -2px;
 }
 

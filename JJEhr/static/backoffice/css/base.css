@@ -1,10 +1,10 @@
 html {
     background: url("../img/page_bg.png") repeat-x scroll 0 0 #D0D0D0;
+    margin: auto;
 }
 
 body {
-    margin: auto;
-    width: 800px;
+    text-align: center;
 }
 
 label {
@@ -23,6 +23,30 @@ input[type="text"], input[type="password"] {
 .head {
     height: 50px;
     padding-top: 15px;
+    width: 960px;
+    text-align: left;
+}
+
+.head span {
+    padding-left: 10px;
+    word-spacing: normal;
+    letter-spacing: normal;
+}
+
+button {
+    word-spacing: normal;
+    letter-spacing: normal;
+}
+
+.content {
+    margin: auto;
+    width: 960px;
+    text-align: center;
+}
+
+.mainContent {
+    width: 960px;
+    text-align: left;
 }
 
 .error_area {

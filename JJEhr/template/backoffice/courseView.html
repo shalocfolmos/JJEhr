@@ -27,101 +27,104 @@
     </style>
 </head>
 <body>
-<div class="yui3-g head">
-    <div class="yui3-u-4-5">
+<div class="content">
+    <div class="yui3-g head">
+        <div class="yui3-u-4-5">
+        </div>
+        <div class="yui3-u-1-5">
+            <a href="/backoffice/logout" class="head_style">注销</a>
+            <a href="/backoffice/index.html" class="head_style">返回首页</a>
+        </div>
     </div>
-    <div class="yui3-u-1-5">
-        <a href="/backoffice/logout" class="head_style">注销</a>
-        <a href="/backoffice/index.html" class="head_style">返回首页</a>
-    </div>
-</div>
-<div class="yui3-g yui3-skin-sam">
-    <form action="/backoffice/course/{{course.id}}" method="post" id="editForm" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="yui3-g" style="padding-top: 15px;">
-            <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
-            <div class="yui3-u-4-5" style="float:left">
-                <div class="yui3-g">
-                    <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
-                        {{field}}
-                    </div>
-                    <div class="yui3-u-2-5 error_area">
-                        {%for error in field.errors%}
-                        {{error}}
-                        {%endfor%}
+    <div class="yui3-g yui3-skin-sam mainContent">
+        <form action="/backoffice/course/{{course.id}}" method="post" id="editForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="yui3-g" style="padding-top: 15px;">
+                <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
+                <div class="yui3-u-4-5" style="float:left">
+                    <div class="yui3-g">
+                        <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
+                            {{field}}
+                        </div>
+                        <div class="yui3-u-2-5 error_area">
+                            {%for error in field.errors%}
+                            {{error}}
+                            {%endfor%}
 
+                        </div>
                     </div>
                 </div>
+                <div style="clear:both;"></div>
             </div>
-            <div style="clear:both;"></div>
-        </div>
 
 
-        {%endfor%}
+            {%endfor%}
 
-        <br/>
+            <br/>
 
-        <div class="yui3-g">
-            <div class="yui3-u-1-2">
-                <div class="yui3-g">
-                    <div class="yui3-u-1-6">
-                        候补学员
-                    </div>
-                    <div class="yui3-u-5-6">
-                        <div class="yui3-g">
-                            <div class="yui3-u-4-5">
-                                <select name="waitingList" id="waitingList" multiple style="width: 250px;height:200px;">
-                                    {% for enroll in waitingList%}
-                                    <option value="{{enroll.id}}">{{enroll.email}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="yui3-u-1-5">
-                                <button class="cancelEnrollButton"><<<</button>
+            <div class="yui3-g">
+                <div class="yui3-u-1-2">
+                    <div class="yui3-g">
+                        <div class="yui3-u-1-6">
+                            候补学员
+                        </div>
+                        <div class="yui3-u-5-6">
+                            <div class="yui3-g">
+                                <div class="yui3-u-4-5">
+                                    <select name="waitingList" id="waitingList" multiple
+                                            style="width: 250px;height:200px;">
+                                        {% for enroll in waitingList%}
+                                        <option value="{{enroll.id}}">{{enroll.email}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="yui3-u-1-5">
+                                    <button class="cancelEnrollButton"><<<</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="yui3-u-1-2">
-                <div class="yui3-g">
-                    <div class="yui3-u-5-6">
-                        <div class="yui3-g">
-                            <div class="yui3-u-1-5">
-                                <button class="selectEnrollButton">>>></button>
-                            </div>
-                            <div class="yui3-u-4-5">
-                                <select id="notWaitingList" multiple style="width: 250px;height:200px;">
-                                    {% for enroll in notWaitingList%}
-                                    <option value="{{enroll.id}}">{{enroll.email}}</option>
-                                    {% endfor %}
-                                </select>
+                <div class="yui3-u-1-2">
+                    <div class="yui3-g">
+                        <div class="yui3-u-5-6">
+                            <div class="yui3-g">
+                                <div class="yui3-u-1-5">
+                                    <button class="selectEnrollButton">>>></button>
+                                </div>
+                                <div class="yui3-u-4-5">
+                                    <select id="notWaitingList" multiple style="width: 250px;height:200px;">
+                                        {% for enroll in notWaitingList%}
+                                        <option value="{{enroll.id}}">{{enroll.email}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="yui3-u-1-6">
-                        听课学员
-                    </div>
+                        <div class="yui3-u-1-6">
+                            听课学员
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <hr/>
-        <input type="hidden" name="waitingList" id="waitingListHidden"/>
-        <input type="hidden" name="notWaitingList" id="notWaitingListHidden"/>
-        <input type="hidden" id="maxTrainee" value="{{course.maxTraineeAmount}}"/>
+            <hr/>
+            <input type="hidden" name="waitingList" id="waitingListHidden"/>
+            <input type="hidden" name="notWaitingList" id="notWaitingListHidden"/>
+            <input type="hidden" id="maxTrainee" value="{{course.maxTraineeAmount}}"/>
 
-        <div id="submit_button" class="yui3-button"
-             style="color: black;width:45px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">修改
-        </div>
-        <div id="export_contacts" class="yui3-button"
-             style="color: black;width:145px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">导出听课会员列表
-        </div>
-    </form>
-    <div id="startDate"></div>
-    <div id="endDate"></div>
-    <div id="courseStartDate"></div>
+            <div id="submit_button" class="yui3-button"
+                 style="color: black;width:45px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">修改
+            </div>
+            <div id="export_contacts" class="yui3-button"
+                 style="color: black;width:145px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">导出听课会员列表
+            </div>
+        </form>
+        <div id="startDate"></div>
+        <div id="endDate"></div>
+        <div id="courseStartDate"></div>
+    </div>
 </div>
 <form id="email_form" action="/backoffice/export" method="post">
     {% csrf_token %}
