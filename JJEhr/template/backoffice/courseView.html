@@ -149,7 +149,7 @@
                 if (from == 'waitingList' && toComboList.options.length >= traineeAmount) {
                     return;
                 }
-                toComboList.add(option);
+                toComboList.appendChild(option);
             }
         }
     }
@@ -174,7 +174,7 @@
             for (var i = 0; i < notWaitingListElement.options.length; i++) {
                 notWaitingListValue += notWaitingListElement.options[i].value + "|";
             }
-            notWaitingListValue = notWaitngListValue.substr(0, notWaitingListValue.length - 1);
+            notWaitingListValue = notWaitingListValue.substr(0, notWaitingListValue.length - 1);
             YAHOO.util.Dom.get("notWaitingListHidden").value = notWaitingListValue;
         }
         if (waitingListElement.options != null && waitingListElement.options.length >= 1) {
@@ -237,7 +237,7 @@
         YAHOO.util.Event.addListener("id_courseStartTime", "click", function () {
             courseStartDateCalendar.show();
         });
-        new YAHOO.widget.Button({label:"添加课程", container:"submit_button_container", id:"submit_button"});
+        new YAHOO.widget.Button({label:"修改课程", container:"submit_button_container", id:"submit_button"});
         new YAHOO.widget.Button({label:"导出听课会员列表", container:"export_contacts_container", id:"export_contacts"});
 
         YAHOO.util.Event.addListener("submit_button_container", "click", submitForm);
