@@ -5,38 +5,34 @@
     <title>修改课程</title>
 
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssfonts/cssfonts-min.css">
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
     <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
-    <link rel="stylesheet" href="{{STATIC_URL}}/yui/cssbutton.css" type="text/css"/>
-    <script src="{{STATIC_URL}}/yui/yui-min.js"></script>
-    <style type="text/css">
-        .yui3-skin-sam .yui3-button-color-blue {
-            color: #fff;
-            background-image: -webkit-gradient(linear, left top, left bottom, from(#599bdc), to(#3476b7));
-            background-image: -webkit-linear-gradient(top, #599bdc, #3476b7);
-            background-image: -moz-linear-gradient(top, #599bdc, #3476b7);
-            background-image: -ms-linear-gradient(top, #599bdc, #3476b7);
-            background-image: -o-linear-gradient(top, #599bdc, #3476b7);
-            background-image: linear-gradient(top, #599bdc, #3476b7);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#599bdc', EndColorStr = '#3476b7');
-            background-color: #3476b7;
-        }
 
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/calendar/assets/skins/sam/calendar.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
+
+    <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/calendar/calendar-min.js"></script>
 </head>
-<body>
+<body class="yui-skin-sam">
+<div id="startEnrollDateCalendar"></div>
+<div id="endEnrollDateCalendar"></div>
+<div id="courseStartDateCalendar"></div>
 <div class="content">
+
     <div class="yui3-g head">
-        <div class="yui3-u-4-5">
-        </div>
-        <div class="yui3-u-1-5">
+        <span>
             <a href="/backoffice/logout" class="head_style">注销</a>
+        </span>
+        <span>
             <a href="/backoffice/index.html" class="head_style">返回首页</a>
-        </div>
+        </span>
     </div>
-    <div class="yui3-g yui3-skin-sam mainContent">
+    <div class="yui3-g mainContent">
         <form action="/backoffice/course/{{course.id}}" method="post" id="editForm" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
@@ -80,7 +76,7 @@
                                     </select>
                                 </div>
                                 <div class="yui3-u-1-5">
-                                    <button class="cancelEnrollButton"><<<</button>
+                                    <button class="cancelEnrollButton" id="cancelEnrollButton"><<<</button>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +87,7 @@
                         <div class="yui3-u-5-6">
                             <div class="yui3-g">
                                 <div class="yui3-u-1-5">
-                                    <button class="selectEnrollButton">>>></button>
+                                    <button class="selectEnrollButton" id="selectEnrollButton">>>></button>
                                 </div>
                                 <div class="yui3-u-4-5">
                                     <select id="notWaitingList" multiple style="width: 250px;height:200px;">
@@ -114,16 +110,12 @@
             <input type="hidden" name="notWaitingList" id="notWaitingListHidden"/>
             <input type="hidden" id="maxTrainee" value="{{course.maxTraineeAmount}}"/>
 
-            <div id="submit_button" class="yui3-button"
-                 style="color: black;width:45px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">修改
-            </div>
-            <div id="export_contacts" class="yui3-button"
-                 style="color: black;width:145px;letter-spacing: 5px;word-spacing:5px;margin-left: 0px;">导出听课会员列表
-            </div>
+            <div style="float: left;" id="submit_button_container"></div>
+            <div id="export_contacts_container"></div>
+
         </form>
-        <div id="startDate"></div>
-        <div id="endDate"></div>
-        <div id="courseStartDate"></div>
+
+
     </div>
 </div>
 <form id="email_form" action="/backoffice/export" method="post">
@@ -131,175 +123,132 @@
     <input type="hidden" id="recipient_list" name="recipient_list"/>
 </form>
 <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery-1.7.1.min.js"></script>
-<script src="{{STATIC_URL}}yui-base/yui-base-min.js"></script>
 <script>
-    $("#export_contacts").on("click",
-            function () {
-                var selectedOptionName = "";
-                var selectItemArray = $("#notWaitingList option");
-                for (var i = 0; i < selectItemArray.length; ++i) {
-                    selectedOptionName += selectItemArray[i].text + ";";
-                }
-                selectedOptionName = selectedOptionName.substr(0, selectedOptionName.length - 1);
-                if (selectedOptionName.length == 0) {
-                    alert("听课学员不能为空！");
-                    return;
-                }
-                $("#recipient_list").val(selectedOptionName);
 
-                $("#email_form").submit();
-            }
-    )
-
-
-    function changeElementComboList(from, to) {
-        YUI().use('node', function (Y) {
-                    var fromComboList = Y.one("#" + from),
-                            traineeAmount = Y.one("#maxTrainee").get("value"),
-                            toComboList = Y.one("#" + to);
-                    fromComboList.get("options").each(
-                            function () {
-
-                                if (this.get("selected") == true) {
-                                    if (from == 'waitingList' && toComboList.get("options").size() >= traineeAmount) {
-                                        return;
-                                    }
-                                    toComboList.append(this)
-                                }
-                            }
-                    )
-                }
-        )
-    }
 
     function selectEnrollUser(e) {
+        YAHOO.util.Event.preventDefault(e);
         changeElementComboList('waitingList', 'notWaitingList');
-        e.preventDefault();
+
     }
 
     function cancelEnrollUser(e) {
+        YAHOO.util.Event.preventDefault(e);
         changeElementComboList('notWaitingList', 'waitingList');
-        e.preventDefault();
 
     }
 
-    function submitForm(e) {
-        e.preventDefault();
-        YUI().use('node', function (Y) {
-                    var waitingListHidden = Y.one("#waitingListHidden"),
-                            notWaitingListHidden = Y.one("#notWaitingListHidden"),
-                            waitingList = Y.one("#waitingList"),
-                            notWaitingList = Y.one("#notWaitingList"),
-                            notWaitingListValue = '',
-                            waitngListValue = '';
-                    waitingList.get("options").each(
-                            function () {
-                                waitngListValue += this.get('value') + '|';
-                            }
-                    )
-                    waitngListValue = waitngListValue.substr(0, waitngListValue.length - 1);
-                    notWaitingList.get("options").each(
-                            function () {
-                                notWaitingListValue += this.get('value') + '|';
-                            }
-                    )
-                    notWaitingListValue = notWaitingListValue.substr(0, notWaitingListValue.length - 1);
-                    Y.one("#waitingListHidden").set('value', waitngListValue);
-                    Y.one("#notWaitingListHidden").set('value', notWaitingListValue);
-                    Y.one("#editForm").submit()
+
+    function changeElementComboList(from, to) {
+        var fromComboList = YAHOO.util.Dom.get(from),
+                traineeAmount = YAHOO.util.Dom.get("maxTrainee").value,
+                toComboList = YAHOO.util.Dom.get(to);
+        for (var i = 0; i < fromComboList.options.length; i++) {
+            var option = fromComboList.options[i];
+            if (option.selected = true) {
+                if (from == 'waitingList' && toComboList.options.length >= traineeAmount) {
+                    return;
                 }
-        )
+                toComboList.add(option);
+            }
+        }
+    }
+
+    function handleCalendarSelect(type, args, me) {
+        var dates = args[0],
+                date = dates[0],
+                year = date[0],
+                month = date[1],
+                day = date[2],
+                valueTextElement = YAHOO.util.Dom.get(me[1]);
+        valueTextElement.value = year + "-" + month + "-" + day;
+        me[0].hide();
+    }
+
+    function submitForm(type, args) {
+        var waitingListValue = ' ',
+                notWaitingListValue = ' ',
+                notWaitingListElement = YAHOO.util.Dom.get("notWaitingList"),
+                waitingListElement = YAHOO.util.Dom.get("waitingList");
+        if (notWaitingListElement.options != undefined && notWaitingListElement.options.length >= 1) {
+            for (var i = 0; i < notWaitingListElement.options.length; i++) {
+                notWaitingListValue += notWaitingListElement.options[i].value + "|";
+            }
+            notWaitingListValue = notWaitngListValue.substr(0, notWaitingListValue.length - 1);
+            YAHOO.util.Dom.get("notWaitingListHidden").value = notWaitingListValue;
+        }
+        if (waitingListElement.options != null && waitingListElement.options.length >= 1) {
+            for (var i = 0; i < waitingListElement.options.length; i++) {
+                waitingListValue += waitingListElement.options[i].value + "|";
+            }
+            waitingListValue = waitingListValue.substr(0, waitingListValue.length - 1);
+            YAHOO.util.Dom.get("waitingListHidden").value = waitingListValue;
+        }
+        YAHOO.util.Dom.get("editForm").submit()
+    }
+
+    function exportContacts(e) {
+        YAHOO.util.Event.preventDefault(e);
+        var selectedOptionName = "",
+                notWaitingListElement = YAHOO.util.Dom.get("notWaitingList");
+        for (var i = 0; i < notWaitingListElement.options.length; ++i) {
+            selectedOptionName += notWaitingListElement.options[i].text + ";";
+        }
+        selectedOptionName = selectedOptionName.substr(0, selectedOptionName.length - 1);
+        if (selectedOptionName.length == 0) {
+            alert("听课学员不能为空！");
+            return;
+        }
+        YAHOO.util.Dom.get("recipient_list").value = selectedOptionName;
+        YAHOO.util.Dom.get("email_form").submit();
     }
 
 
-    YUI().use('calendar', 'datatype-date', 'node', 'event', function (Y) {
-                var selectEnrollButton = Y.one(".selectEnrollButton"),
-                        cancelEnrollButton = Y.one(".cancelEnrollButton"),
-                        submitButton = Y.one("#submit_button");
-                selectEnrollButton.on('click', selectEnrollUser);
-                cancelEnrollButton.on('click', cancelEnrollUser);
+    function init() {
+        var startEnrollDateCalendar = new YAHOO.widget.Calendar("startEnrollDateCalendar", "startEnrollDateCalendar", {title:"选择课程开始报名日期", close:"true"}),
+                endEnrollDateCalendar = new YAHOO.widget.Calendar("endEnrollDateCalendar", "endEnrollDateCalendar", {title:"选择报名截至日期", close:"true"}),
+                courseStartDateCalendar = new YAHOO.widget.Calendar("courseStartDateCalendar", "courseStartDateCalendar", {title:"选择课程开始日期", close:"true"});
+        startEnrollDateCalendar.selectEvent.subscribe(handleCalendarSelect, [startEnrollDateCalendar, "id_enrollStartTime"], true);
+        endEnrollDateCalendar.selectEvent.subscribe(handleCalendarSelect, [endEnrollDateCalendar, "id_enrollEndTime"], true);
+        courseStartDateCalendar.selectEvent.subscribe(handleCalendarSelect, [courseStartDateCalendar, "id_courseStartTime"], true);
+        startEnrollDateCalendar.render();
+        endEnrollDateCalendar.render();
+        courseStartDateCalendar.render();
+
+        YAHOO.util.Dom.setStyle('startEnrollDateCalendar', 'position', 'absolute');
+        YAHOO.util.Dom.setStyle('endEnrollDateCalendar', 'position', 'absolute');
+        YAHOO.util.Dom.setStyle('courseStartDateCalendar', 'position', 'absolute');
+        YAHOO.util.Dom.setXY("startEnrollDateCalendar", YAHOO.util.Dom.getXY("id_enrollStartTime"));
+        YAHOO.util.Dom.setXY("courseStartDateCalendar", YAHOO.util.Dom.getXY("id_courseStartTime"));
+        YAHOO.util.Dom.setXY("endEnrollDateCalendar", YAHOO.util.Dom.getXY("id_enrollEndTime"));
+        startEnrollDateCalendar.hide();
+        endEnrollDateCalendar.hide();
+        courseStartDateCalendar.hide();
+
+        YAHOO.util.Event.addListener("id_enrollStartTime", "click", function () {
+            startEnrollDateCalendar.show();
+        });
+
+        YAHOO.util.Event.addListener("id_enrollEndTime", "click", function () {
+
+            endEnrollDateCalendar.show();
+
+        });
+        YAHOO.util.Event.addListener("id_courseStartTime", "click", function () {
+            courseStartDateCalendar.show();
+        });
+        new YAHOO.widget.Button({label:"添加课程", container:"submit_button_container", id:"submit_button"});
+        new YAHOO.widget.Button({label:"导出听课会员列表", container:"export_contacts_container", id:"export_contacts"});
+
+        YAHOO.util.Event.addListener("submit_button_container", "click", submitForm);
+        YAHOO.util.Event.addListener("selectEnrollButton", "click", selectEnrollUser);
+        YAHOO.util.Event.addListener("cancelEnrollButton", "click", cancelEnrollUser);
+        YAHOO.util.Event.addListener("export_contacts", "click", exportContacts);
+    }
+
+    YAHOO.util.Event.onDOMReady(init);
 
 
-                submitButton.on('click', submitForm);
-
-
-                var start_time_input = Y.one("#id_enrollStartTime"),
-                        end_time_input = Y.one("#id_enrollEndTime"),
-                        start_course_input = Y.one("#id_courseStartTime");
-                Y.one("#startDate").setXY(start_time_input.getXY())
-                Y.one("#endDate").setXY(end_time_input.getXY())
-                Y.one("#courseStartDate").setXY(start_course_input.getXY());
-                var dtdate = Y.DataType.Date,
-                        startCalendar = new Y.Calendar({
-                            contentBox:"#startDate",
-                            width:'340px',
-                            showPrevMonth:true,
-                            showNextMonth:true,
-                            date:new Date(),
-                            startDate:new Date()}).render(),
-                        startCourseCalendar = new Y.Calendar({
-                            contentBox:"#courseStartDate",
-                            width:'340px',
-                            showPrevMonth:true,
-                            showNextMonth:true,
-                            date:new Date(),
-                            startDate:new Date()}).render(),
-                        endCalendar = new Y.Calendar({
-                            contentBox:"#endDate",
-                            width:'340px',
-                            showPrevMonth:false,
-                            showNextMonth:false,
-                            date:new Date(),
-                            startDate:new Date()}).render();
-
-                startCalendar.hide();
-                endCalendar.hide();
-                startCourseCalendar.hide();
-
-                Y.one("#submit_button").on('click', function () {
-                    Y.one("form").submit()
-                })
-
-                startCourseCalendar.on("selectionChange", function (ev) {
-                    var newDate = ev.newSelection[0];
-                    start_course_input.set('value', dtdate.format(newDate));
-                    startCourseCalendar.hide()
-                });
-
-
-                startCalendar.on("selectionChange", function (ev) {
-                    var newDate = ev.newSelection[0];
-                    start_time_input.set('value', dtdate.format(newDate));
-                    startCalendar.hide()
-                });
-
-
-                endCalendar.on("selectionChange", function (ev) {
-                    var newDate = ev.newSelection[0];
-                    end_time_input.set('value', dtdate.format(newDate));
-                    endCalendar.hide()
-                });
-
-                start_time_input.setAttribute('readonly', 'readonly');
-                end_time_input.setAttribute("readonly", "readonly");
-                start_course_input.setAttribute('readonly', 'readonly');
-
-                start_course_input.on('click', function (e) {
-                            startCourseCalendar.show();
-                        }
-                );
-
-                start_time_input.on('click', function (e) {
-                            startCalendar.show();
-                        }
-                );
-
-                end_time_input.on('click', function (e) {
-                            endCalendar.show();
-                        }
-                );
-            }
-    )
 </script>
 </body>
 </html>

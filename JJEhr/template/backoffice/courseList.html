@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>所有课程</title>
-    <link rel="stylesheet" href="{{STATIC_URL}}/css/base.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssfonts/cssfonts-min.css">
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
@@ -14,12 +13,12 @@
 <body>
 <div class="content">
     <div class="yui3-g head">
-        <div class="yui3-u-4-5">
-        </div>
-        <div class="yui3-u-1-5">
+        <span>
             <a href="/backoffice/logout" class="head_style">注销</a>
-            <a href="/backoffice/course/add" class="head_style">添加课程</a>
-        </div>
+        </span>
+        <span>
+             <a href="/backoffice/course/add" class="head_style">添加课程</a>
+        </span>
     </div>
 
     <div class="yui3-g mainContent">

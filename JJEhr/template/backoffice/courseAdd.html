@@ -16,19 +16,11 @@
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
 
 
-    <!-- Dependencies -->
     <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
     <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
     <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
     <script src="{{STATIC_URL}}/yui2/build/calendar/calendar-min.js"></script>
 
-    <style type="text/css">
-        .yui-button button {
-            background-color: transparent;
-            cursor: pointer;
-            letter-spacing: 4px;
-        }
-    </style>
 </head>
 <body class="yui-skin-sam">
 <div id="startEnrollDateCalendar"></div>
@@ -37,12 +29,12 @@
 <div class="content">
 
     <div class="yui3-g head">
-    <span>
-        <a href="/backoffice/logout" class="head_style">注销</a>
-    </span>
-    <span>
-        <a href="/backoffice/index.html" class="head_style">返回首页</a>
-    </span>
+        <span>
+            <a href="/backoffice/logout" class="head_style">注销</a>
+        </span>
+        <span>
+            <a href="/backoffice/index.html" class="head_style">返回首页</a>
+        </span>
     </div>
     <div class="yui3-g mainContent">
         <form action="/backoffice/course/add" method="post" enctype="multipart/form-data">
@@ -73,15 +65,28 @@
     </div>
 </div>
 <script type="text/javascript">
+    function handleCalendarSelect(type, args, me) {
+        var dates = args[0],
+                date = dates[0],
+                year = date[0],
+                month = date[1],
+                day = date[2],
+                valueTextElement = YAHOO.util.Dom.get(me[1]);
+        valueTextElement.value = year + "-" + month + "-" + day;
+        me[0].hide();
+    }
+
     function init() {
-
-
         var startEnrollDateCalendar = new YAHOO.widget.Calendar("startEnrollDateCalendar", "startEnrollDateCalendar", {title:"选择课程开始报名日期", close:"true"}),
                 endEnrollDateCalendar = new YAHOO.widget.Calendar("endEnrollDateCalendar", "endEnrollDateCalendar", {title:"选择报名截至日期", close:"true"}),
                 courseStartDateCalendar = new YAHOO.widget.Calendar("courseStartDateCalendar", "courseStartDateCalendar", {title:"选择课程开始日期", close:"true"});
+        startEnrollDateCalendar.selectEvent.subscribe(handleCalendarSelect, [startEnrollDateCalendar, "id_enrollStartTime"], true);
+        endEnrollDateCalendar.selectEvent.subscribe(handleCalendarSelect, [endEnrollDateCalendar, "id_enrollEndTime"], true);
+        courseStartDateCalendar.selectEvent.subscribe(handleCalendarSelect, [courseStartDateCalendar, "id_courseStartTime"], true);
         startEnrollDateCalendar.render();
         endEnrollDateCalendar.render();
         courseStartDateCalendar.render();
+
         YAHOO.util.Dom.setStyle('startEnrollDateCalendar', 'position', 'absolute');
 
         YAHOO.util.Dom.setStyle('endEnrollDateCalendar', 'position', 'absolute');
@@ -107,6 +112,8 @@
             courseStartDateCalendar.show();
         });
         new YAHOO.widget.Button("submit_button", {label:"添加课程", type:"submit"});
+
+
     }
 
     YAHOO.util.Event.onDOMReady(init)
