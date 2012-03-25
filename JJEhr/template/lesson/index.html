@@ -18,13 +18,13 @@
     </script>
     <![endif]-->
 </head>
-<body>
+<body style="text-align: center;">
 <section id="page">
     <section id="subpage">
         <div id="pagewrap">
             <section id="sidebar"></section>
             <section id="contents">
-                <header id="mainheader">
+                <header id="mainheader" style="text-align: left;">
                     <h1>Smart-J 课堂</h1>
                     <span class="searchArea">
                        <form action="/" method="get" {% if not isSearch %} target="_blank" {% endif %}>
@@ -44,7 +44,7 @@
                         </form>
                     </span>
                 </header>
-                <section id="main">
+                <section id="main" style="text-align: left;">
                     {% if isSearch %}
                     <div class="search_result">搜索 “
                         <small>{{current_search_type}}</small>
@@ -108,13 +108,7 @@
                     <div class="clear"></div>
                 </section>
                 <footer id="pagefooter">
-                    <div class="footerwrap">
-                        <p class="siteinfo">
-                            <!-- 2010 &copy; All Rights Reserved | Your Website Info and copyright information goes here.
-                            -->
-                            www.jinjiang.com 锦江电商
-                        </p>
-                    </div>
+
                     <div id="credits">
                         <a href="www.jinjiang.com" title="锦江电商" style="color: #ffffaa;"> www.jinjiang.com
                             锦江国际电子商务有限公司 </a></div>

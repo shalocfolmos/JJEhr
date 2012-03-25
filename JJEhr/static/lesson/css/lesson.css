@@ -180,13 +180,6 @@ ul {
     line-height: 30px;
 }
 
-/*
-#sociallinks h2 {
-    background: url(../../lesson/images/hd-social.png) center top no-repeat;
-    text-indent: -4000px;
-    overflow: hidden;
-}
-*/
 a img {
     border: none !important;
 }
@@ -200,7 +193,6 @@ a img {
     text-decoration: none;
 }
 
-/*#sidebar a:hover {color:#000;}*/
 #pagefooter {
     background: url(../images/footerbg.jpg) repeat;
     height: 42px;
@@ -243,6 +235,7 @@ p.siteinfo {
     font-size: 1.1em;
     text-align: right;
     padding-right: 20px;
+    padding-top: 10px;
 }
 
 #credits a {
