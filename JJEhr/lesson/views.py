@@ -1,5 +1,3 @@
-#coding=utf-8
-# Create your views here.
 import datetime
 from django.shortcuts import render_to_response
 from lesson.manager import tempMapping
@@ -30,24 +28,9 @@ def index(httpRequest):
     if isSearch:
         _context['current_search_type'] = current_search_type
         _context['searchContent'] = searchContent
-    return render_to_response('lesson/index1.html', _context, context_instance=RequestContext(httpRequest))
+    return render_to_response('lesson/index.html', _context, context_instance=RequestContext(httpRequest))
 
-#def detail(request, id):
-#    try:
-#        course_id = int(id)
-#    except ValueError:
-#        raise Http404
-#    course = get_object_or_404(Course,id=course_id)
-#    enroll_set = course.enroll_set.order_by('-createdDate')
-#    context = {'course': course,'enroll_set': enroll_set,}
-#    return render_to_response('lesson/show.html', context, context_instance=RequestContext(request))
 
-##  Illegal submit ->403
-##  input Invaild not email  ->  400
-##  repeat reservation 409
-## success 200
-## date time 404
-#book course
 def book_course(request):
     # Make sure page request is POST. If not, return Illegal.
     if request.method == 'POST':
@@ -71,15 +54,3 @@ def book_course(request):
             return HttpResponse(400)
     else:
         return HttpResponse(403)
-
-
-#def download(request):
-#    filename = request.GET['file']
-#    showName = filename.split("/")[1]
-#    path = settings.MEDIA_ROOT + "/" + filename
-#    wrapper = FileWrapper(file(path))
-#    response = HttpResponse(wrapper.__getitem__(path),
-#        content_type='multipart/octet-stream')
-#    response['Content-Disposition'] = "attachment; filename*=UTF-8''" + urlquote(showName)
-#    response['Content-Length'] = os.path.getsize(path)
-#    return response
