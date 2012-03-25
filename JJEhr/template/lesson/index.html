@@ -67,8 +67,6 @@
                         </header>
                         <section class="entry">
                             <p>课程介绍 :{{course.courseDescription|escape}}<!-- <a href="###">展开</a>--></p>
-
-                            <!--<p style="display: none;">课程介绍 :{{course.courseDescription|escape}} <a href="###">收起</a></p>-->
                             <span>
                                 {% if course.courseWare %}
                                   <a href="/course/download/{{course.courseWare.name|escape}}">下载课件</a>
@@ -133,16 +131,14 @@
             {% csrf_token %}
             <input type="hidden" value='' name="course_id" id="course_id"/>
 
-            <div class="yui3-u-1-3">
+            <div class="yui3-u-1-1">
                 <p class="textfield">
-                    邮箱地址：<input name="email" id="email">
+                    邮箱地址：<input name="email" id="email"/>
+                    <button type="button" class="btn2">确认报名</button>
                     <label for="email">
                         <small></small>
                     </label>
                 </p>
-            </div>
-            <div class="yui3-u-2-3">
-                <input type="button" value="确认报名" class="btn2">
             </div>
         </div>
     </form>
@@ -152,6 +148,7 @@
         return this.replace(/^\s+|\s+$/g, '');
     }
     String.prototype.isEmail = function () {
+
         return(/^(?:\w+\.?)*\w+@(?:\w+\.?)*[a-zA-Z]{2,3}$/i).test(this.trim());
     }
     String.prototype.isEmpty = function () {
@@ -159,13 +156,6 @@
     }
 
     YUI().use('node', 'io-base', function (Y) {
-        /* Y.all('.entry p a').on('click', function (e) {
-         e.preventDefault();
-         var p = e.currentTarget.get('parentNode');
-         p.hide();
-         p.next('p') == null ? p.previous('p').show() : p.next('p').show();
-         });*/
-
         Y.all('.bookCourse').on('click', function (e) {
             e.preventDefault();
             var bookForm = Y.one("#bookArea");
@@ -227,10 +217,14 @@
             bookForm.one("small").setContent("");
             var value = bookForm.one("#email").get("value");
             if (!value.isEmail()) {
-                bookForm.one("small").setContent("请填写正确的邮箱");
+                bookForm.one("small").setContent("邮箱地址格式不正确");
                 return;
             }
-            //bookForm.hide();
+
+            if (value.indexOf("@jinjiang.com") == -1) {
+                bookForm.one("small").setContent("请使用锦江电商的邮箱");
+                return false;
+            }
             var formObject = bookForm.one("form");
 
             var cfg = {

@@ -105,7 +105,6 @@ h3 {
     -moz-border-radius-topright: 20px;
     -webkit-border-top-right-radius: 20px;
 
-
 }
 
 #sidebar {
@@ -134,7 +133,7 @@ ul {
 .post {
 
     padding: 35px;
-  /*  border-bottom: solid 1px #ccc6b5;*/
+    /*  border-bottom: solid 1px #ccc6b5;*/
     background-color: white;
     border-top-left-radius: 10px;
     -moz-border-radius-topleft: 10px;
@@ -144,10 +143,12 @@ ul {
     -webkit-border-top-right-radius: 10px;
 
 }
+
 .post:hover {
     background-color: #fafad2;
 }
- .shadow {
+
+.shadow {
     background: url("../images/web17.png") right top no-repeat;
     height: 20px;
 }
@@ -172,8 +173,6 @@ ul {
     text-decoration: none;
     color: #262119;
 }
-
-
 
 .post .entry p, .post .entry span {
     margin-bottom: 10px;
@@ -251,17 +250,6 @@ p.siteinfo {
     text-decoration: none;
 }
 
-/*
-
-.post img.alignleft  {float:left; border:solid 1px #ddd; padding:10px; display:block; margin:0 10px 5px 0;}
-.post img.alignright  {float:right; border:solid 1px #ddd; padding:10px; display:block; margin:0 0 5px 10px;}
-.post ul, .post ol {font-size:1.2em; line-height:18px; margin-bottom:15px; padding-left:20px;}
-.post ul li {display:block; background:url(../../lesson/images/ulli.png) 0 6px no-repeat; padding-left:25px; margin-bottom:10px;}
-.post h4 {font:bold 1.4em "Trebuchet MS", Arial, Helvetica, sans-serif; color:#000; margin-bottom:10px;}
-.post h2 {display:block; font:1.8em "Trebuchet MS", Arial, Helvetica, sans-serif; color:#000;}
-.postinfo a {color:#000; text-decoration:none;}
-*/
-
 /*#commentlist .entry .avatar {height:45px; margin-bottom:10px;}
 #commentlist .entry {border:solid 1px #ddd; padding:10px; margin-bottom:10px;}
 #commentlist .entry .avatar img {float:left;}
@@ -293,6 +281,11 @@ p.siteinfo {
     height: 24px;
     line-height: 24px;
     border: solid 1px #ccc;
+}
+
+p.textfield {
+    letter-spacing: normal;
+    word-spacing: normal;
 }
 
 .search_textfield .search_content {
