@@ -1,69 +1,58 @@
-{% load static %}
-{% get_static_prefix as STATIC_URL %}
-<html>
-<head>
-    <title>所有课程</title>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssfonts/cssfonts-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
-    <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
-    <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/course_list.css" type="text/css"/>
-</head>
-<body>
-<div class="content">
-    <div class="yui3-g head">
-        <span>
-            <a href="/backoffice/logout" class="head_style">注销</a>
-        </span>
-        <span>
-             <a href="/backoffice/course/add" class="head_style">添加课程</a>
-        </span>
-    </div>
+{% extends "backoffice/backofficeBasePage.html" %}
 
-    <div class="yui3-g mainContent">
-        {% if courseList%}
+{%block title%}
+所有课程
+{%endblock title%}
+
+{%block extra_css%}
+<link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/course_list.css" type="text/css"/>
+{%endblock extra_css%}
+
+{%block content%}
+{% if courseList%}
+<div class="yui3-u-1-1">
+
+    <div class="yui3-g inner-boundary">
+
         <div class="yui3-u-1-1">
-
-            <div class="yui3-g inner-boundary">
-
-                <div class="yui3-u-1-1">
-                    <ul class="item-list">
-                        {% for course in courseList %}
-                        <li class="web-template">
-                            <div class="yui3-g">
-                                <div class="yui3-u">
-                                    <div>
-                                        <a style="font-size: 166%;color: #000000;text-decoration: none;"
-                                           href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
-                                        &nbsp;&nbsp;<span style="font-size: 120%;color: #8A6741">{{ course.courseSpeaker }}</span>
-                                    </div>
-                                    <div style="padding-top: 10px;font-size: 120%">
-                                        {{course.courseDescription|truncatewords_html:5}}
-                                    </div>
-                                    <div style="padding-top: 10px;font-size: 120%">
-                                        听课名额：<span style="color: #E56700;">{{course.maxTraineeAmount}}</span>
-                                        报名人数： <span style="color: #E56700;">{{ course.enroll_set.all|length }}</span>
-                                    </div>
-                                    <div style="padding-top: 10px;">
-                                        <a href="/backoffice/course/{{course.id}}"
-                                           style="text-decoration:none;font-size:110%;color: #356DE4;">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="/backoffice/course/delete/{{course.id}}"
-                                           style="text-decoration:none;font-size:110%;color: #356DE4;">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </div>
-                                </div>
+            <ul class="item-list">
+                {% for course in courseList %}
+                <li class="web-template">
+                    <div class="yui3-g">
+                        <div class="yui3-u">
+                            <div>
+                                <a style="font-size: 166%;color: #000000;text-decoration: none;"
+                                   href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
+                                &nbsp;&nbsp;<span
+                                    style="font-size: 120%;color: #8A6741">{{ course.courseSpeaker }}</span>
                             </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-            </div>
-
+                            <div style="padding-top: 10px;font-size: 120%">
+                                {{course.courseDescription|truncatewords_html:5}}
+                            </div>
+                            <div style="padding-top: 10px;font-size: 120%">
+                                听课名额：<span style="color: #E56700;">{{course.maxTraineeAmount}}</span>
+                                报名人数： <span style="color: #E56700;">{{ course.enroll_set.all|length }}</span>
+                            </div>
+                            <div style="padding-top: 10px;">
+                                <a href="/backoffice/course/{{course.id}}"
+                                   style="text-decoration:none;font-size:110%;color: #356DE4;">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="/backoffice/course/delete/{{course.id}}"
+                                   style="text-decoration:none;font-size:110%;color: #356DE4;">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-        {% endif %}
-    </div>
 
+    </div>
 </div>
-</body>
-</html>
+{% endif %}
+{%endblock content%}
+
+{%block extra_head_menu%}
+<span>
+    <a href="/backoffice/course/add" class="head_style">添加课程</a>
+</span>
+{%endblock extra_head_menu%}

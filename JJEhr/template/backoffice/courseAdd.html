@@ -1,69 +1,53 @@
-{% load static %}
-{% get_static_prefix as STATIC_URL %}
-<html>
-<head>
-    <title>添加课程</title>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
+{% extends "backoffice/backofficeBasePage.html" %}
+{%block title%}
+添加课程
+{%endblock title%}
+{%block extra_css%}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/backoffice/css/add_course.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/calendar/assets/skins/sam/calendar.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
+{%endblock extra_css%}
 
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/backoffice/css/add_course.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
-
-
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/calendar/assets/skins/sam/calendar.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
-
-
-    <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-    <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
-    <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
-    <script src="{{STATIC_URL}}/yui2/build/calendar/calendar-min.js"></script>
-
-</head>
-<body class="yui-skin-sam">
+{%block pre_body_content%}
 <div id="startEnrollDateCalendar"></div>
 <div id="endEnrollDateCalendar"></div>
 <div id="courseStartDateCalendar"></div>
-<div class="content">
-
-    <div class="yui3-g head">
-        <span>
-            <a href="/backoffice/logout" class="head_style">注销</a>
-        </span>
-        <span>
-            <a href="/backoffice/index.html" class="head_style">返回首页</a>
-        </span>
-    </div>
-    <div class="yui3-g mainContent">
-        <form action="/backoffice/course/add" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="yui3-g" style="padding-top: 15px;">
-                <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
-                <div class="yui3-u-4-5" style="float:left">
-                    <div class="yui3-g">
-                        <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
-                            {{field}}
-                        </div>
-                        <div class="yui3-u-2-5 error_area">
-                            {%for error in field.errors%}
-                            {{error}}
-                            {%endfor%}
-
-                        </div>
-                    </div>
+{%endblock pre_body_content%}
+{%block content%}
+<form action="/backoffice/course/add" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="yui3-g" style="padding-top: 15px;">
+        <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
+        <div class="yui3-u-4-5" style="float:left">
+            <div class="yui3-g">
+                <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
+                    {{field}}
                 </div>
-                <div style="clear:both;"></div>
+                <div class="yui3-u-2-5 error_area">
+                    {%for error in field.errors%}
+                    {{error}}
+                    {%endfor%}
+
+                </div>
             </div>
-            {%endfor%}
-            <div style="padding-top:30px;">
-                <button id="submit_button"/>
-            </div>
-        </form>
+        </div>
+        <div style="clear:both;"></div>
     </div>
-</div>
+    {%endfor%}
+    <div style="padding-top:30px;">
+        <button id="submit_button"/>
+    </div>
+</form>
+{%endblock content%}
+{%block extra_js%}
+<script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/calendar/calendar-min.js"></script>
+{%endblock extra_js%}
+{%block js_content%}
 <script type="text/javascript">
     function handleCalendarSelect(type, args, me) {
         var dates = args[0],
@@ -80,6 +64,8 @@
         var startEnrollDateCalendar = new YAHOO.widget.Calendar("startEnrollDateCalendar", "startEnrollDateCalendar", {title:"选择课程开始报名日期", close:"true"}),
                 endEnrollDateCalendar = new YAHOO.widget.Calendar("endEnrollDateCalendar", "endEnrollDateCalendar", {title:"选择报名截至日期", close:"true"}),
                 courseStartDateCalendar = new YAHOO.widget.Calendar("courseStartDateCalendar", "courseStartDateCalendar", {title:"选择课程开始日期", close:"true"});
+
+
         startEnrollDateCalendar.selectEvent.subscribe(handleCalendarSelect, [startEnrollDateCalendar, "id_enrollStartTime"], true);
         endEnrollDateCalendar.selectEvent.subscribe(handleCalendarSelect, [endEnrollDateCalendar, "id_enrollEndTime"], true);
         courseStartDateCalendar.selectEvent.subscribe(handleCalendarSelect, [courseStartDateCalendar, "id_courseStartTime"], true);
@@ -98,6 +84,7 @@
         startEnrollDateCalendar.hide();
         endEnrollDateCalendar.hide();
         courseStartDateCalendar.hide();
+
 
         YAHOO.util.Event.addListener("id_enrollStartTime", "click", function () {
             startEnrollDateCalendar.show();
@@ -118,6 +105,4 @@
 
     YAHOO.util.Event.onDOMReady(init)
 </script>
-
-</body>
-</html>
+{%endblock js_content%}

@@ -1,0 +1,45 @@
+{% load static %}
+{% get_static_prefix as STATIC_URL %}
+<html>
+<head>
+    <title>
+        {%block title_content%}
+        所有课程
+        {%endblock title_content%}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
+    {%block extra_css%}
+    {%endblock extra_css%}
+</head>
+<body class="yui-skin-sam">
+{%block pre_body_content%}
+{%endblock pre_body_content%}
+<div class="content">
+    <div class="yui3-g head">
+        <span>
+            <a href="/backoffice/logout" class="head_style">注销</a>
+        </span>
+        {%block extra_head_menu%}
+        <span>
+            <a href="/backoffice/index.html" class="head_style">返回首页</a>
+        </span>
+        {%endblock extra_head_menu%}
+    </div>
+
+    <div class="yui3-g mainContent">
+        {%block content%}
+
+        {%endblock content%}
+    </div>
+</div>
+{%block post_body_content%}
+{%endblock post_body_content%}
+{%block extra_js%}
+{%endblock extra_js%}
+{%block js_content%}
+{%endblock js_content%}
+</body>
+</html>
