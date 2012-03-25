@@ -42,7 +42,7 @@ class Enroll(models.Model):
     isWaitingList = models.BooleanField(default=False)
     enrollTime = models.DateTimeField(auto_now_add=True)
     createdDate = models.DateTimeField(auto_now=True)
-   # ipAddress = models.IPAddressField(default="")
+
     def __unicode__(self):
         return '(email = %s)' % (self.email,)
 
