@@ -14,23 +14,22 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
+    #'test': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': 'db/jjehr_course.db',
+    #    'USER': '',
+    #    'PASSWORD': '',
+    #    'HOST': '',
+    #    'PORT': '',
+    #   },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db/jjehr_course.db',
-        'USER': '',
-        'PASSWORD': '',
+        'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
+        'NAME': 'jjehr',
+        'USER': 'root',
+        'PASSWORD': '123456',
         'HOST': '',
         'PORT': '',
-
-        },
-    # 'production': {
-    #     'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
-    #     'NAME': 'jjehr',
-    #     'USER': 'root',
-    #     'PASSWORD': '123456',
-    #     'HOST': '',
-    #     'PORT': '',
-    #     }
+        }
 }
 
 TEMPLATE_STRING_IF_INVALID = ''
@@ -89,9 +88,7 @@ STATICFILES_DIRS = (
     "./static/lesson",
     "./static",
     "./static/yui",
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+
     )
 
 # List of finder classes that know how to find static files in
@@ -109,7 +106,6 @@ SECRET_KEY = '_!%w_nr**%6088+d8-0_v)96@w$)a$18yhi3y20mf!dnlzh4bu'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    #     'django.template.loaders.eggs.Loader',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -141,11 +137,6 @@ INSTALLED_APPS = (
     #课程模块
     'backoffice',
     'lesson',
-
-    'django.contrib.admin',
-
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     )
 
 # A sample logging configuration. The only tangible logging
@@ -153,36 +144,33 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': DEBUG,
-    'handlers': {
-        'mail_admins': {
-            'level': 'DEBUG',
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            },
-        },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'DEBUG',
-            'propagate': DEBUG,
-            },
-        'django.db.backends': {
-            'handlers': ['console'],
-            'propagate': DEBUG,
-            'level': 'DEBUG',
-            },
-        }
+LOGGING = {'version': 1,
+           'disable_existing_loggers': DEBUG,
+           'handlers': {
+               'mail_admins': {
+                   'level': 'DEBUG',
+                   'class': 'django.utils.log.AdminEmailHandler'
+               },
+               'console': {
+                   'level': 'DEBUG',
+                   'class': 'logging.StreamHandler',
+                   },
+               },
+           'loggers': {
+               'django.request': {
+                   'handlers': ['mail_admins'],
+                   'level': 'DEBUG',
+                   'propagate': DEBUG,
+                   },
+               'django.db.backends': {
+                   'handlers': ['console'],
+                   'propagate': DEBUG,
+                   'level': 'DEBUG',
+                   },
+               }
 }
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'username@gmail.com'
-EMAIL_HOST_PASSWORD = 'password'
-EMAIL_USE_TLS = True
-EMAIL_SUBJECT = ""
-EMAIL_BODY = r""
+#EMAIL_HOST = 'smtp.telecom-sh.com'
+#EMAIL_PORT = '25'
+#EMAIL_HOST_USER = 'sam.sun@jinjiang.com'
+#EMAIL_HOST_PASSWORD = 'Jj123456'
