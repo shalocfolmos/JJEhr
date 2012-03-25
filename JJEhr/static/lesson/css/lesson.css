@@ -243,28 +243,6 @@ p.siteinfo {
     text-decoration: none;
 }
 
-/*#commentlist .entry .avatar {height:45px; margin-bottom:10px;}
-#commentlist .entry {border:solid 1px #ddd; padding:10px; margin-bottom:10px;}
-#commentlist .entry .avatar img {float:left;}
-#commentlist .entry p {font-size:1.1em; line-height:18px; margin-bottom:10px;}
-#commentlist .entry .avatar .author {display:block; margin-left:50px;}
-#commentlist .author span, .author time {display:block;}
-
-#commentlist .entry {margin:10px;}
-.commentreply {font-size:1.1em; height:18px; line-height:18px; text-align:right;}
-
-#commentform {
-    padding: 10px;
-    background: #f4f4f4;
-    border: solid 1px #ddd;
-}
-
-#commentform p, .form p {
-    display: block;
-    margin-bottom: 10px !important;
-    font-size: 1.2em;
-}
-*/
 .textfield, .search_textfield {
     font-size: 12px;
 }
@@ -304,9 +282,6 @@ p.textfield {
     border: solid 1px #333;
 }
 
-{
-
-}
 .btn2 {
     padding: 2 4 0 4;
     font-size: 12px;
@@ -314,6 +289,7 @@ p.textfield {
     background-color: #ece9d8;
     border-width: 1;
     height: 24px;
+    padding-top: 0px;
 }
 
 small {
