@@ -69,7 +69,7 @@
                             <p>课程介绍 :{{course.courseDescription|escape}}<!-- <a href="###">展开</a>--></p>
                             <span>
                                 {% if course.courseWare %}
-                                  <a href="/course/download/{{course.courseWare.name|escape}}">下载课件</a>
+                                  <a href="/courseware/{{course.courseWare.name|escape}}">下载课件</a>
                                 {% endif %}
                                 {% if course.courseWare  and  course.id in allow_course_id_list%}
                                     |
