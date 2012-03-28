@@ -35,7 +35,7 @@ class Course(models.Model):
     courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S', blank=True)
     createDate = models.DateTimeField(auto_now_add=True)
     updatedDate = models.DateTimeField(auto_now=True)
-    type = models.CharField(choices=COURSE_TYPE)
+    type = models.CharField(max_length=10, choices=COURSE_TYPE)
     objects = models.Manager()
     search_objects = CourseManager()
 
