@@ -6,6 +6,13 @@ from lesson.validation import validate_enroll
 
 # Create your models here.
 class Course(models.Model):
+    COURSE_TYPE = (
+        ('DEP', '部门培训'),
+        ('MANAGE', '管理层培训'),
+        ('FRIDAY', '周五小老师'),
+        ('EVENT', '公司活动')
+        )
+
     courseName = models.CharField(max_length=50)
     courseDescription = models.TextField(blank=True)
     #课时
@@ -28,6 +35,7 @@ class Course(models.Model):
     courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S', blank=True)
     createDate = models.DateTimeField(auto_now_add=True)
     updatedDate = models.DateTimeField(auto_now=True)
+    type = models.CharField(choices=COURSE_TYPE)
     objects = models.Manager()
     search_objects = CourseManager()
 
