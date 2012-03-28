@@ -1,7 +1,7 @@
 #-*- coding: UTF-8 -*-
 import os
 
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -14,14 +14,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    #'test': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': 'db/jjehr_course.db',
-    #    'USER': '',
-    #    'PASSWORD': '',
-    #    'HOST': '',
-    #    'PORT': '',
-    #   },
     'default': {
         'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
         'NAME': 'jjehr',

@@ -1,17 +1,13 @@
-"""
+# -*- coding: utf-8 -*-
+from django.core import urlresolvers
+from django.test.client import Client
 
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+from django.utils.unittest import TestCase
 
-Replace this with more appropriate tests for your application.
-"""
+class ViewTest(TestCase):
+    def should_add_course(self):
+        c = Client()
+        response = c.post(urlresolvers.reverse("backoffice:addCourse"))
+        self.assertEqual(response.status_code, 200)
 
-from django.test import TestCase
 
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
