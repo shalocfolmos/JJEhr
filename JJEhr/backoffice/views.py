@@ -9,7 +9,7 @@ from django.http import  HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from JJEhr.backoffice.form import CourseForm, UpdateCourseForm, ExportContactsForm
+from JJEhr.backoffice.form import UpdateCourseForm, ExportContactsForm, AddCourseForm
 from JJEhr.lesson.models import Course, Enroll
 from django.contrib.sites.models import get_current_site
 
@@ -98,23 +98,12 @@ def export_notification_list(request):
 @csrf_protect
 def addCourse(request):
     if request.method == 'POST':
-        form = CourseForm(request.POST, request.FILES)
+        form = AddCourseForm(request.POST, request.FILES)
         if form.is_valid():
-            course = Course()
-            course.courseName = request.POST["courseName"]
-            course.courseDescription = request.POST['courseDescription']
-            course.courseTime = request.POST['courseTime']
-            course.courseArrange = request.POST['courseArrange']
-            course.courseSpeaker = request.POST['courseSpeaker']
-            course.enrollStartTime = request.POST['enrollStartTime']
-            course.courseStartTime = request.POST['courseStartTime']
-            course.enrollEndTime = request.POST['enrollEndTime']
-            course.maxTraineeAmount = request.POST['maxTraineeAmount']
-            course.courseWare = request.FILES.get('courseWare')
-            course.save()
+            form.save()
             return HttpResponseRedirect("/backoffice/index.html")
     else:
-        form = CourseForm(initial={'enrollStartTime': datetime.datetime.now().strftime("%Y-%m-%d")})
+        form = AddCourseForm(initial={'enrollStartTime': datetime.datetime.now().strftime("%Y-%m-%d")})
     return render_to_response('backoffice/courseAdd.html', {'form': form}, context_instance=RequestContext(request))
 
 
