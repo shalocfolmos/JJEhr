@@ -8,7 +8,7 @@
         <p>添加事件类型</p>
     </div>
     <div class="bd">
-        <form method="post" action="backoffice/eventtype/add">
+        <form method="post" action="event/eventtype/add">
             {%for field in eventTypeForm%}
             {% csrf_token %}
             <div class="yui3-g" style="width: 100%;padding-bottom: 15px;">

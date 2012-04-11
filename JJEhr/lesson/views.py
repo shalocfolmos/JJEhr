@@ -1,8 +1,10 @@
+#-*- coding: UTF-8 -*-
 import datetime
 from django.shortcuts import render_to_response
 from lesson.manager import tempMapping
 import settings
-from JJEhr.lesson.models import Course, Enroll, EnrollForm
+from JJEhr.lesson.form import EnrollForm
+from JJEhr.lesson.models import Course, Enroll
 
 from django.http import HttpResponse
 from django.template.context import RequestContext

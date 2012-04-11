@@ -32,7 +32,7 @@ class Course(models.Model):
     createDate = models.DateTimeField(auto_now_add=True)
     updatedDate = models.DateTimeField(auto_now=True)
 
-    event_type = models.ForeignKey("EventType", verbose_name="event_type")
+    event_type = models.ForeignKey("event.EventType", verbose_name="event_type")
 
     objects = models.Manager()
     search_objects = CourseManager()
@@ -51,12 +51,6 @@ class Enroll(models.Model):
 
     def __unicode__(self):
         return '(email = %s)' % (self.email,)
-
-
-class EventType(models.Model):
-    type_name = models.CharField(max_length=30, verbose_name="活动类型")
-    type_description = models.TextField(blank=True, verbose_name="活动类型介绍")
-    type_image = models.ImageField(upload_to="event_img/event_img_%Y_%m_%d_%M_%S", blank=True, verbose_name="活动类型图片")
 
 
 

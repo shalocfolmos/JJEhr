@@ -1,5 +1,8 @@
-from django.forms import forms
+#-*- coding: UTF-8 -*-
+from django.forms.fields import EmailField, IntegerField
+from django.forms.forms import Form
+from lesson.validation import validate_enroll
 
-class EnrollForm(forms.Form):
-    email = forms.EmailField(required=True, label='邮箱')
-    course_id = forms.IntegerField(required=True, validators=[validate_enroll], label='课程')
+class EnrollForm(Form):
+    email = EmailField(required=True, label='邮箱')
+    course_id = IntegerField(required=True, validators=[validate_enroll], label='课程')

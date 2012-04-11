@@ -78,7 +78,6 @@ STATICFILES_DIRS = (
     "./static/lesson",
     "./static",
     "./static/yui",
-
     )
 
 # List of finder classes that know how to find static files in
@@ -110,10 +109,7 @@ ROOT_URLCONF = 'JJEhr.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'template'),
-    # "./template"
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, 'event/template'),
     )
 
 INSTALLED_APPS = (
@@ -127,6 +123,7 @@ INSTALLED_APPS = (
     #课程模块
     'backoffice',
     'lesson',
+    'event',
     )
 
 # A sample logging configuration. The only tangible logging

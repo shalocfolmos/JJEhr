@@ -9,8 +9,8 @@ from django.http import  HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-import json
-from JJEhr.backoffice.form import UpdateCourseForm, ExportContactsForm, AddCourseForm, AddEventTypeForm
+from JJEhr.backoffice.form import UpdateCourseForm, ExportContactsForm, AddCourseForm
+from JJEhr.event.form import AddEventTypeForm
 from JJEhr.lesson.models import Course, Enroll
 from django.contrib.sites.models import get_current_site
 
@@ -18,7 +18,6 @@ from django.contrib.sites.models import get_current_site
 @login_required(login_url='/backoffice/login')
 def courseView(request, courseId=0):
     course = Course.objects.get(id=courseId)
-    waitingList = notWaitList = None
     notWaitList = Enroll.objects.filter(course=course).filter(isWaitingList=False)
     waitingList = Enroll.objects.filter(course=course).filter(isWaitingList=True)
 
@@ -146,15 +145,4 @@ def admin_logout(request):
     return logout(request, next_page=reverse('backoffice.views.displayCourseList'))
 
 
-@login_required(login_url='/backoffice/login')
-@csrf_protect
-def event_add(request):
-    form = AddEventTypeForm(request)
-    json_raw_data = dict()
-    if form.is_valid():
-        form.save()
-        json_raw_data['message'] = 'SUCCESS'
-    else:
-        json_raw_data['message'] = form.errors[0]
-    return HttpResponse(json.dumps(json_raw_data), content_type="application/json")
 

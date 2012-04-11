@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^book/$', 'lesson.views.book_course'),
     url(r'^course/index.html', 'lesson.views.index'),
     url(r'^backoffice/login', 'django.contrib.auth.views.login', {'template_name': 'backoffice/login.html'}),
-    url(r'^backoffice/index.html', 'backoffice.views.displayCourseList'),
+
     url(r'^backoffice/course/(?P<courseId>\d+)$', 'backoffice.views.courseView'),
     url(r'^backoffice/course/delete/(?P<courseId>\d+)$', 'backoffice.views.delete_course'),
     url(r'^backoffice/logout', 'backoffice.views.admin_logout'),
@@ -24,5 +24,9 @@ urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += patterns(r'backoffice',
     url(r'^backoffice/export', r'views.export_notification_list'),
-    url(r'^backoffice/eventtype/add', r'views.event_add')
+    url(r'^backoffice/index.html', r'views.displayCourseList'),
+)
+
+urlpatterns += patterns(r'event',
+    url(r'event/eventtype/add', r'views.event_add'),
 )
