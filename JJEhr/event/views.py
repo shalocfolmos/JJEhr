@@ -1,9 +1,10 @@
 # Create your views here.
+import json
 from django.contrib.auth.decorators import login_required
-from django.core.serializers import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from JJEhr.event.form import AddEventTypeForm
+
 
 @login_required(login_url='/backoffice/login')
 @csrf_protect

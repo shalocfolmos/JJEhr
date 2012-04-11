@@ -1,18 +1,17 @@
 # coding=UTF-8
 import datetime
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import logout
+from django.contrib.sites.models import get_current_site
 from django.core.urlresolvers import reverse
-from django.http import  HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from JJEhr.backoffice.form import UpdateCourseForm, ExportContactsForm, AddCourseForm
+from JJEhr.backoffice.form import UpdateCourseForm, AddCourseForm, ExportContactsForm
 from JJEhr.event.form import AddEventTypeForm
 from JJEhr.lesson.models import Course, Enroll
-from django.contrib.sites.models import get_current_site
 
 
 @login_required(login_url='/backoffice/login')
