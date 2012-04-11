@@ -28,13 +28,13 @@ def courseView(request, courseId=0):
             if waitingList:
                 for enrollId in waitingList.split('|'):
                     enroll = Enroll.objects.get(id=enrollId)
-                    if(enroll.isWaitingList != True):
+                    if not enroll.isWaitingList:
                         enroll.isWaitingList = True
                         enroll.save()
             if notWaitList:
                 for enrollId in notWaitList.split('|'):
                     enroll = Enroll.objects.get(id=enrollId)
-                    if enroll.isWaitingList != False:
+                    if not enroll.isWaitingList:
                         enroll.isWaitingList = False
                         enroll.save()
 
