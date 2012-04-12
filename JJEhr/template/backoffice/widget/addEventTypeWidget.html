@@ -1,5 +1,8 @@
 <link rel="stylesheet" type="text/css"
-      href="http://yui.yahooapis.com/2.9.0/build/container/assets/skins/sam/container.css">
+      href="http://yui.yahooapis.com/2.9.0/build/container/assets/skins/sam/container.css"/>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/button/assets/skins/sam/button.css"/>
+<script src="http://yui.yahooapis.com/2.9.0/build/element/element-min.js"></script>
+<script src="http://yui.yahooapis.com/2.9.0/build/button/button-min.js"></script>
 <div id="event_type_dialog" style="display: hidden;width: 450px;">
     <div class="hd">
         <p>添加事件类型</p>
@@ -25,13 +28,22 @@
                 <div style="clear:both;"></div>
             </div>
             {%endfor%}
-            <input type="button" value="添加"/>
         </form>
     </div>
 </div>
 <script type="text/javascript">
+
+
     function init() {
-        var eventTypeDialog = new YAHOO.widget.Dialog('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true});
+        var myButtons = [
+            {text:"添加事件类型", isDefault:true, handle:function () {
+
+            }},
+            {text:"取消", handler:function () {
+                eventTypeDialog.hide();
+            }}
+        ],
+                eventTypeDialog = new YAHOO.widget.Dialog('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true, buttons:myButtons});
         eventTypeDialog.render();
         eventTypeDialog.show();
     }
