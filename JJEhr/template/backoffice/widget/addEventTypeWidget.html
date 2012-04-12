@@ -1,0 +1,40 @@
+<link rel="stylesheet" type="text/css"
+      href="http://yui.yahooapis.com/2.9.0/build/container/assets/skins/sam/container.css">
+<div id="event_type_dialog" style="display: hidden;width: 450px;">
+    <div class="hd">
+        <p>添加事件类型</p>
+    </div>
+    <div class="bd">
+
+        {%for field in eventTypeForm%}
+        {% csrf_token %}
+        <div class="yui3-g" style="width: 100%;padding-bottom: 15px;">
+            <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
+            <div class="yui3-u-4-5" style="float:left">
+                <div class="yui3-g">
+                    <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
+                        {{field}}
+                    </div>
+                    <div class="yui3-u-2-5 error_area">
+                        {%for error in field.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        {%endfor%}
+        <input type="button" value="添加"/>
+    </div>
+</div>
+<script type="text/javascript">
+    function init() {
+        var eventTypeDialog = new YAHOO.widget.Dialog('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true});
+        eventTypeDialog.render();
+        eventTypeDialog.show();
+    }
+
+
+    YAHOO.util.Event.onDOMReady(init);
+</script>

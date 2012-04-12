@@ -9,7 +9,8 @@ from django.http import  HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from JJEhr.backoffice.form import UpdateCourseForm, ExportContactsForm, AddCourseForm
+import json
+from JJEhr.backoffice.form import UpdateCourseForm, ExportContactsForm, AddCourseForm, AddEventTypeForm
 from JJEhr.lesson.models import Course, Enroll
 from django.contrib.sites.models import get_current_site
 
@@ -98,13 +99,15 @@ def export_notification_list(request):
 @csrf_protect
 def addCourse(request):
     if request.method == 'POST':
-        form = AddCourseForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+        courseForm = AddCourseForm(request.POST, request.FILES)
+        if courseForm.is_valid():
+            courseForm.save()
             return HttpResponseRedirect("/backoffice/index.html")
     else:
-        form = AddCourseForm(initial={'enrollStartTime': datetime.datetime.now().strftime("%Y-%m-%d")})
-    return render_to_response('backoffice/courseAdd.html', {'form': form}, context_instance=RequestContext(request))
+        courseForm = AddCourseForm(initial={'enrollStartTime': datetime.datetime.now().strftime("%Y-%m-%d")})
+    eventTypeForm = AddEventTypeForm()
+    return render_to_response('backoffice/courseAdd.html', {'form': courseForm, 'eventTypeForm': eventTypeForm},
+        context_instance=RequestContext(request))
 
 
 @login_required(login_url='/backoffice/login')
@@ -129,7 +132,6 @@ def login(request):
 
     username = request.POST["username"]
     password = request.POST["passoword"]
-    next = request.POST["next"]
     user = authenticate(username=username, password=password)
     if user is not None and user.is_active:
         login(request, user)
@@ -142,3 +144,17 @@ def login(request):
 @login_required(login_url='/backoffice/login')
 def admin_logout(request):
     return logout(request, next_page=reverse('backoffice.views.displayCourseList'))
+
+
+@login_required(login_url='/backoffice/login')
+@csrf_protect
+def event_add(request):
+    form = AddEventTypeForm(request)
+    json_raw_data = dict()
+    if form.is_valid():
+        form.save()
+        json_raw_data['message'] = 'SUCCESS'
+    else:
+        json_raw_data['message'] = form.errors[0]
+    return HttpResponse(json.dumps(json_raw_data), content_type="application/json")
+

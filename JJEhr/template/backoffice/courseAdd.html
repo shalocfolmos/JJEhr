@@ -14,10 +14,13 @@
 <div id="endEnrollDateCalendar"></div>
 <div id="courseStartDateCalendar"></div>
 {%endblock pre_body_content%}
+
 {%block content%}
 <form action="/backoffice/course/add" method="post" enctype="multipart/form-data">
+
     {% csrf_token %}
     {% for field in form %}
+    {% if field.label != 'Event_type' %}
     <div class="yui3-g" style="padding-top: 15px;">
         <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
         <div class="yui3-u-4-5" style="float:left">
@@ -35,6 +38,33 @@
         </div>
         <div style="clear:both;"></div>
     </div>
+    {%else%}
+    <div class="yui3-g" style="padding-top: 15px;">
+        <div class="yui3-u-1-5" style="float:left;font-weight: bold;">
+            <label for="id_event_type">事件类型:</label></div>
+        <div class="yui3-u-4-5" style="float:left">
+            <div class="yui3-g">
+                <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
+                    <div class="yui3-g">
+                        <div class="yui3-u-2-5">
+                            {{form.event_type}}
+                        </div>
+                        <div class="yui3-u-3-5">
+                            <input type="button" id="add_event_type" name="add_event_type" value="添加事件类型">
+                        </div>
+                    </div>
+                </div>
+                <div class="yui3-u-2-5 error_area">
+                    {%for error in field.errors%}
+                    {{error}}
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    {% endif %}
+
     {%endfor%}
     <div style="padding-top:30px;">
         <button id="submit_button"/>
@@ -42,10 +72,10 @@
 </form>
 {%endblock content%}
 {%block extra_js%}
-<script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/calendar/calendar-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
 {%endblock extra_js%}
 {%block js_content%}
 <script type="text/javascript">
@@ -106,3 +136,7 @@
     YAHOO.util.Event.onDOMReady(init)
 </script>
 {%endblock js_content%}
+
+{%block extra_html_content%}
+{%include "backoffice/widget/addEventTypeWidget.html"%}
+{%endblock extra_html_content%}

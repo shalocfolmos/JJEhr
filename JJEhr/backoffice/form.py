@@ -1,7 +1,13 @@
 # coding=UTF-8
 from django import forms
 from django.forms.widgets import DateInput
-from JJEhr.lesson.models import Course
+from JJEhr.lesson.models import Course, EventType
+
+
+class AddEventTypeForm(forms.ModelForm):
+    class Meta:
+        model = EventType
+
 
 class AddCourseForm(forms.ModelForm):
     class Meta:

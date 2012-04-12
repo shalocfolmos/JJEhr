@@ -1,6 +1,5 @@
 #-*- coding: UTF-8 -*-
 from django.db import models
-from django import forms
 from lesson.manager import CourseManager
 from lesson.validation import validate_enroll
 
@@ -13,7 +12,7 @@ class Course(models.Model):
         )
 
     courseName = models.CharField(max_length=50, verbose_name="课程名称")
-    type = models.CharField(max_length=10, choices=COURSE_TYPE, verbose_name="课程类型")
+    #    type = models.CharField(max_length=10, choices=COURSE_TYPE, verbose_name="课程类型")
     courseDescription = models.TextField(blank=True, verbose_name="课程介绍")
     #课时
     courseTime = models.IntegerField(blank=True, verbose_name="课时")
@@ -32,6 +31,8 @@ class Course(models.Model):
     courseWare = models.FileField(upload_to='courseWare_%Y_%m_%d_%M_%S', blank=True, verbose_name="课件")
     createDate = models.DateTimeField(auto_now_add=True)
     updatedDate = models.DateTimeField(auto_now=True)
+
+    event_type = models.ForeignKey("EventType", verbose_name="event_type")
 
     objects = models.Manager()
     search_objects = CourseManager()
@@ -52,6 +53,12 @@ class Enroll(models.Model):
         return '(email = %s)' % (self.email,)
 
 
-class EnrollForm(forms.Form):
-    email = forms.EmailField(required=True, label='邮箱')
-    course_id = forms.IntegerField(required=True, validators=[validate_enroll], label='课程')
+class EventType(models.Model):
+    type_name = models.CharField(max_length=30, verbose_name="活动类型")
+    type_description = models.TextField(blank=True, verbose_name="活动类型介绍")
+    type_image = models.ImageField(upload_to="event_img/event_img_%Y_%m_%d_%M_%S", blank=True, verbose_name="活动类型图片")
+
+
+
+
+
