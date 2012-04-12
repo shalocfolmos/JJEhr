@@ -23,5 +23,6 @@ urlpatterns = patterns('',
 urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += patterns(r'backoffice',
-    url(r'^backoffice/export', r'views.export_notification_list')
+    url(r'^backoffice/export', r'views.export_notification_list'),
+    url(r'^backoffice/eventtype/add', r'views.event_add')
 )
