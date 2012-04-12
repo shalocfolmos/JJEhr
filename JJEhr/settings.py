@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'backoffice',
     'lesson',
     'event',
+    'investigation'
     )
 
 # A sample logging configuration. The only tangible logging
