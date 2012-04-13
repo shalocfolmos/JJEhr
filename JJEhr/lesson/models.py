@@ -4,15 +4,7 @@ from lesson.manager import CourseManager
 from lesson.validation import validate_enroll
 
 class Course(models.Model):
-    COURSE_TYPE = (
-        ('DEP', '部  门  培  训'),
-        ('MANAGE', '管  理  层  培  训'),
-        ('FRIDAY', '周  五  小  老  师'),
-        ('EVENT', '公  司  活  动')
-        )
-
     courseName = models.CharField(max_length=50, verbose_name="课程名称")
-    #    type = models.CharField(max_length=10, choices=COURSE_TYPE, verbose_name="课程类型")
     courseDescription = models.TextField(blank=True, verbose_name="课程介绍")
     #课时
     courseTime = models.IntegerField(blank=True, verbose_name="课时")
@@ -32,7 +24,7 @@ class Course(models.Model):
     createDate = models.DateTimeField(auto_now_add=True)
     updatedDate = models.DateTimeField(auto_now=True)
 
-    event_type = models.ForeignKey("event.EventType", verbose_name="event_type")
+    event_type = models.ForeignKey("event.EventType", verbose_name="event_type", db_column="event_type")
 
     objects = models.Manager()
     search_objects = CourseManager()

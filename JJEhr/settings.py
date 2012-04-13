@@ -109,6 +109,7 @@ ROOT_URLCONF = 'JJEhr.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'template'),
+    os.path.join(PROJECT_ROOT, 'event/template'),
     )
 
 INSTALLED_APPS = (
