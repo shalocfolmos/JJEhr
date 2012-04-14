@@ -1,4 +1,5 @@
 #-*- coding: UTF-8 -*-
+from StringIO import StringIO
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
@@ -29,5 +30,20 @@ def event_add(request):
 def event_delete(request):
     event_type = EventType.objects.get(id=request.POST['event_type_id'])
     event_type.delete()
+
+
+@require_http_methods(["GET"])
+@login_required(login_url='/backoffice/login')
+def event_show_all(request):
+    event_type_list = EventType.objects.all()
+    type_name_list = ["<div>" + event_type.type_name + "</div>" for event_type in event_type_list]
+    string_io = StringIO()
+    for type_name in type_name_list:
+        string_io.write(type_name)
+    result = string_io.getvalue()
+    string_io.close()
+    return HttpResponse(result)
+
+
 
 

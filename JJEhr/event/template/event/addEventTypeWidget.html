@@ -10,6 +10,13 @@
         <p>添加事件类型</p>
     </div>
     <div class="bd">
+        <div class="yui3-g">
+            <div class="yui3-u-1-1">
+                查看/删除事件类型 <input type="button" id="collapse_all"/>
+            </div>
+            <div id="event_type_content" class="yui3-u-1-1">
+            </div>
+        </div>
         <form action="/event/eventtype/add" method="POST" id="add_event_form">
             {% csrf_token %}
             {%for field in eventTypeForm%}
@@ -48,8 +55,17 @@
                     failure:function (o) {
                         alert("服务器异常,稍后再试!");
                         eventTypeDialog.hide();
+                    }
+
+                },
+                get_all_events_callback = {
+                    success:function (o) {
+                        alert(o.responseText);
+                        eventTypeDialog.hide();
                     },
-                    argument:[eventTypeDialog]
+                    failure:function (o) {
+
+                    }
                 };
         eventTypeDialog.render();
 
@@ -64,5 +80,8 @@
         YAHOO.util.Event.addListener("panel_cancel", "click", function () {
             eventTypeDialog.hide();
         }, eventTypeDialog, true);
+        YAHOO.util.Event.addListener("event_type_content", "click", function () {
+            YAHOO.util.Connect.asyncRequest('GET', '/event/eventtype/add', get_all_events_callback);
+        });
     });
 </script>
