@@ -1,16 +1,18 @@
 <link rel="stylesheet" type="text/css"
-      href="http://yui.yahooapis.com/2.9.0/build/container/assets/skins/sam/container.css"/>
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/button/assets/skins/sam/button.css"/>
-<script src="http://yui.yahooapis.com/2.9.0/build/element/element-min.js"></script>
-<script src="http://yui.yahooapis.com/2.9.0/build/button/button-min.js"></script>
-<div id="event_type_dialog" style="display: hidden;width: 450px;">
+      href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css"/>
+<script src="{{STATIC_URL}}/yui2/build/connection/connection-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
+<input type="button" value="添加事件" id="add_event_button"/>
+<div id="event_type_dialog" style="display: hidden;width: 530px;">
     <div class="hd">
         <p>添加事件类型</p>
     </div>
     <div class="bd">
-        <form method="post" action="event/eventtype/add">
-            {%for field in eventTypeForm%}
+        <form action="/event/eventtype/add" method="POST" id="add_event_form">
             {% csrf_token %}
+            {%for field in eventTypeForm%}
             <div class="yui3-g" style="width: 100%;padding-bottom: 15px;">
                 <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
                 <div class="yui3-u-4-5" style="float:left">
@@ -26,28 +28,41 @@
                     </div>
                 </div>
                 <div style="clear:both;"></div>
+
             </div>
             {%endfor%}
+            <input type="button" id="submit_form" value="提交"/>
+            <input type="button" id="panel_cancel" value="退出"/>
         </form>
     </div>
 </div>
 <script type="text/javascript">
+    YAHOO.util.Event.onDOMReady(function () {
 
-
-    function init() {
-        var myButtons = [
-            {text:"添加事件类型", isDefault:true, handle:function () {
-
-            }},
-            {text:"取消", handler:function () {
-                eventTypeDialog.hide();
-            }}
-        ],
-                eventTypeDialog = new YAHOO.widget.Dialog('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true, buttons:myButtons});
+        var eventTypeDialog = new YAHOO.widget.Panel('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true}),
+                callback = {
+                    success:function (o) {
+                        alert(o.responseText);
+                        eventTypeDialog.hide();
+                    },
+                    failure:function (o) {
+                        alert("服务器异常,稍后再试!");
+                        eventTypeDialog.hide();
+                    },
+                    argument:[eventTypeDialog]
+                };
         eventTypeDialog.render();
-        eventTypeDialog.show();
-    }
 
-
-    YAHOO.util.Event.onDOMReady(init);
+        eventTypeDialog.hide();
+        YAHOO.util.Event.addListener("submit_form", "click", function () {
+            YAHOO.util.Connect.setForm(YAHOO.util.Dom.get("add_event_form"));
+            YAHOO.util.Connect.asyncRequest('POST', '/event/eventtype/add', callback);
+        });
+        YAHOO.util.Event.addListener("add_event_button", "click", function () {
+            eventTypeDialog.show();
+        }, eventTypeDialog, true);
+        YAHOO.util.Event.addListener("panel_cancel", "click", function () {
+            eventTypeDialog.hide();
+        }, eventTypeDialog, true);
+    });
 </script>

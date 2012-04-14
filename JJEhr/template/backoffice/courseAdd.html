@@ -79,6 +79,10 @@
 {%endblock extra_js%}
 {%block js_content%}
 <script type="text/javascript">
+
+    function s(o) {
+        alert('s');
+    }
     function handleCalendarSelect(type, args, me) {
         var dates = args[0],
                 date = dates[0],
