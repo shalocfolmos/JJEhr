@@ -31,11 +31,11 @@
                 callback = {
                     success:function (o) {
                         alert(o.responseText);
-                        eventTypeDialog.hide();
+                        location.reload();
                     },
                     failure:function (o) {
                         alert("服务器异常,稍后再试!");
-                        eventTypeDialog.hide();
+                        location.reload();
                     }
                 },
                 addEventFormCallBack = {

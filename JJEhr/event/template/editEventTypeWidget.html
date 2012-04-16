@@ -6,15 +6,57 @@
 <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
 
-<div style="display:none;" id="event_button_div">
-    <input type="button" value="编辑事件类型" id="add_event_button"/>
+<div style="display:none;" id="edit_event_button_div">
+    <input type="button" value="编辑事件类型" id="edit_event_button"/>
 </div>
 
-<div id="editEventDialog" style="display: none;width:600px;">
+<div id="editEventDialog" style="display: none;width:350px; font-size: 14px;">
+    <div class="hd">
+        <p>编辑事件类型</p>
+    </div>
+    <div class="bd">
+        <div id="ajax_edit_event_content" class="yui3-g"
+             style="width:100%;text-align:left;letter-spacing:0em;word-spacing:0em;">
 
-
+        </div>
+    </div>
 </div>
+<input type="hidden" value="{{widget_div_id}}" id="edit_event_type_widget_id"></input>
 <script type="text/javascript">
+    function handleDelete(eventTypeId) {
+        YAHOO.util.Connect.asyncRequest('GET', '/event/eventtype/delete/' + eventTypeId, {
+            success:function (o) {
+                alert(o.responseText);
+                location.reload();
+            },
+            failure:function (o) {
+                alert("服务器异常,稍后再试!");
+                location.reload();
+            }
+        });
+    }
 
+    YAHOO.util.Event.onDOMReady(function () {
+
+
+                var widgetContainerId = YAHOO.util.Dom.get("edit_event_type_widget_id").getAttribute("value"),
+                        callback = {
+                            success:function (o) {
+                                YAHOO.util.Dom.get("ajax_edit_event_content").innerHTML = o.responseText;
+                            }
+                        },
+                        eventTypeDialog = new YAHOO.widget.Panel('editEventDialog', {close:true, fixedcenter:true, draggable:false, modal:true});
+                eventTypeDialog.render();
+                eventTypeDialog.hide();
+
+                YAHOO.util.Connect.asyncRequest('GET', '/event/eventtype/all', callback);
+                YAHOO.util.Dom.get(widgetContainerId).innerHTML = YAHOO.util.Dom.get("edit_event_button_div").innerHTML;
+                YAHOO.util.Dom.get("edit_event_button_div").innerHTML = null;
+                YAHOO.util.Event.addListener("edit_event_button", "click", function () {
+                    eventTypeDialog.show();
+                });
+                YAHOO.util.Dom.setStyle("editEventDialog", "display", "block");
+            }
+    );
 </script>
 

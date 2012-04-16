@@ -1,0 +1,10 @@
+{%for event_type in event_type_list%}
+<div class="yui-3-g" style="padding-bottom: 10px;">
+    <div class="yui3-u-3-5" style="float:left;text-align:center;">
+        {{event_type.type_name}}
+    </div>
+    <div class="yui3-u-2-5">
+        <input type="button" value="删除" onclick="handleDelete({{event_type.id}})"/>
+    </div>
+</div>
+{%endfor%}
