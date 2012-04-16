@@ -17,7 +17,6 @@
 
 {%block content%}
 <form action="/backoffice/course/add" method="post" enctype="multipart/form-data">
-
     {% csrf_token %}
     {% for field in form %}
     {% if field.label != 'Event_type' %}
@@ -120,9 +119,7 @@
         YAHOO.util.Event.addListener("id_courseStartTime", "click", function () {
             courseStartDateCalendar.show();
         });
-        YAHOO.widget.Button("submit_button", {label:"添加课程", type:"submit"});
-
-
+        new YAHOO.widget.Button("submit_button", {label:"添加课程", type:"submit"});
     }
 
     YAHOO.util.Event.onDOMReady(init)

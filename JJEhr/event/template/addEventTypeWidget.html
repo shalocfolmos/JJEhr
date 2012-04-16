@@ -6,11 +6,11 @@
 <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
 
-<div style="display: none;" id="event_button_div">
-    <input type="button" value="添加事件" id="add_event_button"/>
+<div style="display:none;" id="event_button_div">
+    <input type="button" value="添加事件类型类型" id="add_event_button"/>
 </div>
 
-<div id="event_type_dialog" style="display: hidden;width: 600px;">
+<div id="event_type_dialog" style="display:none;width: 600px;">
     <div class="hd">
         <p>添加事件类型</p>
     </div>
@@ -25,8 +25,9 @@
     YAHOO.util.Event.onDOMReady(function () {
 
 
-        var widgetId = YAHOO.util.Dom.get("widget_div_id").getAttribute("value"),
-                eventTypeDialog = new YAHOO.widget.Panel('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true}),
+        var widgetId = YAHOO.util.Dom.get("widget_div_id").getAttribute("value");
+        YAHOO.util.Dom.get(widgetId).innerHTML = YAHOO.util.Dom.get("event_button_div").innerHTML;
+        var eventTypeDialog = new YAHOO.widget.Panel('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true}),
                 callback = {
                     success:function (o) {
                         alert(o.responseText);
@@ -44,8 +45,8 @@
                 };
         eventTypeDialog.render();
         eventTypeDialog.hide();
+        YAHOO.util.Dom.setStyle("event_type_dialog", "display", "block");
         YAHOO.util.Connect.asyncRequest('GET', '/event/eventtype/eventformcontent', addEventFormCallBack, null);
-        YAHOO.util.Dom.get(widgetId).innerHTML = YAHOO.util.Dom.get("event_button_div").innerHTML;
         YAHOO.util.Event.addListener("submit_form", "click", function () {
             YAHOO.util.Connect.setForm(YAHOO.util.Dom.get("add_event_form"));
             YAHOO.util.Connect.asyncRequest('POST', '/event/eventtype/add', callback);

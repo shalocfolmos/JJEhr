@@ -56,5 +56,7 @@
 <span>
     <a href="/backoffice/course/add" class="head_style">添加课程</a>
 </span>
-{% csrf_token %}
 {%endblock extra_head_menu%}
+{%block extra_html_content%}
+{%include "addEventTypeWidget.html" with widget_div_id="add_event_widget"%}
+{%endblock%}
