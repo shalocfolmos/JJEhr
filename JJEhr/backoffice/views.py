@@ -10,7 +10,6 @@ from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from JJEhr.backoffice.form import UpdateCourseForm, AddCourseForm, ExportContactsForm
-from JJEhr.event.form import AddEventTypeForm
 from JJEhr.lesson.models import Course, Enroll
 
 
@@ -103,8 +102,7 @@ def addCourse(request):
             return HttpResponseRedirect("/backoffice/index.html")
     else:
         courseForm = AddCourseForm(initial={'enrollStartTime': datetime.datetime.now().strftime("%Y-%m-%d")})
-    eventTypeForm = AddEventTypeForm()
-    return render_to_response('backoffice/courseAdd.html', {'form': courseForm, 'eventTypeForm': eventTypeForm},
+    return render_to_response('backoffice/courseAdd.html', {'form': courseForm},
         context_instance=RequestContext(request))
 
 

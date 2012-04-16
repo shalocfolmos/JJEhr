@@ -2,6 +2,7 @@
 from StringIO import StringIO
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
 from JJEhr.event.form import AddEventTypeForm
@@ -43,6 +44,13 @@ def event_show_all(request):
     result = string_io.getvalue()
     string_io.close()
     return HttpResponse(result)
+
+
+@require_http_methods(["GET"])
+def ajax_content_html(request):
+    form = AddEventTypeForm()
+    return render_to_response("event/ajax_content.html", {"eventTypeForm": form})
+
 
 
 

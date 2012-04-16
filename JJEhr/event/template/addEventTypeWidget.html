@@ -4,7 +4,12 @@
 <script src="{{STATIC_URL}}/yui2/build/connection/connection-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
-<input type="button" value="添加事件" id="add_event_button"/>
+<script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
+
+<div style="display: none;" id="event_button_div">
+    <input type="button" value="添加事件" id="add_event_button"/>
+</div>
+
 <div id="event_type_dialog" style="display: hidden;width: 530px;">
     <div class="hd">
         <p>添加事件类型</p>
@@ -19,6 +24,9 @@
         </div>
         <form action="/event/eventtype/add" method="POST" id="add_event_form">
             {% csrf_token %}
+            <div id="ajax_form_content" class="yui3-g" style="width: 100%;">
+
+            </div>
             {%for field in eventTypeForm%}
             <div class="yui3-g" style="width: 100%;padding-bottom: 15px;">
                 <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
@@ -35,7 +43,6 @@
                     </div>
                 </div>
                 <div style="clear:both;"></div>
-
             </div>
             {%endfor%}
             <input type="button" id="submit_form" value="提交"/>
@@ -43,10 +50,13 @@
         </form>
     </div>
 </div>
+<inupt type="hidden" id="widget_div_id" value="{{widget_div_id}}"/>
 <script type="text/javascript">
     YAHOO.util.Event.onDOMReady(function () {
 
-        var eventTypeDialog = new YAHOO.widget.Panel('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true}),
+
+        var widgetId = YAHOO.util.Dom.get("widget_div_id").getAttribute("value"),
+                eventTypeDialog = new YAHOO.widget.Panel('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true}),
                 callback = {
                     success:function (o) {
                         alert(o.responseText);
@@ -56,20 +66,16 @@
                         alert("服务器异常,稍后再试!");
                         eventTypeDialog.hide();
                     }
-
                 },
-                get_all_events_callback = {
+                addEventFormCallBack = {
                     success:function (o) {
-                        alert(o.responseText);
-                        eventTypeDialog.hide();
-                    },
-                    failure:function (o) {
-
+                        YAHOO.util.Dom.get("ajax_form_content").innerHTML = o.responseText;
                     }
                 };
         eventTypeDialog.render();
-
         eventTypeDialog.hide();
+        YAHOO.util.Connect.asyncRequest('GET', '/event/eventtype/eventformcontent', addEventFormCallBack, null);
+        YAHOO.util.Dom.get(widgetId).innerHTML = YAHOO.util.Dom.get("event_button_div").innerHTML;
         YAHOO.util.Event.addListener("submit_form", "click", function () {
             YAHOO.util.Connect.setForm(YAHOO.util.Dom.get("add_event_form"));
             YAHOO.util.Connect.asyncRequest('POST', '/event/eventtype/add', callback);
@@ -80,8 +86,5 @@
         YAHOO.util.Event.addListener("panel_cancel", "click", function () {
             eventTypeDialog.hide();
         }, eventTypeDialog, true);
-        YAHOO.util.Event.addListener("event_type_content", "click", function () {
-            YAHOO.util.Connect.asyncRequest('GET', '/event/eventtype/add', get_all_events_callback);
-        });
     });
 </script>

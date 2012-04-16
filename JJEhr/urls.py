@@ -1,11 +1,8 @@
 from django.conf.urls.defaults import patterns, url
-from django.contrib import admin
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-admin.autodiscover()
 
 urlpatterns = patterns('',
 
@@ -28,5 +25,6 @@ urlpatterns += patterns(r'backoffice',
 )
 
 urlpatterns += patterns(r'event',
-    url(r'event/eventtype/add', r'views.event_add'),
+    url(r'^event/eventtype/add', r'views.event_add'),
+    url(r'^event/eventtype/eventformcontent', r'views.ajax_content_html'),
 )

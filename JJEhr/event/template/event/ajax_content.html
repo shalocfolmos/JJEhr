@@ -1,0 +1,18 @@
+{%for field in eventTypeForm%}
+<div class="yui3-g" style="width: 100%;padding-bottom: 15px;">
+    <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
+    <div class="yui3-u-4-5" style="float:left">
+        <div class="yui3-g">
+            <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
+                {{field}}
+            </div>
+            <div class="yui3-u-2-5 error_area">
+                {%for error in field.errors%}
+                {{error}}
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+{%endfor%}
