@@ -6,3 +6,6 @@ class EventType(models.Model):
     type_image = models.ImageField(verbose_name="活动类型图片", blank=True, upload_to="event/event_image_%Y_%m_%d_%M_%S")
     type_description = models.TextField(verbose_name="活动类型介绍", blank=True)
     create_date = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.type_name
