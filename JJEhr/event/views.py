@@ -47,7 +47,7 @@ def event_show_all(request):
 @require_http_methods(["GET"])
 def ajax_content_html(request):
     form = AddEventTypeForm()
-    return render_to_response("event/ajax_content.html", {"eventTypeForm": form})
+    return render_to_response("ajax/ajax_content.html", {"eventTypeForm": form})
 
 
 
