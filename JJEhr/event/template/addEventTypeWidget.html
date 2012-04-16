@@ -10,47 +10,17 @@
     <input type="button" value="添加事件" id="add_event_button"/>
 </div>
 
-<div id="event_type_dialog" style="display: hidden;width: 530px;">
+<div id="event_type_dialog" style="display: hidden;width: 600px;">
     <div class="hd">
         <p>添加事件类型</p>
     </div>
     <div class="bd">
-        <div class="yui3-g">
-            <div class="yui3-u-1-1">
-                查看/删除事件类型 <input type="button" id="collapse_all"/>
-            </div>
-            <div id="event_type_content" class="yui3-u-1-1">
-            </div>
-        </div>
-        <form action="/event/eventtype/add" method="POST" id="add_event_form">
-            {% csrf_token %}
-            <div id="ajax_form_content" class="yui3-g" style="width: 100%;">
+        <div id="ajax_form_content" class="yui3-g" style="width:100%;text-align:left;">
 
-            </div>
-            {%for field in eventTypeForm%}
-            <div class="yui3-g" style="width: 100%;padding-bottom: 15px;">
-                <div class="yui3-u-1-5" style="float:left;font-weight: bold;">{{field.label_tag}}:</div>
-                <div class="yui3-u-4-5" style="float:left">
-                    <div class="yui3-g">
-                        <div class="yui3-u-3-5" style="float:left;font-weight: bold;">
-                            {{field}}
-                        </div>
-                        <div class="yui3-u-2-5 error_area">
-                            {%for error in field.errors%}
-                            {{error}}
-                            {%endfor%}
-                        </div>
-                    </div>
-                </div>
-                <div style="clear:both;"></div>
-            </div>
-            {%endfor%}
-            <input type="button" id="submit_form" value="提交"/>
-            <input type="button" id="panel_cancel" value="退出"/>
-        </form>
+        </div>
     </div>
 </div>
-<inupt type="hidden" id="widget_div_id" value="{{widget_div_id}}"/>
+<inupt type="hidden" id="widget_div_id" value="{{widget_div_id}}"></inupt>
 <script type="text/javascript">
     YAHOO.util.Event.onDOMReady(function () {
 

@@ -8,10 +8,8 @@ from django.views.decorators.http import require_http_methods
 from JJEhr.event.form import AddEventTypeForm
 from JJEhr.event.models import EventType
 
-
 @login_required(login_url='/backoffice/login')
 @require_http_methods(["POST"])
-@csrf_protect
 def event_add(request):
     try:
         form = AddEventTypeForm(request.POST)
