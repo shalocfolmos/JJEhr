@@ -56,7 +56,7 @@
                     {% for course in course_list.object_list %}
                     <article class="post">
                         <header>
-                            <h2>{{ course.courseName|escape}}</h2>
+                            {{course.event_type.type_name}}<h2>{{ course.courseName|escape}}</h2>
 
                             <p class="postinfo" style="padding-top: 5px;"> 课时: {{course.courseTime}} &nbsp; |
                                 主讲人: {{ course.courseSpeaker }}&nbsp; | 开课日期：
