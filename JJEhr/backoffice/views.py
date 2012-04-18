@@ -36,15 +36,6 @@ def courseView(request, courseId=0):
                     if not enroll.isWaitingList:
                         enroll.isWaitingList = False
                         enroll.save()
-
-            course.courseName = request.POST["courseName"]
-            course.courseDescription = request.POST['courseDescription']
-            course.courseTime = request.POST['courseTime']
-            course.courseArrange = request.POST['courseArrange']
-            course.courseSpeaker = request.POST['courseSpeaker']
-            course.enrollStartTime = request.POST['enrollStartTime']
-            course.courseStartTime = request.POST['courseStartTime']
-            course.enrollEndTime = request.POST['enrollEndTime']
             if request.FILES.get('courseWare'):
                 course.courseWare = request.FILES.get('courseWare')
             course.save()
