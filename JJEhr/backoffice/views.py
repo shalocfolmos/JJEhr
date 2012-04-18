@@ -50,19 +50,7 @@ def courseView(request, courseId=0):
             course.save()
             return HttpResponseRedirect("/backoffice/index.html")
     else:
-        courseData = {
-            'courseName': course.courseName,
-            'courseDescription': course.courseDescription,
-            'courseTime': course.courseTime,
-            'courseArrange': course.courseArrange,
-            'courseSpeaker': course.courseSpeaker,
-            'courseStartTime': course.courseStartTime,
-            'enrollStartTime': course.enrollStartTime,
-            'enrollEndTime': course.enrollEndTime,
-            'maxTraineeAmount': course.maxTraineeAmount,
-            'courseWare': course.courseWare
-        }
-        form = UpdateCourseForm(courseData)
+        form = UpdateCourseForm(course)
     return render_to_response("backoffice/courseView.html",
             {"course": course, "waitingList": waitingList, "notWaitingList": notWaitList, 'form': form},
         context_instance=RequestContext(request))
