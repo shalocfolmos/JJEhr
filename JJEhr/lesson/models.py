@@ -5,7 +5,8 @@ from lesson.validation import validate_enroll
 
 class Course(models.Model):
     courseName = models.CharField(max_length=50, verbose_name="课程名称")
-    event_type = models.ForeignKey("event.EventType", verbose_name="event_type", db_column="event_type")
+    event_type = models.ForeignKey("event.EventType", verbose_name="event_type", db_column="event_type", null=True,
+        on_delete=models.SET_NULL, blank=True)
     courseDescription = models.TextField(blank=True, verbose_name="课程介绍")
     #课时
     courseTime = models.IntegerField(blank=True, verbose_name="课时")
