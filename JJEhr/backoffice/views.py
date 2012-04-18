@@ -50,7 +50,7 @@ def courseView(request, courseId=0):
             course.save()
             return HttpResponseRedirect("/backoffice/index.html")
     else:
-        form = UpdateCourseForm(course)
+        form = UpdateCourseForm(instance=course)
     return render_to_response("backoffice/courseView.html",
             {"course": course, "waitingList": waitingList, "notWaitingList": notWaitList, 'form': form},
         context_instance=RequestContext(request))
