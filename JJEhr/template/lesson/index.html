@@ -55,13 +55,19 @@
                     {% endif%}
                     {% for course in course_list.object_list %}
                     <article class="post">
-                        {%if course.event_type.type_image%}
-                            <img src="{{course.event_type.type_image}}" alt="{{course.event_type.type_name}}"/>
-                            {%else%}
-                            {{course.event_type.type_name}}
-                        {% endif %}
+
                         <header>
-                            {{course.event_type.type_name}}<h2>{{ course.courseName|escape}}</h2>
+                            <h2>
+                                {{ course.courseName|escape}}
+                                <span>
+                                    {%if course.event_type.type_image%}
+                                        <img src="{{course.event_type.type_image}}"
+                                             alt="{{course.event_type.type_name|escape}}"/>
+                                    {%else%}
+                                        {{course.event_type.type_name|escape}}
+                                    {% endif %}
+                                </span>
+                            </h2>
 
                             <p class="postinfo" style="padding-top: 5px;"> 课时: {{course.courseTime}} &nbsp; |
                                 主讲人: {{ course.courseSpeaker }}&nbsp; | 开课日期：
