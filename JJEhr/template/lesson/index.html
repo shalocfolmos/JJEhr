@@ -56,9 +56,10 @@
                     {% for course in course_list.object_list %}
                     <article class="post">
                         {%if course.event_type.type_image%}
-                        <img src="{{course.event_type.type_image}}" alt="{{course.event_type.type_name}}"/>
-                        {%else%}
-                        {{course.event_type.type_name}}
+                            <img src="{{course.event_type.type_image}}" alt="{{course.event_type.type_name}}"/>
+                            {%else%}
+                            {{course.event_type.type_name}}
+                        {% endif %}
                         <header>
                             {{course.event_type.type_name}}<h2>{{ course.courseName|escape}}</h2>
 
