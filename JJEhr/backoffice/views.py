@@ -9,7 +9,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.http import require_http_methods
 from JJEhr.backoffice.form import UpdateCourseForm, AddCourseForm, ExportContactsForm
 from JJEhr.lesson.models import Course, Enroll
 
@@ -58,13 +57,6 @@ def delete_course(request, courseId=0):
 
 
 @login_required(login_url='/backoffice/login')
-@require_http_methods(["POST"])
-def export_notification_list(request):
-    recipient_list = request.POST["recipient_list"]
-    return render_to_response("/backoffice/index.html", {"recipient_list": recipient_list})
-
-
-@login_required(login_url='/backoffice/login')
 def export_notification_list(request):
     if request.method == "POST":
         form = ExportContactsForm(request.POST)
@@ -98,7 +90,7 @@ def displayCourseList(httpRequest):
     courseList = Course.objects.all().order_by("-updatedDate")
     return render_to_response("backoffice/courseList.html", {"courseList": courseList})
 
-
+#
 def login(request):
     currentSite = get_current_site(request)
     next = request.POST["next"]
