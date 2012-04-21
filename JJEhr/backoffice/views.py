@@ -90,7 +90,7 @@ def displayCourseList(httpRequest):
     courseList = Course.objects.all().order_by("-updatedDate")
     return render_to_response("backoffice/courseList.html", {"courseList": courseList})
 
-#
+
 def login(request):
     currentSite = get_current_site(request)
     next = request.POST["next"]

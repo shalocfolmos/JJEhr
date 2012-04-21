@@ -1,6 +1,5 @@
 # coding=UTF-8
-from django.db.models.fields import TextField
-from django.forms.fields import   CharField
+from django.forms.fields import   CharField, SlugField
 from django.forms.forms import Form
 from django.forms.models import ModelForm
 from JJEhr.lesson.models import Course
@@ -21,5 +20,5 @@ class ExportContactsForm(Form):
 
 class SendEmailForm(Form):
     recipient_list = CharField()
-    head = CharField(label="邮件主题")
-    message = TextField(label="邮件内容")
+    head = CharField(label=u"邮件主题")
+    message = SlugField(label=u"邮件内容")
