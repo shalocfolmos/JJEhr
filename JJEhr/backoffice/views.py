@@ -11,7 +11,7 @@ from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from JJEhr.backoffice.form import UpdateCourseForm, AddCourseForm, ExportContactsForm
 from JJEhr.lesson.models import Course, Enroll
-
+from JJEhr.backoffice.context_processor import event_type_image_prefix_url
 
 @login_required(login_url='/backoffice/login')
 def courseView(request, courseId=0):
@@ -88,7 +88,9 @@ def addCourse(request):
 @login_required(login_url='/backoffice/login')
 def displayCourseList(httpRequest):
     courseList = Course.objects.all().order_by("-updatedDate")
-    return render_to_response("backoffice/courseList.html", {"courseList": courseList})
+    request_context = RequestContext(httpRequest, {"courseList": courseList}, [event_type_image_prefix_url])
+    return render_to_response("backoffice/courseList.html", {"courseList": courseList},
+        context_instance=request_context)
 
 
 def login(request):

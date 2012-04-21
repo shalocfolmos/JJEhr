@@ -48,7 +48,7 @@
         YAHOO.util.Dom.setStyle("event_type_dialog", "display", "block");
         YAHOO.util.Connect.asyncRequest('GET', '/event/eventtype/eventformcontent', addEventFormCallBack, null);
         YAHOO.util.Event.addListener("submit_form", "click", function () {
-            YAHOO.util.Connect.setForm(YAHOO.util.Dom.get("add_event_form"));
+            YAHOO.util.Connect.setForm(YAHOO.util.Dom.get("add_event_form"), true);
             YAHOO.util.Connect.asyncRequest('POST', '/event/eventtype/add', callback);
         });
         YAHOO.util.Event.addListener("add_event_button", "click", function () {

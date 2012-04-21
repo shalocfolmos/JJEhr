@@ -161,3 +161,5 @@ LOGGING = {'version': 1,
 #EMAIL_PORT = '25'
 #EMAIL_HOST_USER = 'sam.sun@jinjiang.com'
 #EMAIL_HOST_PASSWORD = 'Jj123456'
+
+EVENT_TYPE_IMAGE_URL_PREFIX = "/event/image/"

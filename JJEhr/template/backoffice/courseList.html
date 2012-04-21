@@ -21,11 +21,14 @@
                     <div class="yui3-g">
                         <div class="yui3-u">
                             <div>
-                                {%if course.event_type.type_image%}
-                                <img src="{{course.event_type.type_image}}" alt="{{course.event_type.type_name}}"/>
-                                {%else%}
-                                {{course.event_type.type_name}}
-                                {%endif%}
+                                <span class="eventType">
+                                    {%if course.event_type.type_image%}
+                                    <img src="{{event_type_image_prefix_url}}{{course.event_type.type_image}}"
+                                         alt="{{course.event_type.type_name}}"/>
+                                    {%else%}
+                                        {{course.event_type.type_name}}
+                                    {%endif%}
+                                </span>
                                 <a style="font-size: 166%;color: #000000;text-decoration: none;"
                                    href="/backoffice/course/{{course.id}}">{{ course.courseName }}</a>
                                 &nbsp;&nbsp;<span

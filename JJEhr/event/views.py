@@ -8,9 +8,9 @@ from JJEhr.event.models import EventType
 
 @login_required(login_url='/backoffice/login')
 @require_http_methods(["POST"])
-def event_add(request):
+def event_type_add(request):
     try:
-        form = AddEventTypeForm(request.POST)
+        form = AddEventTypeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             result = u'添加事件类型成功'
@@ -23,7 +23,7 @@ def event_add(request):
 
 @require_http_methods(["GET"])
 @login_required(login_url='/backoffice/login')
-def event_delete(request, event_type_id=0):
+def event_type_delete(request, event_type_id=0):
     if(event_type_id == 0):
         return  HttpResponse("传入参数异常")
     try:

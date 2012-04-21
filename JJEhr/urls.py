@@ -25,8 +25,8 @@ urlpatterns += patterns(r'backoffice',
 )
 
 urlpatterns += patterns(r'event',
-    url(r'^event/eventtype/add', r'views.event_add'),
+    url(r'^event/eventtype/add', r'views.event_type_add'),
     url(r'^event/eventtype/eventformcontent', r'views.ajax_content_html'),
     url(r'^event/eventtype/all', r'views.get_all_event_type'),
-    url(r'^event/eventtype/delete/(?P<event_type_id>\d+)$', r'views.event_delete'),
+    url(r'^event/eventtype/delete/(?P<event_type_id>\d+)$', r'views.event_type_delete'),
 )
