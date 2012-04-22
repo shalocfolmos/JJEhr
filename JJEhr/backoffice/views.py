@@ -4,12 +4,15 @@ from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.models import get_current_site
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from JJEhr.backoffice.form import UpdateCourseForm, AddCourseForm, ExportContactsForm
+from django.views.decorators.http import require_http_methods
+from JJEhr import settings
+from JJEhr.backoffice.form import UpdateCourseForm, AddCourseForm
 from JJEhr.lesson.models import Course, Enroll
 from JJEhr.backoffice.context_processor import event_type_image_prefix_url
 
@@ -33,7 +36,7 @@ def courseView(request, courseId=0):
             if notWaitList:
                 for enrollId in notWaitList.split('|'):
                     enroll = Enroll.objects.get(id=enrollId)
-                    if not enroll.isWaitingList:
+                    if enroll.isWaitingList:
                         enroll.isWaitingList = False
                         enroll.save()
             if request.FILES.get('courseWare'):
@@ -56,19 +59,25 @@ def delete_course(request, courseId=0):
     return HttpResponseRedirect("/backoffice/index.html")
 
 
+@require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
-def export_notification_list(request):
-    if request.method == "POST":
-        form = ExportContactsForm(request.POST)
-        form.is_valid()
-        response = HttpResponse(mimetype="text/plain")
-        response['Content-Disposition'] = 'attachment; filename=contact.txt'
-        recipient_list = form.cleaned_data["recipient_list"]
-        response_string = recipient_list.replace(";", ";\r\n")
-        response.write(response_string)
-        return response
-    else:
-        return redirect("/backoffice/index.html")
+def to_send_email_page(request):
+    response_list = request.POST["recipient_list"].replace(u";", u"    ")
+    return render_to_response("backoffice/sendEmail.html", {"recipient_list": response_list})
+
+
+@require_http_methods(["POST"])
+@login_required(login_url='/backoffice/login')
+def send_notification_email(request):
+    recipient_list = []
+    for recipient in request.POST["recipient_list"].split(u"   "):
+        recipient_list.append(recipient)
+    send_mail(subject=request.POST["email_subject"],
+        message=request.POST["email_message"],
+        from_email=settings.ENROLL_EMAIL_FROM,
+        recipient_list=recipient_list,
+        fail_silently=False)
+    return redirect("/backoffice/index.html")
 
 
 @login_required(login_url='/backoffice/login')

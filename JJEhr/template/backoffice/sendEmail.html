@@ -1,0 +1,63 @@
+{% extends "backoffice/backofficeBasePage.html" %}
+
+{%block title%}
+发送通知邮件
+{%endblock title%}
+
+{%block extra_css%}
+<link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/send_email.css" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
+{%endblock extra_css%}
+
+{%block content%}
+<div class="yui3-u-1-1 send_email_content">
+    <form action="/backoffice/notification-email/send" method="post" id="sendEmailForm">
+        <h3 style="font-size:16px;font-weight: normal; letter-spacing:3px;">听课学员</h3>
+        <textarea rows="10" readonly="true" style="width: 700px;">
+            {{recipient_list}}
+        </textarea>
+
+        <h3 style="font-size:16px;font-weight: normal; letter-spacing:3px;">邮件主题</h3>
+        <input type="text" name="email_subject" id="email_subject"/>
+
+        <h3 style="font-size:16px;font-weight: normal; letter-spacing:3px;">邮件内容</h3>
+        <textarea rows="14" style="width: 700px;" id="email_message" name="email_message">
+        </textarea>
+
+        <div style="padding-top: 15px;">
+            <button id="submit_button"/>
+        </div>
+        <input name="recipient_list" type="hidden" value="{{recipient_list}}"/>
+    </form>
+</div>
+{%endblock content%}
+
+{%block extra_js%}
+<script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
+{%endblock extra_js%}
+
+{%block js_content%}
+<script type="text/javascript">
+
+    function submit_form(e) {
+        YAHOO.util.Event.preventDefault(e);
+        if (YAHOO.util.Dom.get("email_subject").value.trim().length < 1) {
+            alert("邮件主题不能为空")
+            return;
+        }
+        if (YAHOO.util.Dom.get("email_message").value.trim().length < 1) {
+            alert("邮件内容不能为空")
+            return;
+        }
+        YAHOO.util.Dom.get("sendEmailForm").submit();
+    }
+
+    function init() {
+        new YAHOO.widget.Button("submit_button", {label:"发送通知邮件"});
+        YAHOO.util.Event.addListener("submit_button", "click", submit_form);
+    }
+    YAHOO.util.Event.onDOMReady(init);
+</script>
+{%endblock js_content%}

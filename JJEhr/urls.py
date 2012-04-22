@@ -15,12 +15,15 @@ urlpatterns = patterns('',
     url(r'^backoffice/course/delete/(?P<courseId>\d+)$', 'backoffice.views.delete_course'),
     url(r'^backoffice/logout', 'backoffice.views.admin_logout'),
     url(r'^backoffice/course/add', 'backoffice.views.addCourse'),
+    url(r'^backoffice/notification-email/send', 'backoffice.views.send_notification_email'),
+
 )
 
 urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += patterns(r'backoffice',
-    url(r'^backoffice/export', r'views.export_notification_list'),
+    #    url(r'^backoffice/export', r'views.export_notification_list'),
+    url(r'^backoffice/course/email', r'views.to_send_email_page'),
     url(r'^backoffice/index.html', r'views.displayCourseList'),
 )
 
