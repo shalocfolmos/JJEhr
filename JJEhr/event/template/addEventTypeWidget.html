@@ -10,7 +10,7 @@
     <input type="button" value="添加活动类型" id="add_event_button"/>
 </div>
 
-<div id="event_type_dialog" style="display:none;width: 600px;">
+<div id="event_type_dialog" style="display:none;width:500px;">
     <div class="hd">
         <p>添加事件类型</p>
     </div>
@@ -29,7 +29,7 @@
         YAHOO.util.Dom.get(widgetId).innerHTML = YAHOO.util.Dom.get("event_button_div").innerHTML;
         var eventTypeDialog = new YAHOO.widget.Panel('event_type_dialog', {close:true, fixedcenter:true, draggable:false, modal:true}),
                 callback = {
-                    success:function (o) {
+                    upload:function (o) {
                         alert(o.responseText);
                         location.reload();
                     },
