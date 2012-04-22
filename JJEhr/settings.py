@@ -22,7 +22,16 @@ DATABASES = {
         'HOST': '',
         'PORT': '',
         },
-    }
+
+    #'default': {
+    #    'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
+    #    'NAME': 'jjehr',
+    #    'USER': 'root',
+    #    'PASSWORD': '123456',
+    #    'HOST': '',
+    #    'PORT': '',
+    #   }
+}
 
 TEMPLATE_STRING_IF_INVALID = ''
 
