@@ -1,5 +1,6 @@
 #-*- coding: UTF-8 -*-
 import datetime
+from django.core.mail import send_mail
 from django.shortcuts import render_to_response
 from lesson.manager import tempMapping
 import settings
@@ -42,15 +43,18 @@ def book_course(request):
             _course = Course.objects.get(id=form._raw_value("course_id"))
             if _course.enrollStartTime > datetime.datetime.now() or _course.enrollEndTime < datetime.datetime.now():
                 return HttpResponse(404)
-            enroll_count = Enroll.objects.filter(email=_email, course=_course).count()
-            if enroll_count > 0:
+            if Enroll.objects.filter(email=_email, course=_course).count() > 0:
                 return HttpResponse(409)
             else:
                 enroll = Enroll(email=_email, course=_course)
-                successEnrollMemberCount = Enroll.objects.filter(isWaitingList=False).count()
-                if successEnrollMemberCount > _course.maxTraineeAmount:
+                if Enroll.objects.filter(isWaitingList=False).count() > _course.maxTraineeAmount:
                     enroll.isWaitingList = True
                 enroll.save()
+                send_mail(subject=settings.ENROLL_EMAIL_SUBJECT.format(name=_course.courseName),
+                    message=settings.ENROLL_EMAIL_CONTENT.format(name=_course.courseName),
+                    from_email=settings.ENROLL_EMAIL_FROM,
+                    recipient_list=[_email],
+                    fail_silently=False)
             return HttpResponse(200)
         else:
             return HttpResponse(400)
