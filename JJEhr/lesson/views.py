@@ -1,5 +1,6 @@
 #-*- coding: UTF-8 -*-
 import datetime
+from django.core.mail import send_mail
 from django.shortcuts import render_to_response
 from lesson.manager import tempMapping
 import settings
@@ -48,11 +49,11 @@ def book_course(request):
                 if Enroll.objects.filter(isWaitingList=False).count() > _course.maxTraineeAmount:
                     enroll.isWaitingList = True
                 enroll.save()
-            #                send_mail(subject=settings.ENROLL_EMAIL_SUBJECT.format(name=_course.courseName),
-            #                    message=settings.ENROLL_EMAIL_CONTENT.format(name=_course.courseName),
-            #                    from_email=settings.ENROLL_EMAIL_FROM,
-            #                    recipient_list=[_email],
-            #                    fail_silently=False)
+                send_mail(subject=settings.ENROLL_EMAIL_SUBJECT.format(name=_course.courseName),
+                    message=settings.ENROLL_EMAIL_CONTENT.format(name=_course.courseName),
+                    from_email=settings.ENROLL_EMAIL_FROM,
+                    recipient_list=[_email],
+                    fail_silently=False)
             return HttpResponse(200)
         else:
             return HttpResponse(400)

@@ -26,9 +26,9 @@
         </textarea>
 
         <div style="padding-top: 15px;">
-            <button id="submit_button"/>
+            <button id="submit_button"></button>
         </div>
-        <input name="recipient_list" type="hidden" value="{{recipient_list}}"/>
+        <input name="recipient_list" type="hidden" value="{{recipient_list}}"></input>
     </form>
 </div>
 {%endblock content%}
@@ -43,11 +43,11 @@
 
     function submit_form(e) {
         YAHOO.util.Event.preventDefault(e);
-        if (YAHOO.util.Dom.get("email_subject").value.trim().length < 1) {
+        if (YAHOO.lang.trim(YAHOO.util.Dom.get("email_subject").value).length < 1) {
             alert("邮件主题不能为空")
             return;
         }
-        if (YAHOO.util.Dom.get("email_message").value.trim().length < 1) {
+        if (YAHOO.lang.trim(YAHOO.util.Dom.get("email_message").value).length < 1) {
             alert("邮件内容不能为空")
             return;
         }

@@ -22,10 +22,10 @@
                         <div class="yui3-u">
                             <div>
                                 {%if course.event_type %}
-                                <span class="eventType">
+                                <span class="eventType" style="padding-right: 40px;">
                                     {%if course.event_type.type_image%}
                                     <img src="{{event_type_image_prefix_url}}{{course.event_type.type_image}}"
-                                         alt="{{course.event_type.type_name}}"/>
+                                         alt="{{course.event_type.type_name}}" width="25px;" height="25px;"/>
                                     {%else%}
                                         {{course.event_type.type_name}}
                                     {%endif%}

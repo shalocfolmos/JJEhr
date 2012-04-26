@@ -22,15 +22,17 @@ DATABASES = {
         'HOST': '',
         'PORT': '',
         },
-
-    #'default': {
-    #    'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
-    #    'NAME': 'jjehr',
-    #    'USER': 'root',
-    #    'PASSWORD': '123456',
-    #    'HOST': '',
-    #    'PORT': '',
-    #   }
+#
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
+#        'NAME': 'jjehr',
+#        'USER': 'root',
+#        'PASSWORD': '123456',
+#        'HOST': '',
+#        'PORT': ''
+#        #'HOST': '192.168.2.191',
+#        #'PORT': '3306',
+#       }
 }
 
 TEMPLATE_STRING_IF_INVALID = ''
@@ -132,7 +134,7 @@ INSTALLED_APPS = (
     'backoffice',
     'lesson',
     'event',
-    'survey'
+    #'survey'
     )
 
 # A sample logging configuration. The only tangible logging
@@ -171,7 +173,7 @@ EMAIL_PORT = '25'
 EMAIL_HOST_USER = 'sam.sun@jinjiang.com'
 EMAIL_HOST_PASSWORD = 'Jj123456'
 
-EVENT_TYPE_IMAGE_URL_PREFIX = "/event/image/"
+EVENT_TYPE_IMAGE_URL_PREFIX = "/courseware/"
 ENROLL_EMAIL_SUBJECT = u"课程报名成功 {name:30s}"
 ENROLL_EMAIL_CONTENT = u"课程报名成功 {name:30s}"
 ENROLL_EMAIL_FROM = u"shalocfolmos@gmail.com"

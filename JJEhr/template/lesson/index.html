@@ -58,10 +58,10 @@
 
                         <header>
                             <h2>
-                                {{ course.courseName|escape}}
-                                <span>
+                                {{ course.courseName|escape}}&nbsp;
+                                <span style="padding-left: 100px;">
                                     {%if course.event_type.type_image%}
-                                        <img src="{{course.event_type.type_image}}"
+                                        <img width="25px" height="25px" src="/courseware/{{course.event_type.type_image}}"
                                              alt="{{course.event_type.type_name|escape}}"/>
                                     {%else%}
                                         {{course.event_type.type_name|escape}}

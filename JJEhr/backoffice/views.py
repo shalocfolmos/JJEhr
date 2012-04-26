@@ -23,7 +23,9 @@ def courseView(request, courseId=0):
     waitingList = Enroll.objects.filter(course=course).filter(isWaitingList=True)
 
     if request.method == 'POST':
-        form = UpdateCourseForm(request.POST, request.FILES)
+        if request.FILES.get('courseWare'):
+            course.courseWare = request.FILES.get('courseWare')
+        form = UpdateCourseForm(request.POST, instance=course)
         if form.is_valid():
             waitingList = request.POST['waitingList']
             notWaitList = request.POST['notWaitingList']
@@ -39,9 +41,7 @@ def courseView(request, courseId=0):
                     if enroll.isWaitingList:
                         enroll.isWaitingList = False
                         enroll.save()
-            if request.FILES.get('courseWare'):
-                course.courseWare = request.FILES.get('courseWare')
-            course.save()
+            form.save()
             return HttpResponseRedirect("/backoffice/index.html")
     else:
         form = UpdateCourseForm(instance=course)

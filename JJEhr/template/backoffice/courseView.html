@@ -162,6 +162,7 @@
             }
             notWaitingListValue = notWaitingListValue.substr(0, notWaitingListValue.length - 1);
             YAHOO.util.Dom.get("notWaitingListHidden").value = notWaitingListValue;
+
         }
         if (waitingListElement.options != null && waitingListElement.options.length >= 1) {
             for (var i = 0; i < waitingListElement.options.length; i++) {
@@ -170,7 +171,6 @@
             waitingListValue = waitingListValue.substr(0, waitingListValue.length - 1);
             YAHOO.util.Dom.get("waitingListHidden").value = waitingListValue;
         }
-
         YAHOO.util.Dom.get("editForm").submit()
     }
 
