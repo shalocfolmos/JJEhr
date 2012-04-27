@@ -170,10 +170,19 @@ LOGGING = {'version': 1,
 
 EMAIL_HOST = 'smtp.telecom-sh.com'
 EMAIL_PORT = '25'
-EMAIL_HOST_USER = 'sam.sun@jinjiang.com'
-EMAIL_HOST_PASSWORD = 'Jj123456'
+EMAIL_HOST_USER = 'humanresources@jinjiang.com'
+EMAIL_HOST_PASSWORD = '12qw8888'
 
 EVENT_TYPE_IMAGE_URL_PREFIX = "/courseware/"
-ENROLL_EMAIL_SUBJECT = u"课程报名成功 {name:30s}"
-ENROLL_EMAIL_CONTENT = u"课程报名成功 {name:30s}"
-ENROLL_EMAIL_FROM = u"shalocfolmos@gmail.com"
+ENROLL_EMAIL_SUBJECT = u"Teacher @ Friday 报名确认"
+ENROLL_EMAIL_CONTENT = '''
+Dear Smart J：
+
+Congratulations, you have already signed up to take a course named {name:30s}.
+
+Looking forward to seeing you !
+
+Best Regards
+Human Resources Department
+'''
+ENROLL_EMAIL_FROM = u"humanresources@jinjiang.com"
