@@ -22,17 +22,17 @@ DATABASES = {
         'HOST': '',
         'PORT': '',
         },
-#
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
-#        'NAME': 'jjehr',
-#        'USER': 'root',
-#        'PASSWORD': '123456',
-#        'HOST': '',
-#        'PORT': ''
-#        #'HOST': '192.168.2.191',
-#        #'PORT': '3306',
-#       }
+    #
+    #    'default': {
+    #        'ENGINE': 'django.db.backends.mysql', #设置为mysql数据库
+    #        'NAME': 'jjehr',
+    #        'USER': 'root',
+    #        'PASSWORD': '123456',
+    #        'HOST': '',
+    #        'PORT': ''
+    #        #'HOST': '192.168.2.191',
+    #        #'PORT': '3306',
+    #       }
 }
 
 TEMPLATE_STRING_IF_INVALID = ''
@@ -120,6 +120,7 @@ ROOT_URLCONF = 'JJEhr.urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'template'),
     os.path.join(PROJECT_ROOT, 'event/template'),
+    os.path.join(PROJECT_ROOT, 'survey/template'),
     )
 
 INSTALLED_APPS = (
@@ -134,7 +135,7 @@ INSTALLED_APPS = (
     'backoffice',
     'lesson',
     'event',
-    #'survey'
+    'survey'
     )
 
 # A sample logging configuration. The only tangible logging
