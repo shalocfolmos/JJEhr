@@ -1,0 +1,43 @@
+{% extends "backoffice/backofficeBasePage.html" %}
+{%block title%}
+创建调查表格
+{%endblock title%}
+
+{%block extra_css%}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/backoffice/css/survey_add.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
+{%endblock extra_css%}
+
+{%block content%}
+
+<div style="padding-left: 10px;">
+    <form action="">
+        <div>
+            调查名称: <input type="text"/>
+        </div>
+        <div id="questionArea">
+
+        </div>
+        <div style="padding-top: 20px;">
+            <button id="addQuestion" class="add_question_button">添加一个问题</button>
+        </div>
+    </form>
+</div>
+{%endblock content%}
+
+{%block extra_js%}
+<script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
+{%endblock extra_js%}
+
+{%block js_content%}
+<script type="text/javascript">
+    function init() {
+        new YAHOO.widget.Button("addQuestion");
+    }
+
+
+    YAHOO.util.Event.onDOMReady(init)
+</script>
+{%endblock js_content%}
