@@ -28,13 +28,53 @@
 
 {%block extra_html_content%}
     <div id="add_survey_question_dialog" style="display:none;width:600px;text-align: left;font-size: 14px;">
-        <div class="hd">
-            添加问卷问题
-        </div>
         <div class="bd">
-
+            <div>
+                <h5 style="color: #87A32E; font-size: 16px;">问题名称:</h5>
+                <textarea style="padding-top:5px;width: 500px;height: 50px;"></textarea>
+            </div>
+            <div>
+                <h5 style="color: #87A32E; font-size: 16px; padding-top: 10px;">问题类型:</h5>
+                <select style="width: 200px;">
+                    <option>--选择一个问题类型--</option>
+                    <option value="1">多项选择（单选)</option>
+                    <option value="2">多项选择（多选,使用单选按钮)</option>
+                    <option value="3">多项选择（单选,使用下拉菜单显示)</option>
+                    <option value="4">输入框（允许输入多行)</option>
+                    <option value="5">矩阵显示（允许选择多个答案)</option>
+                    <option value="6">矩阵显示（只允许选择一个答案)</option>
+                    <option value="7">输入框（显示一个输入框)</option>
+                    <option value="8">输入框（显示多个输入框)</option>
+                </select>
+            </div>
+            <div id="content_area" style="padding-top: 20px;padding-bottom: 15px;">
+                <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
+                    <span style="color: red;font-size: 14px;">(*)</span> 选择答案（用回车来区分选项)
+                </div>
+                <div>
+                    <textarea id="" style="width: 450px;height: 60px;"></textarea>
+                </div>
+                <div style="color: #E76300;padding-top: 10px;font-size: 14px;padding-bottom: 2px;">
+                    排列方式
+                </div>
+                <div>
+                    <input type="radio" name="align_format" style="margin-left: 5px;" value="">所有选项水平排列</input>
+                    <input type="radio" name="align_format"  value="">所有选项垂直排列</input>
+                </div>
+                <div style="color: #E76300;padding-top: 10px;font-size: 14px;">
+                    补充回答
+                </div>
+                <div>
+                    <textarea id="" style="width: 450px;height: 50px;"></textarea>
+                </div>
+            </div>
+            <button id="submit_question">提交问题</button>
         </div>
     </div>
+    <div id="multi_choice_single_select_area" style="display: none;">
+
+    </div>
+
 {%endblock extra_html_content%}
 
 {%block extra_js%}
@@ -57,6 +97,7 @@
         YAHOO.util.Dom.setStyle("add_survey_question_dialog", "display", "block");
 
         new YAHOO.widget.Button("addQuestion");
+        new YAHOO.widget.Button("submit_question");
         YAHOO.util.Event.addListener("addQuestion", "click", addQuestion);
     }
 
