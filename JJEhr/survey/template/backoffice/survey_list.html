@@ -21,6 +21,7 @@
             <th>问卷主题</th>
             <th>调查目标</th>
             <th>已参加调查人数</th>
+            <th>创建时间</th>
             <th>问卷状态</th>
         </tr>
         </thead>
@@ -31,6 +32,7 @@
             <td>全公司(98人)</td>
             <td>80</td>
             <td>调查进行中</td>
+            <td>2012-09-12</td>
             <td><a href="">查看</a></td>
         </tr>
         <tr>
@@ -39,6 +41,7 @@
             <td>信息技术部 (30人)</td>
             <td>30</td>
             <td>问卷创建完成</td>
+            <td>2012-09-12</td>
             <td></td>
         </tr>
         <tr>
@@ -47,6 +50,7 @@
             <td>市场部 (20人)</td>
             <td>20</td>
             <td><a href="/backoffice/survey/create">继续编辑</a></td>
+            <td>2012-09-12</td>
             <td></td>
         </tr>
         </tbody>
@@ -122,6 +126,7 @@
                 { key: "object" },
                 { key: "number" },
                 { key: "status" },
+                { key: "createDate" },
                 { key: "result"}
             ]
         };
@@ -129,9 +134,10 @@
         var myColumnDefs = [
             { key: "id",label:"序列号" },
             { key: "theme",width:300,label:"问卷主题" },
-            { key: 'object',label:"调查目标",width:200 },
+            { key: 'object',label:"调查目标",width:150 },
             { key: 'number',label:"已完成调查人数" },
             { key: "status",label:"问卷状态",formatter:"HTMLFunction" },
+            { key: "createDate",label:"创建时间"},
             { key: "result",label:"调查结果",formatter:"HTMLFunction"}
         ];
         var myDataTable = new YAHOO.widget.DataTable("myMarkedUpContainer",myColumnDefs,myDataSource);
