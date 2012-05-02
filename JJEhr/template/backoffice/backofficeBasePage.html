@@ -29,11 +29,13 @@
             </span>
             {%endblock extra_head_menu%}
         </div>
+        {%block right_head_menu%}
         <div class="yui3-u-2-5">
              <span id="add_event_widget">
             </span>
             <span id="edit_event_widget"></span>
         </div>
+        {%endblock right_head_menu%}
     </div>
 
     <div class="yui3-g mainContent">
@@ -42,12 +44,13 @@
         {%endblock content%}
     </div>
 </div>
+{%block extra_html_content%}
+{%endblock%}
 <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
 {%block extra_js%}
 {%endblock extra_js%}
 {%block js_content%}
 {%endblock js_content%}
-{%block extra_html_content%}
-{%endblock%}
+
 </body>
 </html>

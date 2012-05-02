@@ -36,4 +36,5 @@ urlpatterns += patterns(r'event',
 
 urlpatterns += patterns('survey',
     url(r'backoffice/survey/create', r'views.create_survey'),
+    url(r'backoffice/survey/list', r'views.list_survey'),
 )

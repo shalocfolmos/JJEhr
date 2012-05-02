@@ -4,9 +4,82 @@
 {%endblock title%}
 
 {%block extra_css%}
-
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/backoffice/css/survey_list.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
 {%endblock extra_css%}
 
 {%block content%}
+<div>
+    <span>员工福利调查</span>
+    <span>未编辑完</span>
+    <span>市场部(30人)</span>
+    <span>18</span>
 
+</div>
 {%endblock content%}
+
+
+{%block extra_js%}
+<script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/connection/connection-min.js"></script>
+{%endblock extra_js%}
+
+
+{%block right_head_menu%}
+    <button id="add_survey_button"></button>
+{%endblock right_head_menu%}
+
+{%block extra_html_content%}
+<div id="add_survey_dialog" style="display:none;width:500px;text-align: left;font-size: 14px;">
+    <div class="hd">
+        添加问卷调查
+    </div>
+    <div class="bd">
+        <form action="#" method="POST">
+            <div>
+                <span style="padding-right: 10px;">调查主题:</span><input type="text" name="theme"></input>
+            </div>
+            <div style="padding-top: 15px;">
+            <span style="padding-right: 10px;">调查对象:</span>
+            <select>
+                <option>全 体 员 工</option>
+                <option>技 术 信 息 部</option>
+                <option>市场部</option>
+                <option>产品运营部</option>
+            </select>
+            </div>
+        </form>
+        <div style="padding-top: 15px">
+            <button >创 建</button>
+        </div>
+    </div>
+</div>
+{%endblock extra_html_content%}
+
+{%block js_content%}
+<script type="text/javascript">
+
+
+
+    function init(){
+        new YAHOO.widget.Button("add_survey_button", {label:"添加调查问卷"});
+        var addSurveyDialog = new YAHOO.widget.Panel('add_survey_dialog', {close:true, fixedcenter:true, draggable:false, modal:true});
+        addSurveyDialog.render();
+        addSurveyDialog.hide();
+        YAHOO.util.Dom.setStyle("add_survey_dialog", "display", "block");
+
+        var displayAddSurveyDialog = function(){
+            addSurveyDialog.show();
+        }
+
+        YAHOO.util.Event.addListener("add_survey_button", "click", displayAddSurveyDialog);
+
+    }
+
+    YAHOO.util.Event.onDOMReady(init);
+</script>
+{%endblock js_content%}
