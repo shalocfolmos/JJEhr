@@ -43,10 +43,10 @@
         </tr>
         <tr>
             <td>3</td>
-            <td>员工福利期望</td>
+            <td>工福利期望</td>
             <td>市场部 (20人)</td>
             <td>20</td>
-            <td>未编辑完成</td>
+            <td><a href="/backoffice/survey/create">继续编辑</a></td>
             <td></td>
         </tr>
         </tbody>
@@ -128,10 +128,10 @@
 
         var myColumnDefs = [
             { key: "id",label:"序列号" },
-            { key: "theme",width:300,label:"问卷主题",formatter:"HTMLFunction" },
+            { key: "theme",width:300,label:"问卷主题" },
             { key: 'object',label:"调查目标",width:200 },
             { key: 'number',label:"已完成调查人数" },
-            { key: "status",label:"问卷状态" },
+            { key: "status",label:"问卷状态",formatter:"HTMLFunction" },
             { key: "result",label:"调查结果",formatter:"HTMLFunction"}
         ];
         var myDataTable = new YAHOO.widget.DataTable("myMarkedUpContainer",myColumnDefs,myDataSource);
