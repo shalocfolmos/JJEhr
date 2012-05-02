@@ -7,15 +7,15 @@
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/backoffice/css/survey_add.css">
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
 {%endblock extra_css%}
 
 {%block content%}
-
 <div style="padding-left: 10px;">
     <form action="">
-        <div>
-            调查名称: <input type="text"/>
-        </div>
+        <h2>
+            调查名称: 工福利期望
+        </h2>
         <div id="questionArea">
 
         </div>
@@ -26,15 +26,38 @@
 </div>
 {%endblock content%}
 
+{%block extra_html_content%}
+    <div id="add_survey_question_dialog" style="display:none;width:500px;text-align: left;font-size: 14px;">
+        <div class="hd">
+            添加问卷问题
+        </div>
+        <div class="bd">
+
+        </div>
+    </div>
+{%endblock extra_html_content%}
+
 {%block extra_js%}
 <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/connection/connection-min.js"></script>
 {%endblock extra_js%}
 
 {%block js_content%}
 <script type="text/javascript">
     function init() {
+        var addQuestion = function() {
+            addSurveyQuestionDialog.show();
+        }
+
+        var addSurveyQuestionDialog = new YAHOO.widget.Panel('add_survey_question_dialog', {close:true, fixedcenter:true, draggable:false, modal:true});
+        addSurveyQuestionDialog.render();
+        addSurveyQuestionDialog.hide();
+        YAHOO.util.Dom.setStyle("add_survey_question_dialog", "display", "block");
+
         new YAHOO.widget.Button("addQuestion");
+        YAHOO.util.Event.addListener("addQuestion", "click", addQuestion);
     }
 
 
