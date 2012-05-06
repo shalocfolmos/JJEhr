@@ -12,18 +12,55 @@
 
 {%block content%}
 <div style="padding-left: 10px;">
-    <form action="">
-        <h2>
-            调查名称: 工福利期望
-        </h2>
+    <h2>
+        调查名称: 工福利期望
+    </h2>
 
-        <div id="questionArea">
+    <div id="questionArea">
+        <div class="ed_QstHdr">
+            <div>
+                <span class="ed_AbsNumbering">1. 问题1</span>
+                <input type="button" id="pushbutton" name="button" value="编辑问题"></input>
+                <input type="button" id="deletebutton" name="button" value="删除"></input>
+            </div>
+        </div>
+    </div>
+    <div style="padding-top: 20px;">
+        <button id="addQuestion" class="add_question_button">添加一个问题</button>
+        <button id="addPage" class="add_question_button">添加一个页面</button>
+    </div>
+</div>
+<div class="pageListBottom">
+    <div class="pagePanel">
+        <ul>
+            <li>
+                <span class="disable">
+                    <a href="">上一页</a>
+                </span>
+            </li>
+            <li>
+                <span class="currentPage">
+                    <a href="">1</a>
+                </span>
+            </li>
+            <li>
+                <span>
+                    <a href="">2</a>
+                </span>
+            </li>
+            <li>
+                <span>
+                    <a href="">3</a>
+                </span>
+            </li>
+            <li>
+                <span>
+                    <a href="">下一页</a>
+                </span>
+            </li>
+        </ul>
+    </div>
 
-        </div>
-        <div style="padding-top: 20px;">
-            <button id="addQuestion" class="add_question_button">添加一个问题</button>
-        </div>
-    </form>
 </div>
 {%endblock content%}
 
@@ -144,6 +181,9 @@
 
         new YAHOO.widget.Button("addQuestion");
         new YAHOO.widget.Button("submit_question");
+        new YAHOO.widget.Button("addPage");
+        new YAHOO.widget.Button("pushbutton");
+        new YAHOO.widget.Button("deletebutton");
         YAHOO.util.Event.addListener("addQuestion", "click", addQuestion);
         YAHOO.util.Event.addListener("question_type_selector", "change", changeQuestionType);
         YAHOO.util.Event.addListener("submit_question-button", "click", function () {

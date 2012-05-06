@@ -1,5 +1,64 @@
 #addQuestion-button {
     background: url("../img/survey_add.gif") no-repeat scroll 10% 50% transparent;
-    padding-left: 2em;
+    padding-left: 3em;
 }
 
+#addPage-button {
+    background: url("../img/survey_add.gif") no-repeat scroll 10% 50% transparent;
+    padding-left: 3em;
+}
+
+.pageListBottom {
+    background: none repeat scroll 0 0 #F2F2F2;
+    border: 1px solid #DDDDDD;
+    height: 30px;
+    margin-top: 30px;
+
+}
+
+.pagePanel {
+    float: right;
+    margin: 6px 8px 5px 0;
+}
+
+.pagePanel ul {
+    clear: none !important;
+    float: left;
+    padding-top: 0 !important;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagePanel li {
+    clear: none !important;
+    display: inline;
+    float: left;
+    margin-left: 5px;
+}
+
+.pagePanel li span {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #A5A5A5;
+    color: #484848;
+    display: block;
+    line-height: 16px;
+    padding: 0 5px;
+}
+
+.pagePanel li span a {
+    text-decoration: none;
+    outline: medium none;
+}
+
+.ed_QstHdr {
+    border: 1px dashed #CCCCCC;
+    margin: 0 10px;
+    padding: 10px;
+}
+
+.ed_AbsNumbering {
+    color: #999999;
+    font: bold 16px/2em Arial;
+    margin-right: 10px;
+}
