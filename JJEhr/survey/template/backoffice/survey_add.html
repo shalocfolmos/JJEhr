@@ -8,7 +8,22 @@
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
+<style type="text/css">
+    body {
+        background-image: none;
+    }
+    tr {
+        border: 0px;
+    }
+    td {
+        border: 0px;
+    }
+    table {
+        width: 100%;
+    }
+</style>
 {%endblock extra_css%}
+
 
 {%block content%}
 <div style="padding-left: 10px;">
@@ -52,7 +67,7 @@
             <div>
                 <table>
                     <tbody>
-                        <tr style="border: 0px">
+                        <tr >
                             <td style="border: 0px">
                                 <div style="padding-top: 10px;">
                                     <input name="answer2" type="radio" />
@@ -111,13 +126,124 @@
             </div>
         </div>
         <div class="ed_QstHdr" style="margin-top: 10px;">
-            <div>
+            <div style="padding-top: 20px;">
                 <span class="ed_AbsNumbering">5. 多个输入框</span>
                 <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
                 <input type="button" id="deletebutton1" name="button" value="删除"></input>
             </div>
+            <div style="padding-top: 20px;">
+                <label name="answer2">答案1</label>
+                <input name="answer2" type="text" />
+            </div>
+            <div style="padding-top: 20px;">
+                <label name="answer2">答案2</label>
+                <input name="answer2" type="text" />
+            </div>
+            <div style="padding-top: 20px;">
+                <label name="answer2">答案3</label>
+                <input name="answer2" type="text" />
+            </div>
+            <div style="padding-top: 20px;">
+                <label name="answer2">答案4</label>
+                <input name="answer2" type="text" />
+            </div>
+        </div>
+        <div class="ed_QstHdr" style="margin-top: 10px;">
+            <div style="padding-top: 20px;">
+                <span class="ed_AbsNumbering">6. 矩阵显示（选择单个答案)</span>
+                <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
+                <input type="button" id="deletebutton1" name="button" value="删除"></input>
+            </div>
             <div>
-                <textarea style="width: 550px;height: 50px;"></textarea>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td>
+                                好
+                            </td>
+                            <td>
+                                一般
+                            </td>
+                            <td>
+                                差
+                            </td>
+                            <td>
+                                极差
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                选项1
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                选项2
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                选项3
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                选项4
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                            <td>
+                                <input type="radio"></input>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
