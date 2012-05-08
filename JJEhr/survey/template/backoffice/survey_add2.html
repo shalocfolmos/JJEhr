@@ -30,115 +30,230 @@
 
 {%block content%}
 <div style="padding-left: 10px;">
-    <h2>
-        调查名称: 工福利期望
-    </h2>
+<h2>
+    调查名称: 工福利期望
+</h2>
 
-    <div id="questionArea">
-        <div class="ed_QstHdr">
-            <div>
-                <span class="ed_AbsNumbering">8. 矩阵显示（选择多个答案)</span>
-                <input type="button" id="pushbutton" name="button" value="编辑问题"></input>
-                <input type="button" id="deletebutton" name="button" value="删除"></input>
-            </div>
-            <div>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>
-
-                        </td>
-                        <td>
-                            好
-                        </td>
-                        <td>
-                            一般
-                        </td>
-                        <td>
-                            差
-                        </td>
-                        <td>
-                            极差
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            选项1
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            选项2
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            选项3
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            选项4
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+<div id="questionArea">
+<div class="ed_QstHdr">
+    <div>
+        <span class="ed_AbsNumbering">1. 单项选择(使用按钮) 垂直显示</span>
+        <input type="button" id="pushbutton" name="button" value="编辑问题"></input>
+        <input type="button" id="deletebutton" name="button" value="删除"></input>
+    </div>
+    <div>
+        <div style="padding-top: 10px;">
+            <input name="answer" type="radio"/>
+            <label name="answer">答案1</label>
         </div>
+        <div style="padding-top: 10px;">
+            <input name="answer" type="radio"/>
+            <label name="answer">答案2</label>
+        </div>
+        <div style="padding-top: 10px;">
+            <input name="answer" type="radio"/>
+            <label name="answer">答案3</label>
+        </div>
+        <div style="padding-top: 10px;">
+            <input name="answer" type="radio"/>
+            <label name="answer">答案4</label>
+        </div>
+    </div>
+</div>
 
+<div class="ed_QstHdr" style="margin-top: 10px;">
+    <div>
+        <span class="ed_AbsNumbering">2. 单项选择(使用按钮) 垂直显示</span>
+        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
+        <input type="button" id="deletebutton1" name="button" value="删除"></input>
+    </div>
+    <div>
+        <table>
+            <tbody>
+            <tr>
+                <td style="border: 0px">
+                    <div style="padding-top: 10px;">
+                        <input name="answer2" type="radio"/>
+                        <label name="answer2">答案1</label>
+                    </div>
+
+                </td>
+                <td style="border: 0px">
+                    <div style="padding-top: 10px">
+                        <input name="answer2" type="radio"/>
+                        <label name="answer2">答案2</label>
+                    </div>
+                </td>
+                <td style="border: 0px">
+                    <div style="padding-top: 10px;">
+                        <input name="answer2" type="radio"/>
+                        <label name="answer2">答案3</label>
+                    </div>
+
+                </td>
+                <td style="border: 0px">
+                    <div style="padding-top: 10px;">
+                        <input name="answer2" type="radio"/>
+                        <label name="answer2">答案4</label>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <label for="other_option">其他选项</label>
+        <input type="text" name="other_option"/>
+    </div>
+</div>
+
+<div class="ed_QstHdr" style="margin-top: 10px;">
+    <div>
+        <span class="ed_AbsNumbering">3. 输入框（一行输入框)</span>
+        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
+        <input type="button" id="deletebutton1" name="button" value="删除"></input>
+    </div>
+    <div>
+        <input type="text" style="width: 550px;"/>
+    </div>
+</div>
+<div class="ed_QstHdr" style="margin-top: 10px;">
+    <div>
+        <span class="ed_AbsNumbering">4. 输入框（多行输入)</span>
+        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
+        <input type="button" id="deletebutton1" name="button" value="删除"></input>
+    </div>
+    <div>
+        <textarea style="width: 550px;height: 50px;"></textarea>
+    </div>
+</div>
+<div class="ed_QstHdr" style="margin-top: 10px;">
+    <div style="padding-top: 20px;">
+        <span class="ed_AbsNumbering">5. 多个输入框</span>
+        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
+        <input type="button" id="deletebutton1" name="button" value="删除"></input>
     </div>
     <div style="padding-top: 20px;">
-        <button id="addQuestion" class="add_question_button">添加一个问题</button>
-        <button id="addPage" class="add_question_button">添加一个页面</button>
+        <label name="answer2">答案1</label>
+        <input name="answer2" type="text"/>
     </div>
+    <div style="padding-top: 20px;">
+        <label name="answer2">答案2</label>
+        <input name="answer2" type="text"/>
+    </div>
+    <div style="padding-top: 20px;">
+        <label name="answer2">答案3</label>
+        <input name="answer2" type="text"/>
+    </div>
+    <div style="padding-top: 20px;">
+        <label name="answer2">答案4</label>
+        <input name="answer2" type="text"/>
+    </div>
+</div>
+<div class="ed_QstHdr" style="margin-top: 10px;">
+    <div style="padding-top: 20px;">
+        <span class="ed_AbsNumbering">6. 矩阵显示（选择单个答案)</span>
+        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
+        <input type="button" id="deletebutton1" name="button" value="删除"></input>
+    </div>
+    <div>
+        <table>
+            <tbody>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    好
+                </td>
+                <td>
+                    一般
+                </td>
+                <td>
+                    差
+                </td>
+                <td>
+                    极差
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    选项1
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    选项2
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    选项3
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    选项4
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+                <td>
+                    <input type="radio"></input>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<div style="padding-top: 20px;">
+    <button id="addQuestion" class="add_question_button">添加一个问题</button>
+    <button id="addPage" class="add_question_button">添加一个页面</button>
+</div>
 </div>
 <div class="pageListBottom">
     <div class="pagePanel">
@@ -149,12 +264,12 @@
                 </span>
             </li>
             <li>
-                <span class="currentPage">
+                <span>
                     <a href="/backoffice/survey/create">1</a>
                 </span>
             </li>
             <li>
-                <span>
+                <span class="currentPage">
                     <a href="/backoffice/survey/2create">2</a>
                 </span>
             </li>
@@ -191,6 +306,8 @@
                 <option value="text_area">输入框（多行输入)</option>
                 <option value="metrix">矩阵显示（选择多个答案)</option>
                 <option value="metrix">矩阵显示（选择一个答案,用按钮选择)</option>
+                <option value="metrix">矩阵显示（选择一个答案,用下拉框选择)</option>
+
                 <option value="text_area">多个输入框</option>
             </select>
         </div>
