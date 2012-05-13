@@ -18,3 +18,9 @@ def list_survey(request):
 @login_required(login_url='/backoffice/login')
 def create_survey_two(request):
     return render_to_response("backoffice/survey_add2.html")
+
+
+@require_http_methods(["GET"])
+@login_required(login_url='/backoffice/login')
+def preview(request):
+    return render_to_response("backoffice/preview.html")
