@@ -3,6 +3,8 @@ from django.conf.urls.defaults import patterns, url
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic.list import ListView
+from JJEhr.survey.models import Investigation
 
 urlpatterns = patterns('',
 
@@ -36,7 +38,7 @@ urlpatterns += patterns(r'event',
 
 urlpatterns += patterns('survey',
     url(r'backoffice/survey/create', r'views.create_survey_two'),
-    url(r'backoffice/survey/list', r'views.list_survey'),
+    url(r'backoffice/survey/list', ListView.as_view(model=Investigation, template_name=r'backoffice/survey_list.html')),
     url(r'backoffice/survey/2create', r'views.create_survey'),
     url(r'backoffice/survey/preview', r'views.preview'),
 )

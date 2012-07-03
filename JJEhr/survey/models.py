@@ -5,6 +5,11 @@ from django.db.models.fields import DateTimeField, CharField, IntegerField, Bool
 from django.db.models.fields.related import ForeignKey
 
 
+class StaffProfile(models.Model):
+    user = models.OneToOneField(User)
+    division = models.CharField(max_length=30, verbose_name="所属部门")
+
+
 class Investigation(models.Model):
     ITEM_TYPE = (
         ('SALES_DEPARTMENT', "复选"),

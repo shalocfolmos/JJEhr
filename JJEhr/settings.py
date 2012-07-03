@@ -174,6 +174,8 @@ EMAIL_PORT = '25'
 EMAIL_HOST_USER = 'humanresources@jinjiang.com'
 EMAIL_HOST_PASSWORD = '12qw8888'
 
+AUTH_PROFILE_MODULE = 'survey.StaffProfile'
+
 EVENT_TYPE_IMAGE_URL_PREFIX = "/courseware/"
 ENROLL_EMAIL_SUBJECT = u"Teacher @ Friday 报名确认"
 ENROLL_EMAIL_CONTENT = '''

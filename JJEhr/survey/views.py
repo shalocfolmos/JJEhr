@@ -7,11 +7,11 @@ from django.views.decorators.http import require_http_methods
 def create_survey(request):
     return render_to_response("backoffice/survey_add.html")
 
-
-@require_http_methods(["GET"])
-@login_required(login_url='/backoffice/login')
-def list_survey(request):
-    return render_to_response("backoffice/survey_list.html")
+#
+#@require_http_methods(["GET"])
+#@login_required(login_url='/backoffice/login')
+#def list_survey(request):
+#    return render_to_response("backoffice/survey_list.html")
 
 
 @require_http_methods(["GET"])
