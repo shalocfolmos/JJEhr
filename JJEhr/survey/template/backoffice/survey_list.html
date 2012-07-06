@@ -26,6 +26,7 @@
         </tr>
         </thead>
         <tbody>
+        {% for survey in object_list %}
         <tr>
             <td>1</td>
             <td>培训计划调查</td>
@@ -70,7 +71,7 @@
 
 
 {%block right_head_menu%}
-    <button id="add_survey_button"></button>
+<button id="add_survey_button"></button>
 {%endblock right_head_menu%}
 
 {%block extra_html_content%}
@@ -84,17 +85,17 @@
                 <span style="padding-right: 10px;">调查主题:</span><input type="text" name="theme"></input>
             </div>
             <div style="padding-top: 15px;">
-            <span style="padding-right: 10px;">调查对象:</span>
-            <select>
-                <option>全 体 员 工</option>
-                <option>技 术 信 息 部</option>
-                <option>市场部</option>
-                <option>产品运营部</option>
-            </select>
+                <span style="padding-right: 10px;">调查对象:</span>
+                <select>
+                    <option>全 体 员 工</option>
+                    <option>技 术 信 息 部</option>
+                    <option>市场部</option>
+                    <option>产品运营部</option>
+                </select>
             </div>
         </form>
         <div style="padding-top: 15px">
-            <button >创 建</button>
+            <button>创 建</button>
         </div>
     </div>
 </div>
@@ -104,15 +105,14 @@
 <script type="text/javascript">
 
 
-
-    function init(){
+    function init() {
         new YAHOO.widget.Button("add_survey_button", {label:"添加调查问卷"});
         var addSurveyDialog = new YAHOO.widget.Panel('add_survey_dialog', {close:true, fixedcenter:true, draggable:false, modal:true});
         addSurveyDialog.render();
         addSurveyDialog.hide();
         YAHOO.util.Dom.setStyle("add_survey_dialog", "display", "block");
 
-        var displayAddSurveyDialog = function(){
+        var displayAddSurveyDialog = function () {
             addSurveyDialog.show();
         }
 
@@ -120,27 +120,27 @@
         var myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("myTable"));
         myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
         myDataSource.responseSchema = {
-            fields: [
-                { key: "id", parser:"number" },
-                { key: "theme" },
-                { key: "object" },
-                { key: "number" },
-                { key: "status" },
-                { key: "createDate" },
-                { key: "result"}
+            fields:[
+                { key:"id", parser:"number" },
+                { key:"theme" },
+                { key:"object" },
+                { key:"number" },
+                { key:"status" },
+                { key:"createDate" },
+                { key:"result"}
             ]
         };
 
         var myColumnDefs = [
-            { key: "id",label:"序列号" },
-            { key: "theme",width:300,label:"问卷主题" },
-            { key: 'object',label:"调查目标",width:150 },
-            { key: 'number',label:"已完成调查人数" },
-            { key: "status",label:"问卷状态",formatter:"HTMLFunction" },
-            { key: "createDate",label:"创建时间"},
-            { key: "result",label:"调查结果",formatter:"HTMLFunction"}
+            { key:"id", label:"序列号" },
+            { key:"theme", width:300, label:"问卷主题" },
+            { key:'object', label:"调查目标", width:150 },
+            { key:'number', label:"已完成调查人数" },
+            { key:"status", label:"问卷状态", formatter:"HTMLFunction" },
+            { key:"createDate", label:"创建时间"},
+            { key:"result", label:"调查结果", formatter:"HTMLFunction"}
         ];
-        var myDataTable = new YAHOO.widget.DataTable("myMarkedUpContainer",myColumnDefs,myDataSource);
+        var myDataTable = new YAHOO.widget.DataTable("myMarkedUpContainer", myColumnDefs, myDataSource);
     }
 
     YAHOO.util.Event.onDOMReady(init);

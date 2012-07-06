@@ -10,7 +10,7 @@ class StaffProfile(models.Model):
     division = models.CharField(max_length=30, verbose_name="所属部门")
 
 
-class Investigation(models.Model):
+class Survey(models.Model):
     ITEM_TYPE = (
         ('SALES_DEPARTMENT', "复选"),
         ("INFORMATION_DEPARTMENT", "信息技术部"),
@@ -18,12 +18,12 @@ class Investigation(models.Model):
         ('FINANCE_DEPARTMENT', "财务部")
         )
 
-    investigation_name = CharField(max_length=50, verbose_name="问卷主题", db_column="investigation_name")
-    investigation_target = CharField(max_length=30, verbose_name="调查目标", db_column="investigation_target")
+    survey_name = CharField(max_length=50, verbose_name="问卷主题", db_column="survey_name")
+    survey_target = CharField(max_length=30, verbose_name="调查目标", db_column="survey_target")
     total_employee_number = IntegerField(verbose_name="参与调查人数", db_column="total_investigator_number")
-    finish_investigation_employee_number = IntegerField(verbose_name="完成调查人数",
-        db_column="finish_investigation_employee_number", default="0")
-    investigation_status = IntegerField(verbose_name="订单状态", db_column="investigation_status")
+    finish_survey_employee_number = IntegerField(verbose_name="完成调查人数",
+        db_column="finish_survey_employee_number", default="0")
+    survey_status = IntegerField(verbose_name="订单状态", db_column="survey_status")
 
     finish_date = DateTimeField(verbose_name="调查结束时间", db_column="finish_date", null=True)
     total_page = IntegerField(db_column="total_page", default=1)
@@ -33,7 +33,7 @@ class Investigation(models.Model):
     create_date = DateTimeField(auto_now=True, db_column="create_date")
 
 
-class InvestigationItem(models.Model):
+class SurveyItem(models.Model):
     ITEM_TYPE = (
         ('MULTIPLE', "复选"),
         ("SINGLE", "单选"),
@@ -42,22 +42,22 @@ class InvestigationItem(models.Model):
     item_type = CharField(max_length=20, verbose_name="调查类型", choices=ITEM_TYPE, db_column="item_type")
     item_name = CharField(max_length=30, verbose_name="调查项目", db_column="item_name")
     is_optional_answer = BooleanField(verbose_name="可选答案", db_column="is_optional_answer")
-    item = models.ForeignKey('Investigation')
+    item = models.ForeignKey('Survey')
     page = IntegerField(db_column="page")
 
     create_date = DateTimeField(auto_now=True, db_column="create_date")
 
 
-class InvestigationItemAnswer(models.Model):
+class SurveyItemAnswer(models.Model):
     question_title = CharField(max_length=100, verbose_name="问题")
     question_sequence = IntegerField()
-    investigation_item = models.ForeignKey('InvestigationItem')
+    survey_item = models.ForeignKey('SurveyItem')
     create_date = DateTimeField(auto_now=True, db_column="create_date")
 
 
-class InvestigationResult(models.Model):
-    investigation = ForeignKey(Investigation)
-    investigation_item_name = CharField(max_length=20, verbose_name="调查项目名词", db_column="investigation_item_name")
-    investigation_item_value = CharField(max_length=2000, verbose_name="调查结果", db_column="investigation_item_value")
-    investigation_user = ForeignKey(User)
+class SurveyResult(models.Model):
+    survey = ForeignKey(Survey)
+    survey_item_name = CharField(max_length=20, verbose_name="调查项目名词", db_column="survey_item_name")
+    survey_item_value = CharField(max_length=2000, verbose_name="调查结果", db_column="survey_item_value")
+    survey_user = ForeignKey(User)
     create_date = DateTimeField(auto_now=True, db_column="create_date")
