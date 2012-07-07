@@ -1,0 +1,26 @@
+[
+    {
+        "model":"survey.Survey",
+        "pk":1000,
+        "fields":{
+            "survey_name":"福利调查",
+            "survey_target":"IT",
+            "total_employee_number":30,
+            "finish_survey_employee_number":2,
+            "survey_status":"FINISH",
+            "total_page":1
+        }
+    },
+    {
+        "model":"survey.Survey",
+        "pk":1001,
+        "fields":{
+            "survey_name":"福利调查2",
+            "survey_target":"IT",
+            "total_employee_number":30,
+            "finish_survey_employee_number":2,
+            "survey_status":"FINISH",
+            "total_page":1
+        }
+    }
+]

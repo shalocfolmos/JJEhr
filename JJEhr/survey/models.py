@@ -11,19 +11,25 @@ class StaffProfile(models.Model):
 
 
 class Survey(models.Model):
-    ITEM_TYPE = (
-        ('SALES_DEPARTMENT', "复选"),
-        ("INFORMATION_DEPARTMENT", "信息技术部"),
-        ("CALL_CENTER_DEPARTMENT", "呼叫中心"),
-        ('FINANCE_DEPARTMENT', "财务部")
+    SURVEY_TARGET = (
+        ('SALE', "市场营销部"),
+        ("IT", "信息技术部"),
+        ("CC", "呼叫中心"),
+        ('F', "财务部")
+        )
+    SURVEY_STATUS = (
+        ("DONE", "调查完成"),
+        ("CONTINUE", "调查进行中"),
+        ("EDIT", "创建问卷中"),
+        ("FINISH", "问卷创建完成"),
         )
 
     survey_name = CharField(max_length=50, verbose_name="问卷主题", db_column="survey_name")
-    survey_target = CharField(max_length=30, verbose_name="调查目标", db_column="survey_target")
+    survey_target = CharField(max_length=30, verbose_name="调查目标", db_column="survey_target", choices=SURVEY_TARGET)
     total_employee_number = IntegerField(verbose_name="参与调查人数", db_column="total_investigator_number")
     finish_survey_employee_number = IntegerField(verbose_name="完成调查人数",
-        db_column="finish_survey_employee_number", default="0")
-    survey_status = IntegerField(verbose_name="订单状态", db_column="survey_status")
+        db_column="finish_survey_employee_number", default=0)
+    survey_status = CharField(verbose_name="订单状态", max_length=30, db_column="survey_status", choices=SURVEY_STATUS)
 
     finish_date = DateTimeField(verbose_name="调查结束时间", db_column="finish_date", null=True)
     total_page = IntegerField(db_column="total_page", default=1)

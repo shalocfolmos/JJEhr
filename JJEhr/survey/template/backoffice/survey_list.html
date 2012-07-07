@@ -14,6 +14,9 @@
 
 {%block content%}
 <div id="myMarkedUpContainer">
+
+
+    <br/>
     <table id="myTable">
         <thead>
         <tr>
@@ -28,32 +31,42 @@
         <tbody>
         {% for survey in object_list %}
         <tr>
-            <td>1</td>
-            <td>培训计划调查</td>
-            <td>全公司(98人)</td>
-            <td>80</td>
-            <td>调查进行中</td>
-            <td>2012-09-12</td>
+            <td>{{forloop.counter}}</td>
+            <td>{{survey.survey_name}}</td>
+            <td>
+                {% if survey.survey_target == "SALE" %}
+                市场营销部
+                {% endif %}
+                {% if survey.survey_target == "IT" %}
+                信息技术部
+                {% endif %}
+                {% if survey.survey_target == "CC" %}
+                呼叫中心
+                {% endif %}
+                {% if survey.survey_target == "F" %}
+                财务部
+                {% endif %}
+                ({{survey.total_employee_number}}人)
+            </td>
+            <td>{{survey.finish_survey_employee_number}}</td>
+            <td>
+                {% if survey.survey_status == "DONE" %}
+                调查完成
+                {% endif %}
+                {% if survey.survey_status == "CONTINUE" %}
+                调查完成
+                {% endif %}
+                {% if survey.survey_status == "EDIT" %}
+                创建问卷中
+                {% endif %}
+                {% if survey.survey_status == "FINISH" %}
+                问卷创建完成
+                {% endif %}
+            </td>
+            <td>{{survey.create_date|date:"Y-m-d"}}</td>
             <td><a href="">查看</a></td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>公司培训反馈</td>
-            <td>信息技术部 (30人)</td>
-            <td>30</td>
-            <td>问卷创建完成</td>
-            <td>2012-09-12</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>工福利期望</td>
-            <td>市场部 (20人)</td>
-            <td>20</td>
-            <td><a href="/backoffice/survey/create">继续编辑</a></td>
-            <td>2012-09-12</td>
-            <td></td>
-        </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>
