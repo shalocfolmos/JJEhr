@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}/yui2/build/datatable/assets/skins/sam/datatable.css">
-
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/paginator/assets/skins/sam/paginator.css">
 {%endblock extra_css%}
 
 {%block content%}
@@ -78,6 +78,9 @@
         </tbody>
     </table>
 </div>
+<div id="pag">
+
+</div>
 {%endblock content%}
 
 
@@ -88,6 +91,7 @@
 <script src="{{STATIC_URL}}/yui2/build/connection/connection-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/datasource/datasource-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/datatable/datatable-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/paginator/paginator-min.js"></script>
 {%endblock extra_js%}
 
 
@@ -133,7 +137,6 @@
             location.reload();
         },
         failure:function (o) {
-            alert(o.responseText);
             alert("创建问卷发生错误，请重新尝试");
             location.reload();
         }
@@ -181,8 +184,15 @@
             { key:"status", label:"问卷状态", formatter:"HTMLFunction" },
             { key:"createDate", label:"创建时间"},
             { key:"result", label:"调查结果", formatter:"HTMLFunction"}
-        ],
-                myDataTable = new YAHOO.widget.DataTable("myMarkedUpContainer", myColumnDefs, myDataSource);
+        ];
+
+
+        new YAHOO.widget.DataTable("myMarkedUpContainer", myColumnDefs, myDataSource, {
+            paginator : new YAHOO.widget.Paginator({
+                rowsPerPage: 1,
+                containers : "pag"
+            })
+        });
         YAHOO.util.Event.addListener("create_survey", "click", createSurvey);
     }
 
