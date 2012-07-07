@@ -1,6 +1,5 @@
 span#add_survey_button {
     padding-left: 0px;
-    background: url("/static/backoffice/img/btnMain.gif") repeat-x scroll 0 0 #777777;
 }
 
 span.first-child {
@@ -9,6 +8,4 @@ span.first-child {
 
 #add_survey_button-button {
     font-size: 12px;
-    color: #FFFFFF;
-
 }
