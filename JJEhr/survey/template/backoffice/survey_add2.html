@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/paginator/assets/skins/sam/paginator.css">
 <style type="text/css">
     body {
         background-image: none;
@@ -257,37 +258,9 @@
     <button id="endPage"><a href="/backoffice/survey/preview">进行问卷调查</a></button>
 </div>
 </div>
-<div class="pageListBottom">
-    <div class="pagePanel">
-        <ul>
-            <li>
-                <span class="disable">
-                    <a href="">上一页</a>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <a href="/backoffice/survey/create">1</a>
-                </span>
-            </li>
-            <li>
-                <span class="currentPage">
-                    <a href="/backoffice/survey/2create">2</a>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <a href="">3</a>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <a href="">下一页</a>
-                </span>
-            </li>
-        </ul>
-    </div>
 
+<div class="pageListBottom" style="text-align: right; padding-right: 30px;">
+    <div id="pagePanel"></div>
 </div>
 {%endblock content%}
 
@@ -409,6 +382,7 @@
 <script src="{{STATIC_URL}}/yui2/build/button/button-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
 <script src="{{STATIC_URL}}/yui2/build/connection/connection-min.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/paginator/paginator-min.js"></script>
 {%endblock extra_js%}
 
 {%block js_content%}
@@ -462,6 +436,13 @@
         });
 
         YAHOO.util.Event.addListener("pushbutton", "click", editQuestion);
+
+
+        var pag = new YAHOO.widget.Paginator();
+        pag.set('rowsPerPage', 10);
+        pag.set('totalRecords', {{survey.total_page}});
+        pag.set('containers', "pagePanel");
+        pag.render();
     }
 
 

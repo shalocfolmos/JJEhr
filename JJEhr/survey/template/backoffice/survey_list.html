@@ -69,10 +69,11 @@
             <td>{{survey.create_date|date:"Y-m-d"}}</td>
             <td>
                 {% if survey.survey_status == "EDIT" %}
-                    <a href="">编辑问卷</a></td>
+                    <button onclick="editSurvey({{survey.id}})">编辑问卷</button>
                 {% else %}
-                    <a href="">查看</a></td>
+                    <a href="">查看</a>
                 {% endif %}
+            </td>
         </tr>
         {% endfor %}
         </tbody>
@@ -131,6 +132,11 @@
 
 {%block js_content%}
 <script type="text/javascript">
+    function editSurvey(surveyId)
+    {
+        location.href="/backoffice/survey/edit/"+surveyId
+    }
+
     var callback = {
         success:function (o) {
             alert(o.responseText);
@@ -178,12 +184,12 @@
 
         var myColumnDefs = [
             { key:"id", label:"序列号" },
-            { key:"theme", width:300, label:"问卷主题" },
+            { key:"theme", width:250, label:"问卷主题" },
             { key:'object', label:"调查目标", width:150 },
             { key:'number', label:"已完成调查人数" },
             { key:"status", label:"问卷状态", formatter:"HTMLFunction" },
             { key:"createDate", label:"创建时间"},
-            { key:"result", label:"调查结果", formatter:"HTMLFunction"}
+            { key:"result", label:"调查结果", formatter:"HTMLFunction",width:100}
         ];
 
 

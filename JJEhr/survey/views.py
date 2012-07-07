@@ -20,17 +20,11 @@ def create_survey(request):
     return HttpResponse(result)
 
 
-#
-#@require_http_methods(["GET"])
-#@login_required(login_url='/backoffice/login')
-#def list_survey(request):
-#    return render_to_response("backoffice/survey_list.html")
-
-
 @require_http_methods(["GET"])
 @login_required(login_url='/backoffice/login')
-def create_survey_two(request):
-    return render_to_response("backoffice/survey_add2.html")
+def create_survey_two(request,surveyId):
+    survey = Survey.objects.get(id=surveyId)
+    return render_to_response("backoffice/survey_add2.html",{"survey":survey})
 
 
 @require_http_methods(["GET"])
