@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 
-@require_http_methods(["GET"])
-@login_required(login_url='/backoffice/login')
+@require_http_methods(["POST"])
 def create_survey(request):
-    return render_to_response("backoffice/survey_add.html")
+    request.POST["division"]
+    return "OK"
+
 
 #
 #@require_http_methods(["GET"])

@@ -43,6 +43,9 @@
                 {% if survey.survey_target == "F" %}
                 财务部
                 {% endif %}
+                {% if survey.survey_target == "P" %}
+                产品运营部
+                {% endif %}
                 ({{survey.total_employee_number}}人)
             </td>
             <td>{{survey.finish_survey_employee_number}}</td>
@@ -92,20 +95,23 @@
     <div class="bd">
         <form action="#" method="POST">
             <div>
-                <span style="padding-right: 10px;">调查主题:</span><input type="text" name="theme"></input>
+                <span style="padding-right: 10px;">调查主题:</span><input id="survey_subject" type="text"
+                                                                      name="theme"></input>
             </div>
             <div style="padding-top: 15px;">
                 <span style="padding-right: 10px;">调查对象:</span>
-                <select>
-                    <option>全 体 员 工</option>
-                    <option>技 术 信 息 部</option>
-                    <option>市场部</option>
-                    <option>产品运营部</option>
+                <select id="selectDivision">
+                    <option value="All">全 体 员 工</option>
+                    <option value="IT">技 术 信 息 部</option>
+                    <option value="SALE">市 场 营 销 部</option>
+                    <option value="CC">呼 叫 中 心</option>
+                    <option value="F">财 务 部</option>
+                    <option value="P">产 品 运 营 部</option>
                 </select>
             </div>
         </form>
         <div style="padding-top: 15px">
-            <button>创 建</button>
+            <button id="create_survey">创 建</button>
         </div>
     </div>
 </div>
@@ -113,6 +119,22 @@
 
 {%block js_content%}
 <script type="text/javascript">
+    var callback = {
+        success:function (o) {
+            alert('b');
+        },
+        failure:function (o) {
+            alert('c');
+        }
+    };
+
+
+    function createSurvey() {
+        var division = YAHOO.util.Dom.get("selectDivision").value;
+        subject = YAHOO.util.Dom.get("survey_subject").value;
+        alert("subject=" + subject + "&division=" + division);
+        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/create', callback, "subject=" + subject + "&division=" + division);
+    }
 
 
     function init() {
@@ -149,8 +171,9 @@
             { key:"status", label:"问卷状态", formatter:"HTMLFunction" },
             { key:"createDate", label:"创建时间"},
             { key:"result", label:"调查结果", formatter:"HTMLFunction"}
-        ];
-        var myDataTable = new YAHOO.widget.DataTable("myMarkedUpContainer", myColumnDefs, myDataSource);
+        ],
+                myDataTable = new YAHOO.widget.DataTable("myMarkedUpContainer", myColumnDefs, myDataSource);
+        YAHOO.util.Event.addListener("create_survey", "click", createSurvey);
     }
 
     YAHOO.util.Event.onDOMReady(init);

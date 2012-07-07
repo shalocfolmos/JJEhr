@@ -15,7 +15,8 @@ class Survey(models.Model):
         ('SALE', "市场营销部"),
         ("IT", "信息技术部"),
         ("CC", "呼叫中心"),
-        ('F', "财务部")
+        ('F', "财务部"),
+        ('P', "产品运营部")
         )
     SURVEY_STATUS = (
         ("DONE", "调查完成"),
