@@ -36,9 +36,9 @@ urlpatterns += patterns(r'event',
     url(r'^event/eventtype/delete/(?P<event_type_id>\d+)$', r'views.event_type_delete'),
 )
 
-urlpatterns += patterns('survey',
-    url(r'backoffice/survey/create', r'views.create_survey_two'),
+urlpatterns += patterns(r'survey',
+    url(r'backoffice/survey/create', r'views.create_survey'),
     url(r'backoffice/survey/list', ListView.as_view(model=Survey, template_name=r'backoffice/survey_list.html')),
-    url(r'backoffice/survey/2create', r'views.create_survey'),
+    url(r'backoffice/survey/2create', r'views.create_survey2'),
     url(r'backoffice/survey/preview', r'views.preview'),
 )

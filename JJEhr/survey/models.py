@@ -12,6 +12,7 @@ class StaffProfile(models.Model):
 
 class Survey(models.Model):
     SURVEY_TARGET = (
+        ('ALL', "全体员工"),
         ('SALE', "市场营销部"),
         ("IT", "信息技术部"),
         ("CC", "呼叫中心"),
@@ -30,14 +31,14 @@ class Survey(models.Model):
     total_employee_number = IntegerField(verbose_name="参与调查人数", db_column="total_investigator_number")
     finish_survey_employee_number = IntegerField(verbose_name="完成调查人数",
         db_column="finish_survey_employee_number", default=0)
-    survey_status = CharField(verbose_name="订单状态", max_length=30, db_column="survey_status", choices=SURVEY_STATUS)
+    survey_status = CharField(verbose_name="订单状态", max_length=30, db_column="survey_status", choices=SURVEY_STATUS, default="EDIT")
 
     finish_date = DateTimeField(verbose_name="调查结束时间", db_column="finish_date", null=True)
     total_page = IntegerField(db_column="total_page", default=1)
 
     #    model_name = CharField(max_length=30, blank=True, default=None, db_column="model_name")
     #    table_name = CharField(max_length=30, blank=True, default=None, db_column="table_name")
-    create_date = DateTimeField(auto_now=True, db_column="create_date")
+    create_date = DateTimeField(auto_now=True, db_column="create_date", null=True)
 
 
 class SurveyItem(models.Model):

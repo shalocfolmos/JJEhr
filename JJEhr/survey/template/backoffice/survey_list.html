@@ -31,6 +31,9 @@
             <td>{{forloop.counter}}</td>
             <td>{{survey.survey_name}}</td>
             <td>
+                {% if survey.survey_target == "ALL" %}
+                全 体 员 工
+                {% endif %}
                 {% if survey.survey_target == "SALE" %}
                 市场营销部
                 {% endif %}
@@ -64,7 +67,12 @@
                 {% endif %}
             </td>
             <td>{{survey.create_date|date:"Y-m-d"}}</td>
-            <td><a href="">查看</a></td>
+            <td>
+                {% if survey.survey_status == "EDIT" %}
+                    <a href="">编辑问卷</a></td>
+                {% else %}
+                    <a href="">查看</a></td>
+                {% endif %}
         </tr>
         {% endfor %}
         </tbody>
@@ -101,7 +109,7 @@
             <div style="padding-top: 15px;">
                 <span style="padding-right: 10px;">调查对象:</span>
                 <select id="selectDivision">
-                    <option value="All">全 体 员 工</option>
+                    <option value="ALL">全 体 员 工</option>
                     <option value="IT">技 术 信 息 部</option>
                     <option value="SALE">市 场 营 销 部</option>
                     <option value="CC">呼 叫 中 心</option>
@@ -121,19 +129,21 @@
 <script type="text/javascript">
     var callback = {
         success:function (o) {
-            alert('b');
+            alert(o.responseText);
+            location.reload();
         },
         failure:function (o) {
-            alert('c');
+            alert(o.responseText);
+            alert("创建问卷发生错误，请重新尝试");
+            location.reload();
         }
     };
 
 
     function createSurvey() {
-        var division = YAHOO.util.Dom.get("selectDivision").value;
+        var division = YAHOO.util.Dom.get("selectDivision").value,
         subject = YAHOO.util.Dom.get("survey_subject").value;
-        alert("subject=" + subject + "&division=" + division);
-        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/create', callback, "subject=" + subject + "&division=" + division);
+        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/create', callback, "survey_name=" + subject + "&survey_target=" + division);
     }
 
 
