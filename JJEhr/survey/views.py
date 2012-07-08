@@ -31,3 +31,16 @@ def create_survey_two(request, surveyId, pageNum):
 @login_required(login_url='/backoffice/login')
 def preview(request):
     return render_to_response("backoffice/preview.html")
+
+
+@require_http_methods(["POST"])
+@login_required(login_url='/backoffice/login')
+def add_page(request, surveyId):
+    survey = Survey.objects.get(id=surveyId)
+    if(survey):
+        survey.total_page += 1;
+        survey.save()
+        result = u'添加页面成功'
+    else:
+        result = u'添加页面失败'
+    return HttpResponse(result)

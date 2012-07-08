@@ -380,7 +380,6 @@
         <textarea id="" style="width: 450px;height: 60px;"></textarea>
     </div>
 </div>
-
 {%endblock extra_html_content%}
 
 {%block extra_js%}
@@ -393,8 +392,36 @@
 
 {%block js_content%}
 <script type="text/javascript">
+
+    var genericCallBack = {
+        success:function (o) {
+            alert(o.responseText);
+            location.reload();
+        },
+        failure:function (o) {
+            alert("程序异常，请重新尝试或联系管理员");
+            location.reload();
+        }
+    };
+
     function handlePagination(newState) {
         alert(newState.page);
+    }
+
+    function addPage() {
+        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/addPage/' + {
+        {
+            survey.id
+        }
+    }
+    ,
+    genericCallBack
+    )
+    ;
+    }
+
+    function deletePage() {
+
     }
 
     init = function () {
@@ -447,6 +474,8 @@
         });
 
         YAHOO.util.Event.addListener("pushbutton", "click", editQuestion);
+        YAHOO.util.Event.addListener("addNewPage", "click", addPage);
+        YAHOO.util.Event.addListener("deletePage", "click", deletePage);
 
 
         var pag = new YAHOO.widget.Paginator();
