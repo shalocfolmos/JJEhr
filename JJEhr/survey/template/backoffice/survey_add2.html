@@ -480,22 +480,11 @@
 
         var pag = new YAHOO.widget.Paginator();
         pag.set('rowsPerPage', 1);
-        pag.set('page', {
-        {
-            pageNum
-        }
-    }
-    )
-    ;
-    pag.set('totalRecords', {
-    {
-        survey.total_page
-    }
-    })
-    ;
-    pag.set('containers', "pagePanel");
-    pag.render();
-    pag.subscribe('changeRequest', handlePagination);
+        pag.set('page', {{pageNum}});
+        pag.set('totalRecords', {{survey.total_page}});
+        pag.set('containers', "pagePanel");
+        pag.render();
+        pag.subscribe('changeRequest', handlePagination);
     }
 
 
