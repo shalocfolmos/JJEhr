@@ -281,15 +281,15 @@
             <h5 style="color: #87A32E; font-size: 16px; padding-top: 10px;">问题类型:</h5>
             <select style="width: 200px;" id="question_type_selector">
                 <option>--选择一个问题类型--</option>
-                <option value="multi_choice_single_select_area">单项选择(使用按钮)</option>
-                <option value="multi_choice_single_select_area">多项选择（使用按钮)</option>
-                <option value="text_area">输入框（输入一行)</option>
-                <option value="text_area">输入框（多行输入)</option>
+                <option value="multi_choice_single_select_survey_item">单项选择(使用按钮)</option>
+                <option value="multi_choice_single_select_survey_item">多项选择（使用按钮)</option>
+                <option value="text_survey_item">输入框（输入一行)</option>
+                <option value="text_survey_item">输入框（多行输入)</option>
                 <option value="metrix">矩阵显示（选择多个答案)</option>
                 <option value="metrix">矩阵显示（选择一个答案,用按钮选择)</option>
                 <option value="metrix">矩阵显示（选择一个答案,用下拉框选择)</option>
 
-                <option value="text_area">多个输入框</option>
+                <option value="text_survey_item">多个输入框</option>
             </select>
         </div>
         <div id="quest_content" style="padding-top: 20px;padding-bottom: 15px;">
@@ -309,14 +309,14 @@
             <h5 style="color: #87A32E; font-size: 16px; padding-top: 10px;">问题类型:</h5>
             <select style="width: 200px;" id="edit_question_type_selector">
                 <option>--选择一个问题类型--</option>
-                <option value="multi_choice_single_select_area">单项选择(使用按钮)</option>
-                <option value="multi_choice_single_select_area">多项选择（使用按钮)</option>
-                <option value="multi_choice_single_select_area">单项选择（使用下拉菜单)</option>
-                <option value="text_area">输入框（允许输入多行)</option>
+                <option value="multi_choice_single_select_survey_item">单项选择(使用按钮)</option>
+                <option value="multi_choice_single_select_survey_item">多项选择（使用按钮)</option>
+                <option value="multi_choice_single_select_survey_item">单项选择（使用下拉菜单)</option>
+                <option value="text_survey_item">输入框（允许输入多行)</option>
                 <option value="metrix">矩阵显示（选择多个答案)</option>
                 <option value="metrix">矩阵显示（选择一个答案,用按钮选择)</option>
                 <option value="metrix">矩阵显示（选择一个答案,用下拉框选择)</option>
-                <option value="text_area">输入框（一行输入框)</option>
+                <option value="text_survey_item">输入框（一行输入框)</option>
                 <option value="multi_text_area">输入框（多行输入框)</option>
             </select>
         </div>
@@ -328,30 +328,9 @@
     </div>
 </div>
 
-<div id="multi_choice_single_select_area" style="display: none;">
-    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 10px;">是否必填</span>
-        <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 10px;">有其他选项</span>
-    </div>
-    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <span style="color: red;font-size: 14px;">(*)</span> 可选答案(用回车表示分割)
-    </div>
-    <div>
-        <textarea id="" style="width: 450px;height: 60px;"></textarea>
-    </div>
-    <div style="color: #E76300;padding-top: 10px;font-size: 14px;padding-bottom: 2px;">
-        排列方式
-    </div>
-    <div>
-        <input type="radio" name="align_format" style="margin-left: 5px;" value="">所有选项水平排列</input>
-        <input type="radio" name="align_format" value="">所有选项垂直排列</input>
-    </div>
-</div>
-<div id="text_area" style="display: none;">
-    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 20px;">是否必填</span>
-    </div>
-</div>
+{% include "backoffice/survey_item_template/multi_choice_single_select_survey_item.html" %}
+{% include "backoffice/survey_item_template/text_survey_item.html" %}
+
 <div id="multi_text_area" style="display: none;">
     <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
         <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 20px;">是否必填</span>
@@ -409,15 +388,7 @@
     }
 
     function addPage() {
-        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/addPage/' + {
-        {
-            survey.id
-        }
-    }
-    ,
-    genericCallBack
-    )
-    ;
+        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/addPage/' + {{survey.id}},genericCallBack);
     }
 
     function deletePage() {
