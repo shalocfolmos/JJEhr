@@ -3,17 +3,12 @@
     padding-left: 3em;
 }
 
-#addPage-button {
-    background: url("../img/survey_add.gif") no-repeat scroll 10% 50% transparent;
-    padding-left: 3em;
-}
-
 .pageListBottom {
     background: none repeat scroll 0 0 #F2F2F2;
     border: 1px solid #DDDDDD;
-    height: 30px;
+    height: 40px;
+    padding-top: 10px;
     margin-top: 30px;
-
 }
 
 .pagePanel {

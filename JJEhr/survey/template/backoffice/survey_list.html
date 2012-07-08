@@ -69,9 +69,9 @@
             <td>{{survey.create_date|date:"Y-m-d"}}</td>
             <td>
                 {% if survey.survey_status == "EDIT" %}
-                    <button onclick="editSurvey({{survey.id}})">编辑问卷</button>
+                <button onclick="editSurvey({{survey.id}})">编辑问卷</button>
                 {% else %}
-                    <a href="">查看</a>
+                <a href="">查看</a>
                 {% endif %}
             </td>
         </tr>
@@ -132,9 +132,8 @@
 
 {%block js_content%}
 <script type="text/javascript">
-    function editSurvey(surveyId)
-    {
-        location.href="/backoffice/survey/edit/"+surveyId
+    function editSurvey(surveyId) {
+        location.href = "/backoffice/survey/edit/" + surveyId + "/1";
     }
 
     var callback = {
@@ -151,7 +150,7 @@
 
     function createSurvey() {
         var division = YAHOO.util.Dom.get("selectDivision").value,
-        subject = YAHOO.util.Dom.get("survey_subject").value;
+                subject = YAHOO.util.Dom.get("survey_subject").value;
         YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/create', callback, "survey_name=" + subject + "&survey_target=" + division);
     }
 
@@ -189,14 +188,14 @@
             { key:'number', label:"已完成调查人数" },
             { key:"status", label:"问卷状态", formatter:"HTMLFunction" },
             { key:"createDate", label:"创建时间"},
-            { key:"result", label:"调查结果", formatter:"HTMLFunction",width:100}
+            { key:"result", label:"调查结果", formatter:"HTMLFunction", width:100}
         ];
 
 
         new YAHOO.widget.DataTable("myMarkedUpContainer", myColumnDefs, myDataSource, {
-            paginator : new YAHOO.widget.Paginator({
-                rowsPerPage: 30,
-                containers : "pag"
+            paginator:new YAHOO.widget.Paginator({
+                rowsPerPage:30,
+                containers:"pag"
             })
         });
         YAHOO.util.Event.addListener("create_survey", "click", createSurvey);

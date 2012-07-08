@@ -9,7 +9,7 @@ from JJEhr.survey.models import Survey, StaffProfile
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
 def create_survey(request):
-    survey = Survey(survey_name=request.POST["survey_name"],survey_target=request.POST["survey_target"])
+    survey = Survey(survey_name=request.POST["survey_name"], survey_target=request.POST["survey_target"])
     if survey.survey_target == "ALL":
         querySet = StaffProfile.objects.all()
     else:
@@ -22,9 +22,9 @@ def create_survey(request):
 
 @require_http_methods(["GET"])
 @login_required(login_url='/backoffice/login')
-def create_survey_two(request,surveyId):
+def create_survey_two(request, surveyId, pageNum):
     survey = Survey.objects.get(id=surveyId)
-    return render_to_response("backoffice/survey_add2.html",{"survey":survey})
+    return render_to_response("backoffice/survey_add2.html", {"survey": survey, "pageNum": pageNum})
 
 
 @require_http_methods(["GET"])
