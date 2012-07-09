@@ -32,10 +32,14 @@
 {%block content%}
 <div style="padding-left: 10px;">
 <h2>
-    调查名称: 工福利期望
+    {{survey.survey_name}}
 </h2>
 
 <div id="questionArea">
+    {% for survey_item in surveyItemCollection %}
+        {% include "backoffice/survey_item_template/{{survey_item.item_type|lower}}.html" %}
+    {% endfor %}
+
 <div class="ed_QstHdr">
     <div>
         <span class="ed_AbsNumbering">1. 单项选择(使用按钮) 垂直显示</span>

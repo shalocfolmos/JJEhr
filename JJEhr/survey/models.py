@@ -44,23 +44,27 @@ class Survey(models.Model):
 class SurveyItem(models.Model):
     ITEM_TYPE = (
         ('MULTIPLE', "复选"),
-        ("SINGLE", "单选"),
+        ("SINGLE_CHOICE", "单选"),
         ('DESCRIPTION', "介绍")
-        )
+    )
     item_type = CharField(max_length=20, verbose_name="调查类型", choices=ITEM_TYPE, db_column="item_type")
     item_name = CharField(max_length=30, verbose_name="调查项目", db_column="item_name")
-    is_optional_answer = BooleanField(verbose_name="可选答案", db_column="is_optional_answer")
-    item = models.ForeignKey('Survey')
+    is_required = BooleanField(verbose_name="可选答案", db_column="is_optional_answer")
+    survey = models.ForeignKey('Survey')
     page = IntegerField(db_column="page")
-
     create_date = DateTimeField(auto_now=True, db_column="create_date")
 
 
 class SurveyItemAnswer(models.Model):
-    question_title = CharField(max_length=100, verbose_name="问题")
+    question_text = CharField(max_length=200, verbose_name="问题")
+    question_value = CharField(max_length=200, verbose_name="问题答案")
     question_sequence = IntegerField()
     survey_item = models.ForeignKey('SurveyItem')
     create_date = DateTimeField(auto_now=True, db_column="create_date")
+
+    class Meta:
+        ordering = ['question_sequence']
+
 
 
 class SurveyResult(models.Model):

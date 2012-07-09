@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
-from JJEhr.survey.models import Survey, StaffProfile
+from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer
 
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
@@ -24,7 +24,10 @@ def create_survey(request):
 @login_required(login_url='/backoffice/login')
 def create_survey_two(request, surveyId, pageNum):
     survey = Survey.objects.get(id=surveyId)
-    return render_to_response("backoffice/survey_add2.html", {"survey": survey, "pageNum": pageNum})
+    surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=pageNum)
+    for surveyItem in surveyItemCollection:
+        surveyItem.answers = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
+    return render_to_response("backoffice/survey_add2.html", {"survey": survey, "pageNum": pageNum,"surveyItemCollection":surveyItemCollection})
 
 
 @require_http_methods(["GET"])
@@ -44,3 +47,4 @@ def add_page(request, surveyId):
     else:
         result = u'添加页面失败'
     return HttpResponse(result)
+
