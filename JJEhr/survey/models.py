@@ -43,7 +43,7 @@ class Survey(models.Model):
 
 class SurveyItem(models.Model):
     ITEM_TYPE = (
-        ('MULTIPLE', "复选"),
+        ('MULTIPLE_CHOICE', "复选"),
         ("SINGLE_CHOICE", "单选"),
         ('DESCRIPTION', "介绍")
     )
