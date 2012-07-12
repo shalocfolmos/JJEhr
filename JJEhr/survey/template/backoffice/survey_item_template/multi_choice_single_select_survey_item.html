@@ -13,8 +13,8 @@
         排列方式
     </div>
     <div>
-        <input type="radio" name="align_format" style="margin-left: 5px;" value="">所有选项水平排列</input>
-        <input type="radio" name="align_format" value="">所有选项垂直排列</input>
+        <input type="radio" name="align_format" id="align_format_h" style="margin-left: 5px;" value="">所有选项水平排列</input>
+        <input type="radio" name="align_format" id="align_format_v" value="">所有选项垂直排列</input>
     </div>
     <input type="hidden" id="multi_choice_single_select_survey_item_type" value="MULTIPLE_CHOICE"/>
 </div>
@@ -25,9 +25,21 @@
         otherAnswer = YAHOO.util.Dom.get(("multi_choice_single_select_survey_item_other")).getAttribute("checked"),
         surveyItemText = YAHOO.util.Dom.get(("survey_item_text")).value,
         survey_id = YAHOO.util.Dom.get(("survey_id")).value,
-        surveyItemAnswer = YAHOO.util.Dom.get(("multi_choice_single_select_survey_item_answer")).value,
+        page_num = YAHOO.util.Dom.get(("page_num")).value,
+        surveyItemType = YAHOO.util.Dom.get(("multi_choice_single_select_survey_item_answer")).value,
+        alignType = YAHOO.util.Dom.get(("multi_choice_single_select_survey_item_answer")).value,
+        hAlignRadio = YAHOO.util.Dom.get("align_format_h"),
+        vAlignRadio = YAHOO.util.Dom.get("align_format_v");
+        if(hAlignRadio.checked)
+        {
+            alignFormat = "H";
+        }
+        else if(vAlignRadio.checked)
+        {
+            alignFormat = "V";
+        }
+        alert(alignFormat);
 
-        alert('b');
     }
 
 </script>

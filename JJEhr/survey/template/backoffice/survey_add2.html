@@ -300,7 +300,8 @@
 
         </div>
         <button id="submit_question">提交问题</button>
-        <input type="hidden" id="survey_id" value="{{survey.id}}"/>
+        <input type="hidden" id="survey_id" value="{{survey.id}}"></input>
+        <input type="hidden" id="page_num" value="{{pageNum}}"></input>
     </div>
 </div>
 
@@ -441,7 +442,9 @@
         YAHOO.util.Event.addListener("question_type_selector", "change", changeQuestionType);
         YAHOO.util.Event.addListener("edit_question_type_selector", "change", changeEditQuestionType);
         YAHOO.util.Event.addListener("submit_question-button", "click", function () {
-            test();
+
+            var select_type = YAHOO.util.Dom.get("question_type_selector").value;
+            eval(select_type + "()");
             addSurveyQuestionDialog.hide();
         });
 
