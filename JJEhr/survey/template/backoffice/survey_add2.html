@@ -38,8 +38,7 @@
 <div id="questionArea">
     {% for survey_item in surveyItemCollection %}
         {% if survey_item.item_type == 'MULTIPLE_CHOICE' %}
-
-            {% include "backoffice/survey_item_display_template/multiple_choice_query_template.html" %}
+            {% include "backoffice/survey_item_display_template/multiple_choice_query_template.html" with survey_item=survey_item idx=forloop.counter%}
         {% endif %}
     {% endfor %}
 
