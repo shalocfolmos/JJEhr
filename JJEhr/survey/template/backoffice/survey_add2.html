@@ -40,6 +40,10 @@
         {% if survey_item.item_type == 'MULTIPLE_CHOICE' %}
             {% include "backoffice/survey_item_display_template/multiple_choice_query_template.html" with survey_item=survey_item idx=forloop.counter%}
         {% endif %}
+
+        {% if survey_item.item_type == 'SINGLE_CHOICE' %}
+            {% include "backoffice/survey_item_display_template/single_choice_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
     {% endfor %}
 
 <div class="ed_QstHdr">
@@ -287,7 +291,7 @@
             <h5 style="color: #87A32E; font-size: 16px; padding-top: 10px;">问题类型:</h5>
             <select style="width: 200px;" id="question_type_selector">
                 <option>--选择一个问题类型--</option>
-                <option value="multi_choice_single_select_survey_item">单项选择(使用按钮)</option>
+                <option value="single_choice_survey_item">单项选择(使用按钮)</option>
                 <option value="multi_choice_survey_item">多项选择（使用按钮)</option>
                 <option value="text_survey_item">输入框（输入一行)</option>
                 <option value="text_survey_item">输入框（多行输入)</option>
@@ -318,7 +322,6 @@
                 <option>--选择一个问题类型--</option>
                 <option value="single_choice_survey_item">单项选择(使用按钮)</option>
                 <option value="multi_choice_survey_item">多项选择（使用按钮)</option>
-                <option value="multi_choice_single_select_survey_item">单项选择（使用下拉菜单)</option>
                 <option value="text_survey_item">输入框（允许输入多行)</option>
                 <option value="metrix">矩阵显示（选择多个答案)</option>
                 <option value="metrix">矩阵显示（选择一个答案,用按钮选择)</option>
@@ -420,7 +423,6 @@
                 changeEditQuestionType = function () {
                     var questionContentArea = YAHOO.util.Dom.get("edit_quest_content"),
                             areaId = YAHOO.util.Dom.get("edit_question_type_selector").value;
-                    alert(areaId);
                     questionContentArea.innerHTML = "";
                     questionContentArea.innerHTML = YAHOO.util.Dom.get(areaId).innerHTML;
                 }

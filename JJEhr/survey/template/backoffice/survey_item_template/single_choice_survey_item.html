@@ -13,14 +13,14 @@
         排列方式
     </div>
     <div>
-        <input type="radio" name="align_format" id="align_format_h" style="margin-left: 5px;" value="">所有选项水平排列</input>
-        <input type="radio" name="align_format" id="align_format_v" value="">所有选项垂直排列</input>
+        <input type="radio" name="single_align_format" id="single_align_format_h" style="margin-left: 5px;" value="">所有选项水平排列</input>
+        <input type="radio" name="single_align_format" id="single_align_format_v" value="">所有选项垂直排列</input>
     </div>
     <input type="hidden" id="single_choice_survey_item_type" value="SINGLE_CHOICE"/>
 </div>
 
 <script type="text/javascript">
-    function multi_choice_single_select_survey_item() {
+    function single_choice_survey_item() {
         var isRequired = YAHOO.util.Dom.get(("single_choice_survey_item_required")).checked,
                 otherAnswer = YAHOO.util.Dom.get(("single_choice_survey_item_other")).checked,
                 surveyItemText = YAHOO.util.Dom.get(("survey_item_text")).value,
@@ -28,8 +28,8 @@
                 page_num = YAHOO.util.Dom.get(("page_num")).value,
                 surveyItemType = YAHOO.util.Dom.get(("single_choice_survey_item_type")).value,
                 surveyItemAnswer = YAHOO.util.Dom.get(("single_choice_survey_item_answer")).value,
-                hAlignRadio = YAHOO.util.Dom.get("align_format_h"),
-                vAlignRadio = YAHOO.util.Dom.get("align_format_v");
+                hAlignRadio = YAHOO.util.Dom.get("single_align_format_h"),
+                vAlignRadio = YAHOO.util.Dom.get("single_align_format_v");
         if(hAlignRadio.checked)
         {
             alignFormat = "H";
@@ -38,8 +38,6 @@
         {
             alignFormat = "V";
         }
-
-
         var postData = "isRequired="+isRequired+"&otherAnswer="+otherAnswer+"&surveyItemText="+surveyItemText+
                 "&survey_id="+survey_id+"&page_num="+page_num+"&surveyItemType="+surveyItemType+"&surveyItemAnswer="+surveyItemAnswer+
                 "&alignFormat="+alignFormat;

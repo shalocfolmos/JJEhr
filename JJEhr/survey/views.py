@@ -33,7 +33,17 @@ def edit_survey(request, surveyId, pageNum):
 @login_required(login_url='/backoffice/login')
 def create_survey_item(request):
     isRequired = request.POST["isRequired"]
+    if isRequired=='false':
+        isRequired=False
+    else:
+        isRequired=True
+
     other_answer = request.POST["otherAnswer"]
+    if other_answer=='false':
+        other_answer=False
+    else:
+        other_answer=True
+
     surveyItemText = request.POST["surveyItemText"]
     survey_id = request.POST["survey_id"]
     page_num = request.POST["page_num"]

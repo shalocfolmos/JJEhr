@@ -6,12 +6,12 @@
     </div>
     <div>
         {% if survey_item.align_format == 'V' %}
-            {% for answer in survey_item.answers %}
-                <div style="padding-top: 10px;">
-                    <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="checkbox"/>
-                    <label for="item_{{idx}}">{{answer.question_text}}</label>
-                </div>
-            {% endfor %}
+        {% for answer in survey_item.answers %}
+        <div style="padding-top: 10px;">
+            <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="radio"/>
+            <label for="item_{{idx}}">{{answer.question_text}}</label>
+        </div>
+        {% endfor %}
         {% else %}
         <table>
             <tbody>
@@ -19,7 +19,7 @@
                 {% for answer in survey_item.answers %}
                 <td style="border: 0px">
                     <div style="padding-top: 10px;">
-                        <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="checkbox"/>
+                        <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="radio"/>
                         <label for="item_{{idx}}">{{answer.question_text}}</label>
                     </div>
 
