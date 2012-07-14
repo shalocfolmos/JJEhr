@@ -1,0 +1,33 @@
+<div id="multi_text_survey_item" style="display: none;">
+    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
+        <input type="checkbox" id="multi_text_survey_item_required" style="padding-left: 20px;"/><span style="padding-right: 20px;">是否必填</span>
+    </div>
+    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
+        <span style="color: red;font-size: 14px;">(*)</span> 行选项(用回车表示分割)
+    </div>
+    <div>
+        <textarea id="multi_text_item_answer" style="width: 450px;height: 60px;"></textarea>
+    </div>
+    <input type="hidden" id="multi_text_survey_item_type" value="MULTIPLE_TEXT"/>
+</div>
+
+
+<script type="text/javascript">
+    function multi_text_survey_item() {
+        var isRequired = YAHOO.util.Dom.get(("multi_text_survey_item_required")).checked,
+                otherAnswer = false,
+                surveyItemText = YAHOO.util.Dom.get(("survey_item_text")).value,
+                survey_id = YAHOO.util.Dom.get(("survey_id")).value,
+                page_num = YAHOO.util.Dom.get(("page_num")).value,
+                surveyItemType = YAHOO.util.Dom.get(("multi_text_survey_item_type")).value,
+                surveyItemAnswer = YAHOO.util.Dom.get(("multi_text_item_answer")).value,
+                alignFormat = 'V';
+
+        var postData = "isRequired="+isRequired+"&otherAnswer="+otherAnswer+"&surveyItemText="+surveyItemText+
+                "&survey_id="+survey_id+"&page_num="+page_num+"&surveyItemType="+surveyItemType+"&surveyItemAnswer="+surveyItemAnswer+
+                "&alignFormat="+alignFormat;
+        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/addSurveyItem',genericCallBack,postData);
+
+    }
+
+</script>

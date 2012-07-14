@@ -53,128 +53,16 @@
             {% include "backoffice/survey_item_display_template/textarea_query_template.html" with survey_item=survey_item idx=forloop.counter%}
         {% endif %}
 
-    {% endfor %}
-<div class="ed_QstHdr" style="margin-top: 10px;">
-    <div style="padding-top: 20px;">
-        <span class="ed_AbsNumbering">5. 多个输入框</span>
-        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
-        <input type="button" id="deletebutton1" name="button" value="删除"></input>
-    </div>
-    <div style="padding-top: 20px;">
-        <label name="answer2">答案1</label>
-        <input name="answer2" type="text"/>
-    </div>
-    <div style="padding-top: 20px;">
-        <label name="answer2">答案2</label>
-        <input name="answer2" type="text"/>
-    </div>
-    <div style="padding-top: 20px;">
-        <label name="answer2">答案3</label>
-        <input name="answer2" type="text"/>
-    </div>
-    <div style="padding-top: 20px;">
-        <label name="answer2">答案4</label>
-        <input name="answer2" type="text"/>
-    </div>
-</div>
-<div class="ed_QstHdr" style="margin-top: 10px;">
-    <div style="padding-top: 20px;">
-        <span class="ed_AbsNumbering">6. 矩阵显示（选择单个答案)</span>
-        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
-        <input type="button" id="deletebutton1" name="button" value="删除"></input>
-    </div>
-    <div>
-        <table>
-            <tbody>
-            <tr>
-                <td>
+        {% if survey_item.item_type == 'MULTIPLE_TEXT' %}
+            {% include "backoffice/survey_item_display_template/multi_text_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
 
-                </td>
-                <td>
-                    好
-                </td>
-                <td>
-                    一般
-                </td>
-                <td>
-                    差
-                </td>
-                <td>
-                    极差
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    选项1
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    选项2
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    选项3
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    选项4
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-                <td>
-                    <input type="radio"></input>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+
+        {% if survey_item.item_type == 'METRIX' %}
+            {% include "backoffice/survey_item_display_template/metrix_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
+    {% endfor %}
+
 </div>
 <div style="padding-top: 20px;">
     <button id="addQuestion" class="add_question_button">添加一个问题</button>
@@ -210,11 +98,8 @@
                 <option value="multi_choice_survey_item">多项选择（使用按钮)</option>
                 <option value="text_survey_item">输入框（输入一行)</option>
                 <option value="textarea_survey_item">输入框（多行输入)</option>
-                <option value="metrix">矩阵显示（选择多个答案)</option>
-                <option value="metrix">矩阵显示（选择一个答案,用按钮选择)</option>
-                <option value="metrix">矩阵显示（选择一个答案,用下拉框选择)</option>
-
-                <option value="text_survey_item">多个输入框</option>
+                <option value="multi_text_survey_item">多行输入框</option>
+                <option value="metrix_survey_item">矩阵显示</option>
             </select>
         </div>
         <div id="quest_content" style="padding-top: 20px;padding-bottom: 15px;">
@@ -257,34 +142,8 @@
 {% include "backoffice/survey_item_template/single_choice_survey_item.html" %}
 {% include "backoffice/survey_item_template/text_survey_item.html" %}
 {% include "backoffice/survey_item_template/textarea_survey_item.html" %}
-<div id="multi_text_area" style="display: none;">
-    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 20px;">是否必填</span>
-    </div>
-    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <span style="color: red;font-size: 14px;">(*)</span> 行选项(用回车表示分割)
-    </div>
-    <div>
-        <textarea id="" style="width: 450px;height: 60px;"></textarea>
-    </div>
-</div>
-<div id="metrix" style="display: none;">
-    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 20px;">是否必填</span>
-    </div>
-    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <span style="color: red;font-size: 14px;">(*)</span>列选项(用回车表示分割)
-    </div>
-    <div>
-        <textarea id="" style="width: 450px;height: 60px;"></textarea>
-    </div>
-    <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <span style="color: red;font-size: 14px;">(*)</span> 行选项(用回车表示分割)
-    </div>
-    <div>
-        <textarea id="" style="width: 450px;height: 60px;"></textarea>
-    </div>
-</div>
+{% include "backoffice/survey_item_template/multi_text_survey_item.html" %}
+{% include "backoffice/survey_item_template/metrix_survey_item.html" %}
 {%endblock extra_html_content%}
 
 {%block extra_js%}

@@ -27,6 +27,8 @@ def edit_survey(request, surveyId, pageNum):
     surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=pageNum)
     for surveyItem in surveyItemCollection:
         surveyItem.answers = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
+        if surveyItem.item_type == 'METRIX' and surveyItem.answers[0].question_value:
+            surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
     return render_to_response("backoffice/survey_add2.html", {"survey": survey, "pageNum": pageNum,"surveyItemCollection":surveyItemCollection})
 
 @require_http_methods(["POST"])
@@ -45,7 +47,7 @@ def create_survey_item(request):
     surveyItemType = request.POST["surveyItemType"]
     survey = Survey.objects.get(id=survey_id)
 
-    if surveyItemType == 'MULTIPLE_CHOICE' or surveyItemType == 'SINGLE_CHOICE':
+    if surveyItemType == 'MULTIPLE_CHOICE' or surveyItemType == 'SINGLE_CHOICE' or surveyItemType == 'MULTIPLE_TEXT' or surveyItemType == "METRIX":
         other_answer = request.POST["otherAnswer"]
         if other_answer=='false':
             other_answer=False
@@ -55,8 +57,13 @@ def create_survey_item(request):
         align_format = request.POST["alignFormat"]
         survey_item = SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num,other_answer=other_answer,align_format=align_format)
         answerCollection = surveyItemAnswer.split("\n")
+
         for idx,answer in enumerate(answerCollection):
-            SurveyItemAnswer.objects.create(question_text=answer,question_value=idx+1,question_sequence=idx,survey_item=survey_item)
+            if request.POST["surveyItemAnswerValue"]:
+                raw_answer_value = request.POST["surveyItemAnswerValue"]
+                SurveyItemAnswer.objects.create(question_text=answer,question_value=raw_answer_value,question_sequence=idx,survey_item=survey_item)
+            else:
+                SurveyItemAnswer.objects.create(question_text=answer,question_value=idx+1,question_sequence=idx,survey_item=survey_item)
     else:
         SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num)
     return HttpResponse("创建成功")

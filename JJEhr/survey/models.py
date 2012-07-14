@@ -48,6 +48,7 @@ class SurveyItem(models.Model):
         ('TEXT', "输入框"),
         ('TEXT_AREA', "多行输入框"),
         ('MULTIPLE_TEXT', "多行输入框"),
+        ('METRIX', "多行输入框")
     )
     item_type = CharField(max_length=20, verbose_name="调查类型", choices=ITEM_TYPE, db_column="item_type")
     item_name = CharField(max_length=30, verbose_name="调查项目", db_column="item_name")
