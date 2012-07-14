@@ -41,7 +41,8 @@
 
 
         var postData = "isRequired="+isRequired+"&otherAnswer="+otherAnswer+"&surveyItemText="+surveyItemText+
-                "&survey_id="+survey_id+"&page_num="+page_num+"&surveyItemType="+surveyItemType+"&surveyItemAnswer="+surveyItemAnswer;
+                "&survey_id="+survey_id+"&page_num="+page_num+"&surveyItemType="+surveyItemType+"&surveyItemAnswer="+surveyItemAnswer+
+                "&alignFormat="+alignFormat;
         YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/addSurveyItem',genericCallBack,postData);
 
     }

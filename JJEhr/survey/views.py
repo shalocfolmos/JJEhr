@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
-from JJEhr import survey
 from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer
 
 @require_http_methods(["POST"])
@@ -23,7 +22,7 @@ def create_survey(request):
 
 @require_http_methods(["GET"])
 @login_required(login_url='/backoffice/login')
-def create_survey_two(request, surveyId, pageNum):
+def edit_survey(request, surveyId, pageNum):
     survey = Survey.objects.get(id=surveyId)
     surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=pageNum)
     for surveyItem in surveyItemCollection:
@@ -34,20 +33,18 @@ def create_survey_two(request, surveyId, pageNum):
 @login_required(login_url='/backoffice/login')
 def create_survey_item(request):
     isRequired = request.POST["isRequired"]
-    otherAnswer = request.POST["otherAnswer"]
+    other_answer = request.POST["otherAnswer"]
     surveyItemText = request.POST["surveyItemText"]
     survey_id = request.POST["survey_id"]
     page_num = request.POST["page_num"]
     surveyItemType = request.POST["surveyItemType"]
     surveyItemAnswer = request.POST["surveyItemAnswer"]
-    survey - Survey.objects.get(id=survey_id)
-    survey_item = SurveyItem(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num)
-    survey_item.save()
+    align_format = request.POST["alignFormat"]
+    survey = Survey.objects.get(id=survey_id)
+    survey_item = SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num,other_answer=other_answer,align_format=align_format)
     answerCollection = surveyItemAnswer.split("\n")
-    for idx,answer in enuerate(answerCollection):
-        answer = SurveyItemAnswer(question_text=answer,question_value=idx,question_sequence=idx,survey_item=survey_item)
-        answer.save()
-
+    for idx,answer in enumerate(answerCollection):
+        SurveyItemAnswer.objects.create(question_text=answer,question_value=idx+1,question_sequence=idx,survey_item=survey_item)
     return HttpResponse("创建成功")
 
 
