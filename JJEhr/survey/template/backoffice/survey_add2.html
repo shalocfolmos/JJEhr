@@ -288,7 +288,7 @@
             <select style="width: 200px;" id="question_type_selector">
                 <option>--选择一个问题类型--</option>
                 <option value="multi_choice_single_select_survey_item">单项选择(使用按钮)</option>
-                <option value="multi_choice_single_select_survey_item">多项选择（使用按钮)</option>
+                <option value="multi_choice_survey_item">多项选择（使用按钮)</option>
                 <option value="text_survey_item">输入框（输入一行)</option>
                 <option value="text_survey_item">输入框（多行输入)</option>
                 <option value="metrix">矩阵显示（选择多个答案)</option>
@@ -335,7 +335,7 @@
     </div>
 </div>
 
-{% include "backoffice/survey_item_template/multi_choice_single_select_survey_item.html" %}
+{% include "backoffice/survey_item_template/multi_choice_survey_item.html" %}
 {% include "backoffice/survey_item_template/text_survey_item.html" %}
 
 <div id="multi_text_area" style="display: none;">
