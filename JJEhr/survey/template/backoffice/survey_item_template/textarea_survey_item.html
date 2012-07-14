@@ -1,18 +1,18 @@
-<div id="text_survey_item" style="display: none;">
+<div id="textarea_survey_item" style="display: none;">
     <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
         <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 20px;">是否必填</span>
     </div>
-    <input type="hidden" id="text_survey_item_type" value="TEXT"/>
+    <input type="hidden" id="textarea_survey_item_type" value="TEXT_AREA"/>
 </div>
 
 
 <script type="text/javascript">
-    function text_survey_item() {
+    function textarea_survey_item() {
         var isRequired = YAHOO.util.Dom.get(("multi_choice_survey_item_required")).checked,
                 surveyItemText = YAHOO.util.Dom.get(("survey_item_text")).value,
                 survey_id = YAHOO.util.Dom.get(("survey_id")).value,
                 page_num = YAHOO.util.Dom.get(("page_num")).value,
-                surveyItemType = YAHOO.util.Dom.get(("text_survey_item_type")).value;
+                surveyItemType = YAHOO.util.Dom.get(("textarea_survey_item_type")).value;
 
         var postData = "isRequired="+isRequired+"&surveyItemText="+surveyItemText+
                 "&survey_id="+survey_id+"&page_num="+page_num+"&surveyItemType="+surveyItemType;

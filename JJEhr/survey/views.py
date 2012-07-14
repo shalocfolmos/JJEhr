@@ -33,28 +33,32 @@ def edit_survey(request, surveyId, pageNum):
 @login_required(login_url='/backoffice/login')
 def create_survey_item(request):
     isRequired = request.POST["isRequired"]
+
     if isRequired=='false':
         isRequired=False
     else:
         isRequired=True
 
-    other_answer = request.POST["otherAnswer"]
-    if other_answer=='false':
-        other_answer=False
-    else:
-        other_answer=True
-
     surveyItemText = request.POST["surveyItemText"]
     survey_id = request.POST["survey_id"]
     page_num = request.POST["page_num"]
     surveyItemType = request.POST["surveyItemType"]
-    surveyItemAnswer = request.POST["surveyItemAnswer"]
-    align_format = request.POST["alignFormat"]
     survey = Survey.objects.get(id=survey_id)
-    survey_item = SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num,other_answer=other_answer,align_format=align_format)
-    answerCollection = surveyItemAnswer.split("\n")
-    for idx,answer in enumerate(answerCollection):
-        SurveyItemAnswer.objects.create(question_text=answer,question_value=idx+1,question_sequence=idx,survey_item=survey_item)
+
+    if surveyItemType == 'MULTIPLE_CHOICE' or surveyItemType == 'SINGLE_CHOICE':
+        other_answer = request.POST["otherAnswer"]
+        if other_answer=='false':
+            other_answer=False
+        else:
+            other_answer=True
+        surveyItemAnswer = request.POST["surveyItemAnswer"]
+        align_format = request.POST["alignFormat"]
+        survey_item = SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num,other_answer=other_answer,align_format=align_format)
+        answerCollection = surveyItemAnswer.split("\n")
+        for idx,answer in enumerate(answerCollection):
+            SurveyItemAnswer.objects.create(question_text=answer,question_value=idx+1,question_sequence=idx,survey_item=survey_item)
+    else:
+        SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num)
     return HttpResponse("创建成功")
 
 

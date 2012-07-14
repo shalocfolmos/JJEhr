@@ -44,101 +44,16 @@
         {% if survey_item.item_type == 'SINGLE_CHOICE' %}
             {% include "backoffice/survey_item_display_template/single_choice_query_template.html" with survey_item=survey_item idx=forloop.counter%}
         {% endif %}
+
+        {% if survey_item.item_type == 'TEXT' %}
+            {% include "backoffice/survey_item_display_template/text_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
+
+        {% if survey_item.item_type == 'TEXT_AREA' %}
+            {% include "backoffice/survey_item_display_template/textarea_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
+
     {% endfor %}
-
-<div class="ed_QstHdr">
-    <div>
-        <span class="ed_AbsNumbering">1. 单项选择(使用按钮) 垂直显示</span>
-        <input type="button" id="pushbutton" name="button" value="编辑问题"></input>
-        <input type="button" id="deletebutton" name="button" value="删除"></input>
-    </div>
-    <div>
-        <div style="padding-top: 10px;">
-            <input name="answer" type="radio"/>
-            <label name="answer">答案1</label>
-        </div>
-        <div style="padding-top: 10px;">
-            <input name="answer" type="radio"/>
-            <label name="answer">答案2</label>
-        </div>
-        <div style="padding-top: 10px;">
-            <input name="answer" type="radio"/>
-            <label name="answer">答案3</label>
-        </div>
-        <div style="padding-top: 10px;">
-            <input name="answer" type="radio"/>
-            <label name="answer">答案4</label>
-        </div>
-    </div>
-</div>
-
-<div class="ed_QstHdr" style="margin-top: 10px;">
-    <div>
-        <span class="ed_AbsNumbering">2. 单项选择(使用按钮) 垂直显示</span>
-        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
-        <input type="button" id="deletebutton1" name="button" value="删除"></input>
-    </div>
-    <div>
-        <table>
-            <tbody>
-            <tr>
-                <td style="border: 0px">
-                    <div style="padding-top: 10px;">
-                        <input name="answer2" type="radio"/>
-                        <label name="answer2">答案1</label>
-                    </div>
-
-                </td>
-                <td style="border: 0px">
-                    <div style="padding-top: 10px">
-                        <input name="answer2" type="radio"/>
-                        <label name="answer2">答案2</label>
-                    </div>
-                </td>
-                <td style="border: 0px">
-                    <div style="padding-top: 10px;">
-                        <input name="answer2" type="radio"/>
-                        <label name="answer2">答案3</label>
-                    </div>
-
-                </td>
-                <td style="border: 0px">
-                    <div style="padding-top: 10px;">
-                        <input name="answer2" type="radio"/>
-                        <label name="answer2">答案4</label>
-                    </div>
-
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <label for="other_option">其他选项</label>
-        <input type="text" name="other_option"/>
-    </div>
-</div>
-
-<div class="ed_QstHdr" style="margin-top: 10px;">
-    <div>
-        <span class="ed_AbsNumbering">3. 输入框（一行输入框)</span>
-        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
-        <input type="button" id="deletebutton1" name="button" value="删除"></input>
-    </div>
-    <div>
-        <input type="text" style="width: 550px;"/>
-    </div>
-</div>
-<div class="ed_QstHdr" style="margin-top: 10px;">
-    <div>
-        <span class="ed_AbsNumbering">4. 输入框（多行输入)</span>
-        <input type="button" id="pushbutton1" name="button" value="编辑问题"></input>
-        <input type="button" id="deletebutton1" name="button" value="删除"></input>
-    </div>
-    <div>
-        <textarea style="width: 550px;height: 50px;"></textarea>
-    </div>
-</div>
 <div class="ed_QstHdr" style="margin-top: 10px;">
     <div style="padding-top: 20px;">
         <span class="ed_AbsNumbering">5. 多个输入框</span>
@@ -294,7 +209,7 @@
                 <option value="single_choice_survey_item">单项选择(使用按钮)</option>
                 <option value="multi_choice_survey_item">多项选择（使用按钮)</option>
                 <option value="text_survey_item">输入框（输入一行)</option>
-                <option value="text_survey_item">输入框（多行输入)</option>
+                <option value="textarea_survey_item">输入框（多行输入)</option>
                 <option value="metrix">矩阵显示（选择多个答案)</option>
                 <option value="metrix">矩阵显示（选择一个答案,用按钮选择)</option>
                 <option value="metrix">矩阵显示（选择一个答案,用下拉框选择)</option>
@@ -341,7 +256,7 @@
 {% include "backoffice/survey_item_template/multi_choice_survey_item.html" %}
 {% include "backoffice/survey_item_template/single_choice_survey_item.html" %}
 {% include "backoffice/survey_item_template/text_survey_item.html" %}
-
+{% include "backoffice/survey_item_template/textarea_survey_item.html" %}
 <div id="multi_text_area" style="display: none;">
     <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
         <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 20px;">是否必填</span>
