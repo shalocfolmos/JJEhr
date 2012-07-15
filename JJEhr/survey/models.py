@@ -24,7 +24,7 @@ class Survey(models.Model):
         ("CONTINUE", "调查进行中"),
         ("EDIT", "创建问卷中"),
         ("FINISH", "问卷创建完成"),
-        )
+    )
 
     survey_name = CharField(max_length=50, verbose_name="问卷主题", db_column="survey_name")
     survey_target = CharField(max_length=30, verbose_name="调查目标", db_column="survey_target", choices=SURVEY_TARGET)

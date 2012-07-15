@@ -1,7 +1,7 @@
 #-*- coding: UTF-8 -*-
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer
@@ -30,6 +30,21 @@ def edit_survey(request, surveyId, pageNum):
         if surveyItem.item_type == 'METRIX' and surveyItem.answers[0].question_value:
             surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
     return render_to_response("backoffice/survey_edit.html", {"survey": survey, "pageNum": pageNum,"surveyItemCollection":surveyItemCollection})
+
+
+@require_http_methods(["GET"])
+@login_required(login_url='/backoffice/login')
+def delete_page(request, surveyId, pageNum):
+    survey = Survey.objects.get(id=surveyId)
+    surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=pageNum)
+    for surveyItem in surveyItemCollection:
+        SurveyItemAnswer.objects.filter(survey_item=surveyItem).delete()
+    surveyItemCollection.delete()
+    if survey.total_page > 1:
+        survey.total_page -= 1
+        survey.save()
+    return HttpResponseRedirect("/backoffice/survey/edit/"+surveyId+"/"+str(1))
+
 
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
@@ -101,7 +116,13 @@ def delete_survey_item(request,surveyId=0):
     return  HttpResponse(u"操作成功")
 
 
-
+@require_http_methods(["GET"])
+@login_required(login_url='/backoffice/login')
+def complete_survey(request,surveyId):
+    survey = Survey.objects.get(id=surveyId)
+    survey.survey_status = 'FINISH'
+    survey.save()
+    return HttpResponseRedirect("/backoffice/survey/list")
 
 
 

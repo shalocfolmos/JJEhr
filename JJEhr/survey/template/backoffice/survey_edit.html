@@ -66,7 +66,7 @@
 </div>
 <div style="padding-top: 20px;">
     <button id="addQuestion" class="add_question_button">添加一个问题</button>
-    <button id="endPage"><a href="/backoffice/survey/preview">完成问卷调查</a></button>
+    <button id="completeQuestion"><a href="/backoffice/survey/preview">完成问卷调查</a></button>
     <button id="endPage"><a href="/backoffice/survey/preview">进行问卷调查</a></button>
 </div>
 </div>
@@ -76,7 +76,7 @@
         <button id="addNewPage">增加页面</button>
     </div>
     <div style="float: left;;padding-left: 15px;">
-        <button id="deletePage">删除此页面</button>
+        <button id="deletePage">删除最后一页</button>
     </div>
     <div style="float: right;padding-right: 10px;" id="pagePanel"></div>
     <div style="clear: both;"></div>
@@ -106,37 +106,38 @@
 
         </div>
         <button id="submit_question">提交问题</button>
+        <button id="close_panel">取消</button>
         <input type="hidden" id="survey_id" value="{{survey.id}}"></input>
         <input type="hidden" id="page_num" value="{{pageNum}}"></input>
     </div>
 </div>
 
-<div id="edit_survey_question_dialog" style="display:none;width:600px;text-align: left;font-size: 14px;">
-    <div class="bd">
-        <div>
-            <h5 style="color: #87A32E; font-size: 16px;">问题名称:</h5>员工福利调查
-        </div>
-        <div>
-            <h5 style="color: #87A32E; font-size: 16px; padding-top: 10px;">问题类型:</h5>
-            <select style="width: 200px;" id="edit_question_type_selector">
-                <option>--选择一个问题类型--</option>
-                <option value="single_choice_survey_item">单项选择(使用按钮)</option>
-                <option value="multi_choice_survey_item">多项选择（使用按钮)</option>
-                <option value="text_survey_item">输入框（允许输入多行)</option>
-                <option value="metrix">矩阵显示（选择多个答案)</option>
-                <option value="metrix">矩阵显示（选择一个答案,用按钮选择)</option>
-                <option value="metrix">矩阵显示（选择一个答案,用下拉框选择)</option>
-                <option value="text_survey_item">输入框（一行输入框)</option>
-                <option value="multi_text_area">输入框（多行输入框)</option>
-            </select>
-        </div>
-        <div id="edit_quest_content" style="padding-top: 20px;padding-bottom: 15px;">
+<!--<div id="edit_survey_question_dialog" style="display:none;width:600px;text-align: left;font-size: 14px;">-->
+    <!--<div class="bd">-->
+        <!--<div>-->
+            <!--<h5 style="color: #87A32E; font-size: 16px;">问题名称:</h5>员工福利调查-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<h5 style="color: #87A32E; font-size: 16px; padding-top: 10px;">问题类型:</h5>-->
+            <!--<select style="width: 200px;" id="edit_question_type_selector">-->
+                <!--<option>--选择一个问题类型--</option>-->
+                <!--<option value="single_choice_survey_item">单项选择(使用按钮)</option>-->
+                <!--<option value="multi_choice_survey_item">多项选择（使用按钮)</option>-->
+                <!--<option value="text_survey_item">输入框（允许输入多行)</option>-->
+                <!--<option value="metrix">矩阵显示（选择多个答案)</option>-->
+                <!--<option value="metrix">矩阵显示（选择一个答案,用按钮选择)</option>-->
+                <!--<option value="metrix">矩阵显示（选择一个答案,用下拉框选择)</option>-->
+                <!--<option value="text_survey_item">输入框（一行输入框)</option>-->
+                <!--<option value="multi_text_area">输入框（多行输入框)</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<div id="edit_quest_content" style="padding-top: 20px;padding-bottom: 15px;">-->
 
-        </div>
+        <!--</div>-->
 
-        <button id="edit_question">修改问题</button>
-    </div>
-</div>
+        <!--<button id="edit_question">修改问题</button>-->
+    <!--</div>-->
+<!--</div>-->
 
 {% include "backoffice/survey_item_template/multi_choice_survey_item.html" %}
 {% include "backoffice/survey_item_template/single_choice_survey_item.html" %}
@@ -169,7 +170,11 @@
     };
 
     function handlePagination(newState) {
-        alert(newState.page);
+        location.href="/backoffice/survey/edit/{{survey.id}}/"+newState.page;
+    }
+
+    function completeQuestion() {
+        location.href="/backoffice/survey/complete/{{survey.id}}";
     }
 
     function addPage() {
@@ -177,16 +182,19 @@
     }
 
     function deletePage() {
-
+        location.href= '/backoffice/survey/page/delete/' + {{survey.id}} +"/" + {{pageNum}};
     }
 
     init = function () {
         var addQuestion = function () {
             addSurveyQuestionDialog.show();
         },
-                editQuestion = function () {
-                    editSurveyQuestionDialog.show();
-                },
+        closePanel = function() {
+            location.reload();
+        },
+//                editQuestion = function () {
+//                    editSurveyQuestionDialog.show();
+//                },
                 changeQuestionType = function () {
 
                     var questionContentArea = YAHOO.util.Dom.get("quest_content"),
@@ -194,32 +202,28 @@
                     questionContentArea.innerHTML = "";
                     questionContentArea.innerHTML = YAHOO.util.Dom.get(areaId).innerHTML;
                 },
-                changeEditQuestionType = function () {
-                    var questionContentArea = YAHOO.util.Dom.get("edit_quest_content"),
-                            areaId = YAHOO.util.Dom.get("edit_question_type_selector").value;
-                    questionContentArea.innerHTML = "";
-                    questionContentArea.innerHTML = YAHOO.util.Dom.get(areaId).innerHTML;
-                }
-
-
-        var addSurveyQuestionDialog = new YAHOO.widget.Panel('add_survey_question_dialog', {close:true, fixedcenter:true, draggable:false, modal:true});
+        addSurveyQuestionDialog = new YAHOO.widget.Panel('add_survey_question_dialog', {close:false, fixedcenter:true, draggable:false, modal:true});
         addSurveyQuestionDialog.render();
         addSurveyQuestionDialog.hide();
         YAHOO.util.Dom.setStyle("add_survey_question_dialog", "display", "block");
-        var editSurveyQuestionDialog = new YAHOO.widget.Panel('edit_survey_question_dialog', {close:true, fixedcenter:true, draggable:false, modal:true});
-        editSurveyQuestionDialog.render();
-        editSurveyQuestionDialog.hide();
-        YAHOO.util.Dom.setStyle("edit_survey_question_dialog", "display", "block");
+//        var editSurveyQuestionDialog = new YAHOO.widget.Panel('edit_survey_question_dialog', {close:true, fixedcenter:true, draggable:false, modal:true});
+//        editSurveyQuestionDialog.render();
+//        editSurveyQuestionDialog.hide();
+//        YAHOO.util.Dom.setStyle("edit_survey_question_dialog", "display", "block");
 
         new YAHOO.widget.Button("addQuestion");
+        new YAHOO.widget.Button("completeQuestion");
+        new YAHOO.widget.Button("close_panel");
         new YAHOO.widget.Button("submit_question");
-        new YAHOO.widget.Button("edit_question");
+
         new YAHOO.widget.Button("addNewPage");
         new YAHOO.widget.Button("deletePage");
         new YAHOO.widget.Button("pushbutton");
         YAHOO.util.Event.addListener("addQuestion", "click", addQuestion);
+        YAHOO.util.Event.addListener("completeQuestion", "click", completeQuestion);
+        YAHOO.util.Event.addListener("close_panel", "click", closePanel);
         YAHOO.util.Event.addListener("question_type_selector", "change", changeQuestionType);
-        YAHOO.util.Event.addListener("edit_question_type_selector", "change", changeEditQuestionType);
+
         YAHOO.util.Event.addListener("submit_question-button", "click", function () {
 
             var select_type = YAHOO.util.Dom.get("question_type_selector").value;
@@ -227,19 +231,18 @@
             addSurveyQuestionDialog.hide();
         });
 
-        YAHOO.util.Event.addListener(" edit_question-button", "click", function () {
-            editSurveyQuestionDialog.hide();
-        });
 
-        YAHOO.util.Event.addListener("pushbutton", "click", editQuestion);
+
+//        YAHOO.util.Event.addListener("pushbutton", "click", editQuestion);
         YAHOO.util.Event.addListener("addNewPage", "click", addPage);
         YAHOO.util.Event.addListener("deletePage", "click", deletePage);
 
 
         var pag = new YAHOO.widget.Paginator();
+
         pag.set('rowsPerPage', 1);
-        pag.set('page', {{pageNum}});
         pag.set('totalRecords', {{survey.total_page}});
+        pag.set('recordOffset', YAHOO.util.Dom.get("page_num").value-1);
         pag.set('containers', "pagePanel");
         pag.render();
         pag.subscribe('changeRequest', handlePagination);
@@ -253,6 +256,21 @@
 
             YAHOO.util.Event.addListener(buttonId+"-button", "click", deleteSurvey);
         }
+
+//
+//        new YAHOO.widget.Button("edit_question");
+//        YAHOO.util.Event.addListener("edit_question_type_selector", "change", changeEditQuestionType);
+//
+//        YAHOO.util.Event.addListener(" edit_question-button", "click", function () {
+//            editSurveyQuestionDialog.hide();
+//        });
+    }
+
+    function  changeEditQuestionType() {
+        var questionContentArea = YAHOO.util.Dom.get("edit_quest_content"),
+                areaId = YAHOO.util.Dom.get("edit_question_type_selector").value;
+        questionContentArea.innerHTML = "";
+        questionContentArea.innerHTML = YAHOO.util.Dom.get(areaId).innerHTML;
     }
 
 

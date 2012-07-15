@@ -57,22 +57,26 @@
                 调查完成
                 {% endif %}
                 {% if survey.survey_status == "CONTINUE" %}
-                调查完成
+                调查中
                 {% endif %}
                 {% if survey.survey_status == "EDIT" %}
-                创建问卷中
+                未完成
                 {% endif %}
                 {% if survey.survey_status == "FINISH" %}
-                问卷创建完成
+                创建完成
                 {% endif %}
             </td>
             <td>{{survey.create_date|date:"Y-m-d"}}</td>
             <td>
                 {% if survey.survey_status == "EDIT" %}
-                <button onclick="editSurvey({{survey.id}})">编辑问卷</button>
-                {% else %}
-                <a href="">查看</a>
+                    <button onclick="editSurvey({{survey.id}})">编辑问卷</button>
                 {% endif %}
+
+                {% if survey.survey_status == "FINISH" %}
+                    <button onclick="startSurvey({{survey.id}})">开始进行调查</button>
+                {% endif %}
+
+
             </td>
         </tr>
         {% endfor %}
