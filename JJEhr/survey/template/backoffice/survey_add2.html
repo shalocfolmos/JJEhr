@@ -217,7 +217,6 @@
         new YAHOO.widget.Button("addNewPage");
         new YAHOO.widget.Button("deletePage");
         new YAHOO.widget.Button("pushbutton");
-        new YAHOO.widget.Button("deletebutton");
         YAHOO.util.Event.addListener("addQuestion", "click", addQuestion);
         YAHOO.util.Event.addListener("question_type_selector", "change", changeQuestionType);
         YAHOO.util.Event.addListener("edit_question_type_selector", "change", changeEditQuestionType);
@@ -244,6 +243,22 @@
         pag.set('containers', "pagePanel");
         pag.render();
         pag.subscribe('changeRequest', handlePagination);
+
+
+        var deleteButtonsList = YAHOO.util.Dom.getElementsByClassName("deleteButton");
+        for(i=0;i<deleteButtonsList.length;i++) {
+            deleteButton = deleteButtonsList[0];
+            buttonId = deleteButton.id;
+            new YAHOO.widget.Button(buttonId);
+
+            YAHOO.util.Event.addListener(buttonId+"-button", "click", deleteSurvey);
+        }
+    }
+
+
+    function deleteSurvey()
+    {
+        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/delete/'+this.id.substr(0, 1),genericCallBack);
     }
 
 

@@ -88,3 +88,20 @@ def add_page(request, surveyId):
         result = u'添加页面失败'
     return HttpResponse(result)
 
+@require_http_methods(["POST"])
+@login_required(login_url='/backoffice/login')
+def delete_survey_item(request,surveyId=0):
+    if surveyId == 0:
+        return  HttpResponse(u"参数错误,请重新输入")
+    try:
+        SurveyItemAnswer.objects.filter(survey_item=surveyId).delete()
+        SurveyItem.objects.get(id=surveyId).delete()
+    except Exception:
+        return  HttpResponse(u"系统异常请重新尝试")
+    return  HttpResponse(u"操作成功")
+
+
+
+
+
+
