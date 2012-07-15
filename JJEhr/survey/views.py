@@ -1,10 +1,12 @@
 #-*- coding: UTF-8 -*-
 
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
-from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer
+from JJEhr import settings
+from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog
 
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
@@ -15,7 +17,7 @@ def create_survey(request):
     else:
         querySet = StaffProfile.objects.get(division=survey.survey_target)
     survey.total_employee_number = querySet.count()
-    survey.save()
+    survey.update()
     result = u'创建问卷成功'
     return HttpResponse(result)
 
@@ -42,7 +44,7 @@ def delete_page(request, surveyId):
     surveyItemCollection.delete()
     if survey.total_page > 1:
         survey.total_page -= 1
-        survey.save()
+        survey.update()
     return HttpResponseRedirect("/backoffice/survey/edit/"+surveyId+"/"+str(1))
 
 
@@ -97,7 +99,7 @@ def add_page(request, surveyId):
     survey = Survey.objects.get(id=surveyId)
     if(survey):
         survey.total_page += 1;
-        survey.save()
+        survey.update()
         result = u'添加页面成功'
     else:
         result = u'添加页面失败'
@@ -121,8 +123,29 @@ def delete_survey_item(request,surveyId=0):
 def complete_survey(request,surveyId):
     survey = Survey.objects.get(id=surveyId)
     survey.survey_status = 'FINISH'
-    survey.save()
+    survey.update()
     return HttpResponseRedirect("/backoffice/survey/list")
 
 
+
+@require_http_methods(["GET"])
+@login_required(login_url='/backoffice/login')
+def start_survey(request,surveyId):
+    survey = Survey.objects.get(id=surveyId)
+
+    surveyLogCollection = SurveyLog.objects.filter(survey=survey)
+    for surveyLog in surveyLogCollection:
+        try:
+            send_mail(subject=request.POST["email_subject"],
+                message=request.POST["email_message"],
+                from_email=settings.ENROLL_EMAIL_FROM,
+                recipient_list=[surveyLog.email],
+                fail_silently=False)
+            surveyLog.send_email = True
+            surveyLog.update()
+        except Exception:
+            pass
+    survey.survey_status = 'CONTINUE'
+    survey.update()
+    return HttpResponseRedirect("/backoffice/survey/list")
 
