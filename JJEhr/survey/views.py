@@ -29,7 +29,7 @@ def edit_survey(request, surveyId, pageNum):
         surveyItem.answers = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
         if surveyItem.item_type == 'METRIX' and surveyItem.answers[0].question_value:
             surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
-    return render_to_response("backoffice/survey_add2.html", {"survey": survey, "pageNum": pageNum,"surveyItemCollection":surveyItemCollection})
+    return render_to_response("backoffice/survey_edit.html", {"survey": survey, "pageNum": pageNum,"surveyItemCollection":surveyItemCollection})
 
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
@@ -59,7 +59,7 @@ def create_survey_item(request):
         answerCollection = surveyItemAnswer.split("\n")
 
         for idx,answer in enumerate(answerCollection):
-            if request.POST["surveyItemAnswerValue"]:
+            if request.POST.get("surveyItemAnswerValue"):
                 raw_answer_value = request.POST["surveyItemAnswerValue"]
                 SurveyItemAnswer.objects.create(question_text=answer,question_value=raw_answer_value,question_sequence=idx,survey_item=survey_item)
             else:

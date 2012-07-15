@@ -247,7 +247,7 @@
 
         var deleteButtonsList = YAHOO.util.Dom.getElementsByClassName("deleteButton");
         for(i=0;i<deleteButtonsList.length;i++) {
-            deleteButton = deleteButtonsList[0];
+            deleteButton = deleteButtonsList[i];
             buttonId = deleteButton.id;
             new YAHOO.widget.Button(buttonId);
 
