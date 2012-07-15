@@ -34,9 +34,9 @@ def edit_survey(request, surveyId, pageNum):
 
 @require_http_methods(["GET"])
 @login_required(login_url='/backoffice/login')
-def delete_page(request, surveyId, pageNum):
+def delete_page(request, surveyId):
     survey = Survey.objects.get(id=surveyId)
-    surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=pageNum)
+    surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=survey.total_page)
     for surveyItem in surveyItemCollection:
         SurveyItemAnswer.objects.filter(survey_item=surveyItem).delete()
     surveyItemCollection.delete()

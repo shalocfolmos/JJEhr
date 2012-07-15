@@ -44,6 +44,6 @@ urlpatterns += patterns(r'survey',
     url(r'^backoffice/survey/addPage/(?P<surveyId>\d+)', r'views.add_page'),
     url(r'^backoffice/survey/addSurveyItem', r'views.create_survey_item'),
     url(r'^backoffice/survey/delete/(?P<surveyId>\d+)$', r'views.delete_survey_item'),
-    url(r'^backoffice/survey/page/delete/(?P<surveyId>\d+)/(?P<pageNum>\d+)$', r'views.delete_page'),
+    url(r'^backoffice/survey/page/delete/(?P<surveyId>\d+)$', r'views.delete_page'),
     url(r'^backoffice/survey/complete/(?P<surveyId>\d+)$', r'views.complete_survey')
 )
