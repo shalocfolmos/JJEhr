@@ -1,3 +1,5 @@
+{% load static %}
+{% get_static_prefix as STATIC_URL %}
 <html>
 <head>
     <title>
@@ -7,10 +9,57 @@
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
     <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
 </head>
 <body class="yui-skin-sam">
-    {{authenticated}}
-    {{incorrect_user}}
+    {% if authenticated == 'false' %}
+        <div id="login_panel">
+            <div class="bd yui3-g">
+                <form action="/survey/login" id="login_form" method="POST" style="width: 450px;">
+                    <div>
+                        <div class="yui3-u-1-5" style="text-align: left;">用户名</div>
+                        <div class="yui3-u-4-5" style="text-align: left"><input type="text" name="username"></input></div>
+                    </div>
+                    <div style="padding-top: 20px;">
+                        <div class="yui3-u-1-5" style="text-align: left">密码</div>
+                        <div class="yui3-u-4-5" style="text-align: left"><input type="text" name="password"></input></div>
+                    </div>
+                    <input type="hidden" name="token" value="{{token}}"></input>
+                </form>
+                <div class="yui3-u-1-1" style="padding-top: 20px; text-align: left;">
+                    <button id="login_button">登入</button>
+                </div>
+            </div>
+        </div>
+    {%else%}
+        {{incorrect_user}}
+    {% endif %}
+<input type="hidden" id="is_authenticated" value="{{authenticated}}"/>
+<input type="hidden" id="login_error" value="{{login_error}}"/>
 <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
+<script type="text/javascript">
+    function fire_login_event()
+    {
+        YAHOO.util.Dom.get("login_form").submit();
+    }
+
+    function init() {
+        if(YAHOO.util.Dom.get("is_authenticated").value == 'false')
+        {
+            var loginPanel = new YAHOO.widget.Panel('login_panel', {close:false, fixedcenter:true, draggable:false, modal:true});
+            loginPanel.render();
+            loginPanel.show();
+            YAHOO.util.Event.addListener("login_button", "click", fire_login_event);
+            if(YAHOO.util.Dom.get("login_error").value == 'true')
+            {
+                alert("用户名密码错误，请重新登入")
+            }
+        }
+    }
+
+
+    YAHOO.util.Event.onDOMReady(init);
+</script>
 </body>
 </html>

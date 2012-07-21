@@ -176,7 +176,7 @@ def user_start_survey(request,token):
     for surveyItem in surveyItemCollection:
         surveyItemAnswerCollection = SurveyItemAnswer.objects.get(surveyItem = surveyItem)
         surveyItem.answers = surveyItemAnswerCollection
-    return render_to_response("/www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey})
+    return render_to_response("/www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey,"token":token})
 
 @require_http_methods(["POST"])
 def survey_login(request):
@@ -186,7 +186,12 @@ def survey_login(request):
         token = request.POST["token"]
         user = authenticate(username=username,password=password)
         if user is not None:
-            login(request.user)
-            return HttpResponseRedirect("/survey/"+token)
+            try:
+                login(request,user)
+            except Exception,e:
+                pass
+            return HttpResponseRedirect("/survey/1"+token)
+        else:
+            return render_to_response("www/survey_index.html",{"authenticated":"false","login_error":"true"})
 
 

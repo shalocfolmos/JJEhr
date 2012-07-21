@@ -3,11 +3,11 @@
         "model":"auth.User",
         "pk":1000,
         "fields":{
-            "username":"sam.sun",
+            "username":"sam.sun@jinjiang.com",
             "first_name":"sam",
             "last_name":"sun",
             "email":"sam.sun@jinjiang.com",
-            "password":"123456",
+            "password":"md5$fNHvVqPBiIK2$480bf881abb3524debb42d4ea25dd2a1",
             "is_staff":true,
             "is_active":true,
             "is_superuser":false

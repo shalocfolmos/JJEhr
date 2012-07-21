@@ -123,6 +123,7 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'survey/template'),
     )
 
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
