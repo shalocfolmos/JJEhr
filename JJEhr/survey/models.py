@@ -81,8 +81,10 @@ class SurveyResult(models.Model):
 
 class SurveyLog(models.Model):
     survey = ForeignKey(Survey)
+    user = ForeignKey(User)
     email = CharField(max_length=100,verbose_name="邮件地址",db_column="email")
     complete = BooleanField(verbose_name="已完成调查",db_column="survey_complete",default=False)
     token = CharField(max_length=100,verbose_name="验证token",db_column="verify_token")
     send_email = BooleanField(verbose_name="已发送邮件",db_column="send_email",default=False)
-    complete_date = DateTimeField(db_column="complete_date")
+    complete_date = DateTimeField(db_column="complete_date", null= True)
+    crate_date = DateTimeField(db_column="create_date",auto_now=True)

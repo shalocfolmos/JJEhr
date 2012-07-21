@@ -1,12 +1,15 @@
 #-*- coding: UTF-8 -*-
+from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
+import time
 from JJEhr import settings
 from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog
+import md5
 
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
@@ -17,7 +20,15 @@ def create_survey(request):
     else:
         querySet = StaffProfile.objects.get(division=survey.survey_target)
     survey.total_employee_number = querySet.count()
-    survey.update()
+    survey.save()
+    for profile in querySet:
+        user = profile.user
+        timestack = time.mktime(datetime.now().timetuple())
+        m = md5.new()
+        m.update(user.email)
+        m.update(str(timestack))
+        m.digest()
+        SurveyLog.objects.create(survey=survey,email=user.email,user=user,token=m.hexdigest())
     result = u'创建问卷成功'
     return HttpResponse(result)
 
