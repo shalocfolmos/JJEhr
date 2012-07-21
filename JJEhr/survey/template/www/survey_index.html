@@ -1,33 +1,16 @@
-{% extends "backoffice/backofficeBasePage.html" %}
-{%block title%}
-问卷调查
-{%endblock title%}
-
-{%block extra_css%}
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/paginator/assets/skins/sam/paginator.css">
-<style type="text/css">
-    body {
-        background-image: none;
-    }
-
-    tr {
-        border: 0px;
-    }
-
-    td {
-        border: 0px;
-    }
-
-    table {
-        width: 100%;
-    }
-</style>
-{%endblock extra_css%}
-
-{%block content%}
-        {{incorrect_user}}
-        {{authenticated}}
-{%endblock content%}
+<html>
+<head>
+    <title>
+    问卷调查
+    </title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
+</head>
+<body class="yui-skin-sam">
+    {{authenticated}}
+    {{incorrect_user}}
+<script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+</body>
+</html>
