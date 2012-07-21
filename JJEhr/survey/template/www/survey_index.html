@@ -1,0 +1,33 @@
+{% extends "backoffice/backofficeBasePage.html" %}
+{%block title%}
+问卷调查
+{%endblock title%}
+
+{%block extra_css%}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/fonts/fonts-min.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/button/assets/skins/sam/button.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/paginator/assets/skins/sam/paginator.css">
+<style type="text/css">
+    body {
+        background-image: none;
+    }
+
+    tr {
+        border: 0px;
+    }
+
+    td {
+        border: 0px;
+    }
+
+    table {
+        width: 100%;
+    }
+</style>
+{%endblock extra_css%}
+
+{%block content%}
+        {{incorrect_user}}
+        {{authenticated}}
+{%endblock content%}

@@ -1,7 +1,9 @@
 #-*- coding: UTF-8 -*-
 from datetime import datetime
+from django.contrib.auth import authenticate, login
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -159,4 +161,32 @@ def start_survey(request,surveyId):
     survey.survey_status = 'CONTINUE'
     survey.update()
     return HttpResponseRedirect("/backoffice/survey/list")
+
+@require_http_methods(["GET"])
+def user_start_survey(request,token):
+    if request.session.get("_auth_user_id",False):
+        user = User.objects.get(id=request.session.get("_auth_user_id"))
+        try:
+            surveyLog = SurveyLog.objects.get(token=token,user=user)
+        except Exception:
+            return render_to_response("/www/survey_index.html",{"incorrect_user":"false"})
+    else:
+        return render_to_response("/www/survey_index.html",{"authenticated":"false"})
+    surveyItemCollection = SurveyItem.objects.filter(survey=surveyLog.survey)
+    for surveyItem in surveyItemCollection:
+        surveyItemAnswerCollection = SurveyItemAnswer.objects.get(surveyItem = surveyItem)
+        surveyItem.answers = surveyItemAnswerCollection
+    return render_to_response("/www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey})
+
+@require_http_methods(["POST"])
+def survey_login(request):
+    if request.POST:
+        username = request.POST["username"]
+        password = request.POST["password"]
+        token = request.POST["token"]
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            login(request.user)
+            return HttpResponseRedirect("/survey/"+token)
+
 

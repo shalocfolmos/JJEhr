@@ -22,6 +22,50 @@
         }
     },
     {
+        "model":"auth.User",
+        "pk":1000,
+        "fields":{
+            "username":"sam.sun1",
+            "first_name":"sam",
+            "last_name":"sun",
+            "email":"sam.sun@jinjiang.com",
+            "password":"123456",
+            "is_staff":true,
+            "is_active":true,
+            "is_superuser":false
+        }
+    },
+    {
+        "model":"survey.StaffProfile",
+        "pk":1000,
+        "fields":{
+            "user":1000,
+            "division":"SALE"
+        }
+    },
+    {
+        "model":"auth.User",
+        "pk":1000,
+        "fields":{
+            "username":"sam.sun2",
+            "first_name":"sam",
+            "last_name":"sun",
+            "email":"sam.sun@jinjiang.com",
+            "password":"123456",
+            "is_staff":true,
+            "is_active":true,
+            "is_superuser":false
+        }
+    },
+    {
+        "model":"survey.StaffProfile",
+        "pk":1000,
+        "fields":{
+            "user":1000,
+            "division":"CC"
+        }
+    },
+    {
         "model":"survey.Survey",
         "pk":1000,
         "fields":{

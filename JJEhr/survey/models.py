@@ -88,3 +88,5 @@ class SurveyLog(models.Model):
     send_email = BooleanField(verbose_name="已发送邮件",db_column="send_email",default=False)
     complete_date = DateTimeField(db_column="complete_date", null= True)
     crate_date = DateTimeField(db_column="create_date",auto_now=True)
+
+
