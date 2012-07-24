@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
@@ -163,22 +164,22 @@ def start_survey(request,surveyId):
     return HttpResponseRedirect("/backoffice/survey/list")
 
 @require_http_methods(["GET"])
-def user_start_survey(request,token):
+def user_start_survey(request,token,page=1):
     if request.session.get("_auth_user_id",False):
         user = User.objects.get(id=request.session.get("_auth_user_id"))
         try:
             surveyLog = SurveyLog.objects.get(token=token,user=user)
         except Exception:
-            return render_to_response("www/survey_index.html",{"incorrect_user":"true"})
+            return render_to_response("www/survey_index.html",{"incorrect_user":"true","token":token})
     else:
-        return render_to_response("www/survey_index.html",{"authenticated":"false"})
-    surveyItemCollection = SurveyItem.objects.filter(survey=surveyLog.survey)
+        return render_to_response("www/survey_index.html",{"authenticated":"false","token":token})
+    surveyItemCollection = SurveyItem.objects.filter(survey=surveyLog.survey,page=page)
     for surveyItem in surveyItemCollection:
         surveyItemAnswerCollection = SurveyItemAnswer.objects.get(surveyItem = surveyItem)
         surveyItem.answers = surveyItemAnswerCollection
-    return render_to_response("/www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey,"token":token})
+    return render_to_response("www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey,"token":token})
 
-@require_http_methods(["POST"])
+#@require_http_methods(["POST"])
 def survey_login(request):
     if request.POST:
         username = request.POST["username"]
@@ -190,7 +191,7 @@ def survey_login(request):
                 login(request,user)
             except Exception,e:
                 pass
-            return HttpResponseRedirect("/survey/1"+token)
+            return HttpResponseRedirect(reverse(viewname=user_start_survey,args=[token]))
         else:
             return render_to_response("www/survey_index.html",{"authenticated":"false","login_error":"true"})
 

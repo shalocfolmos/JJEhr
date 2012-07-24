@@ -33,8 +33,12 @@
         </div>
     {%else%}
         {%if incorrect_user%}
-            alert("链接地址有误");
+            <script type="text/javascript">
+                alert("链接地址有误");
+            </script>
         {% else %}
+            {{survey.survey_name}}
+
 
 
 
