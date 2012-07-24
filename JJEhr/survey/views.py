@@ -169,7 +169,7 @@ def user_start_survey(request,token):
         try:
             surveyLog = SurveyLog.objects.get(token=token,user=user)
         except Exception:
-            return render_to_response("www/survey_index.html",{"incorrect_user":"false"})
+            return render_to_response("www/survey_index.html",{"incorrect_user":"true"})
     else:
         return render_to_response("www/survey_index.html",{"authenticated":"false"})
     surveyItemCollection = SurveyItem.objects.filter(survey=surveyLog.survey)

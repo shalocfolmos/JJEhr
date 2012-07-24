@@ -32,7 +32,13 @@
             </div>
         </div>
     {%else%}
-        {{incorrect_user}}
+        {%if incorrect_user%}
+            alert("链接地址有误");
+        {% else %}
+
+
+
+        {% endif %}
     {% endif %}
 <input type="hidden" id="is_authenticated" value="{{authenticated}}"/>
 <input type="hidden" id="login_error" value="{{login_error}}"/>
