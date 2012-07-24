@@ -20,7 +20,7 @@ def create_survey(request):
     if survey.survey_target == "ALL":
         querySet = StaffProfile.objects.all()
     else:
-        querySet = StaffProfile.objects.get(division=survey.survey_target)
+        querySet = StaffProfile.objects.filter(division=survey.survey_target)
     survey.total_employee_number = querySet.count()
     survey.save()
     for profile in querySet:
