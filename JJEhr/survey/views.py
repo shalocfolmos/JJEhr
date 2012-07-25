@@ -175,7 +175,7 @@ def user_start_survey(request,token,page=1):
         return render_to_response("www/survey_index.html",{"authenticated":"false","token":token})
     surveyItemCollection = SurveyItem.objects.filter(survey=surveyLog.survey,page=page)
     for surveyItem in surveyItemCollection:
-        surveyItemAnswerCollection = SurveyItemAnswer.objects.get(surveyItem = surveyItem)
+        surveyItemAnswerCollection = SurveyItemAnswer.objects.filter(survey_item = surveyItem)
         surveyItem.answers = surveyItemAnswerCollection
     return render_to_response("www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey,"token":token})
 

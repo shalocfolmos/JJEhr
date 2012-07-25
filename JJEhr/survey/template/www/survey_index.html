@@ -12,6 +12,9 @@
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
 </head>
 <body class="yui-skin-sam">
+    <script type="text/javascript">
+        var customEvent = new YAHOO.util.CustomEvent("pageSave")
+    </script>
     {% if authenticated == 'false' %}
         <div id="login_panel">
             <div class="bd yui3-g">
@@ -38,10 +41,24 @@
             </script>
         {% else %}
             {{survey.survey_name}}
+            {%for item in survey_item_collection%}
+                {{item.item_name}} {{item.item_type}}
+                {%for answer in item.answers%}
 
-
-
-
+                {%endfor%}
+                {%if item.other_answer %}
+                    <input type="text" name="option_{{item.id}}"></input>
+                {%endif%}
+                {%if item.is_required%}
+                <script type="text/javascript">
+                    function check_{{item.id}}()
+                    {
+                        alert({{item.id}});
+                    }
+                    customEvent.subscribe(check_{{item.id}});
+                </script>
+                {%endif%}
+            {%endfor%}
         {% endif %}
     {% endif %}
 <input type="hidden" id="is_authenticated" value="{{authenticated}}"/>
