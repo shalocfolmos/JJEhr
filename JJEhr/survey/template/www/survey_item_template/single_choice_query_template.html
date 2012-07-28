@@ -1,39 +1,212 @@
-<div class="ed_QstHdr">
-    <div>
-        <span class="ed_AbsNumbering">{{idx}}. {{survey_item.item_name}}</span>
-        <!--<input type="button" id="pushbutton" name="button" value="编辑问题"></input>-->
-        <input type="button" class="deleteButton" id="{{survey_item.id}}_deletebutton" value="删除"></input>
-    </div>
-    <div>
-        {% if survey_item.align_format == 'V' %}
-        {% for answer in survey_item.answers %}
-        <div style="padding-top: 10px;">
-            <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="radio"/>
-            <label for="item_{{idx}}">{{answer.question_text}}</label>
-        </div>
-        {% endfor %}
-        {% else %}
-        <table>
-            <tbody>
-            <tr>
-                {% for answer in survey_item.answers %}
-                <td style="border: 0px">
-                    <div style="padding-top: 10px;">
-                        <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="radio"/>
-                        <label for="item_{{idx}}">{{answer.question_text}}</label>
-                    </div>
+<tr>
+    <td>
+        <div id="QuestionSection_28831425">
+            <a style="text-decoration:none;"> &nbsp; </a>
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tbody>
+                            <tr>
+                                <td class="QuestionText"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="QuestionError"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tbody>
+                            <tr>
+                                <td class="AnswerText">
+                                    <div class="" id="AnswerRow_135375629"
+                                         onmouseover="assignClass(this.id,'OptionHover allRoundCorners');"
+                                         onmouseout="var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked){assignClass(this.id,'OptionHighlight allRoundCorners');} else {assignClass(this.id,'');}"
+                                         onclick="processElements(ANSWERS_28831425,  PROCESSOR_ANSWERTEXT_28831425);var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked) {assignClass(this.id,'OptionHighlight allRoundCorners');}else {assignClass(this.id,'');} "
+                                         style="width:100%;">
+                                        <table>
+                                            <tbody>
+                                            <tr valign="top">
+                                                <td style="padding-top:5px;" valign="top">
 
-                </td>
-                {% endfor %}
-            </tr>
-            </tbody>
-        </table>
-        {%endif%}
-        {% if survey_item.other_answer %}
-        <div style="padding-top: 20px;">
-            <label for="{{survey_item}}_other_option">其他选项</label>
-            <input type="text" name="{{survey_item}}_other_option" id="{{survey_item}}_other_option_textarea"/>
+                                                    <div style="width:20px;">
+                                                        <input name="u_28831425" value="135375629" id="135375629ID"
+                                                               type="RADIO">
+                                                    </div>
+
+
+                                                </td>
+                                                <td class="AnswerText" style="padding-top:5px;" valign="top">
+    <span onclick=";var cb=document.getElementById('135375629ID');cb.checked=!cb.checked;if (!cb.checked){ } "
+          style="cursor:pointer;cursor:hand;"><div>
+        <div style="margin-left:10px;">
+            Less than 6 months
         </div>
-        {% endif %}
-    </div>
-</div>
+    </div></span></td>
+                                                <td style="padding-left:20px;" valign="center"></td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="AnswerText">
+                                    <div class="" id="AnswerRow_135375630"
+                                         onmouseover="assignClass(this.id,'OptionHover allRoundCorners');"
+                                         onmouseout="var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked){assignClass(this.id,'OptionHighlight allRoundCorners');} else {assignClass(this.id,'');}"
+                                         onclick="processElements(ANSWERS_28831425,  PROCESSOR_ANSWERTEXT_28831425);var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked) {assignClass(this.id,'OptionHighlight allRoundCorners');}else {assignClass(this.id,'');} "
+                                         style="width:100%;">
+                                        <table>
+                                            <tbody>
+                                            <tr valign="top">
+                                                <td style="padding-top:5px;" valign="top">
+
+                                                    <div style="width:20px;">
+                                                        <input name="u_28831425" value="135375630" id="135375630ID"
+                                                               type="RADIO">
+                                                    </div>
+
+
+                                                </td>
+                                                <td class="AnswerText" style="padding-top:5px;" valign="top">
+    <span onclick=";var cb=document.getElementById('135375630ID');cb.checked=!cb.checked;if (!cb.checked){ } "
+          style="cursor:pointer;cursor:hand;"><div>
+        <div style="margin-left:10px;">
+            6 months to less than 1 year
+        </div>
+    </div></span></td>
+                                                <td style="padding-left:20px;" valign="center"></td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="AnswerText">
+                                    <div class="" id="AnswerRow_135375631"
+                                         onmouseover="assignClass(this.id,'OptionHover allRoundCorners');"
+                                         onmouseout="var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked){assignClass(this.id,'OptionHighlight allRoundCorners');} else {assignClass(this.id,'');}"
+                                         onclick="processElements(ANSWERS_28831425,  PROCESSOR_ANSWERTEXT_28831425);var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked) {assignClass(this.id,'OptionHighlight allRoundCorners');}else {assignClass(this.id,'');} "
+                                         style="width:100%;">
+                                        <table>
+                                            <tbody>
+                                            <tr valign="top">
+                                                <td style="padding-top:5px;" valign="top">
+
+                                                    <div style="width:20px;">
+                                                        <input name="u_28831425" value="135375631" id="135375631ID"
+                                                               type="RADIO">
+                                                    </div>
+
+
+                                                </td>
+                                                <td class="AnswerText" style="padding-top:5px;" valign="top">
+    <span onclick=";var cb=document.getElementById('135375631ID');cb.checked=!cb.checked;if (!cb.checked){ } "
+          style="cursor:pointer;cursor:hand;"><div>
+        <div style="margin-left:10px;">
+            1 year to less than 3 years
+        </div>
+    </div></span></td>
+                                                <td style="padding-left:20px;" valign="center"></td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="AnswerText">
+                                    <div class="" id="AnswerRow_135375632"
+                                         onmouseover="assignClass(this.id,'OptionHover allRoundCorners');"
+                                         onmouseout="var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked){assignClass(this.id,'OptionHighlight allRoundCorners');} else {assignClass(this.id,'');}"
+                                         onclick="processElements(ANSWERS_28831425,  PROCESSOR_ANSWERTEXT_28831425);var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked) {assignClass(this.id,'OptionHighlight allRoundCorners');}else {assignClass(this.id,'');} "
+                                         style="width:100%;">
+                                        <table>
+                                            <tbody>
+                                            <tr valign="top">
+                                                <td style="padding-top:5px;" valign="top">
+
+                                                    <div style="width:20px;">
+                                                        <input name="u_28831425" value="135375632" id="135375632ID"
+                                                               type="RADIO">
+                                                    </div>
+
+
+                                                </td>
+                                                <td class="AnswerText" style="padding-top:5px;" valign="top">
+    <span onclick=";var cb=document.getElementById('135375632ID');cb.checked=!cb.checked;if (!cb.checked){ } "
+          style="cursor:pointer;cursor:hand;"><div>
+        <div style="margin-left:10px;">
+            3 years to less than 5 years
+        </div>
+    </div></span></td>
+                                                <td style="padding-left:20px;" valign="center"></td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="AnswerText">
+                                    <div class="" id="AnswerRow_135375633"
+                                         onmouseover="assignClass(this.id,'OptionHover allRoundCorners');"
+                                         onmouseout="var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked){assignClass(this.id,'OptionHighlight allRoundCorners');} else {assignClass(this.id,'');}"
+                                         onclick="processElements(ANSWERS_28831425,  PROCESSOR_ANSWERTEXT_28831425);var cb=document.getElementById(this.id.split('_')[1] + 'ID');if (cb.checked) {assignClass(this.id,'OptionHighlight allRoundCorners');}else {assignClass(this.id,'');} "
+                                         style="width:100%;">
+                                        <table>
+                                            <tbody>
+                                            <tr valign="top">
+                                                <td style="padding-top:5px;" valign="top">
+
+                                                    <div style="width:20px;">
+                                                        <input name="u_28831425" value="135375633" id="135375633ID"
+                                                               type="RADIO">
+                                                    </div>
+
+
+                                                </td>
+                                                <td class="AnswerText" style="padding-top:5px;" valign="top">
+    <span onclick=";var cb=document.getElementById('135375633ID');cb.checked=!cb.checked;if (!cb.checked){ } "
+          style="cursor:pointer;cursor:hand;"><div>
+        <div style="margin-left:10px;">
+            5 years or more
+        </div>
+    </div></span></td>
+                                                <td style="padding-left:20px;" valign="center"></td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <script>
+                                var ANSWERS_28831425 = new Array(document.getElementById('AnswerRow_135375629'), document.getElementById('AnswerRow_135375630'), document.getElementById('AnswerRow_135375631'), document.getElementById('AnswerRow_135375632'), document.getElementById('AnswerRow_135375633'));
+                                var PROCESSOR_ANSWERTEXT_28831425 = function (ele) {
+                                    ele.className = 'AnswerText';
+                                };
+
+                            </script>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </td>
+</tr>

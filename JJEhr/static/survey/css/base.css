@@ -72,3 +72,12 @@ input.submit, input[type="submit"], input[type="button"] {
     font-weight: bold;
     text-align: center;
 }
+
+
+.SurveyContent a, .SurveyContent a:visited, .SurveyContent a:link, .SurveyContent a:hover {
+    color: #053D60;
+}
+
+.QuestionDescription, .QuestionText {
+    font-weight: bold;
+}
