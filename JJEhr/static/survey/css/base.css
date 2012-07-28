@@ -1,0 +1,74 @@
+.SurveyRunBody {
+    background: url("../ocean-bg.jpg") repeat-x fixed left top #053D60;
+    margin: 0;
+    padding: 0;
+}
+
+.SurveyContent {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 2px solid #AAAAAA;
+    height: 100%;
+}
+
+.QuestionText {
+}
+.QuestionDescription, .QuestionText {
+    font-weight: bold;
+}
+.QuestionDescription, .QuestionText, .AnswerText, .AltQuestionText, .AltAnswerText, .SurveyHeader, .SurveyFooter, .QuestionError, .SurveyValidation, .SurveySectionHeading, .SurveySectionSubHeading, .SurveySectionHeadingSmall {
+    color: #053D60;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 10pt;
+}
+
+
+.SurveyContent a, .SurveyContent a:visited, .SurveyContent a:link, .SurveyContent a:hover {
+    color: #053D60;
+}
+
+
+.SurveyTopToolbar {
+    margin-top: 60px;
+}
+
+.SurveyHeader {
+    font-weight: bold;
+    text-align: center;
+}
+.QuestionDescription, .QuestionText, .AnswerText, .AltQuestionText, .AltAnswerText, .SurveyHeader, .SurveyFooter, .QuestionError, .SurveyValidation, .SurveySectionHeading, .SurveySectionSubHeading, .SurveySectionHeadingSmall {
+    color: #053D60;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 10pt;
+}
+
+.SurveyFooter {
+    text-align: center;
+}
+
+#SurveySubmitButton {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+input.submit, input[type="submit"], input[type="button"] {
+    -moz-font-feature-settings: normal;
+    -moz-font-language-override: normal;
+    background: url("../bg-btn-local.gif") repeat-x scroll 0 0 #E6E6E6;
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    cursor: pointer;
+    font-family: "Lucida Grande",sans-serif;
+    font-size: 15px;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 20px !important;
+    padding: 5px 15px 6px;
+}
+
+.SurveyHeader {
+    font-weight: bold;
+    text-align: center;
+}

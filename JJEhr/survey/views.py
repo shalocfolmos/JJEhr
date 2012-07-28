@@ -170,7 +170,7 @@ def user_start_survey(request,token,page=1):
         try:
             surveyLog = SurveyLog.objects.get(token=token,user=user)
         except Exception:
-            return render_to_response("www/survey_index.html",{"incorrect_user":"true","token":token})
+            return render_to_response("www/survey_index.html",{"authenticated":"false","incorrect_user":"true","token":token})
     else:
         return render_to_response("www/survey_index.html",{"authenticated":"false","token":token})
     surveyItemCollection = SurveyItem.objects.filter(survey=surveyLog.survey,page=page)
@@ -191,8 +191,8 @@ def survey_login(request):
                 login(request,user)
             except Exception,e:
                 pass
-            return HttpResponseRedirect(reverse(viewname=user_start_survey,args=[token]))
+            return HttpResponseRedirect(reverse(viewname=user_start_survey,args=[token,]))
         else:
-            return render_to_response("www/survey_index.html",{"authenticated":"false","login_error":"true"})
+            return render_to_response("www/survey_index.html",{"authenticated":"false","login_error":"true","token":token})
 
 

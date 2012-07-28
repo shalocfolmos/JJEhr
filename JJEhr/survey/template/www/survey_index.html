@@ -5,13 +5,21 @@
     <title>
     问卷调查
     </title>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
-    <link rel="stylesheet" href="{{STATIC_URL}}/backoffice/css/base.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
+    {% if authenticated == 'false' %}
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssbase/cssbase-min.css">
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui/cssgrids/grids-min.css">
+        <link rel="stylesheet" href="{{STATIC_URL}}/backofficd/css/base.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/yui2/build/container/assets/skins/sam/container.css"/>
+    {% else %}
+        <link rel="stylesheet" href="{{STATIC_URL}}/survey/css/base.css" type="text/css"/>
+    {% endif%}
 </head>
+{% if authenticated == 'false' %}
 <body class="yui-skin-sam">
+{% else %}
+<body class="SurveyRunBody">
+{% endif %}
     <script type="text/javascript">
         var customEvent = new YAHOO.util.CustomEvent("pageSave")
     </script>
@@ -34,32 +42,129 @@
                 </div>
             </div>
         </div>
-    {%else%}
+
         {%if incorrect_user%}
             <script type="text/javascript">
                 alert("链接地址有误");
             </script>
-        {% else %}
-            {{survey.survey_name}}
-            {%for item in survey_item_collection%}
-                {{item.item_name}} {{item.item_type}}
-                {%for answer in item.answers%}
-
-                {%endfor%}
-                {%if item.other_answer %}
-                    <input type="text" name="option_{{item.id}}"></input>
-                {%endif%}
-                {%if item.is_required%}
-                <script type="text/javascript">
-                    function check_{{item.id}}()
-                    {
-                        alert({{item.id}});
-                    }
-                    customEvent.subscribe(check_{{item.id}});
-                </script>
-                {%endif%}
-            {%endfor%}
         {% endif %}
+
+    {% else %}
+        <table align="center" width="750" cellspacing="0" cellpadding="0" style="margin-top: 40px;">
+            <tbody>
+                <tr>
+                    <td valign="top">
+                        <table align="center" width="750" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td class="SurveyContent">
+                                        <div id="SurveyAjaxContainer">
+                                            <!-- Comment: Start head top -->
+                                            <table align="center" width="100%" cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <table width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="QuestionText">
+
+                                                                    </td>
+                                                                    <td class="QuestionText" align="right">
+
+                                                                        <a href="/a/ExitSurvey?id=3145674">
+                                                                            Exit Survey
+                                                                            &nbsp;»
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- Comment: End head top -->
+                                            <!-- Comment: Start head middle -->
+                                            <table align="center" width="100%">
+                                                <tbody><tr>
+                                                    <td width="33%">
+                                                    </td>
+                                                    <td align="CENTER" width="33%">
+                                                        <table width="100%">
+                                                            <tbody><tr>
+                                                                <td align="center" class="SurveyHeader" style="font-size: 16px;">
+                                                                    {{survey.survey_name}}
+                                                                </td>
+                                                            </tr>
+                                                            </tbody></table>
+                                                    </td>
+                                                    <td width="33%">
+                                                    </td>
+                                                </tr>
+                                                </tbody></table>
+                                            <!-- Comment: End head middle -->
+                                            <!-- Comment: Start form -->
+                                            <form class="nyroModal" name="run" action="/a/TakeSurvey" method="post">
+
+                                                <!-- Comment: start form top -->
+                                                <table align="center" width="100%" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td style="padding: 20px">
+                                                            <table align="center" width="100%" cellspacing="0" cellpadding="0">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="SurveyHeader">
+                                                                            <hr>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <!-- Comment: survey item start -->
+
+
+                                                                    <!-- Comment: survey item end -->
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <!-- Comment: end form top -->
+
+                                                <!-- Comment: start form bottom -->
+                                                <table align="center" width="100%" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td align="center">
+                                                                <div id="SurveySubmitButton">
+                                                                    <input type="button" value="Continue" name="submitButton" onclick="document.forms['run'].submit();return false;" id="SurveySubmitButtonElement">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- Comment: end form bottom -->
+                                                <table align="center" width="100%" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="padding: 20px;" class="SurveyFooter">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- Comment: end form bottom -->
+                                            </form>
+                                            <!-- Comment: End form -->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="SurveyTopToolbar"></div>
     {% endif %}
 <input type="hidden" id="is_authenticated" value="{{authenticated}}"/>
 <input type="hidden" id="login_error" value="{{login_error}}"/>

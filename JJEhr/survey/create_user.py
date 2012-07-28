@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from JJEhr.survey.models import StaffProfile
+from JJEhr.survey.models import StaffProfile, SurveyLog
 
 __author__ = 'sam-sun'
 
@@ -23,6 +23,8 @@ user.save()
 staff = StaffProfile(user=user,division="SALE")
 staff.save()
 
+
+SurveyLog.objects.get(id=1)
 
 #1ad61ccd3c658a016ba111b0fca79c60
 
