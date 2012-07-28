@@ -30,7 +30,7 @@ class Survey(models.Model):
     survey_target = CharField(max_length=30, verbose_name="调查目标", db_column="survey_target", choices=SURVEY_TARGET)
     total_employee_number = IntegerField(verbose_name="参与调查人数", db_column="total_investigator_number")
     finish_survey_employee_number = IntegerField(verbose_name="完成调查人数",
-        db_column="finish_survey_employee_number", default=0)
+    db_column="finish_survey_employee_number", default=0)
     survey_status = CharField(verbose_name="订单状态", max_length=30, db_column="survey_status", choices=SURVEY_STATUS, default="EDIT")
 
     finish_date = DateTimeField(verbose_name="调查结束时间", db_column="finish_date", null=True)

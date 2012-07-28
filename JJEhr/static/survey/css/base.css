@@ -3,53 +3,204 @@
     margin: 0;
     padding: 0;
 }
-
 .SurveyContent {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 2px solid #AAAAAA;
     height: 100%;
 }
-
-.QuestionText {
+.SurveyContent textarea, .SurveyContent input, .SurveyContent select, .SurveyContent option {
+    color: #053D60;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 10pt;
+}
+.SurveyContent a, .SurveyContent a:visited, .SurveyContent a:link, .SurveyContent a:hover {
+    color: #053D60;
+}
+.QuestionDescription, .QuestionText, .AnswerText, .AltQuestionText, .AltAnswerText, .SurveyHeader, .SurveyFooter, .QuestionError, .SurveyValidation, .SurveySectionHeading, .SurveySectionSubHeading, .SurveySectionHeadingSmall {
+    color: #053D60;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 10pt;
 }
 .QuestionDescription, .QuestionText {
     font-weight: bold;
 }
-.QuestionDescription, .QuestionText, .AnswerText, .AltQuestionText, .AltAnswerText, .SurveyHeader, .SurveyFooter, .QuestionError, .SurveyValidation, .SurveySectionHeading, .SurveySectionSubHeading, .SurveySectionHeadingSmall {
-    color: #053D60;
-    font-family: "Lucida Grande",Verdana,sans-serif;
-    font-size: 10pt;
+.SurveyTop {
+    margin-top: 25px;
 }
-
-
-.SurveyContent a, .SurveyContent a:visited, .SurveyContent a:link, .SurveyContent a:hover {
-    color: #053D60;
-}
-
-
 .SurveyTopToolbar {
     margin-top: 60px;
 }
-
+.QuestionDescription {
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+.QuestionText {
+}
+.AltQuestionText {
+    background: none repeat scroll 0 0 #F5F5F5;
+}
+.AnswerText {
+}
+.AltAnswerText {
+    background: none repeat scroll 0 0 #F5F5F5;
+}
 .SurveyHeader {
     font-weight: bold;
     text-align: center;
 }
-.QuestionDescription, .QuestionText, .AnswerText, .AltQuestionText, .AltAnswerText, .SurveyHeader, .SurveyFooter, .QuestionError, .SurveyValidation, .SurveySectionHeading, .SurveySectionSubHeading, .SurveySectionHeadingSmall {
-    color: #053D60;
-    font-family: "Lucida Grande",Verdana,sans-serif;
-    font-size: 10pt;
-}
-
 .SurveyFooter {
     text-align: center;
 }
-
+.QuestionError {
+    color: #CC0000 !important;
+}
+.SurveyQuestionErrorBox {
+    background: url("/images/alert_error.gif") no-repeat scroll left center #FFEBE8;
+    border: 1px solid #CC0000;
+    color: #660000;
+    font-size: 10pt;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 5px 5px 5px 30px;
+    text-align: left;
+}
+.SurveyValidation {
+    color: #CC0000 !important;
+}
+.SurveyTipContent {
+    padding: 5px 3px 5px 2px;
+}
+.SurveySectionHeading {
+    background-color: #053D60;
+    color: #FFFFFF !important;
+    font-size: 14pt !important;
+    font-weight: bold;
+    padding: 5px 3px 5px 2px;
+}
+.SurveySectionSubHeading {
+    font-size: 14pt !important;
+    font-weight: bold;
+    padding: 5px 3px 5px 2px;
+}
+.SurveySectionHeadingSmall {
+    font-weight: bold;
+}
+.SurveyDivider {
+    border-bottom: 1px dotted #222222;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.SurveyHighlight {
+    background-color: #FFFFCC;
+    cursor: pointer;
+}
 #SurveySubmitButton {
     padding-bottom: 15px;
     padding-top: 15px;
 }
-
+.SurveyTableHeader {
+    padding: 2px 8px;
+    text-align: center;
+}
+.SurveyTableGrid {
+    border-collapse: collapse;
+    margin: 2px 0 5px;
+}
+.SurveyTableGrid th {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border: 1px solid #CCCCCC;
+    padding: 2px 4px;
+    text-align: center;
+}
+.SurveyTableGrid td {
+    border: 1px solid #CCCCCC;
+    padding: 3px 4px;
+}
+.SurveyTableNoGrid td {
+    border: medium none;
+}
+.SurveyVoteUp {
+    background: url("/images/ideascale/vote_up.png") no-repeat scroll left center transparent;
+}
+.SurveyVoteDown {
+    background: url("/images/ideascale/vote_down.png") no-repeat scroll left center transparent;
+}
+.SurveyNoVote {
+    background: none repeat scroll 0 0 transparent;
+}
+.iconLink {
+    color: #3252B2;
+    font-size: 8pt;
+    vertical-align: middle;
+}
+a.iconLink, a.iconLink:visited, a.iconLink:link {
+    color: #3252B2;
+    text-decoration: none;
+}
+a.iconLink:hover {
+    text-decoration: underline;
+}
+.dashboard {
+    background-color: #999999;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    float: left;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    padding: 8px;
+}
+.dashboardTitle {
+    color: #FFFFFF;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.dashboardContent {
+    color: #FFFFFF;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 70px;
+    font-weight: bold;
+    margin-bottom: -10px;
+    text-align: center;
+}
+.shadowedBox, .shadowedBoxIE {
+    display: none;
+    margin-left: -16px;
+    margin-top: -2px;
+    position: absolute;
+    z-index: 1000;
+}
+.shadowedBoxBody {
+    background-color: white;
+    border: 2px solid #333333;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 10pt;
+    padding: 10px;
+}
+.position-fixed-top {
+    left: 0;
+    position: fixed !important;
+    top: 0;
+}
+.position-fixed-center {
+    position: fixed !important;
+    top: 50%;
+}
+.position-fixed-bottom {
+    bottom: 0;
+    left: 0;
+    position: fixed !important;
+}
+.SurveyReport {
+    background-color: #053D60;
+}
+.SurveyReportQuestionTotalRow {
+    background-color: #053D60;
+    border-left: 1px solid #053D60;
+    border-right: 1px solid #053D60;
+}
 input.submit, input[type="submit"], input[type="button"] {
     -moz-font-feature-settings: normal;
     -moz-font-language-override: normal;
@@ -67,17 +218,71 @@ input.submit, input[type="submit"], input[type="button"] {
     line-height: 20px !important;
     padding: 5px 15px 6px;
 }
-
-.SurveyHeader {
-    font-weight: bold;
-    text-align: center;
+.doneNew div, .doneNew td, .doneNew p, .doneNew span, .doneNew a {
+    font-family: arial;
 }
-
-
-.SurveyContent a, .SurveyContent a:visited, .SurveyContent a:link, .SurveyContent a:hover {
-    color: #053D60;
+.doneNew a {
+    text-decoration: none;
 }
-
-.QuestionDescription, .QuestionText {
-    font-weight: bold;
+.tick {
+    background: url("/images/tickII.gif") no-repeat scroll left center transparent;
+    font-size: 16px;
+    margin-bottom: 7px;
+    padding-left: 23px;
+}
+div.freeSignupButton {
+    background: url("/images/signupbuttons/sign-up-for-free.png") no-repeat scroll left top transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 42px;
+    width: 140px;
+}
+div.freeSignupButtonHover {
+    background: url("/images/signupbuttons/sign-up-for-free-hover.png") no-repeat scroll left top transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 42px;
+    width: 140px;
+}
+.allRoundCorners {
+    border-radius: 5px 5px 5px 5px;
+}
+.OptionHover {
+    background: none repeat scroll 0 0 #BDBDBD;
+}
+.OptionHighlight, .OptionHighlight div {
+    background: none repeat scroll 0 0 #848484;
+    color: #FFFFFF;
+}
+a.scalePeg, a.scalePeg:visited {
+    background: url("/images/slider/peg-1-22x22.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 22px;
+    text-decoration: none;
+    width: 22px;
+}
+a.scalePeg:hover {
+    background: url("/images/slider/peg-1-22x22.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 22px;
+    text-decoration: none;
+    width: 22px;
+}
+.control_top {
+    float: left;
+    padding-left: 60px;
+    padding-top: 5px;
+    position: absolute;
+}
+.control_bottom {
+    float: left;
+    padding-left: 60px;
+    padding-top: 5px;
+    position: absolute;
+}
+.control_text_div_left {
+    float: left;
+}
+.control_text_div_right {
+    float: right;
 }
