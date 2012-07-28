@@ -1,0 +1,16 @@
+<div class="ed_QstHdr" style="margin-top: 10px;">
+    <div style="padding-top: 20px;">
+        <span class="ed_AbsNumbering">{{idx}}. {{survey_item.item_name}}</span>
+        <!--<input type="button" id="pushbutton1" name="button" value="编辑问题"></input>-->
+        <input type="button" class="deleteButton" id="{{survey_item.id}}_deletebutton" value="删除"></input>
+    </div>
+    {%if survey_item.answers %}
+    {% for answer in survey_item.answers %}
+        <div style="padding-top: 20px;">
+            <label for="item_{{survey_item.id}}_answer_{{answer.id}}">{{answer.question_text}}</label>
+            <input name="item_{{survey_item.id}}_answer_{{answer.id}}"  id="item_{{survey_item.id}}_answer_{{answer.id}}" type="text">
+            </input>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>

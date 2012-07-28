@@ -1,0 +1,39 @@
+<div class="ed_QstHdr">
+    <div>
+        <span class="ed_AbsNumbering">{{idx}}. {{survey_item.item_name}}</span>
+        <!--<input type="button" id="pushbutton" name="button" value="编辑问题"></input>-->
+        <input type="button" class="deleteButton" id="{{survey_item.id}}_deletebutton" value="删除"></input>
+    </div>
+    <div>
+        {% if survey_item.align_format == 'V' %}
+            {% for answer in survey_item.answers %}
+                <div style="padding-top: 10px;">
+                    <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="checkbox"/>
+                    <label for="item_{{idx}}">{{answer.question_text}}</label>
+                </div>
+            {% endfor %}
+        {% else %}
+        <table>
+            <tbody>
+            <tr>
+                {% for answer in survey_item.answers %}
+                <td style="border: 0px">
+                    <div style="padding-top: 10px;">
+                        <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="checkbox"/>
+                        <label for="item_{{idx}}">{{answer.question_text}}</label>
+                    </div>
+
+                </td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+        {%endif%}
+        {% if survey_item.other_answer %}
+        <div style="padding-top: 20px;">
+            <label for="{{survey_item}}_other_option">其他选项</label>
+            <input type="text" name="{{survey_item}}_other_option" id="{{survey_item}}_other_option_textarea"/>
+        </div>
+        {% endif %}
+    </div>
+</div>

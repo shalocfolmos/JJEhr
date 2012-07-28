@@ -119,7 +119,33 @@
                                                                         </td>
                                                                     </tr>
                                                                     <!-- Comment: survey item start -->
+                                                                    {%for survey_item in survey_item_collection %}
+                                                                        {{survey_item.item_type}}
+                                                                        {% if survey_item.item_type == 'MULTIPLE_CHOICE' %}
+                                                                            {% include "www/survey_item_template/multiple_choice_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+                                                                        {% endif %}
 
+                                                                        {% if survey_item.item_type == 'SINGLE_CHOICE' %}
+                                                                            {% include "www/survey_item_template/single_choice_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+                                                                        {% endif %}
+
+                                                                        {% if survey_item.item_type == 'TEXT' %}
+                                                                            {% include "www/survey_item_template/text_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+                                                                        {% endif %}
+
+                                                                        {% if survey_item.item_type == 'TEXT_AREA' %}
+                                                                            {% include "www/survey_item_template/textarea_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+                                                                        {% endif %}
+
+                                                                        {% if survey_item.item_type == 'MULTIPLE_TEXT' %}
+                                                                            {% include "www/survey_item_template/multi_text_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+                                                                        {% endif %}
+
+
+                                                                        {% if survey_item.item_type == 'METRIX' %}
+                                                                            {% include "www/survey_item_template/metrix_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+                                                                        {% endif %}
+                                                                    {% endfor %}
 
                                                                     <!-- Comment: survey item end -->
                                                                 </tbody>
