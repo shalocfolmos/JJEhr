@@ -123,7 +123,7 @@
                                                                     <!-- Comment: survey item start -->
                                                                     {%for survey_item in survey_item_collection %}
                                                                         {% if survey_item.item_type == 'MULTIPLE_CHOICE' %}
-                                                                            {% include "www/survey_item_template/multiple_choice_query_template.html" with survey_item=survey_item survey=survey%}
+                                                                            {% include "www/survey_item_template/multiple_choice_query_template.html" with survey_item=survey_item survey=survey idx=forloop.counter%}
                                                                         {% endif %}
 
                                                                         {% if survey_item.item_type == 'SINGLE_CHOICE' %}

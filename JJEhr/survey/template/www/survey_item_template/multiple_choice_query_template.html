@@ -1,39 +1,137 @@
-<div class="ed_QstHdr">
-    <div>
-        <span class="ed_AbsNumbering">{{idx}}. {{survey_item.item_name}}</span>
-        <!--<input type="button" id="pushbutton" name="button" value="编辑问题"></input>-->
-        <input type="button" class="deleteButton" id="{{survey_item.id}}_deletebutton" value="删除"></input>
-    </div>
-    <div>
-        {% if survey_item.align_format == 'V' %}
-            {% for answer in survey_item.answers %}
-                <div style="padding-top: 10px;">
-                    <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="checkbox"/>
-                    <label for="item_{{idx}}">{{answer.question_text}}</label>
-                </div>
-            {% endfor %}
-        {% else %}
-        <table>
-            <tbody>
-            <tr>
-                {% for answer in survey_item.answers %}
-                <td style="border: 0px">
-                    <div style="padding-top: 10px;">
-                        <input name="item_{{idx}}" id="item_{{idx}}_answer{{answer.id}}" value="{{answer.question_value}}" type="checkbox"/>
-                        <label for="item_{{idx}}">{{answer.question_text}}</label>
-                    </div>
-
-                </td>
-                {% endfor %}
-            </tr>
-            </tbody>
-        </table>
-        {%endif%}
-        {% if survey_item.other_answer %}
-        <div style="padding-top: 20px;">
-            <label for="{{survey_item}}_other_option">其他选项</label>
-            <input type="text" name="{{survey_item}}_other_option" id="{{survey_item}}_other_option_textarea"/>
+<tr>
+    <td>
+        <div id="QuestionSection_28831425">
+            <a style="text-decoration:none;"> &nbsp; </a>
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tbody>
+                            <tr>
+                                <td class="QuestionText">{{survey_item.item_name}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="survey_error_{{survey_item.id}}" class="QuestionError"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tbody>
+                            {% for answer in survey_item.answers %}
+                            <tr>
+                                <td class="AnswerText">
+                                    <div class="" id="AnswerRow_135375634" style="width:100%;">
+                                        <table>
+                                            <tbody>
+                                                <tr valign="top">
+                                                    <td style="padding-top:5px;" valign="top">
+                                                        <div style="width:20px;">
+                                                            <input name="m_28831426" value="135375634" id="135375634ID" type="CHECKBOX"/>
+                                                        </div>
+                                                    </td>
+                                                    <td class="AnswerText" style="padding-top:5px;" valign="top">
+                                                        <span style="cursor:pointer;cursor:hand;">
+                                                            <div>
+                                                                <div style="margin-left:10px;">
+                                                                    {{answer.question_text}}
+                                                                </div>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                    <td style="padding-left:20px;" valign="center"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <input type="hidden" class="survey_item_{{survey_item.id}}_answer_list" value="{{answer.id}}"/>
+                            {% endfor %}
+                            {%if survey_item.other_answer %}
+                            <tr>
+                                <td class="AnswerText">
+                                    <div class="allRoundCorners" id="AnswerRow_135375714" style="width:100%;">
+                                        <table>
+                                            <tbody>
+                                            <tr valign="top">
+                                                <td style="padding-top:5px;" valign="top">
+                                                    <div style="width:20px;">
+                                                        <input name="survey_item_{{survey_item.id}}" id="survey_item_{{survey_item.id}}_other" type="RADIO" value="OTHER"></input>
+                                                    </div>
+                                                </td>
+                                                <td class="AnswerText" style="padding-top:5px;" valign="top">
+                                                    <span style="cursor:pointer;cursor:hand;">
+                                                        <div>
+                                                            <div style="margin-left:10px;">
+                                                                <label style="cursor:pointer;cursor:hand;" for="survey_item_{{survey_item.id}}_other">其他选项</label>
+                                                            </div>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                                <td style="padding-left:20px;" valign="center">
+                                                    <textarea id="survey_item_{{survey_item.id}}_other_text" style="width:320px;height:24px;"></textarea>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            {%endif%}
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        {% endif %}
-    </div>
-</div>
+    </td>
+    <input type="hidden" id="isRequired_{{survey_item.id}}" value="{{survey_item.is_required}}"/>
+    <input type="hidden" id="other_{{survey_item.id}}" value="{{survey_item.other_answer}}"/>
+</tr>
+<tr>
+    <td>
+        <div class="SurveyDivider">&nbsp;</div>
+    </td>
+</tr>
+
+<script type="text/javascript">
+    function fireSubmit() {
+        var surveyItemId = {{survey_item.id}},
+    answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
+            errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
+    errorArea.innerHTML= "";
+    for(var i=0;i<answerList.length;i++) {
+        var answerId = answerList[i].value;
+        radioButton = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
+        if(radioButton.checked) {
+            var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+            surveyItemIds+="::"+surveyItemId;
+            YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+            var surveyItemAnswer = YAHOO.util.Dom.get("surveyItemAnswers").value;
+            surveyItemAnswer+="::"+radioButton.value;
+            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+            return true;
+        }
+    }
+
+    var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
+    if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
+        var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+        surveyItemIds+="::"+surveyItemId;
+        YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+        var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
+        surveyItemAnswer+="::"+YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
+        YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+        return true;
+    }
+    errorArea.innerHTML="此选项必填";
+    return false;
+    }
+    customEvent.subscribe(fireSubmit);
+</script>
