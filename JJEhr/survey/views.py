@@ -202,5 +202,7 @@ def add_survey_result(request):
     surveyId = request.POST["surveyId"]
     surveyItemIds = request.POST["surveyItemIds"]
     surveyItemAnswers = request.POST["surveyItemAnswers"]
+    surveyItemIdsTuple = surveyItemIds.split("::")
+    surveyItemAnswersTuple = surveyItemAnswers.split("::")
     pass
 
