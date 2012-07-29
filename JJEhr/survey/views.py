@@ -177,7 +177,7 @@ def user_start_survey(request,token,page=1):
     for surveyItem in surveyItemCollection:
         surveyItemAnswerCollection = SurveyItemAnswer.objects.filter(survey_item = surveyItem)
         surveyItem.answers = surveyItemAnswerCollection
-    return render_to_response("www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey,"token":token})
+    return render_to_response("www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey,"token":token,"userId":surveyLog.user.id})
 
 #@require_http_methods(["POST"])
 def survey_login(request):
@@ -195,4 +195,12 @@ def survey_login(request):
         else:
             return render_to_response("www/survey_index.html",{"authenticated":"false","login_error":"true","token":token})
 
+
+@require_http_methods(["POST"])
+def add_survey_result(request):
+    userId = request.POST["userId"]
+    surveyId = request.POST["surveyId"]
+    surveyItemIds = request.POST["surveyItemIds"]
+    surveyItemAnswers = request.POST["surveyItemAnswers"]
+    pass
 

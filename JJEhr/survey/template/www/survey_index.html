@@ -195,6 +195,13 @@
 <input type="hidden" id="is_authenticated" value="{{authenticated}}"/>
 <input type="hidden" id="login_error" value="{{login_error}}"/>
 
+<form action="" method="POST">
+    <input type="hidden" name="userId" value="{{userId}}"/>
+    <input type="hidden" name="surveyId" value="{{survey.id}}"/>
+    <input type="hidden" id="surveyItemIds" name="surveyItemIds" value=""/>
+    <input type="hidden" id="surveyItemAnswers" name="surveyItemAnswers" value=""/>
+</form>
+
 <script type="text/javascript">
     function fire_login_event()
     {
@@ -215,6 +222,8 @@
     }
 
     function survey_submit() {
+        YAHOO.util.Dom.get("surveyItemIds").value = "";
+        YAHOO.util.Dom.get("surveyItemAnswers").value = "";
         customEvent.fire();
     }
 

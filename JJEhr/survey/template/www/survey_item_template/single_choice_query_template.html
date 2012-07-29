@@ -106,7 +106,7 @@
 
 <script type="text/javascript">
     function fireSubmit() {
-        var surveyItemId = {{survey_item.id}};
+        var surveyItemId = {{survey_item.id}},
         answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
         errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
         errorArea.innerHTML= "";
@@ -114,17 +114,26 @@
             var answerId = answerList[i].value;
             radioButton = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
             if(radioButton.checked) {
-                //TODO
+                var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+                surveyItemIds+="::"+surveyItemId;
+                YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+                var surveyItemAnswer = YAHOO.util.Dom.get("surveyItemAnswers").value;
+                surveyItemAnswer+="::"+radioButton.value;
+                YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
                 return true;
             }
         }
 
         var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
-        if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other").checked && YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other_text").value.length > 0) {
-            //TODO
+        if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
+            var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+            surveyItemIds+="::"+surveyItemId;
+            YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+            var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
+            surveyItemAnswer+="::"+YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
+            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
             return true;
         }
-
         errorArea.innerHTML="此选项必填";
         return false;
     }

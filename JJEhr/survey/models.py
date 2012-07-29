@@ -74,8 +74,8 @@ class SurveyItemAnswer(models.Model):
 
 class SurveyResult(models.Model):
     survey = ForeignKey(Survey)
-    survey_item_name = CharField(max_length=20, verbose_name="调查项目名词", db_column="survey_item_name")
-    survey_item_value = CharField(max_length=2000, verbose_name="调查结果", db_column="survey_item_value")
+    survey_item = ForeignKey(SurveyItem)
+    survey_item_answer_value = CharField(max_length=2000, verbose_name="调查结果", db_column="survey_item_value")
     survey_user = ForeignKey(User)
     create_date = DateTimeField(auto_now=True, db_column="create_date")
 
