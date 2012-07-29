@@ -54,7 +54,6 @@ class SurveyItem(models.Model):
     item_name = CharField(max_length=30, verbose_name="调查项目", db_column="item_name")
     is_required = BooleanField(verbose_name="必填", db_column="is_required")
     other_answer = BooleanField(verbose_name="是否有其他答案",db_column="other_answer")
-    align_format = CharField(max_length=30,verbose_name="排列方式",db_column="align_format", null=True, blank=True)
     survey = models.ForeignKey('Survey')
     page = IntegerField(db_column="page")
     create_date = DateTimeField(auto_now=True, db_column="create_date")

@@ -85,8 +85,7 @@ def create_survey_item(request):
         else:
             other_answer=True
         surveyItemAnswer = request.POST["surveyItemAnswer"]
-        align_format = request.POST["alignFormat"]
-        survey_item = SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num,other_answer=other_answer,align_format=align_format)
+        survey_item = SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num,other_answer=other_answer)
         answerCollection = surveyItemAnswer.split("\n")
 
         for idx,answer in enumerate(answerCollection):
