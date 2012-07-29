@@ -1,10 +1,88 @@
-<div class="ed_QstHdr" style="margin-top: 10px;">
-    <div>
-        <span class="ed_AbsNumbering">{{idx}}. {{survey_item.item_name}}</span>
-        <!--<input type="button" id="pushbutton1" name="button" value="编辑问题"></input>-->
-        <input type="button" class="deleteButton" id="{{survey_item.id}}_deletebutton" value="删除"></input>
-    </div>
-    <div>
-        <textarea style="width: 550px;height: 50px;" id="item_{{survey_item.id}}"></textarea>
-    </div>
-</div>
+<tr>
+    <td>
+        <div id="QuestionSection_28831425">
+            <a style="text-decoration:none;"> &nbsp; </a>
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td colspan="3">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td colspan="2" class="QuestionError"></td>
+                                </tr>
+                                <tr>
+                                    <td id="28831438" colspan="2" class="QuestionText" valign="top">
+                                        <div class="QuestionText" style="margin:0px;padding:0px 20px 0px 0px; ;">
+                                            {{survey_item.item_name}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="AnswerText">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                            <tr>
+                                                <td class="AnswerText" valign="center"></td>
+                                                <td class="AnswerText">
+                                                    <textarea id="qWidthCtrl_135375692" style="width:480px;height:80px;" name="t_135375692"></textarea>
+                                                </td>
+                                                <td class="AnswerText" valign="center"> &nbsp; </td>
+                                            </tr>
+                                            <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </td>
+    <input type="hidden" id="isRequired_{{survey_item.id}}" value="{{survey_item.is_required}}"/>
+    <input type="hidden" id="other_{{survey_item.id}}" value="{{survey_item.other_answer}}"/>
+</tr>
+<tr>
+    <td>
+        <div class="SurveyDivider">&nbsp;</div>
+    </td>
+</tr>
+
+<script type="text/javascript">
+    function fireSubmit() {
+        var surveyItemId = {{survey_item.id}},
+    answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
+            errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
+    errorArea.innerHTML= "";
+    for(var i=0;i<answerList.length;i++) {
+        var answerId = answerList[i].value;
+        radioButton = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
+        if(radioButton.checked) {
+            var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+            surveyItemIds+="::"+surveyItemId;
+            YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+            var surveyItemAnswer = YAHOO.util.Dom.get("surveyItemAnswers").value;
+            surveyItemAnswer+="::"+radioButton.value;
+            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+            return true;
+        }
+    }
+
+    var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
+    if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
+        var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+        surveyItemIds+="::"+surveyItemId;
+        YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+        var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
+        surveyItemAnswer+="::"+YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
+        YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+        return true;
+    }
+    errorArea.innerHTML="此选项必填";
+    return false;
+    }
+    customEvent.subscribe(fireSubmit);
+</script>

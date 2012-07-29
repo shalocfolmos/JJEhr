@@ -8,6 +8,7 @@
     border: 2px solid #AAAAAA;
     height: 100%;
 }
+
 .SurveyContent textarea, .SurveyContent input, .SurveyContent select, .SurveyContent option {
     color: #053D60;
     font-family: "Lucida Grande",Verdana,sans-serif;
