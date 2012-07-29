@@ -19,14 +19,14 @@
 
 <script type="text/javascript">
     function metrix_survey_item() {
-        var isRequired = YAHOO.util.Dom.get(("multi_text_survey_item_required")).checked,
+        var isRequired = YAHOO.util.Dom.get("multi_text_survey_item_required").checked,
                 otherAnswer = false,
-                surveyItemText = YAHOO.util.Dom.get(("survey_item_text")).value,
-                survey_id = YAHOO.util.Dom.get(("survey_id")).value,
-                page_num = YAHOO.util.Dom.get(("page_num")).value,
-                surveyItemType = YAHOO.util.Dom.get(("metrix_survey_item_type")).value,
-                surveyItemAnswer = YAHOO.util.Dom.get(("metrix_survey_item_answer")).value,
-                surveyItemAnswerValue = YAHOO.util.Dom.get(("metrix_survey_item_answer_value")).value,
+                surveyItemText = YAHOO.util.Dom.get("survey_item_text").value,
+                survey_id = YAHOO.util.Dom.get("survey_id").value,
+                page_num = YAHOO.util.Dom.get("page_num").value,
+                surveyItemType = YAHOO.util.Dom.get("metrix_survey_item_type").value,
+                surveyItemAnswer = YAHOO.util.Dom.get("metrix_survey_item_answer").value,
+                surveyItemAnswerValue = YAHOO.util.Dom.get("metrix_survey_item_answer_value").value,
                 alignFormat = 'V';
 
         var postData = "isRequired="+isRequired+"&otherAnswer="+otherAnswer+"&surveyItemText="+surveyItemText+

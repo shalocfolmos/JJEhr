@@ -14,6 +14,8 @@
     {% else %}
         <link rel="stylesheet" href="{{STATIC_URL}}/survey/css/base.css" type="text/css"/>
     {% endif%}
+    <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
 </head>
 {% if authenticated == 'false' %}
 <body class="yui-skin-sam">
@@ -21,7 +23,7 @@
 <body class="SurveyRunBody">
 {% endif %}
     <script type="text/javascript">
-        var customEvent = new YAHOO.util.CustomEvent("pageSave")
+        var customEvent = new YAHOO.util.CustomEvent("pageSave");
     </script>
     {% if authenticated == 'false' %}
         <div id="login_panel">
@@ -125,7 +127,7 @@
                                                                         {% endif %}
 
                                                                         {% if survey_item.item_type == 'SINGLE_CHOICE' %}
-                                                                            {% include "www/survey_item_template/single_choice_query_template.html" with survey_item=survey_item survey=survey%}
+                                                                            {% include "www/survey_item_template/single_choice_query_template.html" with survey_item=survey_item survey=survey  idx=forloop.counter%}
                                                                         {% endif %}
 
                                                                         {% if survey_item.item_type == 'TEXT' %}
@@ -157,11 +159,10 @@
                                                 <!-- Comment: start form bottom -->
                                                 <table align="center" width="100%" cellspacing="0" cellpadding="0">
                                                     <tbody>
-
                                                         <tr>
                                                             <td align="center">
                                                                 <div id="SurveySubmitButton">
-                                                                    <input type="button" value="Continue" name="submitButton" onclick="document.forms['run'].submit();return false;" id="SurveySubmitButtonElement">
+                                                                    <input type="button" value="Continue" name="submitButton" onclick="survey_submit()" id="SurveySubmitButtonElement">
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -193,14 +194,12 @@
     {% endif %}
 <input type="hidden" id="is_authenticated" value="{{authenticated}}"/>
 <input type="hidden" id="login_error" value="{{login_error}}"/>
-<script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-<script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
+
 <script type="text/javascript">
     function fire_login_event()
     {
         YAHOO.util.Dom.get("login_form").submit();
     }
-
     function init() {
         if(YAHOO.util.Dom.get("is_authenticated").value == 'false')
         {
@@ -213,6 +212,10 @@
                 alert("用户名密码错误，请重新登入")
             }
         }
+    }
+
+    function survey_submit() {
+        customEvent.fire();
     }
 
 

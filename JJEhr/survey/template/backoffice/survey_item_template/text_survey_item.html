@@ -8,11 +8,11 @@
 
 <script type="text/javascript">
     function text_survey_item() {
-        var isRequired = YAHOO.util.Dom.get(("multi_choice_survey_item_required")).checked,
-                surveyItemText = YAHOO.util.Dom.get(("survey_item_text")).value,
-                survey_id = YAHOO.util.Dom.get(("survey_id")).value,
-                page_num = YAHOO.util.Dom.get(("page_num")).value,
-                surveyItemType = YAHOO.util.Dom.get(("text_survey_item_type")).value;
+        var isRequired = YAHOO.util.Dom.get("multi_choice_survey_item_required").checked,
+                surveyItemText = YAHOO.util.Dom.get("survey_item_text").value,
+                survey_id = YAHOO.util.Dom.get("survey_id").value,
+                page_num = YAHOO.util.Dom.get("page_num").value,
+                surveyItemType = YAHOO.util.Dom.get("text_survey_item_type").value;
 
         var postData = "isRequired="+isRequired+"&surveyItemText="+surveyItemText+
                 "&survey_id="+survey_id+"&page_num="+page_num+"&surveyItemType="+surveyItemType;

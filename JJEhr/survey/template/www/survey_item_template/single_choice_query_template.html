@@ -33,16 +33,16 @@
                                                 <td style="padding-top:5px;" valign="top">
                                                     <div style="width:20px;">
                                                         <!-- Comment: component start -->
-                                                        <input value="{{answer.question_value}}" id="question_answer_{{answer.id}}" type="RADIO">
+                                                        <input name="survey_item_{{survey_item.id}}" value="{{answer.question_value}}" id="survey_{{survey_item.id}}_answer_{{answer.id}}" type="RADIO">
                                                         </input>
                                                         <!-- Comment: component end -->
                                                     </div>
                                                 </td>
                                                 <td class="AnswerText" style="padding-top:5px;" valign="top">
-                                                    <span style="cursor:pointer;cursor:hand;">
+                                                    <span>
                                                         <div>
                                                             <div style="margin-left:10px;">
-                                                                {{answer.question_text}}
+                                                                <label style="cursor:pointer;cursor:hand;" for="survey_{{survey_item.id}}_answer_{{answer.id}}">{{answer.question_text}}</label>
                                                             </div>
                                                         </div>
                                                     </span>
@@ -54,6 +54,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            <input type="hidden" class="survey_item_{{survey_item.id}}_answer_list" value="{{answer.id}}"/>
                             {% endfor %}
                             {%if survey_item.other_answer %}
                             <tr>
@@ -64,20 +65,20 @@
                                             <tr valign="top">
                                                 <td style="padding-top:5px;" valign="top">
                                                     <div style="width:20px;">
-                                                        <input name="u_28831441" value="135375714" id="135375714ID" type="RADIO">
+                                                        <input name="survey_item_{{survey_item.id}}" id="survey_item_{{survey_item.id}}_other" type="RADIO" value="OTHER"></input>
                                                     </div>
                                                 </td>
                                                 <td class="AnswerText" style="padding-top:5px;" valign="top">
                                                     <span style="cursor:pointer;cursor:hand;">
                                                         <div>
                                                             <div style="margin-left:10px;">
-                                                                其他
+                                                                <label style="cursor:pointer;cursor:hand;" for="survey_item_{{survey_item.id}}_other">其他选项</label>
                                                             </div>
                                                         </div>
                                                     </span>
                                                 </td>
                                                 <td style="padding-left:20px;" valign="center">
-                                                    <textarea id="qWidthCtrl_135375714" style="width:320px;height:24px;" "="" name="t_135375714"></textarea>
+                                                    <textarea id="survey_item_{{survey_item.id}}_other_text" style="width:320px;height:24px;"></textarea>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -94,14 +95,38 @@
             </table>
         </div>
     </td>
-    <input type="hidden" id="isRequired" value="{{survey_item.is_required}}"/>
-
+    <input type="hidden" id="isRequired_{{survey_item.id}}" value="{{survey_item.is_required}}"/>
+    <input type="hidden" id="other_{{survey_item.id}}" value="{{survey_item.other_answer}}"/>
 </tr>
 <tr>
     <td>
         <div class="SurveyDivider">&nbsp;</div>
     </td>
 </tr>
-<script type="text/javascript">
 
+<script type="text/javascript">
+    function fireSubmit() {
+        var surveyItemId = {{survey_item.id}};
+        answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
+        errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
+        errorArea.innerHTML= "";
+        for(var i=0;i<answerList.length;i++) {
+            var answerId = answerList[i].value;
+            radioButton = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
+            if(radioButton.checked) {
+                //TODO
+                return true;
+            }
+        }
+
+        var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
+        if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other").checked && YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other_text").value.length > 0) {
+            //TODO
+            return true;
+        }
+
+        errorArea.innerHTML="此选项必填";
+        return false;
+    }
+    customEvent.subscribe(fireSubmit);
 </script>
