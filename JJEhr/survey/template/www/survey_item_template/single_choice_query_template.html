@@ -78,8 +78,9 @@
                                                     </span>
                                                 </td>
                                                 <td style="padding-left:20px;" valign="center">
-                                                    <textarea id="survey_item_{{survey_item.id}}_other_text" style="width:320px;height:24px;"></textarea>
+                                                    <input type="text" id="survey_item_{{survey_item.id}}_other_text" style="width:320px;height:24px;"></input>
                                                 </td>
+                                            </tr>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -134,8 +135,12 @@
             YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
             return true;
         }
-        errorArea.innerHTML="此选项必填";
-        return false;
+
+        if({{survey_item.is_required == 'True'}})
+        {
+            errorArea.innerHTML="此选项必填";
+            return false;
+        }
     }
     customEvent.subscribe(fireSubmit_{{survey_item.id}});
 </script>

@@ -91,7 +91,6 @@
             </table>
         </div>
     </td>
-    <input type="hidden" id="isRequired_{{survey_item.id}}" value="{{survey_item.is_required}}"/>
     <input type="hidden" id="other_{{survey_item.id}}" value="{{survey_item.other_answer}}"/>
 </tr>
 <tr>
@@ -125,7 +124,7 @@
             ++checkElementCount;
         }
 
-        if(checkElementCount==0)
+        if(checkElementCount==0 && {{survey_item.is_required == 'True'}})
         {
             errorArea.innerHTML="此选项必填";
             return false;
