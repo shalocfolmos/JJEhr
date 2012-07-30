@@ -61,7 +61,7 @@
                                             <tr valign="top">
                                                 <td style="padding-top:5px;" valign="top">
                                                     <div style="width:20px;">
-                                                        <input name="survey_item_{{survey_item.id}}" onclick="click_checkbox_{{survey_item.id}}()" id="survey_item_{{survey_item.id}}_other" type="checkbox" value="OTHER"></input>
+                                                        <input name="survey_item_{{survey_item.id}}" id="survey_item_{{survey_item.id}}_other" type="checkbox" value="OTHER"></input>
                                                     </div>
                                                 </td>
                                                 <td class="AnswerText" style="padding-top:5px;" valign="top">
@@ -101,13 +101,6 @@
 </tr>
 
 <script type="text/javascript">
-    function click_checkbox_{{survey_item.id}}() {
-
-        var checkbox = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other");
-        if(!checkbox.checked) {
-            YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other_text").value == "";
-        }
-    }
 
     function fireSubmit() {
         var surveyItemId = {{survey_item.id}},
