@@ -31,7 +31,7 @@
                                                 <tr valign="top">
                                                     <td style="padding-top:5px;" valign="top">
                                                         <div style="width:20px;">
-                                                            <input name="m_28831426" value="135375634" id="135375634ID" type="CHECKBOX"/>
+                                                            <input value="{{answer.question_value}}"  id="survey_{{survey_item.id}}_answer_{{answer.id}}" type="CHECKBOX"/>
                                                         </div>
                                                     </td>
                                                     <td class="AnswerText" style="padding-top:5px;" valign="top">
@@ -61,7 +61,7 @@
                                             <tr valign="top">
                                                 <td style="padding-top:5px;" valign="top">
                                                     <div style="width:20px;">
-                                                        <input name="survey_item_{{survey_item.id}}" id="survey_item_{{survey_item.id}}_other" type="checkbox" value="OTHER"></input>
+                                                        <input name="survey_item_{{survey_item.id}}" onclick="click_checkbox_{{survey_item.id}}()" id="survey_item_{{survey_item.id}}_other" type="checkbox" value="OTHER"></input>
                                                     </div>
                                                 </td>
                                                 <td class="AnswerText" style="padding-top:5px;" valign="top">
@@ -74,7 +74,7 @@
                                                     </span>
                                                 </td>
                                                 <td style="padding-left:20px;" valign="center">
-                                                    <textarea id="survey_item_{{survey_item.id}}_other_text" style="width:320px;height:24px;"></textarea>
+                                                    <input type="text" id="survey_item_{{survey_item.id}}_other_text" style="width:320px;height:24px;"></input>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -101,37 +101,53 @@
 </tr>
 
 <script type="text/javascript">
-    function fireSubmit() {
-        var surveyItemId = {{survey_item.id}},
-    answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
-            errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
-    errorArea.innerHTML= "";
-    for(var i=0;i<answerList.length;i++) {
-        var answerId = answerList[i].value;
-        radioButton = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
-        if(radioButton.checked) {
-            var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
-            surveyItemIds+="::"+surveyItemId;
-            YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-            var surveyItemAnswer = YAHOO.util.Dom.get("surveyItemAnswers").value;
-            surveyItemAnswer+="::"+radioButton.value;
-            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-            return true;
+    function click_checkbox_{{survey_item.id}}() {
+
+        var checkbox = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other");
+        if(!checkbox.checked) {
+            YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other_text").value == "";
         }
     }
 
-    var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
-    if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
-        var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
-        surveyItemIds+="::"+surveyItemId;
-        YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-        var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
-        surveyItemAnswer+="::"+YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
-        YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-        return true;
-    }
-    errorArea.innerHTML="此选项必填";
-    return false;
+    function fireSubmit() {
+        var surveyItemId = {{survey_item.id}},
+        answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
+                errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
+        errorArea.innerHTML= "",
+        checkElementCount = 0;
+        selectedValue = "";
+        for(var i=0;i<answerList.length;i++) {
+            var answerId = answerList[i].value;
+            checkbox = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
+            if(checkbox.checked) {
+                selectedValue+="&"+checkbox.value;
+                ++checkElementCount;
+            }
+        }
+
+        var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
+        if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
+            selectedValue+="&"+YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
+            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+            ++checkElementCount;
+        }
+
+        if(checkElementCount==0)
+        {
+            errorArea.innerHTML="此选项必填";
+            return false;
+        }
+        else
+        {
+            var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+            surveyItemIds+="::"+surveyItemId;
+            YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+            var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
+            surveyItemAnswer+="::"+selectedValue;
+            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+            return true;
+        }
+
     }
     customEvent.subscribe(fireSubmit);
 </script>
