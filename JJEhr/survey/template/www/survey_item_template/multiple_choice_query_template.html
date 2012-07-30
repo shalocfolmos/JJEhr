@@ -102,7 +102,7 @@
 
 <script type="text/javascript">
 
-    function fireSubmit() {
+    function fireSubmit_{{survey_item.id}}() {
         var surveyItemId = {{survey_item.id}},
         answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
                 errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
@@ -140,7 +140,6 @@
             YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
             return true;
         }
-
     }
-    customEvent.subscribe(fireSubmit);
+    customEvent.subscribe(fireSubmit_{{survey_item.id}});
 </script>
