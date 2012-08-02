@@ -124,7 +124,7 @@
             ++checkElementCount;
         }
 
-        if(checkElementCount==0 && {{survey_item.is_required == 'True'}})
+        if(checkElementCount==0 && "{{survey_item.is_required}}"=="True")
         {
             errorArea.innerHTML="此选项必填";
             return false;

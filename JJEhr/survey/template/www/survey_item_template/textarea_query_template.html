@@ -9,14 +9,14 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                    <td colspan="2" class="QuestionError"></td>
-                                </tr>
-                                <tr>
                                     <td id="28831438" colspan="2" class="QuestionText" valign="top">
                                         <div class="QuestionText" style="margin:0px;padding:0px 20px 0px 0px; ;">
                                             {{survey_item.item_name}}
                                         </div>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td id="survey_error_{{survey_item.id}}" class="QuestionError"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="AnswerText">
@@ -52,10 +52,10 @@
 
 <script type="text/javascript">
     function fireSubmit() {
-        var textArea = YAHOO.util.DOm.get("survey_item_"+{{survey_item.id}}+"_answer"),
-        errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
+        var textArea = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer"),
+        errorArea = YAHOO.util.Dom.get("survey_error_" + {{survey_item.id}});
         errorArea.innerHTML= "";
-        if({{survey_item.is_required == 'True'}} && textArea.length < 1)
+        if("{{survey_item.is_required}}"=="True" && textArea.innerHTML.length < 1)
         {
             errorArea.innerHTML="此选项必填";
             return false;
