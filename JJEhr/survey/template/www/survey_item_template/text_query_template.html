@@ -25,7 +25,7 @@
                                         <tr>
                                             <td class="AnswerText" valign="center"></td>
                                             <td class="AnswerText">
-                                                <input type="text" id="survey_item_{{survey_item.id}}_answer" style="width:480px;height:80px;" ></input>
+                                                <input type="text"  id="survey_item_{{survey_item.id}}_answer" style="width:400px;"></input>
                                             </td>
                                             <td class="AnswerText" valign="center"> &nbsp; </td>
                                         </tr>
@@ -52,12 +52,13 @@
 
 <script type="text/javascript">
     function fireSubmit_{{survey_item.id}}() {
-        var textArea = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer"),
+        var text = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer"),
         errorArea = YAHOO.util.Dom.get("survey_error_" + {{survey_item.id}});
         errorArea.innerHTML= "";
-        alert(textArea.value.length);
-        if("{{survey_item.is_required}}"=="True" && textArea.value.length < 1)
+        alert(text.value);
+        if("{{survey_item.is_required}}"=="True" && text.value.length < 1)
         {
+            alert('e');
             errorArea.innerHTML="此选项必填";
             return false;
         }
@@ -65,7 +66,7 @@
         surveyItemIds+="::"+{{survey_item.id}};
         YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
         var surveyItemAnswer = YAHOO.util.Dom.get("surveyItemAnswers").value;
-        surveyItemAnswer+="::"+textArea.value;
+        surveyItemAnswer+="::"+text.value;
         YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
     }
     customEvent.subscribe(fireSubmit_{{survey_item.id}});

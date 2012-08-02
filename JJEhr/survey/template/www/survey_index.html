@@ -129,7 +129,6 @@
                                                                         {% if survey_item.item_type == 'SINGLE_CHOICE' %}
                                                                             {% include "www/survey_item_template/single_choice_query_template.html" with survey_item=survey_item survey=survey  idx=forloop.counter%}
                                                                         {% endif %}
-
                                                                         {% if survey_item.item_type == 'TEXT' %}
                                                                             {% include "www/survey_item_template/text_query_template.html" with survey_item=survey_item idx=forloop.counter%}
                                                                         {% endif %}
