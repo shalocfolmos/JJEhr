@@ -55,19 +55,23 @@
         var text = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer"),
         errorArea = YAHOO.util.Dom.get("survey_error_" + {{survey_item.id}});
         errorArea.innerHTML= "";
-        alert(text.value);
+        alert("{{survey_item.is_required}}"=="True");
         if("{{survey_item.is_required}}"=="True" && text.value.length < 1)
         {
-            alert('e');
             errorArea.innerHTML="此选项必填";
             return false;
         }
+        alert({{survey_item.is_required}});
         var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+        alert('1');
         surveyItemIds+="::"+{{survey_item.id}};
         YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+        alert('2');
         var surveyItemAnswer = YAHOO.util.Dom.get("surveyItemAnswers").value;
         surveyItemAnswer+="::"+text.value;
+        alert('3');
         YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+        alert('4');
     }
     customEvent.subscribe(fireSubmit_{{survey_item.id}});
 </script>

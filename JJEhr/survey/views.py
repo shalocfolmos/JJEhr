@@ -126,7 +126,7 @@ def delete_survey_item(request,surveyId=0):
     try:
         SurveyItemAnswer.objects.filter(survey_item=surveyId).delete()
         SurveyItem.objects.get(id=surveyId).delete()
-    except Exception:
+    except Exception,e:
         return  HttpResponse(u"系统异常请重新尝试")
     return  HttpResponse(u"操作成功")
 
