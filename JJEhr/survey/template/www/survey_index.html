@@ -16,6 +16,8 @@
     {% endif%}
     <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
     <script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/paginator/paginator-min.js"></script>
 </head>
 {% if authenticated == 'false' %}
 <body class="yui-skin-sam">
@@ -163,6 +165,7 @@
                                                                 <div id="SurveySubmitButton">
                                                                     <input type="button" value="Continue" name="submitButton" onclick="survey_submit()" id="SurveySubmitButtonElement">
                                                                 </div>
+                                                                <div style="float: right;padding-right: 10px;" id="pagePanel"></div>
                                                             </td>
                                                         </tr>
                                                     </tbody>

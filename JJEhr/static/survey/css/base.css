@@ -287,3 +287,42 @@ a.scalePeg:hover {
 .control_text_div_right {
     float: right;
 }
+
+a.yui-pg-previous
+{
+    -moz-font-feature-settings: normal;
+    -moz-font-language-override: normal;
+    background: url("../bg-btn-local.gif") repeat-x scroll 0 0 #E6E6E6;
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    cursor: pointer;
+    font-family: "Lucida Grande",sans-serif;
+    font-size: 15px;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 20px !important;
+    padding: 5px 15px 6px;
+    text-decoration: none;
+}
+
+a.yui-pg-next{
+    -moz-font-feature-settings: normal;
+    -moz-font-language-override: normal;
+    background: url("../bg-btn-local.gif") repeat-x scroll 0 0 #E6E6E6;
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    cursor: pointer;
+    font-family: "Lucida Grande",sans-serif;
+    font-size: 15px;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 20px !important;
+    padding: 5px 15px 6px;
+    text-decoration: none;
+}
