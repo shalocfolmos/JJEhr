@@ -1,6 +1,9 @@
 <div id="metrix_survey_item" style="display: none;">
     <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
-        <input type="checkbox" style="padding-left: 20px;"/><span style="padding-right: 20px;">是否必填</span>
+        <input id="metrix_item_is_required" type="checkbox" style="padding-left: 20px;"></input>
+        <span style="padding-right: 20px;">
+            <label for="metrix_item_is_required">是否必填</label>
+        </span>
     </div>
     <div style="color: #E76300;font-size: 14px;padding-bottom: 5px;">
         <span style="color: red;font-size: 14px;">(*)</span>列选项(用回车表示分割)
@@ -19,7 +22,7 @@
 
 <script type="text/javascript">
     function metrix_survey_item() {
-        var isRequired = YAHOO.util.Dom.get("multi_text_survey_item_required").checked,
+        var isRequired = YAHOO.util.Dom.get("metrix_item_is_required").checked,
                 otherAnswer = false,
                 surveyItemText = YAHOO.util.Dom.get("survey_item_text").value,
                 survey_id = YAHOO.util.Dom.get("survey_id").value,

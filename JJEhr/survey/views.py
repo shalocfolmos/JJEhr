@@ -176,6 +176,8 @@ def user_start_survey(request,token,page=1):
     for surveyItem in surveyItemCollection:
         surveyItemAnswerCollection = SurveyItemAnswer.objects.filter(survey_item = surveyItem)
         surveyItem.answers = surveyItemAnswerCollection
+        if surveyItem.item_type == 'METRIX' and surveyItem.answers[0].question_value:
+            surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
     return render_to_response("www/survey_index.html",{"survey_item_collection":surveyItemCollection,"survey":surveyLog.survey,"token":token,"userId":surveyLog.user.id})
 
 #@require_http_methods(["POST"])
