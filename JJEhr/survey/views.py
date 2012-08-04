@@ -58,7 +58,7 @@ def delete_page(request, surveyId):
     surveyItemCollection.delete()
     if survey.total_page > 1:
         survey.total_page -= 1
-        survey.update()
+        survey.save()
     return HttpResponseRedirect("/backoffice/survey/edit/"+surveyId+"/"+str(1))
 
 
@@ -110,11 +110,14 @@ def preview(request):
 @login_required(login_url='/backoffice/login')
 def add_page(request, surveyId):
     survey = Survey.objects.get(id=surveyId)
-    if(survey):
-        survey.total_page += 1;
-        survey.update()
-        result = u'添加页面成功'
-    else:
+    try:
+        if(survey):
+            survey.total_page += 1;
+            survey.save()
+            result = u'添加页面成功'
+        else:
+            result = u'添加页面失败'
+    except Exception,e:
         result = u'添加页面失败'
     return HttpResponse(result)
 
@@ -135,8 +138,8 @@ def delete_survey_item(request,surveyId=0):
 @login_required(login_url='/backoffice/login')
 def complete_survey(request,surveyId):
     survey = Survey.objects.get(id=surveyId)
-    survey.survey_status = 'FINISH'
-    survey.update()
+    survey.survey_status= 'FINISH'
+    survey.save()
     return HttpResponseRedirect("/backoffice/survey/list")
 
 
@@ -155,11 +158,11 @@ def start_survey(request,surveyId):
                 recipient_list=[surveyLog.email],
                 fail_silently=False)
             surveyLog.send_email = True
-            surveyLog.update()
+            surveyLog.save()
         except Exception:
             pass
     survey.survey_status = 'CONTINUE'
-    survey.update()
+    survey.save()
     return HttpResponseRedirect("/backoffice/survey/list")
 
 @require_http_methods(["GET"])
