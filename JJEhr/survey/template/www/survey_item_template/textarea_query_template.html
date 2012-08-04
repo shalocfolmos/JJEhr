@@ -55,7 +55,7 @@
         var textArea = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer"),
         errorArea = YAHOO.util.Dom.get("survey_error_" + {{survey_item.id}});
         errorArea.innerHTML= "";
-        if("{{survey_item.is_required}}"=="True" && textArea.innerHTML.length < 1)
+        if("{{survey_item.is_required}}"=="True" && textArea.value.length < 1)
         {
             errorArea.innerHTML="此选项必填";
             return false;

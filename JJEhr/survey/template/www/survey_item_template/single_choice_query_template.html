@@ -106,7 +106,6 @@
 
 <script type="text/javascript">
     function fireSubmit_{{survey_item.id}}() {
-
         var surveyItemId = {{survey_item.id}},
         answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
         errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
@@ -126,7 +125,9 @@
         }
 
         var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
-        if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
+
+        if (otherAnswer == "True" &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
+
             var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
             surveyItemIds+="::"+surveyItemId;
             YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
