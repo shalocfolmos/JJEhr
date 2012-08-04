@@ -64,13 +64,29 @@
                 surveyErrorElement.innerHTML="此选项必填";
                 return false;
             }
-             surveyErrorElement.innerHTML="";
-
+            surveyErrorElement.innerHTML="";
         }
-//        var text = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer"),
-//        errorArea = YAHOO.util.Dom.get("survey_error_" + {{survey_item.id}});
-//        errorArea.innerHTML= "";
 
+        var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+        surveyItemIds+="::"+{{survey_item.id}};
+        YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+        var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
+        surveyItemAnswer+="::";
+        YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+        for(var i=0;i<surveyAnswerList.length;i++)
+        {
+            var surveyAnswer = surveyAnswerList[i],
+            answerId = surveyAnswer.id.substr(surveyAnswer.id.lastIndexOf("_")+1,surveyAnswer.id.length);
+
+            var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+            surveyItemIds+="&&"+answerId;
+            YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
+
+            var answerValue = YAHOO.util.Dom.get("survey_item_{{survey_item.id}}_answer_"+answerId).value;
+            var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
+            surveyItemAnswer+="&&"+answerValue;
+            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+        }
     }
     customEvent.subscribe(fireSubmit_{{survey_item.id}});
 </script>
