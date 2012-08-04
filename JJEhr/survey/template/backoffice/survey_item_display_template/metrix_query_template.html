@@ -18,10 +18,10 @@
                 </td>
                 {% endfor%}
             </tr>
-            {% for survey_item in surveyItemCollection %}
+            {% for answer in survey_item.answers %}
             <tr>
                 <td>
-                    {{survey_item.item_name}}
+                    {{answer.question_text}}
                 </td>
                 {% for answer_value in survey_item.item_values %}
                     <td>
