@@ -71,10 +71,11 @@
             }
         }
 
-        var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
+        var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value,
+        surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
         surveyItemIds+="::"+{{survey_item.id}};
         YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-        var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
+
         surveyItemAnswer+="::";
         YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
         for(var i=0;i<answerIdElements.length;i++) {
