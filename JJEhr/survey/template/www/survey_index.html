@@ -25,7 +25,7 @@
 <body class="SurveyRunBody">
 {% endif %}
     <script type="text/javascript">
-        var customEvent = new YAHOO.util.CustomEvent("validatePage");
+        var validateEvent = new YAHOO.util.CustomEvent("validate");
     </script>
     {% if authenticated == 'false' %}
         <div id="login_panel">
@@ -251,9 +251,7 @@
     }
 
     function survey_submit() {
-        YAHOO.util.Dom.get("surveyItemIds").value = "";
-        YAHOO.util.Dom.get("surveyItemAnswers").value = "";
-        customEvent.fire();
+        validateEvent.fire();
     }
 
 
