@@ -202,6 +202,33 @@
     <input type="hidden" name="surveyId" value="{{survey.id}}"/>
     <input type="hidden" id="surveyItemIds" name="surveyItemIds" value=""/>
     <input type="hidden" id="surveyItemAnswers" name="surveyItemAnswers" value=""/>
+    {%for survey_item in survey_item_collection %}
+        {% if survey_item.item_type == 'MULTIPLE_CHOICE' %}
+            {% include "www/survey_item_hidden_template/multi_choice_hidden_template.html" with survey_item=survey_item survey=survey idx=forloop.counter%}
+        {% endif %}
+
+        {% if survey_item.item_type == 'SINGLE_CHOICE' %}
+            {% include "www/survey_item_hidden_template/single_choice_hidden_template.html" with survey_item=survey_item survey=survey  idx=forloop.counter%}
+        {% endif %}
+
+        {% if survey_item.item_type == 'TEXT' %}
+            {% include "www/survey_item_hidden_template/text_query_hidden_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
+
+        {% if survey_item.item_type == 'TEXT_AREA' %}
+            {% include "www/survey_item_hidden_template/textarea_query_hidden_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
+
+        {% if survey_item.item_type == 'MULTIPLE_TEXT' %}
+            {% include "www/survey_item_hidden_template/multi_text_query_hidden_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
+
+
+        {% if survey_item.item_type == 'METRIX' %}
+            {% include "www/survey_item_hidden_template/metricx_query_hidden_template.html" with survey_item=survey_item idx=forloop.counter%}
+        {% endif %}
+
+    {%endfor%}
 </form>
 
 <script type="text/javascript">
