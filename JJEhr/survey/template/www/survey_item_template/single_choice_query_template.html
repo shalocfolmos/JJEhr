@@ -142,5 +142,23 @@
             return false;
         }
     }
-    customEvent.subscribe(fireSubmit_{{survey_item.id}});
+
+    function submitData_{{survey_item.id}}() {
+
+    }
+
+    function validate_{{survey_item.id}}() {
+        var text = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer"),
+    errorArea = YAHOO.util.Dom.get("survey_error_" + {{survey_item.id}});
+    errorArea.innerHTML= "";
+    if("{{survey_item.is_required}}"=="True" && text.value.length < 1)
+    {
+        errorArea.innerHTML="此选项必填";
+        return false;
+    }
+    }
+
+    validateEvent.subscribe(validate_{{survey_item.id}});
+    submitEvent.subscribe(submitData_{{survey_item.id}});
+
 </script>

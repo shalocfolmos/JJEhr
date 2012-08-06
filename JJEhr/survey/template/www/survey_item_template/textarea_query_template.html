@@ -51,7 +51,11 @@
 </tr>
 
 <script type="text/javascript">
-    function fireSubmit() {
+    function submitData_{{survey_item.id}}() {
+
+    }
+
+    function validate_{{survey_item.id}}() {
         var textArea = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer"),
         errorArea = YAHOO.util.Dom.get("survey_error_" + {{survey_item.id}});
         errorArea.innerHTML= "";
@@ -60,12 +64,8 @@
             errorArea.innerHTML="此选项必填";
             return false;
         }
-        var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
-        surveyItemIds+="::"+{{survey_item.id}};
-        YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-        var surveyItemAnswer = YAHOO.util.Dom.get("surveyItemAnswers").value;
-        surveyItemAnswer+="::"+textArea.value;
-        YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
     }
-    customEvent.subscribe(fireSubmit);
+
+    validateEvent.subscribe(validate_{{survey_item.id}});
+    submitEvent.subscribe(submitData_{{survey_item.id}});
 </script>
