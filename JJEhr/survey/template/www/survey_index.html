@@ -225,7 +225,7 @@
 
 
         {% if survey_item.item_type == 'METRIX' %}
-            {% include "www/survey_item_hidden_template/metricx_query_hidden_template.html" with survey_item=survey_item idx=forloop.counter%}
+            {% include "www/survey_item_hidden_template/metrix_query_hidden_template.html" with survey_item=survey_item idx=forloop.counter%}
         {% endif %}
 
     {%endfor%}
