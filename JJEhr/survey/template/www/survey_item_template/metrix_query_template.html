@@ -95,5 +95,30 @@
             }
         }
     }
-    validateEvent.subscribe(fireSubmit_{{survey_item.id}});
+
+    function validate_{{survey_item.id}}() {
+        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element"),
+        valueSize = {{survey_item.item_values|length}};
+        YAHOO.util.Dom.get("questionErrorArea").innerHTML = ""
+        for(var i=0;i<answerIdElements.length;i++) {
+            var answerId = answerIdElements[i].value,
+            empty = true;
+            for(var j=0;j<valueSize;j++) {
+                if(YAHOO.util.Dom.get("answer_"+answerId+"_"+j).checked) {
+                    empty = false;
+                }
+            }
+            if(empty == true) {
+                YAHOO.util.Dom.get("questionErrorArea").innerHTML = "此选项必填";
+                return false;
+            }
+        }
+    }
+
+
+    if("{{survey_item.is_required}}"=="True")
+    {
+        validateEvent.subscribe(validate_{{survey_item.id}});
+    }
+    submitEvent.subscribe(submitData_{{survey_item.id}});
 </script>

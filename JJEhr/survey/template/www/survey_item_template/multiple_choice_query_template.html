@@ -140,5 +140,43 @@
             return true;
         }
     }
-    validateEvent.subscribe(fireSubmit_{{survey_item.id}});
+
+    function submitData_{{survey_item.id}}() {
+
+    }
+
+    function validate_{{survey_item.id}}() {
+
+        var surveyItemId = {{survey_item.id}},
+        answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
+        errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
+        errorArea.innerHTML= "";
+
+        var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
+
+        if (otherAnswer == "True" &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length < 1) {
+            errorArea.innerHTML="此选项必填";
+            return false;
+        }
+        if (otherAnswer == "True" &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
+            return true;
+        }
+
+        for(var i=0;i<answerList.length;i++) {
+            var answerId = answerList[i].value,
+            checkbox = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
+            if(checkbox.checked) {
+                return true;
+            }
+        }
+        errorArea.innerHTML="此选项必填";
+        return false;
+    }
+
+
+    if("{{survey_item.is_required}}"=="True")
+    {
+        validateEvent.subscribe(validate_{{survey_item.id}});
+    }
+    submitEvent.subscribe(submitData_{{survey_item.id}});
 </script>

@@ -66,6 +66,9 @@
         }
     }
 
-    validateEvent.subscribe(validate_{{survey_item.id}});
+    if("{{survey_item.is_required}}"=="True")
+    {
+        validateEvent.subscribe(validate_{{survey_item.id}});
+    }
     submitEvent.subscribe(submitData_{{survey_item.id}});
 </script>

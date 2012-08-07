@@ -88,5 +88,27 @@
             YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
         }
     }
-    validateEvent.subscribe(fireSubmit_{{survey_item.id}});
+
+    function validate_{{survey_item.id}}() {
+        var surveyAnswerList = YAHOO.util.Dom.getElementsByClassName("surveyAnswer");
+        for(var i=0;i<surveyAnswerList.length;i++)
+        {
+            var surveyAnswer = surveyAnswerList[i],
+            answerId = surveyAnswer.id.substr(surveyAnswer.id.lastIndexOf("_")+1,surveyAnswer.id.length),
+            surveyErrorElement = YAHOO.util.Dom.get("survey_error_"+{{survey_item.id}}+"_"+answerId);
+            if(surveyAnswer.value.length < 1) {
+                surveyErrorElement.innerHTML="此选项必填";
+                return false;
+            }
+            surveyErrorElement.innerHTML="";
+        }
+        return true;
+    }
+
+
+    if("{{survey_ite1m.is_required}}"=="True")
+    {
+        validateEvent.subscribe(validate_{{survey_item.id}});
+    }
+    submitEvent.subscribe(submitData_{{survey_item.id}});
 </script>
