@@ -43,7 +43,7 @@ def edit_survey(request, surveyId, pageNum):
     surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=pageNum)
     for surveyItem in surveyItemCollection:
         surveyItem.answers = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
-        if surveyItem.item_type == 'METRIX' and surveyItem.answers[0].question_value:
+        if surveyItem.item_type == 'METRIX' and len(surveyItem.answers) > 0 and surveyItem.answers[0].question_value:
             surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
     return render_to_response("backoffice/survey_edit.html", {"survey": survey, "pageNum": pageNum,"surveyItemCollection":surveyItemCollection})
 
@@ -127,7 +127,9 @@ def delete_survey_item(request,surveyId=0):
     if surveyId == 0:
         return  HttpResponse(u"参数错误,请重新输入")
     try:
-        SurveyItemAnswer.objects.filter(survey_item=surveyId).delete()
+        answerCollection = SurveyItemAnswer.objects.filter(survey_item=surveyId)
+        if len(answerCollection) > 0:
+            answerCollection.delete()
         SurveyItem.objects.get(id=surveyId).delete()
     except Exception,e:
         return  HttpResponse(u"系统异常请重新尝试")
