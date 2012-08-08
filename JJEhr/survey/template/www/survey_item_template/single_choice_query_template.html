@@ -152,7 +152,6 @@
             if(radioButton.checked) {
                 var surveyItemAnswer = radioButton.value;
                 YAHOO.util.Dom.get("surveyItem_"+surveyItemId+"_answer").value = surveyItemAnswer;
-                alert(surveyItemAnswer);
                 YAHOO.util.Dom.get("surveyItem_"+surveyItemId+"_answer_type").value = "STANDARD";
                 return true;
             }
