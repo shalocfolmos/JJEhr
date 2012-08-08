@@ -198,11 +198,9 @@
 <input type="hidden" id="is_authenticated" value="{{authenticated}}"/>
 <input type="hidden" id="login_error" value="{{login_error}}"/>
 
-<form action="" method="POST">
+<form action="/survey/addResult" id="survey_answer_form" method="POST">
     <input type="hidden" name="userId" value="{{userId}}"/>
     <input type="hidden" name="surveyId" value="{{survey.id}}"/>
-    <input type="hidden" id="surveyItemIds" name="surveyItemIds" value=""/>
-    <input type="hidden" id="surveyItemAnswers" name="surveyItemAnswers" value=""/>
     {%for survey_item in survey_item_collection %}
         {% if survey_item.item_type == 'MULTIPLE_CHOICE' %}
             {% include "www/survey_item_hidden_template/multi_choice_hidden_template.html" with survey_item=survey_item survey=survey idx=forloop.counter%}
@@ -255,6 +253,7 @@
         if(validateEvent.fire()) {
             submitEvent.fire();
         }
+        YAHOO.util.Dom.get("survey_answer_form").submit()
     }
 
 
