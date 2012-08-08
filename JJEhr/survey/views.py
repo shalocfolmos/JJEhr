@@ -11,7 +11,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 import time
 from JJEhr import settings
-from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog
+from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog, SurveyResult
 import md5
 
 @require_http_methods(["POST"])
@@ -206,6 +206,10 @@ def survey_login(request):
 def add_survey_result(request):
     userId = request.POST["userId"]
     surveyId = request.POST["surveyId"]
+    surveyResult = SurveyResult.objects.create(survey_user=userId,survey=surveyId)
+    surveyItemCollection = SurveyItem.objects.filter(survey=surveyId)
+    for surveyItem in surveyItemCollection:
+        surveyItemType = request.POST["surveyItem_" + surveyItem.id + "_survey_type"]
 
 
     surveyItemAnswersTuple = surveyItemAnswers.split("::")
