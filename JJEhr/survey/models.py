@@ -72,9 +72,16 @@ class SurveyItemAnswer(models.Model):
 
 
 class SurveyResult(models.Model):
+    RESULT_TYPE = (
+        ('STANDARD','标准'),
+        ('OTHER','可选'),
+        ('CUSTOMER',"自定义")
+    )
+
     survey = ForeignKey(Survey)
     survey_item = ForeignKey(SurveyItem)
     survey_item_answer_value = CharField(max_length=2000, verbose_name="调查结果", db_column="survey_item_value")
+    survey_result_type = CharField(max_length=200,verbose_name="调查答案类型", choices=RESULT_TYPE)
     survey_user = ForeignKey(User)
     create_date = DateTimeField(auto_now=True, db_column="create_date")
 
