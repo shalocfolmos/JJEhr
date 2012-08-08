@@ -206,9 +206,8 @@ def survey_login(request):
 def add_survey_result(request):
     userId = request.POST["userId"]
     surveyId = request.POST["surveyId"]
-    surveyItemIds = request.POST["surveyItemIds"]
-    surveyItemAnswers = request.POST["surveyItemAnswers"]
-    surveyItemIdsTuple = surveyItemIds.split("::")
+
+
     surveyItemAnswersTuple = surveyItemAnswers.split("::")
     pass
 
