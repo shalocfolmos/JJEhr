@@ -12,7 +12,7 @@
                             <tr>
                                 <td id="28831438" colspan="2" class="QuestionText" valign="top">
                                     <div class="QuestionText" style="margin:0px;padding:0px 20px 0px 0px; ;">
-                                        {{answer.question_text}}
+                                        test-{{answer.question_text}}
                                     </div>
                                 </td>
                             </tr>
@@ -89,6 +89,9 @@
         }
     }
 
+    function submitData_{{survey_item.id}}() {
+
+    }
     function validate_{{survey_item.id}}() {
         var surveyAnswerList = YAHOO.util.Dom.getElementsByClassName("surveyAnswer");
         for(var i=0;i<surveyAnswerList.length;i++)
@@ -106,7 +109,7 @@
     }
 
 
-    if("{{survey_ite1m.is_required}}"=="True")
+    if("{{survey_item.is_required}}"=="True")
     {
         validateEvent.subscribe(validate_{{survey_item.id}});
     }
