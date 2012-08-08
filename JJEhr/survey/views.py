@@ -212,9 +212,10 @@ def add_survey_result(request):
     surveyItemCollection = SurveyItem.objects.filter(survey=surveyId)
 #    for surveyItem in surveyItemCollection:
 #        surveyItemType = request.POST["surveyItem_" + surveyItem.id + "_survey_type"]
-    answerType = request.POST["surveyItem_" + 1 + "_answer_type"]
-    answerValue = request.POST["surveyItem_" + 1 + "_answer_value"]
-    surveyItem = Survey.objects.get(id=1)
+
+    answerType = request.POST["surveyItem_" + str(1) + "_answer_type"]
+    answerValue = request.POST["surveyItem_" + str(1) + "_answer_value"]
+    surveyItem = SurveyItem.objects.get(id=1)
 
     surveyResult = SurveyResult(survey_user=user,survey=survey,survey_result_type=answerType,survey_item_answer_value=answerValue,survey_item=surveyItem)
     surveyResult.save()

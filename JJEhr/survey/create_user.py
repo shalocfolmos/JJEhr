@@ -1,9 +1,6 @@
 from django.contrib.auth.models import User
 from JJEhr.survey.models import StaffProfile, SurveyLog
 
-__author__ = 'sam-sun'
-
-
 user=User.objects.create_user(username="sam.sun1",password="123456",email="sam.sun@jinjiang.com")
 user.is_staff=True
 user.is_active=True
@@ -26,5 +23,5 @@ staff.save()
 
 SurveyLog.objects.get(id=1)
 
-#dbe8d78a14d7f467f5cab1d55676e32e
+#bc36171a28a705e8249115a6f89b6689
 
