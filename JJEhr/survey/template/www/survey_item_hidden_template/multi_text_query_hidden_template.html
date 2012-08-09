@@ -1,4 +1,4 @@
+<input type="hidden" id="surveyItem_{{survey_item.id}}_answer_id_collection" name="surveyItem_{{survey_item.id}}_answer_id_collection"/>
 {%for answer in survey_item.answers %}
-    <input type="hidden" id="surveyItem_{{survey_item.id}}_answer_{{answer.id}}" name="surveyItem_{{survey_item.id}}_answer_{{answer.id}}"/>
     <input type="hidden" id="surveyItem_{{survey_item.id}}_answer_{{answer.id}}_value" name="surveyItem_{{survey_item.id}}_answer_{{answer.id}}_value"/>
 {%endfor%}

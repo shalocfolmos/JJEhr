@@ -90,7 +90,16 @@
     }
 
     function submitData_{{survey_item.id}}() {
-
+        var surveyAnswerList = YAHOO.util.Dom.getElementsByClassName("surveyAnswer");
+        for(var i=0;i<surveyAnswerList.length;i++){
+            var surveyAnswer = surveyAnswerList[i],
+            answerId = surveyAnswer.id.substr(surveyAnswer.id.lastIndexOf("_")+1,surveyAnswer.id.length),
+            answerValue = YAHOO.util.Dom.get("survey_item_{{survey_item.id}}_answer_"+answerId).value;
+            var surveyItemIds = YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_id_collection").value;
+            surveyItemIds+=answerId + "&";
+            YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_id_collection").value = surveyItemIds;
+            YAHOO.util.Dom.get("survey_item_{{survey_item.id}}_answer_"+answerId + "_value").value = answerValue;
+        }
     }
     function validate_{{survey_item.id}}() {
         var surveyAnswerList = YAHOO.util.Dom.getElementsByClassName("surveyAnswer");
