@@ -97,9 +97,11 @@
             answerValue = YAHOO.util.Dom.get("survey_item_{{survey_item.id}}_answer_"+answerId).value;
             var surveyItemIds = YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_id_collection").value;
             surveyItemIds+=answerId + "&";
+
             YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_id_collection").value = surveyItemIds;
-            YAHOO.util.Dom.get("survey_item_{{survey_item.id}}_answer_"+answerId + "_value").value = answerValue;
+            YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_"+answerId + "_value").value = answerValue;
         }
+        YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_id_collection").value =surveyItemIds.substr(0,surveyItemIds.length-1);
     }
     function validate_{{survey_item.id}}() {
         var surveyAnswerList = YAHOO.util.Dom.getElementsByClassName("surveyAnswer");

@@ -231,6 +231,11 @@
 </form>
 
 <script type="text/javascript">
+    function fire_login_event()
+    {
+        YAHOO.util.Dom.get("login_form").submit();
+    }
+
     function init() {
         if(YAHOO.util.Dom.get("is_authenticated").value == 'false')
         {
@@ -248,7 +253,7 @@
     function survey_submit() {
         if(validateEvent.fire()) {
             submitEvent.fire();
-//            YAHOO.util.Dom.get("survey_answer_form").submit()
+            YAHOO.util.Dom.get("survey_answer_form").submit()
         }
     }
 

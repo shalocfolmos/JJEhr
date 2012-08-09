@@ -233,8 +233,16 @@ def add_survey_result(request):
 #    SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
 
     #TEXT_AREA_QUERY
-    answerValue = request.POST["surveyItem_"+str(1)+"_answer_value"]
-    SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
+#    answerValue = request.POST["surveyItem_"+str(1)+"_answer_value"]
+#    SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
+
+    #Multi_Text
+    answerIdCollection = request.POST["surveyItem_"+str(1)+"_answer_id_collection"].split("&")
+    for answerId in answerIdCollection:
+        answerValue = request.POST["surveyItem_1_answer_"+answerId+"_value"]
+        surveyItemAnswer = SurveyItemAnswer.objects.get(id=answerId)
+        SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",
+            survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
 
 #    surveyResult.save()
 
