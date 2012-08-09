@@ -11,7 +11,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 import time
 from JJEhr import settings
-from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog, SurveyResult
+from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog
 import md5
 
 @require_http_methods(["POST"])
@@ -209,6 +209,8 @@ def add_survey_result(request):
     survey = Survey.objects.get(id=surveyId)
     user = User.objects.get(id=userId)
 
+    surveyItem = SurveyItem.objects.get(id=1)
+
     surveyItemCollection = SurveyItem.objects.filter(survey=surveyId)
 #    for surveyItem in surveyItemCollection:
 #        surveyItemType = request.POST["surveyItem_" + surveyItem.id + "_survey_type"]
@@ -216,9 +218,16 @@ def add_survey_result(request):
     #SINGLE_CHOICE
 #    answerType = request.POST["surveyItem_" + str(1) + "_answer_type"]
 #    answerValue = request.POST["surveyItem_" + str(1) + "_answer_value"]
-#    surveyItem = SurveyItem.objects.get(id=1)
+#
 
-    surveyResult = SurveyResult(survey_user=user,survey=survey,survey_result_type=answerType,survey_item_answer_value=answerValue,survey_item=surveyItem)
-    surveyResult.save()
+    #Multiple_CHOICE
+#    answerValueList = request.POST["surveyItem_"+str(1)+"_answer_value"].split("&")
+#    for answerValue in answerValueList:
+#        SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem)
+#    if request.POST["surveyItem_"+str(1)+"_has_option"] == 'true':
+#        answerValue = "surveyItem_"+str(1)+"_option_answer_value"
+#        SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
+
+#    surveyResult.save()
 
 

@@ -101,48 +101,23 @@
 
 <script type="text/javascript">
 
-    function fireSubmit_{{survey_item.id}}() {
+    function submitData_{{survey_item.id}}() {
         var surveyItemId = {{survey_item.id}},
-        answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
-                errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
-        errorArea.innerHTML= "",
-        checkElementCount = 0;
-        selectedValue = "";
+        selectedValue = "",
+        answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list");
         for(var i=0;i<answerList.length;i++) {
             var answerId = answerList[i].value;
             checkbox = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
             if(checkbox.checked) {
-                selectedValue+="&"+checkbox.value;
-                ++checkElementCount;
+                selectedValue+=checkbox.value+"&";
             }
         }
-
+        YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_value").value = selectedValue.substr(0,selectedValue.length-1);
         var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
         if (otherAnswer &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
-            selectedValue+="&"+YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
-            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-            ++checkElementCount;
+            YAHOO.util.Dom.get("surveyItem_"+ surveyItemId +"_option_answer_value").value=YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
+            YAHOO.util.Dom.get("surveyItem_"+ surveyItemId +"_has_option").value=true;
         }
-
-        if(checkElementCount==0 && "{{survey_item.is_required}}"=="True")
-        {
-            errorArea.innerHTML="此选项必填";
-            return false;
-        }
-        else
-        {
-            var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
-            surveyItemIds+="::"+surveyItemId;
-            YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-            var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
-            surveyItemAnswer+="::"+selectedValue;
-            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-            return true;
-        }
-    }
-
-    function submitData_{{survey_item.id}}() {
-
     }
 
     function validate_{{survey_item.id}}() {
