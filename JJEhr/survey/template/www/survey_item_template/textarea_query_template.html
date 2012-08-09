@@ -52,7 +52,8 @@
 
 <script type="text/javascript">
     function submitData_{{survey_item.id}}() {
-
+        var textArea = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer");
+        YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_value").value = textArea.value;
     }
 
     function validate_{{survey_item.id}}() {

@@ -11,7 +11,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 import time
 from JJEhr import settings
-from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog
+from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog, SurveyResult
 import md5
 
 @require_http_methods(["POST"])
@@ -227,6 +227,14 @@ def add_survey_result(request):
 #    if request.POST["surveyItem_"+str(1)+"_has_option"] == 'true':
 #        answerValue = "surveyItem_"+str(1)+"_option_answer_value"
 #        SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
+
+    #TEXT_QUERY
+#    answerValue = request.POST["surveyItem_"+str(1)+"_answer_value"]
+#    SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
+
+    #TEXT_AREA_QUERY
+    answerValue = request.POST["surveyItem_"+str(1)+"_answer_value"]
+    SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
 
 #    surveyResult.save()
 

@@ -52,7 +52,7 @@
 
 <script type="text/javascript">
     function submitData_{{survey_item.id}}() {
-
+        YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_value").value = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_answer").value;
     }
 
     function validate_{{survey_item.id}}() {
