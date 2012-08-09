@@ -96,6 +96,29 @@
         }
     }
 
+    function submitData_{{survey_item.id}}() {
+        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element"),
+                valueSize = {{survey_item.item_values|length}},
+        answerValue = null;
+        YAHOO.util.Dom.get("questionErrorArea").innerHTML = ""
+
+
+
+        YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+        for(var i=0;i<answerIdElements.length;i++) {
+            var answerId = answerIdElements[i].value,
+            answerValue = answerId + "&",
+            valueSize = {{survey_item.item_values|length}};
+            for(var j=0;j<valueSize;j++) {
+                if(YAHOO.util.Dom.get("answer_"+answerId+"_"+j).checked) {
+                    var answerValue =YAHOO.util.Dom.get("answer_"+answerId+"_"+j).value;
+                    YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_answerId_value").value = answerValue;
+                }
+            }
+        }
+        YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_id_collection").value = answerValue.substr(0,answerValue.length-1);
+    }
+
     function validate_{{survey_item.id}}() {
         var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element"),
         valueSize = {{survey_item.item_values|length}};
