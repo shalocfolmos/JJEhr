@@ -75,7 +75,6 @@ class SurveyResult(models.Model):
     RESULT_TYPE = (
         ('STANDARD','标准'),
         ('OTHER','可选'),
-        ('CUSTOMER',"自定义")
     )
 
     survey = ForeignKey(Survey)
