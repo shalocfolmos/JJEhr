@@ -53,68 +53,23 @@
 </tr>
 
 <script type="text/javascript">
-    function fireSubmit_{{survey_item.id}}() {
-        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element_{{survey_item.id}}"),
-        valueSize = {{survey_item.item_values|length}};
-        YAHOO.util.Dom.get("questionErrorArea").innerHTML = ""
-        for(var i=0;i<answerIdElements.length;i++) {
-            var answerId = answerIdElements[i].value,
-            empty = true;
-            for(var j=0;j<valueSize;j++) {
-                if(YAHOO.util.Dom.get("answer_"+answerId+"_"+j).checked) {
-                    empty = false;
-                }
-            }
-            if(empty == true && "{{survey_item.is_required}}"== "True") {
-                YAHOO.util.Dom.get("questionErrorArea").innerHTML = "此选项必填";
-                return false;
-            }
-        }
-
-        var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value,
-        surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
-        surveyItemIds+="::"+{{survey_item.id}};
-        YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-
-        surveyItemAnswer+="::";
-        YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-        for(var i=0;i<answerIdElements.length;i++) {
-            var answerId = answerIdElements[i].value,
-            valueSize = {{survey_item.item_values|length}};
-            for(var j=0;j<valueSize;j++) {
-                if(YAHOO.util.Dom.get("answer_"+answerId+"_"+j).checked) {
-                    var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
-                    surveyItemIds+="&&"+answerId;
-                    YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-
-                    var answerValue =YAHOO.util.Dom.get("answer_"+answerId+"_"+j).value,
-                    surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
-                    surveyItemAnswer+="&&"+answerValue;
-                    YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-                }
-            }
-        }
-    }
-
     function submitData_{{survey_item.id}}() {
         var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element_{{survey_item.id}}"),
                 valueSize = {{survey_item.item_values|length}},
+        answerIdCollection = '',
         answerValue = null;
         YAHOO.util.Dom.get("questionErrorArea_"+{{survey_item.id}}).innerHTML = ""
-        YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-        alert('b');
         for(var i=0;i<answerIdElements.length;i++) {
-            var answerId = answerIdElements[i].value,
-            answerValue = answerId + "&",
-            valueSize = {{survey_item.item_values|length}};
+            var answerId = answerIdElements[i].value;
+            answerIdCollection+= answerId + "&";
             for(var j=0;j<valueSize;j++) {
                 if(YAHOO.util.Dom.get("answer_"+answerId+"_"+j).checked) {
                     var answerValue =YAHOO.util.Dom.get("answer_"+answerId+"_"+j).value;
-                    YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_answerId_value").value = answerValue;
+                    YAHOO.util.Dom.get("surveyItem_{{survey_item.id}}_answer_"+answerId+"_value").value = answerValue;
                 }
             }
         }
-        YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_id_collection").value = answerValue.substr(0,answerValue.length-1);
+        YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_id_collection").value = answerIdCollection.substr(0,answerIdCollection.length-1);
     }
 
     function validate_{{survey_item.id}}() {
