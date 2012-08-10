@@ -15,7 +15,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td id="questionErrorArea" class="QuestionError AnswerText" colspan="6"></td>
+                        <td id="questionErrorArea_{{survey_item.id}}" class="QuestionError AnswerText" colspan="6"></td>
                     </tr>
                     <tr>
                         <td>
@@ -31,7 +31,7 @@
                                 </tr>
                                 {% for answer in survey_item.answers %}
                                 <tr class="AltAnswerText">
-                                    <input type="hidden" value="{{answer.id}}" class="answer_id_element"></input>
+                                    <input type="hidden" value="{{answer.id}}" class="answer_id_element_{{survey_item.id}}"></input>
                                     <td style="padding-left:5px;">{{answer.question_text}}</td>
                                     {% for value in survey_item.item_values %}
                                         <td align="center" valign="top" class="AnswerText">
@@ -54,7 +54,7 @@
 
 <script type="text/javascript">
     function fireSubmit_{{survey_item.id}}() {
-        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element"),
+        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element_{{survey_item.id}}"),
         valueSize = {{survey_item.item_values|length}};
         YAHOO.util.Dom.get("questionErrorArea").innerHTML = ""
         for(var i=0;i<answerIdElements.length;i++) {
@@ -97,13 +97,10 @@
     }
 
     function submitData_{{survey_item.id}}() {
-        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element"),
+        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element_{{survey_item.id}}"),
                 valueSize = {{survey_item.item_values|length}},
         answerValue = null;
-        YAHOO.util.Dom.get("questionErrorArea").innerHTML = ""
-
-
-
+        YAHOO.util.Dom.get("questionErrorArea_"+{{survey_item.id}}).innerHTML = ""
         YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
         for(var i=0;i<answerIdElements.length;i++) {
             var answerId = answerIdElements[i].value,
@@ -116,13 +113,14 @@
                 }
             }
         }
+        alert('b');
         YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_id_collection").value = answerValue.substr(0,answerValue.length-1);
     }
 
     function validate_{{survey_item.id}}() {
-        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element"),
+        var answerIdElements = YAHOO.util.Dom.getElementsByClassName("answer_id_element_{{survey_item.id}}"),
         valueSize = {{survey_item.item_values|length}};
-        YAHOO.util.Dom.get("questionErrorArea").innerHTML = ""
+        YAHOO.util.Dom.get("questionErrorArea_"+{{survey_item.id}}).innerHTML = ""
         for(var i=0;i<answerIdElements.length;i++) {
             var answerId = answerIdElements[i].value,
             empty = true;
@@ -132,7 +130,7 @@
                 }
             }
             if(empty == true) {
-                YAHOO.util.Dom.get("questionErrorArea").innerHTML = "此选项必填";
+                YAHOO.util.Dom.get("questionErrorArea_"+{{survey_item.id}}).innerHTML = "此选项必填";
                 return false;
             }
         }
