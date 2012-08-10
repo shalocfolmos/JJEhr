@@ -79,7 +79,7 @@ class SurveyResult(models.Model):
 
     survey = ForeignKey(Survey)
     survey_item = ForeignKey(SurveyItem)
-    survey_item_answer_item = ForeignKey(SurveyItemAnswer,null=True)
+    survey_item_answer_item = ForeignKey(SurveyItemAnswer,null=True,blank=True)
     survey_item_answer_value = CharField(max_length=2000, verbose_name="调查结果", db_column="survey_item_value")
     survey_result_type = CharField(max_length=50,verbose_name="调查答案类型", choices=RESULT_TYPE)
     survey_user = ForeignKey(User)

@@ -228,9 +228,9 @@ def add_survey_result(request):
             answerValue = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"]
             SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
         elif surveyItem.item_type == 'MULTIPLE_TEXT' or surveyItem.item_type == 'METRIX':
-            answerIdCollection = request.POST["surveyItem_"+str(1)+"_answer_id_collection"].split("&")
+            answerIdCollection = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_id_collection"].split("&")
             for answerId in answerIdCollection:
-                answerValue = request.POST["surveyItem_1_answer_"+answerId+"_value"]
+                answerValue = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_"+answerId+"_value"]
                 surveyItemAnswer = SurveyItemAnswer.objects.get(id=answerId)
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",
                     survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
