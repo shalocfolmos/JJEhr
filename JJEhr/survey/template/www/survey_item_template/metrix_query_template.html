@@ -102,6 +102,7 @@
         answerValue = null;
         YAHOO.util.Dom.get("questionErrorArea_"+{{survey_item.id}}).innerHTML = ""
         YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
+        alert('b');
         for(var i=0;i<answerIdElements.length;i++) {
             var answerId = answerIdElements[i].value,
             answerValue = answerId + "&",
@@ -113,7 +114,6 @@
                 }
             }
         }
-        alert('b');
         YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_id_collection").value = answerValue.substr(0,answerValue.length-1);
     }
 
