@@ -208,44 +208,32 @@ def add_survey_result(request):
     surveyId = request.POST["surveyId"]
     survey = Survey.objects.get(id=surveyId)
     user = User.objects.get(id=userId)
-
-    surveyItem = SurveyItem.objects.get(id=1)
-
     surveyItemCollection = SurveyItem.objects.filter(survey=surveyId)
-#    for surveyItem in surveyItemCollection:
-#        surveyItemType = request.POST["surveyItem_" + surveyItem.id + "_survey_type"]
 
-    #SINGLE_CHOICE
-#    answerType = request.POST["surveyItem_" + str(1) + "_answer_type"]
-#    answerValue = request.POST["surveyItem_" + str(1) + "_answer_value"]
-#
+    for surveyItem in surveyItemCollection:
+        if surveyItem.item_type == 'MULTIPLE_CHOICE':
+            answerValueList = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"].split("&")
+            for answerValue in answerValueList:
+                SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem)
+            if request.POST["surveyItem_"+str(surveyItem.id)+"_has_option"] == 'true':
+                answerValue = "surveyItem_"+str(surveyItem.id)+"_option_answer_value"
+                SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
 
-    #Multiple_CHOICE
-#    answerValueList = request.POST["surveyItem_"+str(1)+"_answer_value"].split("&")
-#    for answerValue in answerValueList:
-#        SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem)
-#    if request.POST["surveyItem_"+str(1)+"_has_option"] == 'true':
-#        answerValue = "surveyItem_"+str(1)+"_option_answer_value"
-#        SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
+        elif surveyItem.item_type == 'SINGLE_CHOICE':
+            answerType = request.POST["surveyItem_" + str(surveyItem.id) + "_answer_type"]
+            answerValue = request.POST["surveyItem_" + str(surveyItem.id) + "_answer_value"]
+            SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type=answerType,survey_item_answer_value=answerValue,survey_item=surveyItem)
 
-    #TEXT_QUERY
-#    answerValue = request.POST["surveyItem_"+str(1)+"_answer_value"]
-#    SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
+        elif surveyItem.item_type == 'TEXT' or surveyItem.item_type == 'TEXT_AREA':
+            answerValue = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"]
+            SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
+        elif surveyItem.item_type == 'MULTIPLE_TEXT' or surveyItem.item_type == 'METRIX':
+            answerIdCollection = request.POST["surveyItem_"+str(1)+"_answer_id_collection"].split("&")
+            for answerId in answerIdCollection:
+                answerValue = request.POST["surveyItem_1_answer_"+answerId+"_value"]
+                surveyItemAnswer = SurveyItemAnswer.objects.get(id=answerId)
+                SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",
+                    survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
 
-    #TEXT_AREA_QUERY
-#    answerValue = request.POST["surveyItem_"+str(1)+"_answer_value"]
-#    SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
-
-    #Multi_Text
-#    answerIdCollection = request.POST["surveyItem_"+str(1)+"_answer_id_collection"].split("&")
-#    for answerId in answerIdCollection:
-#        answerValue = request.POST["surveyItem_1_answer_"+answerId+"_value"]
-#        surveyItemAnswer = SurveyItemAnswer.objects.get(id=answerId)
-#        SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",
-#            survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
-
-
-
-#    surveyResult.save()
 
 
