@@ -65,11 +65,17 @@
 
 </div>
 <div style="padding-top: 20px;">
-    {% if survey.survey_status != 'FINISH' %}
-        <button id="addQuestion" class="add_question_button">添加一个问题</button>
+    {% if survey.survey_status == 'FINISH'%}
+        <button id="endQuestion">进行问卷调查</button>
     {% endif %}
-    <button id="completeQuestion">完成问卷调查</button>
-    <button id="endPage"><a href="/backoffice/survey/preview">进行问卷调查</a></button>
+    {% if survey.survey_status == 'CONTINUE'%}
+
+    {% endif %}
+    {% if survey.survey_status == 'EDIT'%}
+        <button id="completeQuestion">完成问卷调查</button>
+        <button id="addQuestion" class="add_question_button">添加一个问题</button>
+        <button id="endQuestion">进行问卷调查</button>
+    {% endif %}
 </div>
 </div>
 
@@ -178,6 +184,10 @@
         location.href="/backoffice/survey/complete/{{survey.id}}";
     }
 
+    function endQuestion() {
+        location.href="/backoffice/survey/end/{{survey.id}}";
+    }
+
     function addPage() {
         YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/addPage/' + {{survey.id}},genericCallBack);
     }
@@ -214,6 +224,7 @@
 
         new YAHOO.widget.Button("addQuestion");
         new YAHOO.widget.Button("completeQuestion");
+        new YAHOO.widget.Button("endQuestion");
         new YAHOO.widget.Button("close_panel");
         new YAHOO.widget.Button("submit_question");
 
@@ -222,6 +233,7 @@
         new YAHOO.widget.Button("pushbutton");
         YAHOO.util.Event.addListener("addQuestion", "click", addQuestion);
         YAHOO.util.Event.addListener("completeQuestion", "click", completeQuestion);
+        YAHOO.util.Event.addListener("endQuestion", "click", endQuestion);
         YAHOO.util.Event.addListener("close_panel", "click", closePanel);
         YAHOO.util.Event.addListener("question_type_selector", "change", changeQuestionType);
 
