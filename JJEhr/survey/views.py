@@ -249,6 +249,8 @@ def add_survey_result(request):
     survey_log.complete=True
     survey_log.complete_date=datetime.now()
     survey_log.save()
+    survey.total_employee_number+=1
+    survey.save()
     return render_to_response("www/thanks_page.html")
 
 
