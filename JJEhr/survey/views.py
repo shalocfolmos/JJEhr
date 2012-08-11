@@ -140,29 +140,20 @@ def complete_survey(request,surveyId):
 @login_required(login_url='/backoffice/login')
 def end_survey(request,surveyId):
     survey = Survey.objects.get(id=surveyId)
-    survey.survey_status= 'CONTINUE'
-    survey.save()
-    return HttpResponseRedirect("/backoffice/survey/list")
-
-
-@require_http_methods(["GET"])
-@login_required(login_url='/backoffice/login')
-def start_survey(request,surveyId):
-    survey = Survey.objects.get(id=surveyId)
 
     surveyLogCollection = SurveyLog.objects.filter(survey=survey)
     for surveyLog in surveyLogCollection:
         try:
-            send_mail(subject=request.POST["email_subject"],
-                message=request.POST["email_message"],
-                from_email=settings.ENROLL_EMAIL_FROM,
-                recipient_list=[surveyLog.email],
-                fail_silently=False)
+#            send_mail(subject=request.POST["email_subject"],
+#                message=request.POST["email_message"],
+#                from_email=settings.ENROLL_EMAIL_FROM,
+#                recipient_list=[surveyLog.email],
+#                fail_silently=False)
             surveyLog.send_email = True
             surveyLog.save()
         except Exception:
             pass
-    survey.survey_status = 'CONTINUE'
+    survey.survey_status= 'CONTINUE'
     survey.save()
     return HttpResponseRedirect("/backoffice/survey/list")
 
