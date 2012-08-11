@@ -182,14 +182,15 @@ def user_start_survey(request,token,page=1):
 def survey_login(request):
     if request.POST:
         email = request.POST["email"]
-        user = User.objects.get(email = email)
+        userCollection = User.objects.filter(email = email)
+        user=userCollection[0]
         token = request.POST["token"]
         if user is not None:
             try:
                 login(request,user)
             except Exception,e:
                 pass
-            return HttpResponseRedirect(reverse(viewname=user_start_survey,args=[token,]))
+            return HttpResponseRedirect(reverse(viewname=user_start_survey,args=[token]))
         else:
             return render_to_response("www/survey_index.html",{"authenticated":"false","login_error":"true","token":token})
 

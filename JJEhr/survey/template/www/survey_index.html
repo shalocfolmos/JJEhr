@@ -30,7 +30,7 @@
 {% endif %}
 
     {% if authenticated == 'false' %}
-        <div id="login_panel" style="display:none;">
+        <div id="login_panel">
             <div class="bd yui3-g">
                 <form action="/survey/login" id="login_form" method="POST" style="width: 450px;">
                     <div>
@@ -227,13 +227,14 @@
         if(YAHOO.util.Dom.get("is_authenticated").value == 'false')
         {
             var loginPanel = new YAHOO.widget.Panel('login_panel', {close:false, fixedcenter:true, draggable:false, modal:true});
+
             loginPanel.render();
 
             YAHOO.util.Event.addListener("login_button", "click", fire_login_event);
             {%if incorrect_user%}
                 alert("连接地址有误,请确认地址或重新登入");
             {% endif %}
-            YAHOO.util.Dom.setStyle("login_panel","display","block");
+
             loginPanel.show();
             if(YAHOO.util.Dom.get("login_error").value == 'true')
             {

@@ -25,4 +25,3 @@ SurveyLog.objects.get(id=1)
 
 #00042b9a9b5059bfd823c68f2a3d1a3c
 
-
