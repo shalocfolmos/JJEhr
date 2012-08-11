@@ -127,9 +127,5 @@ def login(request):
         return HttpResponseRedirect("backoffice/login.html", context)
 
 
-@login_required(login_url='/backoffice/login')
-def admin_logout(request):
-    return logout(request, next_page=reverse('backoffice.views.displayCourseList'))
-
 
 
