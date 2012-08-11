@@ -233,7 +233,7 @@ def add_survey_result(request):
                 continue
             answerValue = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"]
             SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
-        elif surveyItem.item_type == 'MULTIPLE_TEXT' or surveyItem.item_type == 'METRIX':
+        elif surveyItem.item_type == 'MULTIPLE_TEXT' or surveyanItem.item_type == 'METRIX':
             if not surveyItem.is_required and len(request.POST["surveyItem_"+str(surveyItem.id)+"_answer_id_collection"]) < 1:
                 continue
             answerIdCollection = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_id_collection"].split("&")
@@ -242,6 +242,6 @@ def add_survey_result(request):
                 surveyItemAnswer = SurveyItemAnswer.objects.get(id=answerId)
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",
                     survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
-
+    return render_to_response("www/thanks_page.html")
 
 

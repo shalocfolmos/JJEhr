@@ -23,11 +23,12 @@
 <body class="yui-skin-sam">
 {% else %}
 <body class="SurveyRunBody">
-{% endif %}
     <script type="text/javascript">
         var validateEvent = new YAHOO.util.CustomEvent("validate"),
-        submitEvent = new YAHOO.util.CustomEvent("submit");
+                submitEvent = new YAHOO.util.CustomEvent("submit");
     </script>
+{% endif %}
+
     {% if authenticated == 'false' %}
         <div id="login_panel">
             <div class="bd yui3-g">

@@ -1,0 +1,98 @@
+{% load static %}
+<html>
+<head>
+    <title>
+
+    </title>
+    <link rel="stylesheet" href="{{STATIC_URL}}/survey/css/base.css" type="text/css"/>
+    <script src="{{STATIC_URL}}/yui2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/container/container-min.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/element/element-min.js"></script>
+    <script src="{{STATIC_URL}}/yui2/build/paginator/paginator-min.js"></script>
+</head>
+<body class="SurveyRunBody">
+    <table align="center" width="750" cellspacing="0" cellpadding="0" style="margin-top: 40px;">
+        <tbody>
+        <tr>
+            <td valign="top">
+                <table align="center" width="750" cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr>
+                        <td class="SurveyContent">
+                            <div id="SurveyAjaxContainer">
+
+                                <!-- Comment: End head middle -->
+                                <!-- Comment: Start form -->
+                                <form class="nyroModal" name="run" action="/a/TakeSurvey" method="post">
+
+                                    <!-- Comment: start form top -->
+                                    <table align="center" width="100%" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td style="padding: 20px">
+                                                <table align="center" width="100%" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="SurveyHeader">
+                                                        </td>
+                                                    </tr>
+                                                    <!-- Comment: survey item start -->
+                                                    <tr>
+                                                        <td>
+                                                            <div id="QuestionSection_28831425">
+                                                                <table cellpadding="0" cellspacing="0" width="100%">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td colspan="3">
+                                                                            <table>
+                                                                                <tbody>
+                                                                                <tr>
+                                                                                    <td id="28831438" colspan="2" class="QuestionText" valign="top">
+                                                                                        <div class="QuestionText" style="margin:0px;padding:0px 20px 0px 0px; ;">
+                                                                                            感谢您的投票参与!
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Comment: survey item end -->
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- Comment: end form top -->
+
+                                    <!-- Comment: start form bottom -->
+                                    <!-- Comment: end form bottom -->
+                                    <table align="center" width="100%" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                        <tr>
+                                            <td style="padding: 20px;" class="SurveyFooter">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- Comment: end form bottom -->
+                                </form>
+                                <!-- Comment: End form -->
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="SurveyTopToolbar"></div>
+</body>
+</html>

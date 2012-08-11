@@ -49,5 +49,9 @@ urlpatterns += patterns(r'survey',
     url(r'^survey/start/(?P<token>[A-Za-z0-9]+)', r'views.user_start_survey'),
     url(r'^survey/start/(?P<token>[A-Za-z0-9]+)/(?P<page>\d+)$', r'views.user_start_survey'),
     url(r'^survey/login$', r'views.survey_login'),
-    url(r'^survey/addResult', r'views.add_survey_result')
+    url(r'^survey/addResult', r'views.add_survey_result'),
+)
+
+urlpatterns += patterns('django.views.generic.simple',
+    (r'^survey/thanks','direct_to_template', {'template':'www/thanks_page.html'}),
 )
