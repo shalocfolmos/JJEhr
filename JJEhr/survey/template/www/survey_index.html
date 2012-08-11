@@ -30,7 +30,7 @@
 {% endif %}
 
     {% if authenticated == 'false' %}
-        <div id="login_panel">
+        <div id="login_panel" style="display:none;">
             <div class="bd yui3-g">
                 <form action="/survey/login" id="login_form" method="POST" style="width: 450px;">
                     <div>
@@ -39,7 +39,7 @@
                     </div>
                     <div style="padding-top: 20px;">
                         <div class="yui3-u-1-5" style="text-align: left">密码</div>
-                        <div class="yui3-u-4-5" style="text-align: left"><input type="text" name="password"></input></div>
+                        <div class="yui3-u-4-5" style="text-align: left"><input type="password" name="password"></input></div>
                     </div>
                     <input type="hidden" name="token" value="{{token}}"></input>
                 </form>
@@ -49,17 +49,12 @@
             </div>
         </div>
 
-        {%if incorrect_user%}
-            <script type="text/javascript">
-                alert("链接地址有误");
-            </script>
-        {% endif %}
+
 
     {% else %}
         <table align="center" width="750" cellspacing="0" cellpadding="0" style="margin-top: 40px;">
             <tbody>
-                <tr>
-                    <td valign="top">
+,                    <td valign="top">
                         <table align="center" width="750" cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr>
@@ -78,10 +73,6 @@
                                                                     </td>
                                                                     <td class="QuestionText" align="right">
 
-                                                                        <a href="/a/ExitSurvey?id=3145674">
-                                                                            Exit Survey
-                                                                            &nbsp;»
-                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -165,7 +156,7 @@
                                                         <tr>
                                                             <td align="center">
                                                                 <div id="SurveySubmitButton">
-                                                                    <input type="button" value="Continue" name="submitButton" onclick="survey_submit()" id="SurveySubmitButtonElement">
+                                                                    <input type="button" value="提交调查报告" name="submitButton" onclick="survey_submit()" id="SurveySubmitButtonElement">
                                                                 </div>
                                                                 <div style="float: right;padding-right: 10px;" id="pagePanel"></div>
                                                             </td>
@@ -236,14 +227,18 @@
     {
         YAHOO.util.Dom.get("login_form").submit();
     }
-
     function init() {
         if(YAHOO.util.Dom.get("is_authenticated").value == 'false')
         {
             var loginPanel = new YAHOO.widget.Panel('login_panel', {close:false, fixedcenter:true, draggable:false, modal:true});
             loginPanel.render();
-            loginPanel.show();
+
             YAHOO.util.Event.addListener("login_button", "click", fire_login_event);
+            {%if incorrect_user%}
+                alert("连接地址有误,请确认地址或重新登入");
+            {% endif %}
+            YAHOO.util.Dom.setStyle("login_panel","display","block");
+            loginPanel.show();
             if(YAHOO.util.Dom.get("login_error").value == 'true')
             {
                 alert("用户名密码错误，请重新登入")
