@@ -105,65 +105,29 @@
 </tr>
 
 <script type="text/javascript">
-    function fireSubmit_{{survey_item.id}}() {
-        var surveyItemId = {{survey_item.id}},
-        answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list"),
-        errorArea = YAHOO.util.Dom.get("survey_error_" + surveyItemId);
-        errorArea.innerHTML= "";
-        for(var i=0;i<answerList.length;i++) {
-            var answerId = answerList[i].value;
-            radioButton = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
-            if(radioButton.checked) {
-                var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
-                surveyItemIds+="::"+surveyItemId;
-                YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-                var surveyItemAnswer = YAHOO.util.Dom.get("surveyItemAnswers").value;
-                surveyItemAnswer+="::"+radioButton.value;
-                YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-                return true;
-            }
-        }
-
-        var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
-
-        if (otherAnswer == "True" &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
-
-            var surveyItemIds = YAHOO.util.Dom.get("surveyItemIds").value;
-            surveyItemIds+="::"+surveyItemId;
-            YAHOO.util.Dom.get("surveyItemIds").value = surveyItemIds;
-            var surveyItemAnswer =  YAHOO.util.Dom.get("surveyItemAnswers").value;
-            surveyItemAnswer+="::"+YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
-            YAHOO.util.Dom.get("surveyItemAnswers").value = surveyItemAnswer;
-            return true;
-        }
-        if("{{survey_item.is_required}}"=="True")
-        {
-            errorArea.innerHTML="此选项必填";
-            return false;
-        }
-    }
 
     function submitData_{{survey_item.id}}() {
         var surveyItemId = {{survey_item.id}},
         answerList = YAHOO.util.Dom.getElementsByClassName("survey_item_" + surveyItemId + "_answer_list");
         for(var i=0;i<answerList.length;i++) {
             var answerId = answerList[i].value,
-            radioButton = YAHOO.util.Dom.get("survey_"+surveyItemId+"_answer_"+answerId);
+            radioButton = YAHOO.util.Dom.get("survey_"+{{survey_item.id}}+"_answer_"+answerId);
             if(radioButton.checked) {
                 var surveyItemAnswer = radioButton.value;
-                YAHOO.util.Dom.get("surveyItem_"+surveyItemId+"_answer").value = surveyItemAnswer;
-                YAHOO.util.Dom.get("surveyItem_"+surveyItemId+"_answer_type").value = "STANDARD";
+                YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_value").value = surveyItemAnswer;
+                YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_type").value = "STANDARD";
                 return true;
             }
         }
 
-        var otherAnswer = YAHOO.util.Dom.get("other_"+surveyItemId).value;
-        if (otherAnswer == "True" &&YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other").checked  && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
-            var surveyItemAnswer = YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value;
-            YAHOO.util.Dom.get("surveyItem_"+surveyItemId+"_answer").value = surveyItemAnswer;
-            YAHOO.util.Dom.get("surveyItem_"+surveyItemId+"_answer_type").value = "OTHER";
+        var otherAnswer = YAHOO.util.Dom.get("other_"+{{survey_item.id}}).value;
+        if (otherAnswer == "True" &&YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other").checked  && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
+            var surveyItemAnswer = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other_text").value;
+            YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer").value = surveyItemAnswer;
+            YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_type").value = "OTHER";
             return true;
         }
+
     }
 
 

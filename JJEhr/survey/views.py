@@ -212,6 +212,8 @@ def add_survey_result(request):
 
     for surveyItem in surveyItemCollection:
         if surveyItem.item_type == 'MULTIPLE_CHOICE':
+            if not surveyItem.is_required and len(request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"]) < 1:
+                continue
             answerValueList = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"].split("&")
             for answerValue in answerValueList:
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem)
@@ -220,14 +222,20 @@ def add_survey_result(request):
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
 
         elif surveyItem.item_type == 'SINGLE_CHOICE':
+            if not surveyItem.is_required and len(request.POST["surveyItem_"+str(surveyItem.id)+"_answer_type"]) < 1:
+                continue
             answerType = request.POST["surveyItem_" + str(surveyItem.id) + "_answer_type"]
             answerValue = request.POST["surveyItem_" + str(surveyItem.id) + "_answer_value"]
             SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type=answerType,survey_item_answer_value=answerValue,survey_item=surveyItem)
 
         elif surveyItem.item_type == 'TEXT' or surveyItem.item_type == 'TEXT_AREA':
+            if not surveyItem.is_required and len(request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"]) < 1:
+                continue
             answerValue = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"]
             SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
         elif surveyItem.item_type == 'MULTIPLE_TEXT' or surveyItem.item_type == 'METRIX':
+            if not surveyItem.is_required and len(request.POST["surveyItem_"+str(surveyItem.id)+"_answer_id_collection"]) < 1:
+                continue
             answerIdCollection = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_id_collection"].split("&")
             for answerId in answerIdCollection:
                 answerValue = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_"+answerId+"_value"]
