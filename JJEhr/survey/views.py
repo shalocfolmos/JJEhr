@@ -98,14 +98,6 @@ def create_survey_item(request):
         SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num)
     return HttpResponse("创建成功")
 
-
-
-@require_http_methods(["GET"])
-@login_required(login_url='/backoffice/login')
-def preview(request):
-    return render_to_response("backoffice/preview.html")
-
-
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
 def add_page(request, surveyId):
