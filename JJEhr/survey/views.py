@@ -181,10 +181,9 @@ def user_start_survey(request,token,page=1):
 #@require_http_methods(["POST"])
 def survey_login(request):
     if request.POST:
-        username = request.POST["username"]
-        password = request.POST["password"]
+        email = request.POST["email"]
+        user = User.objects.get(email = email)
         token = request.POST["token"]
-        user = authenticate(username=username,password=password)
         if user is not None:
             try:
                 login(request,user)
