@@ -145,17 +145,22 @@ def end_survey(request,surveyId):
     survey = Survey.objects.get(id=surveyId)
 
     surveyLogCollection = SurveyLog.objects.filter(survey=survey)
+    urlList = []
+    emailList = []
     for surveyLog in surveyLogCollection:
-        try:
-            send_mail(subject=settings.SURVEY_EMAIL_SUBJECT,
-                message=settings.SURVEY_EMAIL_CONTENT.format(token=surveyLog.token),
-                from_email=settings.ENROLL_EMAIL_FROM,
-                recipient_list=[surveyLog.email],
-                fail_silently=False)
+        urlList.append(surveyLog.token)
+        emailList.append(surveyLog.email)
+    try:
+        send_mail(subject=settings.SURVEY_EMAIL_SUBJECT,
+            message=settings.SURVEY_EMAIL_CONTENT.format(token=",".join(urlList)),
+            from_email=settings.ENROLL_EMAIL_FROM,
+            recipient_list=emailList,
+            fail_silently=False)
+        for surveyLog in surveyLogCollection:
             surveyLog.send_email = True
             surveyLog.save()
-        except Exception:
-            pass
+    except Exception:
+        pass
     survey.survey_status= 'CONTINUE'
     survey.save()
     return HttpResponseRedirect("/backoffice/survey/list")
@@ -215,7 +220,7 @@ def add_survey_result(request):
                 continue
             answerValueList = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"].split("&")
             for answerValue in answerValueList:
-                surveyItemAnswer = SurveyItemAnswer.objects.get(surveyItem=surveyItem,question_value=answerValue)
+                surveyItemAnswer = SurveyItemAnswer.objects.get(survey_item=surveyItem,question_value=answerValue)
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
             if request.POST["surveyItem_"+str(surveyItem.id)+"_has_option"] == 'true':
                 answerValue = "surveyItem_"+str(surveyItem.id)+"_option_answer_value"
@@ -229,7 +234,7 @@ def add_survey_result(request):
             if answerType == "OTHER":
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type=answerType,survey_item_answer_value=answerValue,survey_item=surveyItem)
             else:
-                surveyItemAnswer = SurveyItemAnswer.objects.get(surveyItem=surveyItem,question_value=answerValue)
+                surveyItemAnswer = SurveyItemAnswer.objects.get(survey_item=surveyItem,question_value=answerValue)
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
 
         elif surveyItem.item_type == 'TEXT' or surveyItem.item_type == 'TEXT_AREA':
@@ -280,6 +285,11 @@ def generate_excel(request,surveyId):
             for idx,surveyAnswer in enumerate(surveyAnswerCollection):
                 work_sheet.write(1,idx,surveyReportObject.surveyAnswerTextDict[surveyAnswer.id])
                 work_sheet.write(2,idx,surveyReportObject.surveyAnswerValueDict[surveyAnswer.id])
+            if len(surveyReportObject.surveyOptionValues) > 0:
+                work_sheet.write(4,0,u"其他答案")
+            for idx,optionValues in enumerate(surveyReportObject.surveyOptionValues):
+                work_sheet.write(5+idx,0,optionValues)
+
         elif surveyItem.item_type == 'TEXT' or surveyItem.item_type == 'TEXT_AREA':
             work_sheet.write(0,0,surveyItem.item_name)
             surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
