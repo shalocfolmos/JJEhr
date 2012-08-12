@@ -93,10 +93,10 @@ def create_survey_item(request):
         for idx,answer in enumerate(answerCollection):
             if request.POST.get("surveyItemAnswerValue"):
                 raw_answer_value = request.POST["surveyItemAnswerValue"]
-                if len(raw_answer_value) > 1:
-                    SurveyItemAnswer.objects.create(question_text=answer,question_value=raw_answer_value,question_sequence=idx,survey_item=survey_item)
+                SurveyItemAnswer.objects.create(question_text=answer,question_value=raw_answer_value,question_sequence=idx,survey_item=survey_item)
             else:
-                SurveyItemAnswer.objects.create(question_text=answer,question_value=idx+1,question_sequence=idx,survey_item=survey_item)
+                if len(answer) > 1:
+                    SurveyItemAnswer.objects.create(question_text=answer,question_value=idx+1,question_sequence=idx,survey_item=survey_item)
     else:
         SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num)
     return HttpResponse("创建成功")

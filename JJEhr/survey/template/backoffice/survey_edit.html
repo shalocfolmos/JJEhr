@@ -288,7 +288,7 @@
 
     function deleteSurvey()
     {
-        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/delete/'+this.id.substr(0, 1),genericCallBack);
+        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/delete/'+this.id.substr(0, this.id.indexOf("_")),genericCallBack);
     }
 
     YAHOO.util.Event.onDOMReady(init)
