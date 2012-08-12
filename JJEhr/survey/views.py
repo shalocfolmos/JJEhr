@@ -273,9 +273,14 @@ def generate_excel(request,surveyId):
             surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
             for idx,result in enumerate(surveyResultCollection):
                 work_sheet.write(idx,0,result.survey_item_answer_value)
-
-
     wb.save('/tmp/' + surveyId + ".xls")
+    f=open('/tmp/' + surveyId + ".xls",'rb')
+    f.seek(0,0)
+    my_data = f.readlines()
+    response = HttpResponse(my_data, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=report.xls'
+    return response
+
 
 
 class SurveyReportObject(object):
