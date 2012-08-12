@@ -2,7 +2,9 @@
     <div>
         <span class="ed_AbsNumbering">{{idx}}. {{survey_item.item_name}}</span>
         <!--<input type="button" id="pushbutton1" name="button" value="编辑问题"></input>-->
-        <input type="button" class="deleteButton" id="{{survey_item.id}}_deletebutton" value="删除"></input>
+        {% if survey.survey_status == 'EDIT'%}
+            <input type="button" class="deleteButton" id="{{survey_item.id}}_deletebutton" value="删除"></input>
+        {% endif %}
     </div>
     <div>
         <textarea style="width: 550px;height: 50px;" id="item_{{survey_item.id}}"></textarea>

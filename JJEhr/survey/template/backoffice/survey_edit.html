@@ -38,28 +38,28 @@
 <div id="questionArea">
     {% for survey_item in surveyItemCollection %}
         {% if survey_item.item_type == 'MULTIPLE_CHOICE' %}
-            {% include "backoffice/survey_item_display_template/multiple_choice_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+            {% include "backoffice/survey_item_display_template/multiple_choice_query_template.html" with survey_item=survey_item idx=forloop.counter survey=survey%}
         {% endif %}
 
         {% if survey_item.item_type == 'SINGLE_CHOICE' %}
-            {% include "backoffice/survey_item_display_template/single_choice_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+            {% include "backoffice/survey_item_display_template/single_choice_query_template.html" with survey_item=survey_item idx=forloop.counter survey=survey%}
         {% endif %}
 
         {% if survey_item.item_type == 'TEXT' %}
-            {% include "backoffice/survey_item_display_template/text_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+            {% include "backoffice/survey_item_display_template/text_query_template.html" with survey_item=survey_item idx=forloop.counter survey=survey survey=survey%}
         {% endif %}
 
         {% if survey_item.item_type == 'TEXT_AREA' %}
-            {% include "backoffice/survey_item_display_template/textarea_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+            {% include "backoffice/survey_item_display_template/textarea_query_template.html" with survey_item=survey_item idx=forloop.counter survey=survey%}
         {% endif %}
 
         {% if survey_item.item_type == 'MULTIPLE_TEXT' %}
-            {% include "backoffice/survey_item_display_template/multi_text_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+            {% include "backoffice/survey_item_display_template/multi_text_query_template.html" with survey_item=survey_item idx=forloop.counter survey=survey%}
         {% endif %}
 
 
         {% if survey_item.item_type == 'METRIX' %}
-            {% include "backoffice/survey_item_display_template/metrix_query_template.html" with survey_item=survey_item idx=forloop.counter%}
+            {% include "backoffice/survey_item_display_template/metrix_query_template.html" with survey_item=survey_item idx=forloop.counter survey=survey%}
         {% endif %}
     {% endfor %}
 
