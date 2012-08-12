@@ -1,5 +1,6 @@
 #-*- coding: UTF-8 -*-
 from datetime import datetime
+import os
 from django.contrib.auth import  login
 
 from django.contrib.auth.decorators import login_required
@@ -279,9 +280,8 @@ def generate_excel(request,surveyId):
     my_data = f.readlines()
     response = HttpResponse(my_data, content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename=report.xls'
+    os.remove('/tmp/' + surveyId + ".xls")
     return response
-
-
 
 class SurveyReportObject(object):
     surveyAnswerTextDict = dict()
