@@ -5,12 +5,14 @@ from django.contrib.auth import  login
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 import time
 from xlwt.Workbook import Workbook
+from JJEhr import settings
 from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog, SurveyResult
 import md5
 
@@ -91,7 +93,8 @@ def create_survey_item(request):
         for idx,answer in enumerate(answerCollection):
             if request.POST.get("surveyItemAnswerValue"):
                 raw_answer_value = request.POST["surveyItemAnswerValue"]
-                SurveyItemAnswer.objects.create(question_text=answer,question_value=raw_answer_value,question_sequence=idx,survey_item=survey_item)
+                if len(raw_answer_value) > 1:
+                    SurveyItemAnswer.objects.create(question_text=answer,question_value=raw_answer_value,question_sequence=idx,survey_item=survey_item)
             else:
                 SurveyItemAnswer.objects.create(question_text=answer,question_value=idx+1,question_sequence=idx,survey_item=survey_item)
     else:
@@ -134,7 +137,7 @@ def complete_survey(request,surveyId):
     survey = Survey.objects.get(id=surveyId)
     survey.survey_status= 'FINISH'
     survey.save()
-    return HttpResponseRedirect("/backoffice/survey/list")
+    return HttpResponseRedirect("/backoffice/survey/edit/"+str(surveyId))
 
 @require_http_methods(["GET"])
 @login_required(login_url='/backoffice/login')
@@ -144,11 +147,11 @@ def end_survey(request,surveyId):
     surveyLogCollection = SurveyLog.objects.filter(survey=survey)
     for surveyLog in surveyLogCollection:
         try:
-#            send_mail(subject=request.POST["email_subject"],
-#                message=request.POST["email_message"],
-#                from_email=settings.ENROLL_EMAIL_FROM,
-#                recipient_list=[surveyLog.email],
-#                fail_silently=False)
+            send_mail(subject=settings.SURVEY_EMAIL_SUBJECT,
+                message=settings.SURVEY_EMAIL_CONTENT.format(token=surveyLog.token),
+                from_email=settings.ENROLL_EMAIL_FROM,
+                recipient_list=[surveyLog.email],
+                fail_silently=False)
             surveyLog.send_email = True
             surveyLog.save()
         except Exception:
@@ -273,7 +276,7 @@ def generate_excel(request,surveyId):
             work_sheet.write(0,0,surveyItem.item_name)
             surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
             for idx,result in enumerate(surveyResultCollection):
-                work_sheet.write(idx,0,result.survey_item_answer_value)
+                work_sheet.write(idx+1,0,result.survey_item_answer_value)
     wb.save('/tmp/' + surveyId + ".xls")
     f=open('/tmp/' + surveyId + ".xls",'rb')
     f.seek(0,0)

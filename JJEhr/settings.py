@@ -190,3 +190,6 @@ Best Regards
 Human Resources Department
 '''
 ENROLL_EMAIL_FROM = u"humanresources@jinjiang.com"
+
+SURVEY_EMAIL_SUBJECT = u"问卷调查"
+SURVEY_EMAIL_CONTENT = u"问卷调查url /survey/start/{token:s}"
