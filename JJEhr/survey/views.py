@@ -1,17 +1,15 @@
 #-*- coding: UTF-8 -*-
 from datetime import datetime
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import  login
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 import time
 from xlwt.Workbook import Workbook
-from JJEhr import settings
 from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog, SurveyResult
 import md5
 
@@ -39,14 +37,14 @@ def create_survey(request):
 
 @require_http_methods(["GET"])
 @login_required(login_url='/backoffice/login')
-def edit_survey(request, surveyId, pageNum):
+def edit_survey(request, surveyId):
     survey = Survey.objects.get(id=surveyId)
-    surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=pageNum)
+    surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=1)
     for surveyItem in surveyItemCollection:
         surveyItem.answers = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
         if surveyItem.item_type == 'METRIX' and len(surveyItem.answers) > 0 and surveyItem.answers[0].question_value:
             surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
-    return render_to_response("backoffice/survey_edit.html", {"survey": survey, "pageNum": pageNum,"surveyItemCollection":surveyItemCollection})
+    return render_to_response("backoffice/survey_edit.html", {"survey": survey, "pageNum": 1,"surveyItemCollection":surveyItemCollection})
 
 
 @require_http_methods(["GET"])
@@ -247,14 +245,42 @@ def add_survey_result(request):
     return render_to_response("www/thanks_page.html")
 
 
-@require_http_methods(["POST"])
+@require_http_methods(["GET"])
 def generate_excel(request,surveyId):
     survey = Survey.objects.get(id=surveyId)
     surveyItemCollection = SurveyItem.objects.filter(survey=survey)
     wb = Workbook()
-    for idx,surveyItem in enumerate(surveyItemCollection):
-        work_sheet = wb.add_sheet(survey.survey_name+str(idx))
-        if surveyItem.item_type == 'SINGLE_CHOICE':
-            surveyAnswerCollection = SurveyItemAnswer.objects.filter(surveyItem=surveyItem)
-            surveyResultCollection = SurveyResult.objects.filter(survey=survey,surveyItem=surveyItem)
+    surveyReportObject = SurveyReportObject()
+    for index,surveyItem in enumerate(surveyItemCollection):
+        work_sheet = wb.add_sheet("work-sheet" + str(index))
+        if surveyItem.item_type == 'SINGLE_CHOICE' or surveyItem.item_type == 'MULTIPLE_CHOICE':
+            surveyAnswerCollection = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
+            for idx,surveyAnswer in enumerate(surveyAnswerCollection):
+                surveyReportObject.surveyAnswerValueDict[surveyAnswer.id]=0
+                surveyReportObject.surveyAnswerTextDict[surveyAnswer.id]=surveyAnswer.question_text
+            surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
+            for result in surveyResultCollection:
+                if result.survey_result_type == 'STANDARD':
+                    surveyReportObject.surveyAnswerValueDict[surveyAnswer.id] += 1
+                else:
+                    surveyReportObject.surveyOptionValues.append(result.survey_item_answer_value)
+            work_sheet.write(0,0,surveyItem.item_name)
+            for idx,surveyAnswer in enumerate(surveyAnswerCollection):
+                work_sheet.write(1,idx,surveyReportObject.surveyAnswerTextDict[surveyAnswer.id])
+                work_sheet.write(2,idx,surveyReportObject.surveyAnswerValueDict[surveyAnswer.id])
+        elif surveyItem.item_type == 'TEXT' or surveyItem.item_type == 'TEXT_AREA':
+            work_sheet.write(0,0,surveyItem.item_name)
+            surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
+            for idx,result in enumerate(surveyResultCollection):
+                work_sheet.write(idx,0,result.survey_item_answer_value)
+
+
+    wb.save('/tmp/' + surveyId + ".xls")
+
+
+class SurveyReportObject(object):
+    surveyAnswerTextDict = dict()
+    surveyAnswerValueDict = dict()
+    surveyOptionValues = list()
+
 

@@ -29,7 +29,7 @@
         {% for survey in object_list %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td>{{survey.survey_name}}</td>
+            <td><a href="/backoffice/survey/edit/{{survey.id}}">{{survey.survey_name}}</a></td>
             <td>
                 {% if survey.survey_target == "ALL" %}
                 全 体 员 工
@@ -68,14 +68,9 @@
             </td>
             <td>{{survey.create_date|date:"Y-m-d"}}</td>
             <td>
-                <button onclick="editSurvey({{survey.id}})">查看问卷</button>
-{#                {% endif %}#}
-{##}
-{#                {% if survey.survey_status == "FINISH" %}#}
-{#                    <button onclick="startSurvey({{survey.id}})">开始进行调查</button>#}
-{#                {% endif %}#}
-
-
+                {% if survey.survey_status == "DONE" or survey.survey_status == "CONTINUE"%}
+                    <button onclick="viewResult({{survey.id}})">查看问卷</button>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
@@ -135,8 +130,8 @@
 
 {%block js_content%}
 <script type="text/javascript">
-    function editSurvey(surveyId) {
-        location.href = "/backoffice/survey/edit/" + surveyId + "/1";
+    function viewResult(surveyId) {
+        location.href = "/backoffice/survey/result/" + surveyId;
     }
 
     var callback = {
