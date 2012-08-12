@@ -216,7 +216,7 @@ def add_survey_result(request):
             answerValueList = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"].split("&")
             for answerValue in answerValueList:
                 surveyItemAnswer = SurveyItemAnswer.objects.get(surveyItem=surveyItem,question_value=answerValue)
-                SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyIte,survey_item_answer_item=surveyItemAnswer)
+                SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
             if request.POST["surveyItem_"+str(surveyItem.id)+"_has_option"] == 'true':
                 answerValue = "surveyItem_"+str(surveyItem.id)+"_option_answer_value"
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
@@ -226,7 +226,11 @@ def add_survey_result(request):
                 continue
             answerType = request.POST["surveyItem_" + str(surveyItem.id) + "_answer_type"]
             answerValue = request.POST["surveyItem_" + str(surveyItem.id) + "_answer_value"]
-            SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type=answerType,survey_item_answer_value=answerValue,survey_item=surveyItem)
+            if answerType == "OTHER":
+                SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type=answerType,survey_item_answer_value=answerValue,survey_item=surveyItem)
+            else:
+                surveyItemAnswer = SurveyItemAnswer.objects.get(surveyItem=surveyItem,question_value=answerValue)
+                SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
 
         elif surveyItem.item_type == 'TEXT' or surveyItem.item_type == 'TEXT_AREA':
             if not surveyItem.is_required and len(request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"]) < 1:
