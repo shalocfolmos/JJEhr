@@ -10,6 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 import time
+from xlwt.Workbook import Workbook
 from JJEhr import settings
 from JJEhr.survey.models import Survey, StaffProfile, SurveyItem, SurveyItemAnswer, SurveyLog, SurveyResult
 import md5
@@ -245,4 +246,15 @@ def add_survey_result(request):
     survey.save()
     return render_to_response("www/thanks_page.html")
 
+
+@require_http_methods(["POST"])
+def generate_excel(request,surveyId):
+    survey = Survey.objects.get(id=surveyId)
+    surveyItemCollection = SurveyItem.objects.filter(survey=survey)
+    wb = Workbook()
+    for idx,surveyItem in enumerate(surveyItemCollection):
+        work_sheet = wb.add_sheet(survey.survey_name+str(idx))
+        if surveyItem.item_type == 'SINGLE_CHOICE':
+            surveyAnswerCollection = SurveyItemAnswer.objects.filter(surveyItem=surveyItem)
+            surveyResultCollection = SurveyResult.objects.filter(survey=survey,surveyItem=surveyItem)
 
