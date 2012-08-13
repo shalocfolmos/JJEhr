@@ -306,7 +306,7 @@ def generate_excel(request,surveyId):
             for idx,answer in enumerate(surveyAnswerCollection):
                 answer_position_dict[answer.id]=1+idx
                 work_sheet.write(1,1+idx,answer.question_text)
-            for item_value in  surveyItem.answers[0].question_value.split("\n"):
+            for idx,item_value in enumerate(surveyAnswerCollection[0].question_value.split("\n")):
                 work_sheet.write(2+idx,0,item_value)
                 item_value_dict = {}
                 surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
