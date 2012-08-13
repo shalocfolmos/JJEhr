@@ -302,7 +302,8 @@ def generate_excel(request,surveyId):
 #            itemValues = surveyAnswerCollection[0].question_value
             for idx,answer in enumerate(surveyAnswerCollection):
                 work_sheet.write(1,1+idx,answer.question_text)
-
+            for item_value in  surveyItem.answers[0].question_value.split("\n"):
+                work_sheet.write(2+idx,0,answer.item_value)
 #            surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
 #            for idx,surveyAnswer in enumerate(surveyAnswerCollection):
 
