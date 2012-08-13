@@ -296,6 +296,16 @@ def generate_excel(request,surveyId):
             surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
             for idx,result in enumerate(surveyResultCollection):
                 work_sheet.write(idx+1,0,result.survey_item_answer_value)
+        elif surveyItem.item_type == 'MULTIPLE_TEXT' or surveyItem.item_type == 'METRIX':
+            work_sheet.write(0,0,surveyItem.item_name)
+            surveyAnswerCollection = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
+#            itemValues = surveyAnswerCollection[0].question_value
+            for idx,answer in enumerate(surveyAnswerCollection):
+                work_sheet.write(1,1+idx,answer.question_text)
+
+#            surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
+#            for idx,surveyAnswer in enumerate(surveyAnswerCollection):
+
     wb.save('/tmp/' + surveyId + ".xls")
     f=open('/tmp/' + surveyId + ".xls",'rb')
     f.seek(0,0)
