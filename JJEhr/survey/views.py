@@ -315,9 +315,9 @@ def generate_excel(request,surveyId):
                 for result in surveyResultCollection:
                     if result.survey_item_answer_item == answer:
                         resultCollection.append(result.survey_item_answer_value)
-                work_sheet.write(1,idx,surveyItem.item_name)
+                work_sheet.write(1,idx,answer.question_text)
                 for result_idx,result in enumerate(resultCollection):
-                    work_sheet.write(result_idx+2,idx,surveyItem.item_name)
+                    work_sheet.write(result_idx+2,idx,result)
 
     wb.save('/tmp/' + surveyId + ".xls")
     f=open('/tmp/' + surveyId + ".xls",'rb')
