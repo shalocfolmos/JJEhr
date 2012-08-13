@@ -252,6 +252,8 @@ def add_survey_result(request):
                 surveyItemAnswer = SurveyItemAnswer.objects.get(id=answerId)
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",
                     survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
+
+
     survey_log=SurveyLog.objects.get(user=user,survey=survey)
     survey_log.complete=True
     survey_log.complete_date=datetime.now()
@@ -296,7 +298,7 @@ def generate_excel(request,surveyId):
             surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
             for idx,result in enumerate(surveyResultCollection):
                 work_sheet.write(idx+1,0,result.survey_item_answer_value)
-        elif surveyItem.item_type == 'MULTIPLE_TEXT' or surveyItem.item_type == 'METRIX':
+        elif surveyItem.item_type == 'METRIX':
             work_sheet.write(0,0,surveyItem.item_name)
             surveyAnswerCollection = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
 #            itemValues = surveyAnswerCollection[0].question_value
@@ -304,8 +306,18 @@ def generate_excel(request,surveyId):
                 work_sheet.write(1,1+idx,answer.question_text)
             for item_value in  surveyItem.answers[0].question_value.split("\n"):
                 work_sheet.write(2+idx,0,answer.item_value)
-#            surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
-#            for idx,surveyAnswer in enumerate(surveyAnswerCollection):
+        elif surveyItem.item_type == 'MULTIPLE_TEXT':
+            work_sheet.write(0,0,surveyItem.item_name)
+            surveyAnswerCollection = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
+            for idx,answer in enumerate(surveyAnswerCollection):
+                resultCollection = []
+                surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
+                for result in surveyResultCollection:
+                    if result.survey_item_answer_item == answer:
+                        resultCollection.append(result.survey_item_answer_value)
+                work_sheet.write(1,idx,surveyItem.item_name)
+                for result_idx,result in enumerate(resultCollection):
+                    work_sheet.write(result_idx+2,idx,surveyItem.item_name)
 
     wb.save('/tmp/' + surveyId + ".xls")
     f=open('/tmp/' + surveyId + ".xls",'rb')
