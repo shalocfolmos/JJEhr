@@ -146,8 +146,10 @@
 
 
     function createSurvey() {
-        var division = YAHOO.util.Dom.get("selectDivision").value,
-                subject = YAHOO.util.Dom.get("survey_subject").value;
+
+        var division = YAHOO.util.Dom.get("selectDivision").value;
+
+        var subject = YAHOO.util.Dom.get("survey_subject").value;
         YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/create', callback, "survey_name=" + subject + "&survey_target=" + division);
     }
 

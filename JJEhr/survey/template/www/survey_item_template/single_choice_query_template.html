@@ -123,7 +123,7 @@
         var otherAnswer = YAHOO.util.Dom.get("other_"+{{survey_item.id}}).value;
         if (otherAnswer == "True" &&YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other").checked  && YAHOO.util.Dom.get("survey_item_"+surveyItemId+"_other_text").value.length > 0) {
             var surveyItemAnswer = YAHOO.util.Dom.get("survey_item_"+{{survey_item.id}}+"_other_text").value;
-            YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer").value = surveyItemAnswer;
+            YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_value").value = surveyItemAnswer;
             YAHOO.util.Dom.get("surveyItem_"+{{survey_item.id}}+"_answer_type").value = "OTHER";
             return true;
         }

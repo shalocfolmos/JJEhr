@@ -175,8 +175,8 @@ def user_start_survey(request,token,page=1):
             return render_to_response("www/survey_index.html",{"authenticated":"false","incorrect_user":"true","token":token})
     else:
         return render_to_response("www/survey_index.html",{"authenticated":"false","token":token})
-    if surveyLog.complete == True:
-        return render_to_response("www/thanks_page.html")
+#    if surveyLog.complete == True:
+#        return render_to_response("www/thanks_page.html")
 
     surveyItemCollection = SurveyItem.objects.filter(survey=surveyLog.survey,page=page)
     for surveyItem in surveyItemCollection:
@@ -211,8 +211,8 @@ def add_survey_result(request):
     user = User.objects.get(id=userId)
     surveyItemCollection = SurveyItem.objects.filter(survey=surveyId)
     survey_log=SurveyLog.objects.get(user=user,survey=survey)
-    if survey_log.complete == True:
-        return render_to_response("www/thanks_page.html")
+#    if survey_log.complete == True:
+#        return render_to_response("www/thanks_page.html")
 
     for surveyItem in surveyItemCollection:
         if surveyItem.item_type == 'MULTIPLE_CHOICE':
@@ -220,10 +220,11 @@ def add_survey_result(request):
                 continue
             answerValueList = request.POST["surveyItem_"+str(surveyItem.id)+"_answer_value"].split("&")
             for answerValue in answerValueList:
-                surveyItemAnswer = SurveyItemAnswer.objects.get(survey_item=surveyItem,question_value=answerValue)
-                SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
+                if len(answerValue) > 0:
+                    surveyItemAnswer = SurveyItemAnswer.objects.get(survey_item=surveyItem,question_value=answerValue)
+                    SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="STANDARD",survey_item_answer_value=answerValue,survey_item=surveyItem,survey_item_answer_item=surveyItemAnswer)
             if request.POST["surveyItem_"+str(surveyItem.id)+"_has_option"] == 'true':
-                answerValue = "surveyItem_"+str(surveyItem.id)+"_option_answer_value"
+                answerValue = request.POST["surveyItem_"+str(surveyItem.id)+"_option_answer_value"]
                 SurveyResult.objects.create(survey_user=user,survey=survey,survey_result_type="OTHER",survey_item_answer_value=answerValue,survey_item=surveyItem)
 
         elif surveyItem.item_type == 'SINGLE_CHOICE':
@@ -267,8 +268,8 @@ def generate_excel(request,surveyId):
     survey = Survey.objects.get(id=surveyId)
     surveyItemCollection = SurveyItem.objects.filter(survey=survey)
     wb = Workbook()
-    surveyReportObject = SurveyReportObject()
     for index,surveyItem in enumerate(surveyItemCollection):
+        surveyReportObject = SurveyReportObject()
         work_sheet = wb.add_sheet("work-sheet" + str(index))
         if surveyItem.item_type == 'SINGLE_CHOICE' or surveyItem.item_type == 'MULTIPLE_CHOICE':
             surveyAnswerCollection = SurveyItemAnswer.objects.filter(survey_item=surveyItem)
@@ -305,8 +306,10 @@ def generate_excel(request,surveyId):
     return response
 
 class SurveyReportObject(object):
-    surveyAnswerTextDict = dict()
-    surveyAnswerValueDict = dict()
-    surveyOptionValues = list()
+
+    def __init__(self):
+        self.surveyAnswerTextDict = dict()
+        self.surveyAnswerValueDict = dict()
+        self.surveyOptionValues = list()
 
 
