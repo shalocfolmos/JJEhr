@@ -49,19 +49,19 @@ def edit_survey(request, surveyId):
             surveyItem.item_values = surveyItem.answers[0].question_value.split("\n")
     return render_to_response("backoffice/survey_edit.html", {"survey": survey, "pageNum": 1,"surveyItemCollection":surveyItemCollection})
 
-
-@require_http_methods(["GET"])
-@login_required(login_url='/backoffice/login')
-def delete_page(request, surveyId):
-    survey = Survey.objects.get(id=surveyId)
-    surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=survey.total_page)
-    for surveyItem in surveyItemCollection:
-        SurveyItemAnswer.objects.filter(survey_item=surveyItem).delete()
-    surveyItemCollection.delete()
-    if survey.total_page > 1:
-        survey.total_page -= 1
-        survey.save()
-    return HttpResponseRedirect("/backoffice/survey/edit/"+surveyId+"/"+str(1))
+#
+#@require_http_methods(["GET"])
+#@login_required(login_url='/backoffice/login')
+#def delete_page(request, surveyId):
+#    survey = Survey.objects.get(id=surveyId)
+#    surveyItemCollection = SurveyItem.objects.filter(survey=survey,page=survey.total_page)
+#    for surveyItem in surveyItemCollection:
+#        SurveyItemAnswer.objects.filter(survey_item=surveyItem).delete()
+#    surveyItemCollection.delete()
+#    if survey.total_page > 1:
+#        survey.total_page -= 1
+#        survey.save()
+#    return HttpResponseRedirect("/backoffice/survey/edit/"+surveyId+"/"+str(1))
 
 
 @require_http_methods(["POST"])
@@ -100,21 +100,21 @@ def create_survey_item(request):
     else:
         SurveyItem.objects.create(item_type=surveyItemType,item_name=surveyItemText,is_required=isRequired,survey=survey,page=page_num)
     return HttpResponse("创建成功")
-
-@require_http_methods(["POST"])
-@login_required(login_url='/backoffice/login')
-def add_page(request, surveyId):
-    survey = Survey.objects.get(id=surveyId)
-    try:
-        if(survey):
-            survey.total_page += 1;
-            survey.save()
-            result = u'添加页面成功'
-        else:
-            result = u'添加页面失败'
-    except Exception,e:
-        result = u'添加页面失败'
-    return HttpResponse(result)
+#
+#@require_http_methods(["POST"])
+#@login_required(login_url='/backoffice/login')
+#def add_page(request, surveyId):
+#    survey = Survey.objects.get(id=surveyId)
+#    try:
+#        if(survey):
+#            survey.total_page += 1;
+#            survey.save()
+#            result = u'添加页面成功'
+#        else:
+#            result = u'添加页面失败'
+#    except Exception,e:
+#        result = u'添加页面失败'
+#    return HttpResponse(result)
 
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
