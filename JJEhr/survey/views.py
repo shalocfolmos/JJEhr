@@ -306,17 +306,19 @@ def generate_excel(request,surveyId):
             for idx,answer in enumerate(surveyAnswerCollection):
                 answer_position_dict[answer.id]=1+idx
                 work_sheet.write(1,1+idx,answer.question_text)
+#            for col in range(len(surveyAnswerCollection[0].question_value.split("\n"))):
+#                for row in range(len(answer_position_dict)):
+#                    work_sheet.write(2+col,1+row,0)
             for idx,item_value in enumerate(surveyAnswerCollection[0].question_value.split("\n")):
                 work_sheet.write(2+idx,0,item_value)
                 item_value_dict = {}
                 surveyResultCollection = SurveyResult.objects.filter(survey=survey,survey_item=surveyItem)
-                for result in surveyResultCollection:
-                    for result_idx,result in enumerate(surveyResultCollection):
-                        if result.survey_item_answer_value == item_value:
-                            if item_value_dict.has_key(result.survey_item_answer_item.id):
-                                item_value_dict[result.survey_item_answer_item.id] += 1
-                            else:
-                                item_value_dict[result.survey_item_answer_item.id] = 1
+                for result_idx,result in enumerate(surveyResultCollection):
+                    if result.survey_item_answer_value == item_value:
+                        if item_value_dict.has_key(result.survey_item_answer_item.id):
+                            item_value_dict[result.survey_item_answer_item.id] += 1
+                        else:
+                            item_value_dict[result.survey_item_answer_item.id] = 1
                 for key in item_value_dict.iterkeys():
                     work_sheet.write(2+idx,answer_position_dict[key],item_value_dict[key])
 
