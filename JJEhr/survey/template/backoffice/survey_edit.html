@@ -187,13 +187,13 @@
         location.href="/backoffice/survey/end/{{survey.id}}";
     }
 
-    function addPage() {
-        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/addPage/' + {{survey.id}},genericCallBack);
-    }
-
-    function deletePage() {
-        location.href= '/backoffice/survey/page/delete/' + {{survey.id}};
-    }
+//    function addPage() {
+//        YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/addPage/' + {{survey.id}},genericCallBack);
+//    }
+//
+//    function deletePage() {
+//        location.href= '/backoffice/survey/page/delete/' + {{survey.id}};
+//    }
 
     init = function () {
         var addQuestion = function () {

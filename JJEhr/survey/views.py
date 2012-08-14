@@ -118,6 +118,21 @@ def create_survey_item(request):
 
 @require_http_methods(["POST"])
 @login_required(login_url='/backoffice/login')
+def delete_survey(request,surveyId=0):
+    if surveyId == 0:
+        return  HttpResponse(u"参数错误,请重新输入")
+    try:
+        surveyItemCollection = SurveyItem.objects.filter(survey=surveyId)
+        if len(surveyItemCollection) > 0:
+            surveyItemCollection.delete()
+        Survey.objects.get(id=surveyId).delete()
+    except Exception,e:
+        return  HttpResponse(u"系统异常请重新尝试")
+    return  HttpResponse(u"操作成功")
+
+
+@require_http_methods(["POST"])
+@login_required(login_url='/backoffice/login')
 def delete_survey_item(request,surveyId=0):
     if surveyId == 0:
         return  HttpResponse(u"参数错误,请重新输入")

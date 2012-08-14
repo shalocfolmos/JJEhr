@@ -71,7 +71,9 @@
                 {% if survey.survey_status == "DONE" or survey.survey_status == "CONTINUE"%}
                     <button onclick="viewResult({{survey.id}})">查看</button>
                 {% endif %}
-            </td>
+                {% if survey.survey_status == "EDIT" or survey.survey_status == "FINISH"%}
+                    <button onclick="removeSurvey({{survey.id}})">删除</button>
+                {% endif %}
         </tr>
         {% endfor %}
         </tbody>
@@ -143,6 +145,10 @@
             location.reload();
         }
     };
+
+    function removeSurvey(surveyId) {
+         YAHOO.util.Connect.asyncRequest('POST', '/backoffice/survey/remove/' + surveyId,callback);
+    }
 
 
     function createSurvey() {
