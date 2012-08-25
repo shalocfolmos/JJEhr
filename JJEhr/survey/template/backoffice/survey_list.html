@@ -13,7 +13,7 @@
 {%endblock extra_css%}
 
 {%block content%}
-<div id="myMarkedUpContainer"  class="display:none;">
+<div id="myMarkedUpContainer" style="display:none;">
     <table id="myTable">
         <thead>
         <tr>
@@ -204,7 +204,7 @@
             })
         });
         YAHOO.util.Event.addListener("create_survey", "click", createSurvey);
-        YAHOO.util.Dom.addStyle("myMarkedUpContainer","display","block");
+        YAHOO.util.Dom.setStyle("myMarkedUpContainer","display","block");
     }
 
     YAHOO.util.Event.onDOMReady(init);
