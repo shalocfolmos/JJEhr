@@ -22,9 +22,19 @@ def create_survey(request):
     survey = Survey(survey_name=request.POST["survey_name"], survey_target=request.POST["survey_target"])
     if survey.survey_target == "ALL":
         querySet = StaffProfile.objects.all()
+    elif survey.survey_target == 'O':
+        querySet = []
+        specificEmail = request.POST["specificEmail"]
+        emailList = specificEmail.split("\n")
+        for specificEmail in emailList:
+            specificUser = User.objects.get(email=specificEmail)
+            querySet.append(StaffProfile.objects.get(user=specificUser))
     else:
         querySet = StaffProfile.objects.filter(division=survey.survey_target)
-    survey.total_employee_number = querySet.count()
+    if survey.survey_target == 'O':
+        survey.total_employee_number = len(querySet)
+    else:
+        survey.total_employee_number = querySet.count()
     survey.save()
     for profile in querySet:
         user = profile.user
