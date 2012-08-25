@@ -2,6 +2,7 @@ from django.conf.urls.defaults import patterns, url
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.list import ListView
 from JJEhr.survey.models import Survey
@@ -37,7 +38,7 @@ urlpatterns += patterns(r'event',
 
 urlpatterns += patterns(r'survey',
     url(r'backoffice/survey/create', r'views.create_survey'),
-    url(r'backoffice/survey/list', ListView.as_view(model=Survey, template_name=r'backoffice/survey_list.html')),
+    url(r'backoffice/survey/list', login_required(ListView.as_view(model=Survey, template_name=r'backoffice/survey_list.html'))),
     url(r'^backoffice/survey/edit/(?P<surveyId>\d+)', r'views.edit_survey'),
     url(r'^backoffice/survey/result/(?P<surveyId>\d+)', r'views.generate_excel'),
     url(r'^backoffice/survey/addSurveyItem', r'views.create_survey_item'),

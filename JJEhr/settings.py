@@ -7,6 +7,8 @@ TEMPLATE_DEBUG = DEBUG
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
+LOGIN_URL = '/backoffice/login'
+
 ADMINS = (
 # ('Your Name', 'your_email@example.com'),
 )

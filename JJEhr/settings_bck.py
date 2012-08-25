@@ -5,6 +5,8 @@ DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
+LOGIN_URL = '/backoffice/login'
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 ADMINS = (
