@@ -175,17 +175,19 @@ def end_survey(request,surveyId):
     for surveyLog in surveyLogCollection:
         urlList.append(surveyLog.token)
         emailList.append(surveyLog.email)
-    try:
-        send_mail(subject=settings.SURVEY_EMAIL_SUBJECT,
-            message=settings.SURVEY_EMAIL_CONTENT.format(token=",".join(urlList)),
-            from_email=settings.ENROLL_EMAIL_FROM,
-            recipient_list=emailList,
-            fail_silently=False)
-        for surveyLog in surveyLogCollection:
-            surveyLog.send_email = True
-            surveyLog.save()
-    except Exception:
-        pass
+        try:
+            send_mail(subject=settings.SURVEY_EMAIL_SUBJECT,
+                message=settings.SURVEY_EMAIL_CONTENT.format(token=",".join(urlList)),
+                from_email=settings.ENROLL_EMAIL_FROM,
+                recipient_list=emailList,
+                fail_silently=False)
+            for surveyLog in surveyLogCollection:
+                surveyLog.send_email = True
+                surveyLog.save()
+        except Exception:
+            pass
+        urlList = []
+        emailList = []
     survey.survey_status= 'CONTINUE'
     survey.save()
     return HttpResponseRedirect("/backoffice/survey/list")
